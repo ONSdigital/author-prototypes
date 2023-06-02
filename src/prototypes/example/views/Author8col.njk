@@ -1,0 +1,57 @@
+---
+version: 44.0.0
+---
+{% extends "layout/_template.njk" %}
+{% from "components/input/_macro.njk" import onsInput %}
+{% from "components/password/_macro.njk" import onsPassword %}
+{% from "components/checkboxes/_macro.njk" import onsCheckboxes %}
+{% from "components/panel/_macro.njk" import onsPanel %}
+{% from "components/lists/_macro.njk" import onsList %}
+{% from "components/breadcrumbs/_macro.njk" import onsBreadcrumbs %}
+
+
+
+{% set pageConfig = {
+    "header": {
+        "logoHref": '/',
+        "titleLogoHref": pageInfo.rootPath + '#0',
+        "variants": "internal"
+    },
+    "title": "Author",
+    "footer": {
+
+    },
+    "breadcrumbs": {
+        "ariaLabel": 'Breadcrumbs',
+        "itemsList": [
+            {
+                "linkClasses": 'js-previous' if prevPage else '',
+                "url": pageInfo.rootPath + "/" + prevPage + '.html',
+                "text": 'Previous'
+            }
+        ]
+    },
+    "pageColNumber": "8",
+    "wide": true
+} %}
+
+{% block head %}
+    <link rel="stylesheet" href="/prototypes/example/styles.css" />
+
+    <style>
+    .blockLink{
+        display:block;
+    }
+    </style>
+
+{% endblock %}
+
+{% block preMain %}
+{% endblock %}
+
+{% block main %}
+{% endblock %}
+
+{% block bodyEnd %}
+    <script src="/prototypes/example/index.js"></script>
+{% endblock %}
