@@ -1,0 +1,135 @@
+---
+group: Examples
+title: Example prototype
+layout: example/views/Author8col
+---
+{% from "components/button/_macro.njk" import onsButton %}
+
+{% set form =  {
+    "method": "GET",
+    "attributes": {
+        "name": "myForm",
+        "onsubmit":  "return validateForm()"
+    }
+} %}
+
+{% block preMain %}
+{{
+    onsBreadcrumbs({
+        "ariaLabel": 'Back',
+        "itemsList": [
+            {
+                "url": '/prototypes/example/login_journeys/',
+                "id": "back",
+                "text": 'Back',
+                "attributes": {
+                    "data-attribute": "Example attribute"
+                }
+            }
+        ]
+    })
+}}
+{% endblock %}
+
+{% block main %}
+    {% call onsPanel({
+        "title": 'There are 2 problems with this page',
+        "type": 'error',
+        "classes": "ons-u-mb-xl"
+}) %}
+    {{
+        onsList({
+            "element": 'ol',
+            "itemsList": [
+                {
+                    "text": 'Enter your full name',
+                    "url": '#fullname-error',
+                    "variants": "inPageLink"
+                },                
+                {
+                    "text": 'Email addresses must match',
+                    "url": '#confirm-email-error',
+                    "variants": "inPageLink"
+                }
+            ]
+        })
+    }}
+{% endcall %}
+    <h1 class="ons-u-mb-s"><span class="ons-u-fs-m ons-u-db ons-u-mb-xs ons-u-lighter">Create an account</span>Enter your details</h1>
+
+    {{
+        onsInput({
+            "id": "fullname",
+            "name": "fullname",
+            "label": {
+                "text": "Full name"
+            },
+            "error": {
+                "id": "fullname-error",
+                "text": "Enter your full name"
+        }
+        })
+    }}
+
+    {{
+        onsInput({
+            "id": "email",
+            "name": "email",
+            "label": {
+                "text": "Email address"
+            }
+        })
+    }}
+
+    {{
+        onsInput({
+            "id": "Confirmemail",
+            "name": "Confirmemail",
+            "label": {
+                "text": "Confirm email address"
+            },
+            "error": {
+                "id": "confirm-email-error",
+                "text": "Email addresses must match"
+        }
+        })
+    }}
+
+
+    {{
+        onsButton({
+            "text": "Continue",
+            "classes": "ons-u-mt-l ons-u-mb-l"
+        })
+    }}
+
+    <p>If you already have an account, you can <a href="/prototypes/example/login_journeys/">sign in</a></p>
+    
+
+
+{% endblock %}
+
+{% block bodyEnd %}
+
+    <script>
+        console.log('hello world');
+        var Name = sessionStorage.getItem('Fullname');
+        var Email = sessionStorage.getItem('EmailAddress');
+        var ConfirmEmail = sessionStorage.getItem('ConfirmedEmailAddress');
+
+        if((Name != "")){
+            document.getElementById('fullname').value = Name;
+
+        }
+        if((Email != "")){
+            document.getElementById('email').value = Email;
+
+        }    
+        if((ConfirmEmail != "")){
+            document.getElementById('Confirmemail').value = ConfirmEmail;
+
+        }
+
+    </script>
+    
+{% endblock %}

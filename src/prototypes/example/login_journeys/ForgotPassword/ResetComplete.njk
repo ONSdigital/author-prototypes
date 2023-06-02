@@ -1,0 +1,40 @@
+---
+group: Examples
+title: Example prototype
+layout: example/views/Author8col
+---
+{% from "components/button/_macro.njk" import onsButton %}
+
+{% set form =  {
+    "method": "GET",
+    "attributes": {
+        "name": "myForm",
+        "onsubmit":  "return validateForm()"
+    }
+} %}
+
+{% block preMain %}
+
+{% endblock %}
+
+{% block main %}
+
+{{
+    onsPanel({
+        "type": 'success',
+        "id": 'success-id',
+        "iconType": 'check',
+        "body": 'Your password has been reset',
+        "iconSize": "l",
+        "classes": "ons-u-fs-l ons-u-mb-m"
+    })
+}}
+
+<a href="/prototypes/example/login_journeys/">Sign in</a>
+
+{% endblock %}
+
+{% block bodyEnd %}
+
+
+{% endblock %}
