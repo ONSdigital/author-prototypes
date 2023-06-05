@@ -83,7 +83,7 @@ layout: example/views/Author8col
         })
     }}
 
-    <p>If you already have an account, you can <a href="/prototypes/example/login_journeys/">sign in</a></p>
+    <p>If you already have an account, you can <a href="/prototypes/example/login_journeys/">sign in</a>.</p>
     
 
 
@@ -91,7 +91,7 @@ layout: example/views/Author8col
 
 {% block bodyEnd %}
     <script>
-        function validateForm(){
+        function validateForm_ForgotPasswordEmail(){
             console.log('run');
             let b = document.forms["myForm"]["email"].value;
             let c = document.forms["myForm"]["Confirmemail"].value;
@@ -99,8 +99,8 @@ layout: example/views/Author8col
             let y = b.trim();
             let z = c.trim();
 
-            sessionStorage.setItem('EmailAddress', y);    
-            sessionStorage.setItem('ConfirmedEmailAddress', z);   
+            sessionStorage.setItem('ForgotPasswordEmail', y);    
+            sessionStorage.setItem('ForgotPasswordConfirmEmail', z);   
 
             if ((y != "") && (z != "") && (y == z) && (y.indexOf("@") != -1) && (y.includes("@ons.gov.uk") == true)) {
                 document.forms["myForm"].action = "/prototypes/example/login_journeys/ForgotPassword/CheckEmail.html";    
@@ -135,10 +135,6 @@ layout: example/views/Author8col
             if ((y != "") && (z != "") && (y == z) && (y.indexOf("@") != -1) && (y.includes("@ons.gov.uk") == false)) {
                 document.forms["myForm"].action = "/prototypes/example/login_journeys/ForgotPassword/errors/Email/NotONSEmail.html";    
             }
-
-
-
-
         }
     </script>
 {% endblock %}
