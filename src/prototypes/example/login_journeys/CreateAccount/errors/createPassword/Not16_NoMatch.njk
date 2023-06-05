@@ -81,7 +81,7 @@ layout: example/views/Author8col
         "showPasswordText": "Show password",
         "error": {
             "id": "password-error",
-            "text": "Your password must include at least 16 characters help"
+            "text": "Your password must include at least 16 characters"
         }
 
     })
@@ -89,8 +89,8 @@ layout: example/views/Author8col
 
     {{
     onsPassword({
-        "id": "password",
-        "name": "password",
+        "id": "confirm-password",
+        "name": "confirm-password",
         "label": {
             "text": "Confirm password"
         },
@@ -116,5 +116,41 @@ layout: example/views/Author8col
 
 {% block bodyEnd %}
 
+    <script>
+        function validateForm(){
+            console.log('run');
+            let x = document.forms["myForm"]["password"].value;
+            let y = document.forms["myForm"]["confirm-password"].value;
+
+            if ((x != "") && (y != "") && (x == y) && (x.length >= 16)) {
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/CreateAccount/AccountActivated.html";    
+            }
+
+            if ((x != "") && (y == "") && (x.length >= 16)) {
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/CreateAccount/errors/createPassword/NoConfirm.html";    
+            }
+
+            if ((x != "") && (y != "") && (x != y) && (x.length >= 16)) {
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/CreateAccount/errors/createPassword/NoMatch.html";    
+            }
+            
+            if ((x == "") && (y != "")) {
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/CreateAccount/errors/createPassword/NoPassword.html";    
+            }
+            if ((x == "") && (y == "")) {
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/CreateAccount/errors/createPassword/NoPasswordNoConfirm.html";    
+            }
+            if ((x != "") && (y != "") && (x != y) && (x.length < 16)) {
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/CreateAccount/errors/createPassword/Not16_NoMatch.html";    
+            }
+            if ((x != "") && (y != "") && (x == y) && (x.length < 16)) {
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/CreateAccount/errors/createPassword/Not16.html";    
+            }
+            if ((x != "") && (y == "") && (x.length < 16)) {
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/CreateAccount/errors/createPassword/Not16NoConfirm.html";    
+            }
+
+        }
+    </script>
 
 {% endblock %}

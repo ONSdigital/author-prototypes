@@ -81,8 +81,8 @@ layout: example/views/Author8col
 
     {{
     onsPassword({
-        "id": "password",
-        "name": "password",
+        "id": "confirm-password",
+        "name": "confirm-password",
         "label": {
             "text": "Confirm password"
         },
@@ -107,5 +107,41 @@ layout: example/views/Author8col
 
 {% block bodyEnd %}
 
+    <script>
+        function validateForm(){
+            console.log('run');
+            let x = document.forms["myForm"]["password"].value;
+            let y = document.forms["myForm"]["confirm-password"].value;
+
+            if ((x != "") && (y != "") && (x == y) && (x.length >= 16)) {
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/ForgotPassword/ResetComplete.html";    
+            }
+
+            if ((x != "") && (y == "") && (x.length >= 16)) {
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/ForgotPassword/errors/NoConfirm.html";    
+            }
+
+            if ((x != "") && (y != "") && (x != y) && (x.length >= 16)) {
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/ForgotPassword/errors/NoMatch.html";    
+            }
+            
+            if ((x == "") && (y != "")) {
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/ForgotPassword/errors/NoPassword.html";    
+            }
+            if ((x == "") && (y == "")) {
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/ForgotPassword/errors/NoPasswordNoConfirm.html";    
+            }
+            if ((x != "") && (y != "") && (x != y) && (x.length < 16)) {
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/ForgotPassword/errors/Not16_NoMatch.html";    
+            }
+            if ((x != "") && (y != "") && (x == y) && (x.length < 16)) {
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/ForgotPassword/errors/Not16.html";    
+            }
+            if ((x != "") && (y == "") && (x.length < 16)) {
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/ForgotPassword/errors/Not16NoConfirm.html";    
+            }
+
+        }
+    </script>
 
 {% endblock %}
