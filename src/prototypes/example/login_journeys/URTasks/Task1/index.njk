@@ -1,0 +1,54 @@
+---
+group: Examples
+title: Example prototype
+layout: example/views/Author8col
+---
+{% from "components/button/_macro.njk" import onsButton %}
+
+
+
+{% block main %}
+
+    <h1 class="ons-u-mb-s">Task 1</h1>
+
+
+    <p>I want you to imagine you have attempted to sign-in. However, there is an issue with the credentials you provided.
+    </p>
+
+    <ol>
+    <li>Describe what you see.</li>
+    <li>Decide what to do with the information.</li>
+    <li>Take action accordingly.</li>
+
+
+    </ol>
+    <br>
+
+        <p>Your credentials are:
+    </p>
+    <ul>
+        <li>Email address: <strong>charlie.owen@ons.gov.uk</strong></li>
+        <li>Password: <strong>UserResearch2023!</strong></li>
+
+    </ul>
+    
+    <br>
+
+
+    {{
+    onsButton({
+        "text": 'Start task',
+        "url": '/prototypes/example/login_journeys/URTasks/Task1/signInError.html',
+        "newWindow": true,
+        "newWindowDescription": 'opens in a new window',
+        "attributes": {
+            "onclick": "window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=360,height=680'); return false;"
+        }
+    })
+}}
+
+{% endblock %}
+
+{% block bodyEnd %}
+
+{% endblock %}
