@@ -38,8 +38,15 @@ layout: example/views/Author8col
     
     <p>The email may take a few minutes to arrive. If it does not, please check your spam, bulk or junk email folder as your email system may have blocked it by mistake. </p>
         
-    <p>A link to reset your password will only be sent if the email you provided is associated with an activated account. If you do not receive a link, you may need to <a href="/prototypes/example/login_journeys/CreateAccount/">create an account</a>.</p>
+    
 
+{{
+    onsDetails({
+        "id": "details",
+        "title": "I have not received the email",
+        "content": "<p>A link to reset your password will only be sent if the email you provided is associated with an activated account. If you do not receive a link, you may need to <a href='/prototypes/example/login_journeys/CreateAccount/'>create an account</a>.</p>"
+    })
+}}
 
 {% endblock %}
 
