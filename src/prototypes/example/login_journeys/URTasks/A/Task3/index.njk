@@ -47,16 +47,11 @@ layout: example/views/Author8col
     
     <br>
 
-
-    {{
-    onsButton({
-        "text": 'Start task',
-        "url": '/prototypes/example/login_journeys/',
-        "newWindow": true,
-        "newWindowDescription": 'opens in a new window',
-        "attributes": {
-            "onclick": "window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=360,height=680'); return false;"
-        }
+{{
+    onsExternalLink({
+        "url": "/prototypes/example/login_journeys/",
+        "linkText": "Start task",
+        "classes": "externalLink ons-u-fs-l"
     })
 }}
 

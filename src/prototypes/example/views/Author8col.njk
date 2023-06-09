@@ -9,6 +9,7 @@
 {% from "components/button/_macro.njk" import onsButton %}
 {% from "components/header/_macro.njk" import onsHeader %}
 {% from "components/details/_macro.njk" import onsDetails %}
+{% from "components/external-link/_macro.njk" import onsExternalLink %}
 
 
 
@@ -34,6 +35,12 @@
     <style>
     .blockLink{
         display:block;
+    }
+
+    .externalLink{
+        color: green;
+        font-weight: bold;
+        font-size: ons-u-fs-l;
     }
     </style>
 
