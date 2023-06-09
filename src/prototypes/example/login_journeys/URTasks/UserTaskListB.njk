@@ -8,8 +8,12 @@ layout: example/views/Author8col
 
 {% block main %}
     <h1 class="ons-u-mb-s">User research - June 2023</h1>
-
-    <a href="/prototypes/example/login_journeys/">Preview sign in</a>
+    {{
+        onsExternalLink({
+            "url": "/prototypes/example/login_journeys/",
+            "linkText": "Preview sign in"
+        })
+    }}
     <br><br>
     <h2 class="ons-u-mb-s">Tasks</h2>
 
