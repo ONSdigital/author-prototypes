@@ -9,19 +9,26 @@ layout: example/views/Author8col
 
 {% block main %}
 
-    <h1 class="ons-u-mb-s">Task 4a</h1>
+    <h1 class="ons-u-mb-s">Task 1</h1>
 
 
-    <p>You know that you have an Author account but cannot remember the password and need to create a questionnaire.
-
+    <p>I want you to imagine you have attempted to sign in. However, there is an issue with the credentials you provided.
     </p>
 
+    <ol>
+    <li>Describe what you see.</li>
+    <li>Decide what to do with the information.</li>
+    <li>Take action accordingly.</li>
+
+
+    </ol>
     <br>
 
         <p>Your credentials are:
     </p>
     <ul>
-        <li>Email address: <strong>Your ONS email</strong></li>
+        <li>Email address: <strong>charlie.owen@ons.gov.uk</strong></li>
+        <li>Password: <strong>UserResearch2023!</strong></li>
 
     </ul>
     
@@ -31,7 +38,7 @@ layout: example/views/Author8col
     {{
     onsButton({
         "text": 'Start task',
-        "url": '/prototypes/example/login_journeys/',
+        "url": '/prototypes/example/login_journeys/URTasks/B/Task1/signInError.html',
         "newWindow": true,
         "newWindowDescription": 'opens in a new window',
         "attributes": {

@@ -1,0 +1,53 @@
+---
+group: Examples
+title: Example prototype
+layout: example/views/Author8col
+---
+{% from "components/button/_macro.njk" import onsButton %}
+
+
+
+{% block main %}
+
+    <h1 class="ons-u-mb-s">Task 4</h1>
+
+
+    <p>I want you to imagine you have attempted to create an account. However, there is an issue with the credentials you provided.
+
+    </p>
+
+        <ol>
+    <li>Describe what you see.</li>
+    <li>Decide what to do with the information.</li>
+    <li>Take action accordingly.</li>
+
+
+    </ol>
+<br>
+        <p>Your credentials are:
+    </p>
+    <ul>
+        <li>Email address: <strong>sarah.hughes@ons.gov.uk</strong></li>
+
+    </ul>
+    
+    <br>
+
+
+    {{
+    onsButton({
+        "text": 'Start task',
+        "url": '/prototypes/example/login_journeys/URTasks/B/Task4/InvalidEmail_EmailsNotMatching.html',
+        "newWindow": true,
+        "newWindowDescription": 'opens in a new window',
+        "attributes": {
+            "onclick": "window.open(this.href,'targetWindow','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=360,height=680'); return false;"
+        }
+    })
+}}
+
+{% endblock %}
+
+{% block bodyEnd %}
+
+{% endblock %}
