@@ -19,7 +19,7 @@ layout: example/views/Author8col
         "ariaLabel": 'Back',
         "itemsList": [
             {
-                "url": '/prototypes/example/login_journeys/',
+                "url": '/prototypes/example/login_journeys/CreateAccount/indexBack.html',
                 "id": "back",
                 "text": 'Back',
                 "attributes": {
@@ -40,9 +40,16 @@ layout: example/views/Author8col
     
     <p>Use this link within 24 hours or you will have to enter your details again.</p>
     
-    <p>The email may take a few minutes to arrive. If it does not, please check your spam, bulk or junk email folder as your email system may have blocked it by mistake. If you cannot find the email we can <a href="/prototypes/example/login_journeys/">resend the activation email</a>.</p>
+    <p>The email may take a few minutes to arrive. If it does not, please check your spam, bulk or junk email folder as your email system may have blocked it by mistake.</p>
 
-    <p>If you have already verified your email and activated your account, you can <a href="/prototypes/example/login_journeys/">sign in</a>.</p>
+
+    {{
+    onsDetails({
+        "id": "details",
+        "title": "I have not received the email",
+        "content": "<p>If you cannot find the email we can <a href='/prototypes/example/login_journeys/CreateAccount/indexBack.html'>resend the activation link</a>.</p><p>If an account has already been set up with your email address, an email will not be sent. <a href='/prototypes/example/login_journeys/'>Sign in</a> or <a href='/prototypes/example/login_journeys/ForgotPassword/'>reset your password</a> if you have forgotten it.</p>"
+    })
+}}
 
 
 {% endblock %}

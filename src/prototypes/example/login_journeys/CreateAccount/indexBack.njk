@@ -99,7 +99,21 @@ layout: example/views/Author8col
 {% endblock %}
 
 {% block bodyEnd %}
+    <script>
+    if (sessionStorage.getItem('Fullname') != ''){
+        document.forms["myForm"]["fullname"].value = sessionStorage.getItem('Fullname');
+    }
+    if (sessionStorage.getItem('EmailAddress') != ''){
+        document.forms["myForm"]["email"].value = sessionStorage.getItem('EmailAddress');
 
+    }
+    if (sessionStorage.getItem('ConfirmedEmailAddress') != ''){
+        document.forms["myForm"]["Confirmemail"].value = sessionStorage.getItem('ConfirmedEmailAddress');
+
+    }
+
+
+    </script>
     <script>
         function validateForm(){
             console.log('run');
