@@ -123,31 +123,31 @@ layout: example/views/Author8col
             let y = document.forms["myForm"]["confirm-password"].value;
 
             if ((x != "") && (y != "") && (x == y) && (x.length >= 16)) {
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/ForgotPassword/ResetComplete.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/NoAccount/ForgotPassword/ResetComplete.html";    
             }
 
             if ((x != "") && (y == "") && (x.length >= 16)) {
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/ForgotPassword/errors/NoConfirm.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/NoAccount/ForgotPassword/errors/NoConfirm.html";    
             }
 
             if ((x != "") && (y != "") && (x != y) && (x.length >= 16)) {
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/ForgotPassword/errors/NoMatch.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/NoAccount/ForgotPassword/errors/NoMatch.html";    
             }
             
             if ((x == "") && (y != "")) {
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/ForgotPassword/errors/NoPassword.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/NoAccount/ForgotPassword/errors/NoPassword.html";    
             }
             if ((x == "") && (y == "")) {
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/ForgotPassword/errors/NoPasswordNoConfirm.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/NoAccount/ForgotPassword/errors/NoPasswordNoConfirm.html";    
             }
             if ((x != "") && (y != "") && (x != y) && (x.length < 16)) {
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/ForgotPassword/errors/Not16_NoMatch.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/NoAccount/ForgotPassword/errors/Not16_NoMatch.html";    
             }
             if ((x != "") && (y != "") && (x == y) && (x.length < 16)) {
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/ForgotPassword/errors/Not16.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/NoAccount/ForgotPassword/errors/Not16.html";    
             }
             if ((x != "") && (y == "") && (x.length < 16)) {
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/ForgotPassword/errors/Not16NoConfirm.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/NoAccount/ForgotPassword/errors/Not16NoConfirm.html";    
             }
 
         }

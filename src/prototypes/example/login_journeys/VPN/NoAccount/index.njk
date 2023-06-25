@@ -37,7 +37,7 @@ layout: example/views/Author8col
     })
 }}
 
-    <a class="blockLink ons-u-mb-m  ons-u-mt-m" href="/prototypes/example/login_journeys/VPN/NoAccount/ForgotPassword/">Forgot password?</a>
+    <a class="blockLink ons-u-mb-m  ons-u-mt-m" href="/prototypes/example/login_journeys/VPN/ForgotPassword/">Forgot password?</a>
 
 
     {{
@@ -67,7 +67,7 @@ layout: example/views/Author8col
     }}
 
     <h2 class="ons-u-mb-m">Need to create an account?</h2>
-    <a href="/prototypes/example/login_journeys/VPN/NoAccount/CreateAccount/">Create an account</a>
+    <a href="/prototypes/example/login_journeys/VPN/CreateAccount/">Create an account</a>
 
 
 {% endblock %}
@@ -79,29 +79,32 @@ layout: example/views/Author8col
             let x = document.forms["myForm"]["email"].value;
             let y = document.forms["myForm"]["password"].value;
             if ((x == "") && (y != "")) {
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/NoAccount/errors/NoEmail.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/errors/NoEmail.html";    
             }
             if ((x == "") && (y == "")) {
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/NoAccount/errors/NoEmailorPassword.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/errors/NoEmailorPassword.html";    
             }
             if ((x != "") && (x.indexOf("@") == -1) && (y != "")) {
                 sessionStorage.setItem('EmailEntered', x);    
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/NoAccount/errors/InvalidEmailFormat.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/errors/InvalidEmailFormat.html";    
             }
             if ((x != "") && (x.indexOf("@") == -1) && (y == "")) {
                 sessionStorage.setItem('EmailEntered', x); 
                 console.log(x);   
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/NoAccount/errors/InvalidEmailFormat_noPassword.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/errors/InvalidEmailFormat_noPassword.html";    
             }
-            if ((x != "") && (x.indexOf("@") != -1) && (y != "")) {
+            if ((x != "") && (x.indexOf("@") != -1) && (y != "UserResearch2023")) {
                 sessionStorage.setItem('EmailEntered', x);    
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/NoAccount/errors/NoAccountFound.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/errors/IncorrectCombination.html";    
             }
             if ((x != "") && (x.indexOf("@") != -1) && (y == "")) {
                 sessionStorage.setItem('EmailEntered', x);    
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/NoAccount/errors/NoAccountFoundNoPassword.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/errors/NoPassword.html";    
             }
-
+            if ((x != "") && (x.includes("@ons.gov.uk") == true) && (y == "UserResearch2023!")) {
+                sessionStorage.setItem('EmailEntered', x);    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/homepage.html";    
+            }
         }
     </script>
 {% endblock %}

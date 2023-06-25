@@ -19,7 +19,7 @@ layout: example/views/Author8col
         "ariaLabel": 'Back',
         "itemsList": [
             {
-                "url": '/prototypes/example/login_journeys/nonVPN/',
+                "url": '/prototypes/example/login_journeys/VPN/',
                 "id": "back",
                 "text": 'Back',
                 "attributes": {
@@ -115,7 +115,7 @@ layout: example/views/Author8col
         })
     }}
 
-    <p>If you already have an account, you can <a href="/prototypes/example/login_journeys/nonVPN/">sign in</a></p>
+    <p>If you already have an account, you can <a href="/prototypes/example/login_journeys/VPN/">sign in</a></p>
     
 
 
@@ -162,71 +162,71 @@ layout: example/views/Author8col
 
             if ((x != "") && (y != "") && (z != "") && (y == z) && (y.indexOf("@") != -1) && (y.includes("@ons.gov.uk") == true)) {
  
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/CreateAccount/CheckEmail.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/Account/CreateAccount/CheckEmail.html";    
             }
             if ((x == "") && (y == "") && (z == "")) {
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/CreateAccount/errors/createAccount/AllinputsBlank.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/Account/CreateAccount/errors/createAccount/AllinputsBlank.html";    
             }
             if ((x != "") && (y != "") && (z != "") && (y != z) && (y.indexOf("@") != -1) && (y.includes("@ons.gov.uk") == true)) {
  
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/CreateAccount/errors/createAccount/EmailsNotMatching.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/Account/CreateAccount/errors/createAccount/EmailsNotMatching.html";    
             }
             if ((x != "") && (y != "") && (z != "") && (y == z) && (y.indexOf("@") == -1)) {
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/CreateAccount/errors/createAccount/InvalidEmail.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/Account/CreateAccount/errors/createAccount/InvalidEmail.html";    
             }
             if ((x != "") && (y != "") && (z != "") && (y != z) && (y.indexOf("@") == -1)) {
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/CreateAccount/errors/createAccount/InvalidEmail_EmailsNotMatching.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/Account/CreateAccount/errors/createAccount/InvalidEmail_EmailsNotMatching.html";    
             }
             if ((x != "") && (y != "") && (z == "") && (y.indexOf("@") == -1)) {
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/CreateAccount/errors/createAccount/NoConfirmEmail_InvalidEmail.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/Account/CreateAccount/errors/createAccount/NoConfirmEmail_InvalidEmail.html";    
             }
             if ((x != "") && (y != "") && (z == "") && (y.indexOf("@") != -1) && (y.includes("@ons.gov.uk") == true)) {
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/CreateAccount/errors/createAccount/NoConfirmEmail.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/Account/CreateAccount/errors/createAccount/NoConfirmEmail.html";    
             }
             if ((x != "") && (y == "") && (z != "")) {
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/CreateAccount/errors/createAccount/NoEmail.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/Account/CreateAccount/errors/createAccount/NoEmail.html";    
             }
             if ((x != "") && (y == "") && (z == "")) {
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/CreateAccount/errors/createAccount/NoEmail_NoConfirmEmail.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/Account/CreateAccount/errors/createAccount/NoEmail_NoConfirmEmail.html";    
             }
             if ((x == "") && (y != "") && (z != "") && (y != z) && (y.indexOf("@") != -1) && (y.includes("@ons.gov.uk") == true)) {
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/CreateAccount/errors/createAccount/NoName_EmailsNotMatching.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/Account/CreateAccount/errors/createAccount/NoName_EmailsNotMatching.html";    
             }
             if ((x == "") && (y != "") && (z != "") && (y == z) && (y.indexOf("@") == -1)) {
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/CreateAccount/errors/createAccount/NoName_InvalidEmail.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/Account/CreateAccount/errors/createAccount/NoName_InvalidEmail.html";    
             }
             if ((x == "") && (y != "") && (z != "") && (y != z) && (y.indexOf("@") == -1)) {
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/CreateAccount/errors/createAccount/NoName_InvalidEmail_EmailsNotMatching.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/Account/CreateAccount/errors/createAccount/NoName_InvalidEmail_EmailsNotMatching.html";    
             }
             if ((x == "") && (y != "") && (z == "") && (y.indexOf("@") == -1)) {
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/CreateAccount/errors/createAccount/NoName_NoConfirmEmail_InvalidEmail.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/Account/CreateAccount/errors/createAccount/NoName_NoConfirmEmail_InvalidEmail.html";    
             }
             if ((x == "") && (y != "") && (z == "") && (y.indexOf("@") != -1) && (y.includes("@ons.gov.uk") == true)) {
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/CreateAccount/errors/createAccount/NoName_NoConfirmEmail.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/Account/CreateAccount/errors/createAccount/NoName_NoConfirmEmail.html";    
             }
             if ((x == "") && (y == "") && (z != "")) {
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/CreateAccount/errors/createAccount/NoName_NoEmail_EmailsNotMatching.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/Account/CreateAccount/errors/createAccount/NoName_NoEmail_EmailsNotMatching.html";    
             }
             if ((x == "") && (y != "") && (z != "") && (y == z) && (y.indexOf("@") != -1) && (y.includes("@ons.gov.uk") == true)) {
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/CreateAccount/errors/createAccount/NoName.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/Account/CreateAccount/errors/createAccount/NoName.html";    
             }
             if ((x == "") && (y != "") && (z != "") && (y != z) && (y.indexOf("@") != -1) && (y.includes("@ons.gov.uk") == false)) {
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/CreateAccount/errors/createAccount/NotONSEmail_EmailNotMatching_NoName.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/Account/CreateAccount/errors/createAccount/NotONSEmail_EmailNotMatching_NoName.html";    
             }
             if ((x != "") && (y != "") && (z != "") && (y != z) && (y.indexOf("@") != -1) && (y.includes("@ons.gov.uk") == false)) {
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/CreateAccount/errors/createAccount/NotONSEmail_EmailNotMatching.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/Account/CreateAccount/errors/createAccount/NotONSEmail_EmailNotMatching.html";    
             }
             if ((x != "") && (y != "") && (z == "") && (y.indexOf("@") != -1) && (y.includes("@ons.gov.uk") == false)) {
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/CreateAccount/errors/createAccount/NotONSEmail_NoConfirmEmail.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/Account/CreateAccount/errors/createAccount/NotONSEmail_NoConfirmEmail.html";    
             }
             if ((x == "") && (y != "") && (z == "") && (y.indexOf("@") != -1) && (y.includes("@ons.gov.uk") == false)) {
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/CreateAccount/errors/createAccount/NotONSEmail_NoName_NoConfirmEmail.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/Account/CreateAccount/errors/createAccount/NotONSEmail_NoName_NoConfirmEmail.html";    
             }
             if ((x == "") && (y != "") && (z != "") && (y == z) && (y.indexOf("@") != -1) && (y.includes("@ons.gov.uk") == false)) {
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/CreateAccount/errors/createAccount/NotONSEmail_NoName.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/Account/CreateAccount/errors/createAccount/NotONSEmail_NoName.html";    
             }
             if ((x != "") && (y != "") && (z != "") && (y == z) && (y.indexOf("@") != -1) && (y.includes("@ons.gov.uk") == false)) {
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/CreateAccount/errors/createAccount/NotONSEmail.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/Account/CreateAccount/errors/createAccount/NotONSEmail.html";    
             }
 
         }
