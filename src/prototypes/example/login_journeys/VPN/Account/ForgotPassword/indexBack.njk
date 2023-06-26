@@ -82,13 +82,26 @@ layout: example/views/Author8col
         })
     }}
 
-    <p>If you already have an account, you can <a href="/prototypes/example/login_journeys/VPN/Account/ForgotPassword/indexBack/html">sign in</a>.</p>
+    <p>If you already have an account, you can <a href="/prototypes/example/login_journeys/VPN/Account/">sign in</a>.</p>
     
 
 
 {% endblock %}
 
 {% block bodyEnd %}
+
+    <script>
+    if (sessionStorage.getItem('EmailAddress') != ''){
+        document.forms["myForm"]["email"].value = sessionStorage.getItem('ForgotPasswordEmail');
+
+    }
+    if (sessionStorage.getItem('ConfirmedEmailAddress') != ''){
+        document.forms["myForm"]["Confirmemail"].value = sessionStorage.getItem('ForgotPasswordConfirmEmail');
+
+    }
+
+
+    </script>
 
 <script>
 

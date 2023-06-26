@@ -15,7 +15,7 @@ layout: example/views/Author8col
 
 {% block main %}
     {% call onsPanel({
-        "title": 'There are 2 problems with this page',
+        "title": 'There is a problem with this page',
         "type": 'error',
         "classes": "ons-u-mb-xl"
 }) %}
@@ -24,13 +24,8 @@ layout: example/views/Author8col
             "element": 'ol',
             "itemsList": [
                 {
-                    "text": 'Enter your email address',
+                    "text": "No account found for this email address",
                     "url": '#email-error',
-                    "variants": "inPageLink"
-                },
-                {
-                    "text": 'Enter your password',
-                    "url": '#password-error',
                     "variants": "inPageLink"
                 }
             ]
@@ -48,8 +43,8 @@ layout: example/views/Author8col
                 "text": "Email address"
             },
             "error": {
-                "id": "email-error",
-                "text": "Enter your email address"
+            "id": "email-error",
+            "text": "No account found for this email address"
         }
         })
     }}
@@ -61,11 +56,7 @@ layout: example/views/Author8col
         "label": {
             "text": "Password"
         },
-        "showPasswordText": "Show password",
-        "error": {
-            "id": "password-error",
-            "text": "Enter your password"
-        }
+        "showPasswordText": "Show password"
     })
 }}
 
@@ -105,6 +96,13 @@ layout: example/views/Author8col
 {% endblock %}
 
 {% block bodyEnd %}
+    <script>
+        console.log('hello world');
+        var Email = sessionStorage.getItem('EmailEntered');
+        console.log(Email);
+        document.getElementById('email').value = Email;
+
+    </script>
     
     <script>
         function validateForm(){

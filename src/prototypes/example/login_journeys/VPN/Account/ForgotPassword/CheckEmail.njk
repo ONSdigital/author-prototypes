@@ -37,16 +37,9 @@ layout: example/views/Author8col
     <p>We have sent an email to: <strong id="boldedEmail" class="ons-u-fs-r--b"></strong></p>
     
     <p>The email may take a few minutes to arrive. If it does not, please check your spam, bulk or junk email folder as your email system may have blocked it by mistake. </p>
+    <p>If you cannot find the email, we can <a href='/prototypes/example/login_journeys/VPN/Account/ForgotPassword/indexBack.html'>resend the email</a>.</p>
         
-    
 
-{{
-    onsDetails({
-        "id": "details",
-        "title": "I have not received the email",
-        "content": "<p>A link to reset your password will only be sent if the email you provided is associated with an activated account. If you do not receive a link, you may need to <a href='/prototypes/example/login_journeys/VPN/NoAccount/CreateAccount/'>create an account</a>.</p>"
-    })
-}}
 
 {% endblock %}
 

@@ -19,7 +19,7 @@ layout: example/views/Author8col
         "ariaLabel": 'Back',
         "itemsList": [
             {
-                "url": '/prototypes/example/login_journeys/VPN/',
+                "url": '/prototypes/example/login_journeys/VPN/Account/',
                 "id": "back",
                 "text": 'Back',
                 "attributes": {
@@ -103,7 +103,7 @@ layout: example/views/Author8col
         })
     }}
 
-    <p>If you already have an account, you can <a href="/prototypes/example/login_journeys/VPN/">sign in</a></p>
+    <p>If you already have an account, you can <a href="/prototypes/example/login_journeys/VPN/Account/">sign in</a>.</p>
     
 
 
@@ -150,7 +150,7 @@ layout: example/views/Author8col
 
             if ((x != "") && (y != "") && (z != "") && (y == z) && (y.indexOf("@") != -1) && (y.includes("@ons.gov.uk") == true)) {
  
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/Account/CreateAccount/CheckEmail.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/Account/CreateAccount/errors/createAccount/AccountAlreadyCreated.html";    
             }
             if ((x == "") && (y == "") && (z == "")) {
                 document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/Account/CreateAccount/errors/createAccount/AllinputsBlank.html";    
