@@ -1,0 +1,221 @@
+---
+group: Examples
+title: Example prototype
+layout: example/views/_master
+---
+{% from "components/button/_macro.njk" import onsButton %}
+{% from "components/radios/_macro.njk" import onsRadios %}
+{% from "components/question/_macro.njk" import onsQuestion %}
+{% from "components/input/_macro.njk" import onsInput %}
+{% from "components/select/_macro.njk" import onsSelect %}
+
+
+{% set form =  {
+    "method": "GET",
+    "attributes": {
+        "name": "myForm"    }
+} %}
+
+{% block main %}
+    
+    {{
+        onsSelect({
+        "id": "select",
+        "name": "select",
+        "label": {
+            "text": "Question topic"
+        },
+            "options": [
+            {
+                "value": "",
+                "text": "Select an option",
+                "disabled": true,
+                "selected": true
+            },
+            {
+                "value": 1,
+                "text": "General"
+            },
+                {
+                    "text": "2700 - Electrical equipment, electric motors, generators, transformers and parts",
+                    "value": "house"
+                },
+                {
+                    "text": "3296 - Brushes except electric motor brushes",
+                    "value": "flat"
+                },
+                {
+                    "text": "2900 - Motor vehicles, trailers and semi-trailers"
+                    ,
+                    "value": "mobile"
+                },
+                                {
+                    "text": "3091 - Motorcycles, bicycles and carriages"
+                    ,
+                    "value": "house"
+                },
+                {
+                    "text": "3020 - Railway locomotives and rolling stock"
+                    ,
+                    "value": "flat"
+                },
+                {
+                    "text": "3010 - Boats, ships and floating structures"
+                    ,
+                    "value": "mobile"
+                },
+                                {
+                    "text":  "3030 - Aircraft, spacecraft and related machinery"
+                    ,
+                    "value": "mobile"
+                },
+                                                {
+                    "text": "3040 - Military fighting vehicles"
+                    ,
+                    "value": "house"
+                },
+                {
+                    "text": "1300 - Textile articles; carpets and rugs; preparation services of natural textile fibres; textile finishing services"
+                    ,
+                    "value": "flat"
+                },
+                {
+                    "text": "3295 - Jewellery and decorative goods"
+                    ,
+                    "value": "mobile"
+                },
+                                {
+                    "text": "1400 - Clothing and wearing apparel; fur, leather, work wear, underwear, hats and headgear"
+                    ,
+                    "value": "mobile"
+                },
+
+
+                                {
+                    "text": "1500 - Footwear and leather products"
+                    ,
+                    "value": "flat"
+                },
+                {
+                    "text": "3100 - Furniture; office, shop and kitchen furniture, upholstering and finishing services of new furniture and parts of furniture"
+                    ,
+                    "value": "mobile"
+                },
+                                {
+                    "text": "1600 - Wood and products of wood and cork, except furniture; articles of straw and plaiting materials"
+                    ,
+                    "value": "mobile"
+                },
+
+
+
+                                                {
+                    "text": "2210 - Rubber products"
+                    ,
+                    "value": "flat"
+                },
+                {
+                    "text": "2220 - Plastic products"
+                    ,
+                    "value": "mobile"
+                },
+                                {
+                    "text": "2399 - Cement, plaster and concrete"
+                    ,
+                    "value": "mobile"
+                },
+
+
+
+                                                {
+                    "text": "2100 - Basic pharmaceutical products and preparations"
+                    ,
+                    "value": "flat"
+                },
+                {
+                    "text": "2097 - Industrial gases, inorganic basic chemicals and fertilisers"
+                    ,
+                    "value": "mobile"
+                },
+                                {
+                    "text": "2096 - Petrochemicals; organic basic chemicals, plastics in primary form, synthetic rubber and man-made fibres"
+                    ,
+                    "value": "mobile"
+                },
+
+
+
+
+
+                                                {
+                    "text": "2095 - Dyestuffs and agro-chemicals"
+                    ,
+                    "value": "flat"
+                },
+                {
+                    "text": "2030 - Paints, varnishes and similar coatings, printing ink and mastics"
+                    ,
+                    "value": "mobile"
+                },
+                                {
+                    "text": "2040 - Soaps and detergents, cleaning and polishing preparations, perfumes and toilet preparations"
+                    ,
+                    "value": "mobile"
+                },
+
+
+
+                                                                {
+                    "text": "2050 - Chemical products; explosives and related products, glues, essential oils, aromatic distilled waters"
+                    ,
+                    "value": "flat"
+                },
+                {
+                    "text": "2499 - Basic iron, steel and ferro-alloys including tubes, pipes, hollow fittings and other products of the first processing of steel"
+                    ,
+                    "value": "mobile"
+                },
+                                {
+                    "text": "0800 - Mining and quarrying products; ornamental and building stone, gravel, sand and clays, precious and semi-precious stones"
+                    ,
+                    "value": "mobile"
+                }
+            ]
+        })
+    }}
+
+
+{{
+    onsInput({
+        "id": "prefixed",
+        "type": "number",
+        "width": "15",
+        "autocomplete": "off",
+        "label": {
+            "text": "Expenditure on selected service",
+            "description": "Enter a value to the nearest £thousand (e.g. 56,000). Do not enter ‘56’ for £56,000."
+
+        },
+        "prefix": {
+            "title": "British pounds (GBP)",
+            "text": "£",
+            "id": "annual-salary-gpb-prefix"
+        }
+    })
+}}
+
+
+    {{
+        onsButton({
+            "text": "Save and continue",
+            "classes": "ons-u-mt-l ons-u-mb-xl"
+        })
+    }}
+
+
+
+{% endblock %}
+
+{% block bodyEnd %}
+
+{% endblock %}
