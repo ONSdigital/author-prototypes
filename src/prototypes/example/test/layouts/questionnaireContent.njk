@@ -1,0 +1,310 @@
+---
+group: Examples
+title: Example prototype
+layout: example/test/layouts/views/Author4col8col
+---
+{% from "components/button/_macro.njk" import onsButton %}
+{% from "components/status/_macro.njk" import onsStatus %}
+{% from "components/accordion/_macro.njk" import onsAccordion %}
+
+
+
+{% set form =  {
+    "method": "GET",
+    "attributes": {
+        "name": "myForm",
+        "onsubmit":  "return validateForm()"
+    }
+} %}
+
+{% block head %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+<style>
+.material-symbols-rounded {
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+.material-symbols-rounded{
+    color: black;
+    background-color: #FAC064;
+}
+
+
+#notStarted.ons-status.ons-status--pending::before{
+    background-color: white;
+}
+#comments.ons-status::before{
+    border-radius: 20%;
+    background-color: #00a3a6;
+    border-color: #00a3a6;
+
+}
+
+.chevron {
+  width: 12px; /* Adjust the width as desired */
+  height: 12px; /* Adjust the height as desired */
+  transition: transform 0s ease;
+}
+
+.open .chevron {
+  transform: rotate(90deg);
+}
+
+.section {
+  margin-bottom: 10px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.section-link {
+  margin-left: 5px;
+}
+
+.folder {
+  margin-left: 20px;
+}
+
+.folder-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3px;
+}
+
+.folder-link {
+  margin-left: 5px;
+}
+
+.folder-content {
+  display: none;
+  margin-left: 20px;
+}
+
+.open .folder-content {
+  display: block;
+}
+
+</style>
+{% endblock %}
+
+{% block preMain %}
+
+{% endblock %}
+
+{% block main %}
+    <div class="ons-grid">
+
+        <div class="ons-grid__col ons-col-4@m ons-u-mb-m" style="background-color:#f5f5f6;">
+            
+
+            <h2>Content structure</h2>
+            <div class="ons-u-mb-xs">
+                {{
+                    onsStatus({
+                        "label": 'Actions required',
+                        "type": 'pending'
+                    })
+                }}
+                <span id="notStarted" class="ons-u-ml-s ons-status ons-status--pending">Not started</span>
+            </div>
+            <div class="ons-u-mb-m">
+                <span id="comments" class="ons-status ons-status--pending">Not started</span>
+            </div>
+
+
+
+  <div class="section">
+    <div class="section-header">
+    <div tabindex="0">
+      <svg class="chevron" onclick="toggleSection(this)" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false"
+          fill="currentColor">
+          <path
+            d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z"
+            transform="translate(-5.02 -1.59)" />
+      </svg>
+    </div>
+      <a class="section-link" href="#">Section 1</a>
+    </div>
+    <div class="section-content">
+      <div class="folder">
+        <div class="folder-header">
+        <div tabindex="0">
+          <svg class="chevron" onclick="toggleFolder(this)" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false"
+            fill="currentColor">
+            <path
+              d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z"
+              transform="translate(-5.02 -1.59)" />
+          </svg>
+        </div>
+          <a class="folder-link" href="#">Folder 1</a>
+        </div>
+        <div class="folder-content">
+          <a class="folder-link" href="#">Question 1</a>
+        </div>
+      </div>
+      <div class="folder">
+        <div class="folder-header">
+        <div tabindex="0">
+          <svg class="chevron" onclick="toggleFolder(this)" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false"
+            fill="currentColor">
+            <path
+              d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z"
+              transform="translate(-5.02 -1.59)" />
+          </svg>
+        </div>
+          <a class="folder-link" href="#">Folder 2</a>
+        </div>
+        <div class="folder-content">
+          <a class="folder-link" href="#">Question 2</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+    <div tabindex="0">
+      <svg class="chevron" onclick="toggleSection(this)" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false"
+          fill="currentColor">
+          <path
+            d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z"
+            transform="translate(-5.02 -1.59)" />
+      </svg>
+    </div>
+      <a class="section-link" href="#">Section 2</a>
+    </div>
+    <div class="section-content">
+      <div class="folder">
+        <div class="folder-header">
+        <div tabindex="0">
+
+          <svg class="chevron" onclick="toggleFolder(this)" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false"
+            fill="currentColor">
+            <path
+              d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z"
+              transform="translate(-5.02 -1.59)" />
+          </svg>
+        </div>
+          <a class="folder-link" href="#">Folder 1</a>
+        </div>
+        <div class="folder-content">
+          <a class="folder-link" href="#">Question 1</a>
+        </div>
+      </div>
+      <div class="folder">
+        <div class="folder-header">
+        <div tabindex="0">
+          <svg class="chevron" onclick="toggleFolder(this)" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false"
+            fill="currentColor">
+            <path
+              d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z"
+              transform="translate(-5.02 -1.59)" />
+          </svg>
+        </div>
+          <a class="folder-link" href="#">Folder 2</a>
+        </div>
+        <div class="folder-content">
+          <a class="folder-link" href="#">Question 2</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+            
+        </div>
+
+        <div class="ons-grid__col ons-col-8@m ons-u-mb-m" style="background-color:pink;">
+
+                    <h1 class="ons-u-fs-xxl">Questionnaire content</h1>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>                    
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block bodyEnd %}
+
+<script>
+function toggleSection(section) {
+  var sectionContent = section.nextElementSibling;
+  var chevron = section.querySelector('.chevron');
+
+  if (sectionContent && sectionContent.style.display === 'block') {
+    sectionContent.style.display = 'none';
+    chevron.classList.remove('open');
+    section.parentNode.classList.remove('open');
+  } else if (sectionContent) {
+    sectionContent.style.display = 'block';
+    chevron.classList.add('open');
+    section.parentNode.classList.add('open');
+  }
+}
+
+function toggleFolder(folder) {
+  var folderContent = folder.nextElementSibling;
+  var chevron = folder.querySelector('.chevron');
+
+  if (folderContent && folderContent.style.display === 'block') {
+    folderContent.style.display = 'none';
+    chevron.classList.remove('open');
+    folder.parentNode.classList.remove('open');
+  } else if (folderContent) {
+    folderContent.style.display = 'block';
+    chevron.classList.add('open');
+    folder.parentNode.classList.add('open');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  var sections = document.getElementsByClassName('section-header');
+  for (var i = 0; i < sections.length; i++) {
+    var sectionContent = sections[i].nextElementSibling;
+    if (sectionContent) {
+      sectionContent.style.display = 'none';
+    }
+  }
+
+  var folders = document.getElementsByClassName('folder-header');
+  for (var i = 0; i < folders.length; i++) {
+    var folderContent = folders[i].nextElementSibling;
+    if (folderContent) {
+      folderContent.style.display = 'none';
+    }
+  }
+
+  var sectionHeaders = document.querySelectorAll('.section-header');
+  sectionHeaders.forEach(function(sectionHeader) {
+    sectionHeader.addEventListener('click', function() {
+      toggleSection(sectionHeader);
+    });
+  });
+
+  var folderHeaders = document.querySelectorAll('.folder-header');
+  folderHeaders.forEach(function(folderHeader) {
+    folderHeader.addEventListener('click', function() {
+      toggleFolder(folderHeader);
+    });
+  });
+});
+</script>
+{% endblock %}

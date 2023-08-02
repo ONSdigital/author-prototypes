@@ -1,0 +1,97 @@
+
+{% extends "layout/_template.njk" %}
+{% from "components/input/_macro.njk" import onsInput %}
+{% from "components/password/_macro.njk" import onsPassword %}
+{% from "components/checkboxes/_macro.njk" import onsCheckboxes %}
+{% from "components/panel/_macro.njk" import onsPanel %}
+{% from "components/lists/_macro.njk" import onsList %}
+{% from "components/breadcrumbs/_macro.njk" import onsBreadcrumbs %}
+{% from "components/button/_macro.njk" import onsButton %}
+{% from "components/header/_macro.njk" import onsHeader %}
+{% from "components/details/_macro.njk" import onsDetails %}
+{% from "components/external-link/_macro.njk" import onsExternalLink %}
+
+
+
+{% set pageConfig = {
+    "header": {
+        "title": 'Design system',
+        "titleUrl": '#0',
+        "navigation": {
+            "id": 'main-nav',
+            "ariaLabel": 'Main menu',
+            "currentPath": '#home',
+            "itemsList": [
+                {
+                    "title": 'Questionnaire content',
+                    "url": '#home'
+                },
+                {
+                    "title": 'View',
+                    "url": '#0'
+                },
+                {
+                    "title": 'Settings',
+                    "url": '#0'
+                },
+                {
+                    "title": 'Sharing',
+                    "url": '#0'
+                },
+                {
+                    "title": 'History',
+                    "url": '#0'
+                },
+                {
+                    "title": 'Collection lists',
+                    "url": '#0'
+                },
+                {
+                    "title": 'Metadata',
+                    "url": '#0'
+                },
+                {
+                    "title": 'Q codes',
+                    "url": '#0'
+                }                
+            ],
+            "toggleNavigationButton": {
+                "text": 'Menu',
+                "ariaLabel": 'Toggle main menu'
+            }
+        }
+    },
+    "wide": true
+} %}
+
+
+
+{% block head %}
+    <link rel="stylesheet" href="/prototypes/example/styles.css" />
+
+    <style>
+    .blockLink{
+        display:inline-block;
+    }
+
+    .externalLink{
+        color: green;
+        font-weight: bold;
+        font-size: ons-u-fs-l;
+    }
+    </style>
+
+{% endblock %}
+
+{% block preMain %}
+{% endblock %}
+
+{% block main %}
+{% endblock %}
+
+{% block bodyEnd %}
+    <script src="../index.js">
+    
+    </script>
+
+{% endblock %}

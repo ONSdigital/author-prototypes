@@ -1,0 +1,132 @@
+{% extends "layout/_template.njk" %}
+
+{% from "components/button/_macro.njk" import onsButton %}
+{% from "components/lists/_macro.njk" import onsList %}
+{% from "components/section-navigation/_macro.njk" import onsSectionNavigation %}
+{% from "components/header/_macro.njk" import onsHeader %}
+{% from "components/lists/_macro.njk" import onsList %}
+
+{% set some_var1 = "Foo" %}
+
+{% set pageConfig = {
+    "footer": {
+        "OGLLink": {
+            "pre": 'All content is available under the',
+            "link": 'Open Government Licence v3.0',
+            "url": 'https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/',
+            "post": ', except where otherwise stated'
+        }
+    },
+    "breadcrumbs": {
+        "ariaLabel": 'Breadcrumbs',
+        "itemsList": [
+            {
+                "linkClasses": 'js-previous' if prevPage else '',
+                "url": pageInfo.rootPath + "/" + prevPage + '.html',
+                "text": 'Previous'
+            }
+        ]
+    },
+    "wide": true
+
+} %}
+
+{% block head %}
+    <link rel="stylesheet" href="/prototypes/example/styles.css" />
+
+{% endblock %}
+
+{% block header %} 
+{{
+    onsHeader({
+        "title": 'Author',
+        "wide": true,
+        "mastheadLogoUrl": '#0',
+        "titleUrl": '#0',
+        "variants": 'internal',
+        "serviceLinks": {
+            "id": "service-links",
+            "ariaLabel": 'Services menu',
+            "ariaListLabel": 'Menu',
+            "toggleServicesButton": {
+                "text": 'Account',
+                "ariaLabel": 'Toggle services menu'
+            },
+            "itemsList": [
+                {
+                    "title": "Help and guidance",
+                    "url": "#0"
+                },
+                {
+                    "title": "Lauren Dowling",
+                    "iconType": 'person'
+                },
+                {
+                    "title": "Sign out",
+                    "url": "#0"
+                }
+            ]
+        },
+        "navigation": {
+            "id": 'main-nav',
+            "wide": true,
+            "ariaLabel": 'Main menu',
+            "currentPath": [ '#design-system', '#patterns', '#access-codes' ],
+            "currentPageTitle": 'Design system',
+            "itemsList": [
+                {
+                    "title": 'Content',
+                    "url": '#0'
+                },
+                {
+                    "title": 'View',
+                    "url": '#design-system'
+                },
+                {
+                    "title": 'Settings',
+                    "url": '#0'
+                },
+                {
+                    "title": 'Sharing',
+                    "url": '#0'
+                },
+                {
+                    "title": 'History',
+                    "url": '#0'
+                },
+                {
+                    "title": 'Collection lists',
+                    "url": '#0'
+                },
+                {
+                    "title": 'Metadata',
+                    "url": '#0'
+                },
+                {
+                    "title": 'Q codes',
+                    "url": '#0'
+                }
+            ],
+            "toggleNavigationButton": {
+                "text": 'Menu',
+                "ariaLabel": 'Toggle main menu'
+            }
+            
+        }
+    })
+}}
+
+{% endblock %}
+
+
+{% block preMain %} 
+{% endblock %}
+
+{% block main %}
+
+
+{% endblock %}
+
+{% block bodyEnd %}
+    <script src="/prototypes/example/index.js"></script>
+{% endblock %}

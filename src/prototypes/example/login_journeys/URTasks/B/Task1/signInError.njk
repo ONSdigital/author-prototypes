@@ -118,31 +118,31 @@ layout: example/views/Author8col
             let x = document.forms["myForm"]["email"].value;
             let y = document.forms["myForm"]["password"].value;
             if ((x == "") && (y != "")) {
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/errors/NoEmail.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/NoAccount/errors/NoEmail.html";    
             }
             if ((x == "") && (y == "")) {
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/errors/NoEmailorPassword.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/NoAccount/errors/NoEmailorPassword.html";    
             }
             if ((x != "") && (x.indexOf("@") == -1) && (y != "")) {
                 sessionStorage.setItem('EmailEntered', x);    
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/errors/InvalidEmailFormat.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/NoAccount/errors/InvalidEmailFormat.html";    
             }
             if ((x != "") && (x.indexOf("@") == -1) && (y == "")) {
                 sessionStorage.setItem('EmailEntered', x); 
                 console.log(x);   
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/errors/InvalidEmailFormat_noPassword.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/NoAccount/errors/InvalidEmailFormat_noPassword.html";    
             }
             if ((x != "") && (x.indexOf("@") != -1) && (y != "UserResearch2023")) {
                 sessionStorage.setItem('EmailEntered', x);    
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/errors/IncorrectCombination.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/NoAccount/errors/IncorrectCombination.html";    
             }
             if ((x != "") && (x.indexOf("@") != -1) && (y == "")) {
                 sessionStorage.setItem('EmailEntered', x);    
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/errors/NoPassword.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/NoAccount/errors/NoPassword.html";    
             }
             if ((x.trim() == "charlie.owen@ons.gov.uk") && (y == "UserResearch2023!")) {
                 sessionStorage.setItem('EmailEntered', x);    
-                document.forms["myForm"].action = "/prototypes/example/login_journeys/nonVPN/homepage.html";    
+                document.forms["myForm"].action = "/prototypes/example/login_journeys/VPN/NoAccount/homepage.html";    
             }
         }
     </script>
