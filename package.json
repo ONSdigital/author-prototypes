@@ -9,6 +9,7 @@
   },
   "scripts": {
     "start": "gulp prototype-kit:start",
+    "build-asset": "gulp build-assets",
     "watch": "gulp prototype-kit:watch",
     "build": "yarn tidy-clean && NODE_ENV=production gulp prototype-kit:build",
     "tidy-clean": "rm -rf build"
