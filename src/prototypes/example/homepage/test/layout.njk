@@ -1,0 +1,373 @@
+---
+group: Examples
+title: Example prototype
+layout: example/homepage/test/2col_Layout
+---
+{% from "components/button/_macro.njk" import onsButton %}
+{% from "components/autosuggest/_macro.njk" import onsAutosuggest %}
+{% from "components/table/_macro.njk" import onsTable %}
+{% from "components/input/_macro.njk" import onsInput %}
+
+{% block head %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+<style>
+.filter-panel{
+    width:100%;
+    outline: 1px solid #E2E2E3;
+}
+
+.filter-heading-panel{
+    background-color: var(--ons-color-grey-15);
+}
+</style>
+
+<style>
+.row-relative{
+    position:relative;
+}
+
+.menu-container{
+    width: fit-content;
+    float: right;
+  }
+
+  .actionsBtn .ons-icon{
+    transform: rotate(90deg);
+    }
+  
+  .actionsBtn{
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border: 2px solid #bcbcbd;
+    border-radius: 3px;
+    outline: none;
+    padding: 9px 6px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: #707071;
+    line-height: 1.35;
+    cursor: pointer;
+  }
+  
+  .actionsBtn:focus{
+    background-color: #FBC900;
+    border: 3px solid black;
+    color: black;
+  }
+  
+  .menu{
+    display:none;
+    background-color: #206095;
+    padding:18px;
+    list-style:none;
+    width: fit-content;
+    border-radius: 3px;
+    border: 2px solid #003C57;
+    position: absolute;
+    top: 55px;
+    right:0;
+    z-index:1;
+  }
+  
+  .listItemLink{
+    color: white;
+    margin-left: 20px;
+    font-size: 16px;
+  }
+  
+  .listItemLink:hover{
+    color: white;
+    text-decoration: underline solid white 2px;
+  }
+  
+  .duplicate{
+    display: inline-flex;
+    align-items: center;
+    margin-left: 12px;
+    color: white;
+  }
+  
+  .listItemButton {
+    display: inline-flex;
+    box-sizing: border-box;
+    width:180px;
+    line-height: 1.35;
+    align-items: center;
+    background-color: #206095;
+    color: white;
+    border: 2px solid #206095;
+    border-radius:3px;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+  }
+  
+  .listItemButton .material-symbols-outlined {
+    margin-right: 20px;
+  }
+  
+  .listItemButton:hover {
+    border: 2px solid white;
+  
+  }
+  
+  .listItemButton:focus {
+    outline: none;
+    background-color: #FBC900;
+    border: 3px solid black;
+    color: black;
+  }
+
+</style>
+
+{% endblock %}
+
+{% block main %}
+
+<div class="ons-grid">
+    <div class="ons-grid__col ons-col-7@m">
+        <h1 class="ons-u-mb-l">My questionnaires</h1>
+    </div>
+    <div class="ons-grid__col ons-col-5@m">
+        <div style="float:right;">
+            <a href="#" class="ons-u-dib ons-u-mt-xs ons-u-mb-xs ons-u-mr-m">Questionnaire directory</a>
+            {{
+                onsButton({
+                    "text": 'Create questionnaire',
+                    "url": '#0'
+                })
+            }}
+        </div>
+    </div>
+    <div class="ons-grid__col ons-col-12@m ons-u-mb-xl">
+        {{
+            onsInput({
+                "id": 'search-field',
+                "label": {
+                    "text": 'Search by title or shortcode'
+                },
+                "accessiblePlaceholder": true,
+                "searchButton": {
+                    "visuallyHideButtonText": true,
+                    "text": 'Search',
+                    "iconType": 'search'
+                }
+            })
+        }}
+    </div>
+    <div class="ons-grid__col ons-col-3@m">
+        <div class="filter-panel">
+            <div class="filter-heading-panel ons-u-pl-s ons-u-pr-s ons-u-pt-xs ons-u-pb-xs">
+                <h2 class="ons-u-mb-no">Filter</h2>
+            </div>
+            <div class="ons-u-p-s">
+                {{
+                    onsButton({
+                        "type": 'button',
+                        "text": 'Apply filters',
+                        "variants": 'small'
+                    })
+                }}
+            </div>
+        </div>
+    </div>
+
+    <div class="ons-grid__col ons-col-9@m">
+        <div class="ons-u-ml-s">
+            <h2 class="ons-u-fs-m">84 questionnaires</h2>
+
+            <table id="basic-table" class="ons-table">
+            <caption class="ons-table__caption">A basic table with a caption</caption>
+            <thead class="ons-table__head">
+                <tr class="ons-table__row">
+                <th scope="col" class="ons-table__header">
+                    <span class="ons-table__header-text">Short code and title</span>
+                </th>
+                <th scope="col" class="ons-table__header">
+                    <span class="ons-table__header-text">Project</span>
+                </th>
+                <th scope="col" class="ons-table__header">
+                    <span class="ons-table__header-text">Owner</span>
+                </th>
+                <th scope="col" class="ons-table__header">
+                    <span class="ons-table__header-text">Activity</span>
+                </th>
+                <th scope="col" class="ons-table__header">
+                    <span class="ons-table__header-text">Access</span>
+                </th>
+                <th scope="col" class="ons-table__header">
+                    <span class="ons-table__header-text ons-u-invisible">Actions</span>
+                </th>
+                </tr>
+            </thead>
+            <tbody class="ons-table__body">
+                <tr class="ons-table__row row-relative">
+                <td class="ons-table__cell"> Cell A1 </td>
+                <td class="ons-table__cell"> Cell B1 </td>
+                <td class="ons-table__cell"> Cell C1 </td>
+                <td class="ons-table__cell"> Cell D1 </td>
+                <td class="ons-table__cell"> Cell E1 </td>
+                <td class="ons-table__cell">
+                    <div class="menu-container">
+                        <button type="button"
+                                id="menubutton1"
+                                class="actionsBtn"
+                                aria-haspopup="true"
+                                aria-controls="menu2" onclick="toggleMenu(event, 'menu1')">
+                            Actions
+                        <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                        </button>
+                        <ul id="menu1"
+                            role="menu"
+                            aria-labelledby="menubutton" class="menu">
+                            <li role="none" class="duplicate">
+                            <span class="material-symbols-outlined">
+                                content_copy
+                                </span>
+                            <a role="menuitem" class="listItemLink" href="https://www.w3.org/">
+                                Duplicate
+                            </a>
+                            </li>
+                            <li role="none">
+                            <button role="menuitem" class="listItemButton">
+                                <span class="material-symbols-outlined">
+                                link
+                                </span>
+                                Copy link
+                            </button>
+                            </li>
+                            <li role="none">
+                            <button role="menuitem" class="listItemButton">
+                                <span class="material-symbols-outlined">
+                                star
+                                </span>
+                                Add to starred
+                            </button>
+                            </li>
+                            <li role="none" class="ons-u-mb-no">
+                            <button role="menuitem" class="listItemButton">
+                                <span class="material-symbols-outlined">
+                                delete
+                                </span>
+                                Delete
+                            </button>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+                </tr>
+                <tr class="ons-table__row row-relative">
+                <td class="ons-table__cell"> Cell A2 </td>
+                <td class="ons-table__cell"> Cell B2 </td>
+                <td class="ons-table__cell"> Cell C2 </td>
+                <td class="ons-table__cell"> Cell D2 </td>
+                <td class="ons-table__cell"> Cell E2 </td>
+                <td class="ons-table__cell">
+                    <div class="menu-container">
+                        <button type="button"
+                                id="menubutton2"
+                                class="actionsBtn"
+                                aria-haspopup="true"
+                                aria-controls="menu2" onclick="toggleMenu(event, 'menu2')">
+                            Actions
+                        <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                        </button>
+                        <ul id="menu2"
+                            role="menu"
+                            aria-labelledby="menubutton" class="menu">
+                            <li role="none" class="duplicate">
+                            <span class="material-symbols-outlined">
+                                content_copy
+                                </span>
+                            <a role="menuitem" class="listItemLink" href="https://www.w3.org/">
+                                Duplicate
+                            </a>
+                            </li>
+                            <li role="none">
+                            <button role="menuitem" class="listItemButton">
+                                <span class="material-symbols-outlined">
+                                link
+                                </span>
+                                Copy link
+                            </button>
+                            </li>
+                            <li role="none">
+                            <button role="menuitem" class="listItemButton">
+                                <span class="material-symbols-outlined">
+                                star
+                                </span>
+                                Add to starred
+                            </button>
+                            </li>
+                            <li role="none" class="ons-u-mb-no">
+                            <button role="menuitem" class="listItemButton">
+                                <span class="material-symbols-outlined">
+                                delete
+                                </span>
+                                Delete
+                            </button>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+
+
+        </div>
+    </div>
+
+</div>
+
+
+
+{% endblock %}
+
+{% block bodyEnd %}
+
+{#<script>
+function toggleMenu(id) {
+  var menu = document.getElementById(id);
+  
+  if (menu.style.display === "none" || menu.style.display === "") {
+    menu.style.display = "block";
+  } else {
+    menu.style.display = "none";
+  }
+}
+</script>
+#}
+<script>
+function toggleMenu(event, id) {
+  event.stopPropagation(); 
+  var menu = document.getElementById(id);
+  
+  if (menu.style.display === "none" || menu.style.display === "") {
+    menu.style.display = "block";
+    document.addEventListener("click", closeMenuOnClickOutside.bind(null, id));
+  } else {
+    menu.style.display = "none";
+    document.removeEventListener("click", closeMenuOnClickOutside.bind(null, id));
+  }
+}
+
+function closeMenuOnClickOutside(id, event) {
+  var menu = document.getElementById(id);
+  
+  if (!menu.contains(event.target)) {
+    menu.style.display = "none";
+    document.removeEventListener("click", closeMenuOnClickOutside.bind(null, id));
+  }
+}
+</script>
+{% endblock %}
