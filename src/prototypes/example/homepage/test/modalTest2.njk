@@ -8,42 +8,150 @@ layout: example/homepage/test/2col_Layout
 {% from "components/table/_macro.njk" import onsTable %}
 
 {% block head %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 <style>
+    {# 16px font size #}
+    .u-fs-16{
+        font-size:16px;
+    }
 
+    {# positioning the actions button relative to the row #}
+    .row-relative{
+        position:relative;
+    }
+
+    {# styling the actions button #}
+    .menu-container{
+        width: fit-content;
+        float: right;
+    }
+
+    .actionsBtn .ons-icon{
+        transform: rotate(90deg);
+        }
+    
+    .actionsBtn{
+        display: flex;
+        box-sizing: border-box;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+        border: 2px solid #bcbcbd;
+        border-radius: 3px;
+        outline: none;
+        padding: 9px 6px;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 14px;
+        font-weight: bold;
+        color: #707071;
+        line-height: 1.35;
+        cursor: pointer;
+    }
+    
+    .actionsBtn:focus{
+        background-color: #FBC900;
+        border: 2px solid black;
+        color: black;
+    }
+    
+    .menu{
+        display:none;
+        background-color: #206095;
+        padding:18px;
+        list-style:none;
+        width: fit-content;
+        border-radius: 3px;
+        border: 2px solid #003C57;
+        position: absolute;
+        top: 55px;
+        right:0;
+        z-index:1;
+    }
+    
+    .listItemLink{
+        color: white;
+        margin-left: 20px;
+        font-size: 16px;
+    }
+    
+    .listItemLink:hover{
+        color: white;
+        text-decoration: underline solid white 2px;
+    }
+    
+    .duplicate{
+        display: inline-flex;
+        align-items: center;
+        margin-left: 12px;
+        color: white;
+    }
+    
+    .listItemButton {
+        display: inline-flex;
+        box-sizing: border-box;
+        width:180px;
+        line-height: 1.35;
+        align-items: center;
+        background-color: #206095;
+        color: white;
+        border: 2px solid #206095;
+        border-radius:3px;
+        padding: 10px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    }
+    
+    .listItemButton .material-symbols-outlined {
+        margin-right: 20px;
+    }
+    
+    .listItemButton:hover {
+        border: 2px solid white;
+    
+    }
+    
+    .listItemButton:focus {
+        outline: none;
+        background-color: #FBC900;
+        border: 3px solid black;
+        color: black;
+    }
+
+    {# styling the modal #}
     .modal-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.8); 
-      backdrop-filter: blur(3px); 
-      display: none; 
-      z-index: 100;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8); 
+        backdrop-filter: blur(3px); 
+        display: none; 
+        z-index: 100;
     }
 
     .ons-modal {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 101;
-      display:none;
-      margin:0;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 101;
+        display:none;
+        margin:0;
     }
 
 </style>
 
 {% endblock %}
 
+
 {% block main %}
 
-
-<button type="submit" class="ons-btn" onclick="confirmDeletion()">
-  <span class="ons-btn__inner"><span class="ons-btn__text">Delete</span>
-  </span>
-</button>
 
 <div class="modal-container" id="modalContainer">
   <dialog class="ons-modal" id="modalDialog" role="dialog">
@@ -64,14 +172,15 @@ layout: example/homepage/test/2col_Layout
                                         "rowItems": [
                                             {
                                                 "rowTitle": "Short code",
+                                                "id": "shortcode",
                                                 "valueList": [
                                                     {
-                                                        "text": "Copy of V3 Draft QCAS 0019"
-                                                    }
+                                                        "text": "Copy of V3 Draft QCAS 0019"                                                    }
                                                 ]
                                             },
                                             {
                                                 "rowTitle": "Title",
+                                                "id": "title",
                                                 "valueList": [
                                                     {
                                                         "text": "Copy of Quarterly Acquisitions and Disposals of Capital Assets Survey"
@@ -80,6 +189,7 @@ layout: example/homepage/test/2col_Layout
                                             },
                                             {
                                                 "rowTitle": "Project",
+                                                "id": "project",
                                                 "valueList": [
                                                     {
                                                         "text": "Annual Business Survey (ABS)"
@@ -88,6 +198,7 @@ layout: example/homepage/test/2col_Layout
                                             },
                                             {
                                                 "rowTitle": "Owner",
+                                                "id": "owner",
                                                 "valueList": [
                                                     {
                                                         "text": "Deborah O'Shaughnessy"
@@ -110,7 +221,7 @@ layout: example/homepage/test/2col_Layout
             <span class="ons-btn__inner"><span class="ons-btn__text">Cancel</span>
             </span>
         </button>
-        <button type="submit" class="ons-btn ons-js-modal-btn ons-u-mt-s" onclick="deleteQuestionnaire('row1')">
+        <button type="submit" class="ons-btn ons-js-modal-btn ons-u-mt-s" id="deleteButton" onclick="deleteQuestionnaire(rowId)">
         <span class="ons-btn__inner"><span class="ons-btn__text">Delete</span>
         </span>
         </button>
@@ -119,10 +230,14 @@ layout: example/homepage/test/2col_Layout
   </dialog>
 </div>
 
-            <h2 class="ons-u-fs-m" id="questionnaireCount">84 questionnaires</h2>
+            <h2 class="ons-u-fs-m ons-u-mb-m" id="questionnaireCount">84 questionnaires</h2>
+
+            <h3 class="ons-u-fs-m"><span class="material-symbols-outlined ons-u-mr-xs" style="color:#707071">star</span>Starred</h3>
+
+            <p class="u-fs-16 ons-u-mb-m">No questionnaires have been added to starred</p>
 
             <table id="basic-table" class="ons-table">
-            <caption class="ons-table__caption">A basic table with a caption</caption>
+            {#<caption class="ons-table__caption">A basic table with a caption</caption>#}
             <thead class="ons-table__head">
                 <tr class="ons-table__row">
                 <th scope="col" class="ons-table__header">
@@ -147,18 +262,18 @@ layout: example/homepage/test/2col_Layout
             </thead>
             <tbody class="ons-table__body">
                 <tr class="ons-table__row row-relative" id="row1">
-                <td class="ons-table__cell"> Cell A1 </td>
-                <td class="ons-table__cell"> Cell B1 </td>
-                <td class="ons-table__cell"> Cell C1 </td>
-                <td class="ons-table__cell"> Cell D1 </td>
-                <td class="ons-table__cell"> Cell E1 </td>
+                <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs" >Copy of V3 Draft 0173</span><a href="#">Copy of Annual Business Survey</a></td>
+                <td class="ons-table__cell"> Annual Business Survey (ABS) </td>
+                <td class="ons-table__cell"> Stuart Davies </td>
+                <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs" >Date created:</span>14th Aug 2023 <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs" >Last opened:</span>16th Aug 2023</td>
+                <td class="ons-table__cell"> Editor </td>
                 <td class="ons-table__cell">
                     <div class="menu-container">
                         <button type="button"
                                 id="menubutton1"
                                 class="actionsBtn"
                                 aria-haspopup="true"
-                                aria-controls="menu2" onclick="toggleMenu(event, 'menu1')">
+                                aria-controls="menu2" onclick="toggleMenu(event, 'menubutton1', 'menu1')">
                             Actions
                         <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
                         </button>
@@ -169,7 +284,7 @@ layout: example/homepage/test/2col_Layout
                             <span class="material-symbols-outlined">
                                 content_copy
                                 </span>
-                            <a role="menuitem" class="listItemLink" href="https://www.w3.org/">
+                            <a role="menuitem" class="listItemLink" href="#" onclick="duplicate('menubutton1', 'Copy of V3 Draft 0173', 'Copy of Monthly Business Survey')">
                                 Duplicate
                             </a>
                             </li>
@@ -190,7 +305,7 @@ layout: example/homepage/test/2col_Layout
                             </button>
                             </li>
                             <li role="none" class="ons-u-mb-no">
-                            <button role="menuitem" class="listItemButton">
+                            <button role="menuitem" class="listItemButton" onclick="confirmDeletion('menubutton1', 'menu1', 'Copy of V3 Draft 0173', 'Copy of Monthly Business Survey', 'Annual Business Survey (ABS)', 'Stuart Davies', 'row1')">
                                 <span class="material-symbols-outlined">
                                 delete
                                 </span>
@@ -202,18 +317,18 @@ layout: example/homepage/test/2col_Layout
                 </td>
                 </tr>
                 <tr class="ons-table__row row-relative" id="row2">
-                <td class="ons-table__cell"> Cell A2 </td>
-                <td class="ons-table__cell"> Cell B2 </td>
-                <td class="ons-table__cell"> Cell C2 </td>
-                <td class="ons-table__cell"> Cell D2 </td>
-                <td class="ons-table__cell"> Cell E2 </td>
+                <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs" >Copy of V4 Draft 0173</span><a href="#">Draft</a></td>
+                <td class="ons-table__cell"> Annual Business Survey (ABS) </td>
+                <td class="ons-table__cell"> Stuart Davies </td>
+                <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs" >Date created:</span>16th Aug 2023 <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs" >Last opened:</span>17th Aug 2023</td>
+                <td class="ons-table__cell"> Editor </td>
                 <td class="ons-table__cell">
                     <div class="menu-container">
                         <button type="button"
                                 id="menubutton2"
                                 class="actionsBtn"
                                 aria-haspopup="true"
-                                aria-controls="menu2" onclick="toggleMenu(event, 'menu2')">
+                                aria-controls="menu2" onclick="toggleMenu(event, 'menubutton2', 'menu2')">
                             Actions
                         <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
                         </button>
@@ -245,7 +360,7 @@ layout: example/homepage/test/2col_Layout
                             </button>
                             </li>
                             <li role="none" class="ons-u-mb-no">
-                            <button role="menuitem" class="listItemButton">
+                            <button role="menuitem" class="listItemButton" onclick="confirmDeletion('menubutton2', 'menu2', 'Copy of V4 Draft 0173', 'Draft', 'Annual Business Survey (ABS)', 'Stuart Davies', 'row2')">
                                 <span class="material-symbols-outlined">
                                 delete
                                 </span>
@@ -266,39 +381,153 @@ layout: example/homepage/test/2col_Layout
 
 {% block bodyEnd %}
 
-  <script>
-  function confirmDeletion(){
+<script>
+
+{# Rendering new questionnaires #}
+    console.log('row being created');
+    var table = document.getElementById("basic-table");
+    var counter = parseInt(sessionStorage.getItem("questionnaireCounter")) || 0;
+    var tbody = table.querySelector("tbody");
+
+    for (var i = 1; i <= counter; i++) {
+        var row = tbody.insertRow(0); 
+        row.classList.add("ons-table__row", "row-relative"); 
+        var td1 = row.insertCell(0);
+        td1.classList.add("ons-table__cell"); 
+        var span1 = document.createElement("span");
+        span1.className = "ons-u-db ons-u-fs-s ons-u-mb-xs";
+        span1.textContent = sessionStorage.getItem("Shortcode_" + i);
+
+        var anchor = document.createElement("a");
+        anchor.href = "#";
+        anchor.textContent = sessionStorage.getItem("Title_" + i);
+
+        td1.appendChild(span1);
+        td1.appendChild(anchor);
+
+        var td2 = row.insertCell(1);
+        td2.classList.add("ons-table__cell"); 
+        td2.textContent = sessionStorage.getItem("Project_" + i);
+
+        var td3 = row.insertCell(2);
+        td3.classList.add("ons-table__cell"); 
+        td3.textContent = "Lauren Dowling";
+
+        var td4 = row.insertCell(3);
+        td4.classList.add("ons-table__cell"); 
+        var span2 = document.createElement("span");
+        span2.className = "ons-u-db ons-u-fs-s ons-u-mb-xs";
+        span2.textContent = "Date created:";
+        var dateCreated = "27 Aug 2023"; 
+        var span3 = document.createElement("span");
+        span3.className = "ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs";
+        span3.textContent = "Last opened:";
+        var dateLastOpened = "27 Aug 2023"; 
+
+        td4.appendChild(span2);
+        td4.appendChild(document.createTextNode(dateCreated));
+        td4.appendChild(span3);
+        td4.appendChild(document.createTextNode(dateLastOpened));
+
+        var td5 = row.insertCell(4);
+        td5.classList.add("ons-table__cell"); 
+        td5.textContent = "Editor";
+    }
+
+
+function toggleMenu(event, Buttonid, ULid) {
+  event.stopPropagation(); 
+  var menu = document.getElementById(ULid);
+  var svgIcon = document.querySelector(`#${Buttonid} .ons-icon`);
+
+  if (menu.style.display === "none" || menu.style.display === "") {
+    menu.style.display = "block";
+    document.addEventListener("click", closeMenuOnClickOutside.bind(null, ULid));
+    svgIcon.style.transform = "rotate(-90deg)"; 
+    svgIcon.style.padding = "0 0 0 4px";
+  } else {
+    menu.style.display = "none";
+    document.removeEventListener("click", closeMenuOnClickOutside.bind(null, ULid));
+    svgIcon.style.transform = "rotate(90deg)"; 
+    svgIcon.style.padding = "0 0 0 0"; 
+  }
+}
+
+function closeMenuOnClickOutside(ULid, event) {
+  var menu = document.getElementById(ULid);
+  
+  if (!menu.contains(event.target)) {
+    menu.style.display = "none";
+    document.removeEventListener("click", closeMenuOnClickOutside.bind(null, ULid));
+  }
+}
+
+function confirmDeletion(Buttonid, ULid, shortcode, title, project, owner, rowId){
     console.log('hello');
+    toggleMenu(event, Buttonid, ULid);
     var container = document.getElementById('modalContainer');
     container.style.display = "block";
     var modal = document.getElementById('modalDialog');
     modal.style.display = "block";
-  }
 
-    function cancelDeletion(){
-        console.log('hello');
-        var container = document.getElementById('modalContainer');
-        container.style.display = "none";
-        var modal = document.getElementById('modalDialog');
-        modal.style.display = "none";
-  }
+    {# Updates the values in the modal #}
+    var shortcodeSpan = document.querySelector('#shortcode .ons-summary__text');
+    shortcodeSpan.textContent = shortcode;
+    var titleSpan = document.querySelector('#title .ons-summary__text');
+    titleSpan.textContent = title;
+    var projectSpan = document.querySelector('#project .ons-summary__text');
+    projectSpan.textContent = project;
+    var ownerSpan = document.querySelector('#owner .ons-summary__text');
+    ownerSpan.textContent = owner;
+    
+    {# Defines which row to delete #}
+    var deleteButton = document.getElementById('deleteButton');
+    deleteButton.addEventListener('click', function() {
+    deleteQuestionnaire(rowId);
+    });
 
-  function deleteQuestionnaire(rowId) {
-    var row = document.getElementById(rowId);
-    if (row) {
-        row.remove();
-        var container = document.getElementById('modalContainer');
-        container.style.display = "none";
-        var modal = document.getElementById('modalDialog');
-        modal.style.display = "none";
+}
 
-        var questionnaireCountElement = document.getElementById('questionnaireCount');
-        var currentCount = parseInt(questionnaireCountElement.textContent, 10);
-        if (!isNaN(currentCount) && currentCount > 0) {
-        questionnaireCountElement.textContent = (currentCount - 1) + ' questionnaires';
-      }
+function cancelDeletion(){
+    console.log('hello');
+    var container = document.getElementById('modalContainer');
+    container.style.display = "none";
+    var modal = document.getElementById('modalDialog');
+    modal.style.display = "none";
+}
+
+function deleteQuestionnaire(rowId) {
+var row = document.getElementById(rowId);
+if (row) {
+    row.remove();
+    var container = document.getElementById('modalContainer');
+    container.style.display = "none";
+    var modal = document.getElementById('modalDialog');
+    modal.style.display = "none";
+
+    var questionnaireCountElement = document.getElementById('questionnaireCount');
+    var currentCount = parseInt(questionnaireCountElement.textContent, 10);
+    if (!isNaN(currentCount) && currentCount > 0) {
+    questionnaireCountElement.textContent = (currentCount - 1) + ' questionnaires';
     }
-  }
+}
+}
+
+function duplicate(Buttonid, shortcode, title) {
+    var button = document.getElementById(Buttonid);
+    button.style = "border:2px solid #003C57; background-color: #206095; color:white;"; 
+
+
+    if (shortcode) {
+        sessionStorage.setItem('duplicateShortcode', shortcode);
+    }
+    if (title) {
+        sessionStorage.setItem('duplicateTitle', title);
+    }
+
+    window.location.href = "/prototypes/example/homepage/test/duplicate/enterDetails";
+}
+
 
 
 </script>
