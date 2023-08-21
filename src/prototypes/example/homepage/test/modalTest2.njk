@@ -229,6 +229,7 @@ layout: example/homepage/test/2col_Layout
     </div>
   </dialog>
 </div>
+    <a href="/prototypes/example/homepage/test/NewQuestionnaire">Link</a>
 
             <h2 class="ons-u-fs-m ons-u-mb-m" id="questionnaireCount">84 questionnaires</h2>
 
@@ -384,60 +385,176 @@ layout: example/homepage/test/2col_Layout
 <script>
 
 {# Rendering new questionnaires #}
-    console.log('row being created');
     var table = document.getElementById("basic-table");
     var counter = parseInt(sessionStorage.getItem("questionnaireCounter")) || 0;
     var tbody = table.querySelector("tbody");
 
     for (var i = 1; i <= counter; i++) {
-        var row = tbody.insertRow(0); 
-        row.classList.add("ons-table__row", "row-relative"); 
+        if(sessionStorage.getItem("Buttonid_" + i)){
+        var row = tbody.insertRow(0);
+        row.classList.add("ons-table__row", "row-relative");
+        var ROWid = sessionStorage.getItem('rowID' + i);
+        row.id = ROWid;
+
         var td1 = row.insertCell(0);
-        td1.classList.add("ons-table__cell"); 
-        var span1 = document.createElement("span");
-        span1.className = "ons-u-db ons-u-fs-s ons-u-mb-xs";
-        span1.textContent = sessionStorage.getItem("Shortcode_" + i);
-
-        var anchor = document.createElement("a");
-        anchor.href = "#";
-        anchor.textContent = sessionStorage.getItem("Title_" + i);
-
-        td1.appendChild(span1);
-        td1.appendChild(anchor);
+        td1.classList.add("ons-table__cell");
+        td1.innerHTML = `<span class="ons-u-db ons-u-fs-s ons-u-mb-xs">${sessionStorage.getItem('Shortcode_' + i)}</span><a href="#">${sessionStorage.getItem('Title_' + i)}</a>`;
 
         var td2 = row.insertCell(1);
-        td2.classList.add("ons-table__cell"); 
-        td2.textContent = sessionStorage.getItem("Project_" + i);
+        td2.classList.add("ons-table__cell");
+        td2.textContent = sessionStorage.getItem('Project_' + i);
 
         var td3 = row.insertCell(2);
-        td3.classList.add("ons-table__cell"); 
+        td3.classList.add("ons-table__cell");
         td3.textContent = "Lauren Dowling";
 
         var td4 = row.insertCell(3);
-        td4.classList.add("ons-table__cell"); 
-        var span2 = document.createElement("span");
-        span2.className = "ons-u-db ons-u-fs-s ons-u-mb-xs";
-        span2.textContent = "Date created:";
-        var dateCreated = "27 Aug 2023"; 
-        var span3 = document.createElement("span");
-        span3.className = "ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs";
-        span3.textContent = "Last opened:";
-        var dateLastOpened = "27 Aug 2023"; 
-
-        td4.appendChild(span2);
-        td4.appendChild(document.createTextNode(dateCreated));
-        td4.appendChild(span3);
-        td4.appendChild(document.createTextNode(dateLastOpened));
+        td4.classList.add("ons-table__cell");
+        td4.innerHTML = `<span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>27 Aug 2023<span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>27 Aug 2023`;
 
         var td5 = row.insertCell(4);
-        td5.classList.add("ons-table__cell"); 
+        td5.classList.add("ons-table__cell");
         td5.textContent = "Editor";
+
+        var td6 = row.insertCell(5);
+        td6.classList.add("ons-table__cell");
+
+        var menuContainer = document.createElement("div");
+        menuContainer.className = "menu-container";
+
+        var buttonId = sessionStorage.getItem('Buttonid_' + i);
+        var ulId = sessionStorage.getItem('ULid' + i);
+
+        var actionsButton = document.createElement("button");
+        actionsButton.type = "button";
+        actionsButton.id = buttonId;
+        actionsButton.className = "actionsBtn";
+        actionsButton.setAttribute("aria-haspopup", "true");
+        actionsButton.setAttribute("aria-controls", ulId);
+        actionsButton.setAttribute("onclick", `toggleMenu(event, '${sessionStorage.getItem('Buttonid_' + i)}', '${sessionStorage.getItem('ULid' + i)}')`);
+
+        var SVGIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        SVGIcon.classList.add("ons-icon", "ons-u-ml-xs");
+        SVGIcon.setAttribute("viewBox", "0 0 8 13");
+        SVGIcon.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+        SVGIcon.setAttribute("focusable", "false");
+        SVGIcon.setAttribute("fill", "currentColor");
+
+        var path = document.createElement("path");
+        path.setAttribute("d", "M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z");
+        path.setAttribute("transform", "translate(-5.02 -1.59)");
+
+        SVGIcon.appendChild(path);
+        actionsButton.appendChild(document.createTextNode(" Actions"));
+        actionsButton.appendChild(SVGIcon);
+
+
+        var ul = document.createElement("ul");
+        ul.id = ulId;
+        ul.role = "menu";
+        ul.setAttribute("aria-labelledby", buttonId);
+        ul.className = "menu";
+
+        var duplicateLi = document.createElement("li");
+        duplicateLi.role = "none";
+        duplicateLi.className = "duplicate";
+
+        var duplicateSpan = document.createElement("span");
+        duplicateSpan.className = "material-symbols-outlined";
+        duplicateSpan.textContent = "content_copy";
+
+        var duplicateLink = document.createElement("a");
+        duplicateLink.role = "menuitem";
+        duplicateLink.className = "listItemLink";
+        duplicateLink.href = "#";
+        duplicateLink.textContent = "Duplicate";
+        duplicateLink.setAttribute("onclick", `duplicate('${buttonId}', '${sessionStorage.getItem('Shortcode_' + i)}', '${sessionStorage.getItem('Title_' + i)}')`);
+
+        duplicateLi.appendChild(duplicateSpan);
+        duplicateLi.appendChild(duplicateLink);
+
+        ul.appendChild(duplicateLi);
+
+        var copyLinkLi = document.createElement("li");
+        copyLinkLi.role = "none";
+
+        var copyLinkButton = document.createElement("button");
+        copyLinkButton.role = "menuitem";
+        copyLinkButton.className = "listItemButton";
+
+        var copyLinkSpan = document.createElement("span");
+        copyLinkSpan.className = "material-symbols-outlined";
+        copyLinkSpan.textContent = "link";
+
+        var buttonText = document.createTextNode("Copy link");
+        
+        copyLinkButton.appendChild(copyLinkSpan);
+        copyLinkButton.appendChild(buttonText);
+
+
+        copyLinkLi.appendChild(copyLinkButton);
+        ul.appendChild(copyLinkLi);
+
+
+{# Copy link button #}
+        var addToStarredLi = document.createElement("li");
+        addToStarredLi.role = "none";
+
+        var addToStarredButton = document.createElement("button");
+        addToStarredButton.role = "menuitem";
+        addToStarredButton.className = "listItemButton";
+
+        var addToStarredSpan = document.createElement("span");
+        addToStarredSpan.className = "material-symbols-outlined";
+        addToStarredSpan.textContent = "star";
+
+        var StarText = document.createTextNode("Add to starred");
+
+        addToStarredButton.appendChild(addToStarredSpan);
+        addToStarredButton.appendChild(StarText);
+
+        addToStarredLi.appendChild(addToStarredButton);
+        ul.appendChild(addToStarredLi);
+
+{# Delete button #}
+        var deleteLi = document.createElement("li");
+        deleteLi.role = "none";
+        deleteLi.className = "ons-u-mb-no";
+
+        var deleteButton = document.createElement("button");
+        deleteButton.role = "menuitem";
+        deleteButton.className = "listItemButton";
+        deleteButton.setAttribute("onclick", `confirmDeletion('${sessionStorage.getItem('Buttonid_' + i)}', '${sessionStorage.getItem('ULid' + i)}', '${sessionStorage.getItem('Shortcode_' + i)}', '${sessionStorage.getItem('Title_' + i)}', '${sessionStorage.getItem('Project_' + i)}', 'Lauren Dowling', '${sessionStorage.getItem('rowID' + i)}')`);
+
+        var deleteSpan = document.createElement("span");
+        deleteSpan.className = "material-symbols-outlined";
+        deleteSpan.textContent = "delete";
+
+        var DeleteText = document.createTextNode("Delete");
+
+        deleteButton.appendChild(deleteSpan);
+        deleteButton.appendChild(DeleteText);
+
+        deleteLi.appendChild(deleteButton);
+        ul.appendChild(deleteLi);
+
+
+        menuContainer.appendChild(actionsButton);
+        menuContainer.appendChild(ul);
+        td6.appendChild(menuContainer);
     }
+}
+
+
 
 
 function toggleMenu(event, Buttonid, ULid) {
   event.stopPropagation(); 
+  console.log('executing');
+    console.log('Buttonid:', Buttonid);
+  console.log('ULid:', ULid);
   var menu = document.getElementById(ULid);
+  console.log(menu);
   var svgIcon = document.querySelector(`#${Buttonid} .ons-icon`);
 
   if (menu.style.display === "none" || menu.style.display === "") {
@@ -476,14 +593,41 @@ function confirmDeletion(Buttonid, ULid, shortcode, title, project, owner, rowId
     var titleSpan = document.querySelector('#title .ons-summary__text');
     titleSpan.textContent = title;
     var projectSpan = document.querySelector('#project .ons-summary__text');
-    projectSpan.textContent = project;
+    if (project != 'null'){
+        console.log(project);
+        projectSpan.textContent = project;
+    }
+    else{
+        projectSpan.textContent = '';
+
+    }
     var ownerSpan = document.querySelector('#owner .ons-summary__text');
     ownerSpan.textContent = owner;
     
     {# Defines which row to delete #}
+
     var deleteButton = document.getElementById('deleteButton');
     deleteButton.addEventListener('click', function() {
-    deleteQuestionnaire(rowId);
+    deleteQuestionnaire(Buttonid, ULid, shortcode, title, project, owner, rowId);
+
+    var match = Buttonid.match(/_(\d+)$/);
+    if (match) {
+        var numberAfterUnderscore = match[1];
+
+        sessionStorage.removeItem("Buttonid_" + numberAfterUnderscore);
+        sessionStorage.removeItem("ULid" + numberAfterUnderscore);
+        if(sessionStorage.getItem("Shortcode_" + numberAfterUnderscore)){
+            sessionStorage.removeItem("Shortcode_" + numberAfterUnderscore);
+        }
+        sessionStorage.removeItem("Title_" + numberAfterUnderscore);
+        if(sessionStorage.getItem("Project_" + numberAfterUnderscore)){
+            sessionStorage.removeItem("Project_" + numberAfterUnderscore);
+        }
+        sessionStorage.removeItem("rowID" + numberAfterUnderscore);
+
+        deleteQuestionnaire(rowId);
+    }
+
     });
 
 }
@@ -496,28 +640,34 @@ function cancelDeletion(){
     modal.style.display = "none";
 }
 
-function deleteQuestionnaire(rowId) {
+function deleteQuestionnaire(Buttonid, ULid, shortcode, title, project, owner, rowId) {
+console.log(rowId);
+console.log('deletingrow');
 var row = document.getElementById(rowId);
-if (row) {
-    row.remove();
-    var container = document.getElementById('modalContainer');
-    container.style.display = "none";
-    var modal = document.getElementById('modalDialog');
-    modal.style.display = "none";
+console.log(document.getElementById(rowId));
+    if (row) {
+        row.remove();
+        var container = document.getElementById('modalContainer');
+        container.style.display = "none";
+        var modal = document.getElementById('modalDialog');
+        modal.style.display = "none";
 
-    var questionnaireCountElement = document.getElementById('questionnaireCount');
-    var currentCount = parseInt(questionnaireCountElement.textContent, 10);
-    if (!isNaN(currentCount) && currentCount > 0) {
-    questionnaireCountElement.textContent = (currentCount - 1) + ' questionnaires';
+        var questionnaireCountElement = document.getElementById('questionnaireCount');
+        var currentCount = parseInt(questionnaireCountElement.textContent, 10);
+        if (!isNaN(currentCount) && currentCount > 0) {
+        questionnaireCountElement.textContent = (currentCount - 1) + ' questionnaires';
+        }
+
+
     }
-}
 }
 
 function duplicate(Buttonid, shortcode, title) {
     var button = document.getElementById(Buttonid);
-    button.style = "border:2px solid #003C57; background-color: #206095; color:white;"; 
-
-
+    button.style.border = "2px solid #003C57";
+    button.style.backgroundColor = "#206095";
+    button.style.color = "white"; 
+    
     if (shortcode) {
         sessionStorage.setItem('duplicateShortcode', shortcode);
     }
@@ -527,8 +677,6 @@ function duplicate(Buttonid, shortcode, title) {
 
     window.location.href = "/prototypes/example/homepage/test/duplicate/enterDetails";
 }
-
-
 
 </script>
 {% endblock %}
