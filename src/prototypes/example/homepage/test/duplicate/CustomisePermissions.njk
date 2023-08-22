@@ -175,8 +175,12 @@ layout: example/views/Author8col
 <script>
 
 function completeSetup() {
-        document.forms["duplicateQuestionnaireProject"].action = "/prototypes/example/homepage/test/NewQuestionnaire.html";    
+    document.forms["duplicateQuestionnaireProject"].action = "/prototypes/example/homepage/test/NewQuestionnaire.html";
 
+    if(document.getElementById('no-display-questionnaire-directory').checked === true){
+        var counter = sessionStorage.getItem('questionnaireCounter');
+        sessionStorage.setItem('NoDisplayInDirectory_' + counter, true);
+    }
 
 }
 
@@ -198,28 +202,22 @@ autosuggestResults.addEventListener('click', function (event) {
 
 
 function addListItem(text) {
-  // Create a new list item
   const listItem = document.createElement('li');
   listItem.textContent = text;
 
-  // Create a button to remove the list item
   const removeButton = document.createElement('button');
   removeButton.type = 'button';
   removeButton.className = 'ons-u-fr removeBtn';
   removeButton.textContent = 'Remove';
 
-  // Add a click event listener to the remove button
   removeButton.addEventListener('click', function () {
     listItem.remove();
   });
 
-  // Append the text and remove button to the list item
   listItem.appendChild(removeButton);
 
-  // Append the list item to the list
   listOfEditors.appendChild(listItem);
 
-  // Clear the input value
   editorsInput.value = '';
 }
 
