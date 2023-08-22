@@ -12,6 +12,7 @@ layout: example/homepage/test/2col_Layout
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 <style>
     {# 16px font size #}
@@ -93,7 +94,7 @@ layout: example/homepage/test/2col_Layout
     .listItemButton {
         display: inline-flex;
         box-sizing: border-box;
-        width:180px;
+        width:100%;
         line-height: 1.35;
         align-items: center;
         background-color: #206095;
@@ -230,6 +231,15 @@ layout: example/homepage/test/2col_Layout
   </dialog>
 </div>
     <a href="/prototypes/example/homepage/test/NewQuestionnaire">Link</a>
+    <div class="ons-u-db ons-u-mt-s ons-u-mb-s">
+        {{
+            onsButton({
+                "text": 'Create questionnaire',
+                "url": '/prototypes/example/homepage/test/create/enterDetails.html'            
+            })
+        }}
+    </div>
+
 
             <h2 class="ons-u-fs-m ons-u-mb-m" id="questionnaireCount">84 questionnaires</h2>
 
@@ -412,9 +422,17 @@ layout: example/homepage/test/2col_Layout
         td4.classList.add("ons-table__cell");
         td4.innerHTML = `<span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>27 Aug 2023<span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>27 Aug 2023`;
 
-        var td5 = row.insertCell(4);
-        td5.classList.add("ons-table__cell");
-        td5.textContent = "Editor";
+        if(sessionStorage.getItem("Access_" + i) == 'Editor'){
+            var td5 = row.insertCell(4);
+            td5.classList.add("ons-table__cell");
+            td5.textContent = "Editor";
+        }
+
+        if(sessionStorage.getItem("Access_" + i) == 'View-only'){
+            var td5 = row.insertCell(4);
+            td5.classList.add("ons-table__cell");
+            td5.textContent = "View-only";
+        }
 
         var td6 = row.insertCell(5);
         td6.classList.add("ons-table__cell");
@@ -515,6 +533,29 @@ layout: example/homepage/test/2col_Layout
 
         addToStarredLi.appendChild(addToStarredButton);
         ul.appendChild(addToStarredLi);
+
+{# Remove from My questionnaires #}
+        
+        if(sessionStorage.getItem("Access_" + i) == 'View-only'){
+            var removeFromMyQuestionnairesLi = document.createElement("li");
+            removeFromMyQuestionnairesLi.role = "none";
+
+            var removeFromMyQuestionnairesButton = document.createElement("button");
+            removeFromMyQuestionnairesButton.role = "menuitem";
+            removeFromMyQuestionnairesButton.className = "listItemButton";
+
+            var removeFromMyQuestionnairesSpan = document.createElement("span");
+            removeFromMyQuestionnairesSpan.className = "material-symbols-outlined";
+            removeFromMyQuestionnairesSpan.textContent = "bookmark_remove";
+
+            var RemoveText = document.createTextNode("Remove from My questionnaires");
+
+            removeFromMyQuestionnairesButton.appendChild(removeFromMyQuestionnairesSpan);
+            removeFromMyQuestionnairesButton.appendChild(RemoveText);
+
+            removeFromMyQuestionnairesLi.appendChild(removeFromMyQuestionnairesButton);
+            ul.appendChild(removeFromMyQuestionnairesLi);
+        }
 
 {# Delete button #}
         var deleteLi = document.createElement("li");
@@ -667,7 +708,7 @@ function duplicate(Buttonid, shortcode, title) {
     button.style.border = "2px solid #003C57";
     button.style.backgroundColor = "#206095";
     button.style.color = "white"; 
-    
+
     if (shortcode) {
         sessionStorage.setItem('duplicateShortcode', shortcode);
     }

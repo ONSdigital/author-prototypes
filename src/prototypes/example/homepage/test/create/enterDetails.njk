@@ -14,8 +14,8 @@ layout: example/views/Author8col
 {% set form =  {
     "method": "GET",
     "attributes": {
-        "name": "duplicateQuestionnaireDetails",
-        "onsubmit":  "return duplicationEnterDetails()"
+        "name": "CreationEnterDetails",
+        "onsubmit":  "return creationEnterDetails()"
     }
 } %}
 
@@ -46,7 +46,7 @@ layout: example/views/Author8col
 
 {% block main %}
 
-    <h1><span class="ons-u-fs-m ons-u-db ons-u-mb-xs ons-u-lighter">Duplicate questionnaire</span> Enter questionnaire details</h1>
+    <h1><span class="ons-u-fs-m ons-u-db ons-u-mb-xs ons-u-lighter">Create questionnaire</span> Enter questionnaire details</h1>
 
     {{
         onsPanel({
@@ -118,14 +118,9 @@ layout: example/views/Author8col
 
 <script>
 
-    var duplicatedTitle = sessionStorage.getItem('duplicateShortcode');
-    var duplicatedShortcode = sessionStorage.getItem('duplicateTitle');
-    var title = document.getElementById('title-input');
-    var shortcode = document.getElementById('shortcode-input');
-    title.value = "Copy of " + duplicatedTitle;
-    shortcode.value = "Copy of " + duplicatedShortcode;
 
-function duplicationEnterDetails() {
+function creationEnterDetails() {
+    console.log('executing');
     var counter = parseInt(sessionStorage.getItem('questionnaireCounter')) || 0;
     counter++;
     sessionStorage.setItem('questionnaireCounter', counter);
@@ -146,15 +141,15 @@ function duplicationEnterDetails() {
         if (document.getElementById('customise-access-permissions').checked == true) {
             sessionStorage.setItem('customisePermissions', true);
         }
-        document.forms["duplicateQuestionnaireDetails"].action = "/prototypes/example/homepage/test/duplicate/AddProject.html";    
+        document.forms["CreationEnterDetails"].action = "/prototypes/example/homepage/test/create/AddProject.html";    
     } 
     else {
         console.log('running');
         if (document.getElementById('customise-access-permissions').checked == true) {
-            document.forms["duplicateQuestionnaireDetails"].action = "/prototypes/example/homepage/test/duplicate/customisePermissions.html";    
+            document.forms["CreationEnterDetails"].action = "/prototypes/example/homepage/test/create/customisePermissions.html";    
 
         } else {
-            document.forms["duplicateQuestionnaireDetails"].action = "/prototypes/example/homepage/test/NewQuestionnaire.html";    
+            document.forms["CreationEnterDetails"].action = "/prototypes/example/homepage/test/NewQuestionnaire.html";    
 
         }
     }
