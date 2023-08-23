@@ -16,6 +16,7 @@ layout: example/homepage/test/2col_Layout
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 <style>
     {# 16px font size #}
@@ -149,6 +150,36 @@ layout: example/homepage/test/2col_Layout
         z-index: 101;
         display:none;
         margin:0;
+    }
+
+    .filter-tag-button{
+        border-radius: 3px;
+        border: 1px solid #bcbcbd;
+        background-color: #f5f5f6;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        padding: 4px 4px 4px 7px;
+        margin-left: 10px;
+
+    }
+
+    .filter-tag-button span{
+        color: #707071;
+
+    }
+
+    .AllFiltersFlexContainer{
+        display:flex;
+    }
+
+    .FiltersFlexItems{
+        display: flex;
+        height: fit-content;
+        align-items: center;
+        font-size: 16px;
+        font-weight: 600;
     }
 
 </style>
@@ -386,7 +417,13 @@ layout: example/homepage/test/2col_Layout
             })
         }}
 
-        <div id="area-for-tags"></div>
+        <div id="area-for-tags" class="AllFiltersFlexContainer">
+            <div id="tags-project" class="FiltersFlexItems" style="display:none;">Project:</div>
+            <div id="tags-owner" class="FiltersFlexItems" style="display:none;">Owner:</div>
+            <div id="tags-dateBefore" class="FiltersFlexItems" style="display:none;">Created before:</div>
+            <div id="tags-dateAfter" class="FiltersFlexItems" style="display:none;">Created after:</div>
+            <div id="tags-access" class="FiltersFlexItems" style="display:none;">Access:</div>
+        </div>
 
 
             <h2 class="ons-u-fs-m ons-u-mb-m" id="questionnaireCount">84 questionnaires</h2>
@@ -1088,7 +1125,12 @@ function ApplyFilters() {
         }
         else{
             access = false;
+   
         }
+    }
+    else{
+        console.log('no access checked');
+        document.getElementById("tags-access").style.display = "none"; 
     }
 
       if (projectFilterMatch && ownerFilterMatch && BeforedateFilterMatch && AfterdateFilterMatch && access) {
@@ -1101,7 +1143,172 @@ function ApplyFilters() {
 
   filterTable("starred-table");
   filterTable("basic-table");
+
+  // Check if the Project filter is non-empty and matches
+  if (projectFilter !== "") {
+    var originalProjectFilter = document.getElementById("project-filter").value;
+    appendFilterTag(originalProjectFilter, "Project");
+  }
+
+  // Check if the Owner filter is non-empty and matches
+  if (ownerFilter !== "") {
+    var originalownerFilter = document.getElementById("owner-filter").value;
+    appendFilterTag(originalownerFilter, "Owner");
+  }
+
+  // Check if the Before filters are non-empty and match
+  if (BeforeDayFilter !== "" && BeforeMonthFilter !== "" && BeforeYearFilter !== "") {
+    appendFilterTag(BeforeDayFilter + "/" + BeforeMonthFilter + "/" + BeforeYearFilter, "DateBefore");
+  }
+
+  // Check if the After filters are non-empty and match
+  if (AfterDayFilter !== "" && AfterMonthFilter !== "" && AfterYearFilter !== "") {
+    appendFilterTag(AfterDayFilter + "/" + AfterMonthFilter + "/" + AfterYearFilter, "DateAfter");
+  }
+
+  // Check if the access matches
+  if (EditorAccess.checked || ViewOnlyAccess.checked || ReadOnlyAccess.checked) {
+    if (EditorAccess.checked) {
+      appendFilterTag("Editor", "Editor")
+    }
+    if (ViewOnlyAccess.checked) {
+        appendFilterTag("View-only", "View-only")
+
+    }
+    if (ReadOnlyAccess.checked) {
+        appendFilterTag("Read-only for editors", "Read-only")
+    }
+  }
 }
+
+// Function to clear input values
+function clearInputValues() {
+  document.getElementById("project-filter").value = "";
+  document.getElementById("owner-filter").value = "";
+  document.getElementById("created-before-filter-day").value = "";
+  document.getElementById("created-before-filter-month").value = "";
+  document.getElementById("created-before-filter-year").value = "";
+  document.getElementById("created-after-filter-day").value = "";
+  document.getElementById("created-after-filter-month").value = "";
+  document.getElementById("created-after-filter-year").value = "";
+  EditorAccess.checked = false;
+  ViewOnlyAccess.checked = false;
+  ReadOnlyAccess.checked = false;
+}
+{#
+// Function to add a filter tag as a button
+function appendFilterTag(filterText) {
+  // Create a new button element for the filter tag
+  var button = document.createElement("button");
+  button.className = "filter-tag-button"; // You can style this class in your CSS
+  button.textContent = filterText;
+
+  // Add an onclick attribute to remove the filter
+  button.setAttribute("onclick", 'removeFilterTag("' + filterText + '")');
+
+  // Append the button to the filter tag area
+  var filterTagArea = document.getElementById("area-for-tags");
+  filterTagArea.appendChild(button);
+}
+#}
+
+function appendFilterTag(filterText, filterType) {
+  // Remove whitespaces from filterText and use it as the element id
+  var filterId = filterText.replace(/\s/g, "");
+
+  // Check if an element with the id already exists
+  if (!document.getElementById(filterId)) {
+    // Create a new button element for the filter tag
+    var button = document.createElement("button");
+    button.className = "filter-tag-button"; // You can style this class in your CSS
+    button.textContent = filterText;
+
+    // Create a span element for the close icon
+    var closeIcon = document.createElement("span");
+    closeIcon.className = "material-symbols-outlined";
+    closeIcon.textContent = "close";
+
+    // Append the close icon to the button
+    button.appendChild(closeIcon);
+
+    // Set the onclick attribute to remove the filter
+    button.setAttribute("onclick", 'removeFilterTag("' + filterId + '", "' + filterType + '")');
+    
+    // Set the id of the element to the filterId
+    button.id = filterId;
+
+    // Append the button to the filter tag area
+
+    if (filterType === "Project") {
+        var filterTagArea = document.getElementById("tags-project");
+        filterTagArea.appendChild(button);
+        document.getElementById("tags-project").style.display = "flex";    
+    } 
+    if (filterType === "Owner") {
+        var filterTagArea = document.getElementById("tags-owner");
+        filterTagArea.appendChild(button); 
+        document.getElementById("tags-owner").style.display = "flex";   
+    } 
+    if (filterType === "DateBefore") {
+        var filterTagArea = document.getElementById("tags-dateBefore");
+        filterTagArea.appendChild(button);
+        document.getElementById("tags-dateBefore").style.display = "flex";
+    }
+    if (filterType === "DateAfter") {
+        var filterTagArea = document.getElementById("tags-dateAfter");
+        filterTagArea.appendChild(button);
+        document.getElementById("tags-dateAfter").style.display = "flex";
+    }
+    if ((filterType === "Editor") || (filterType === "View-only") || (filterType === "Read-only")) {
+        var filterTagArea = document.getElementById("tags-access");
+        filterTagArea.appendChild(button);    
+        document.getElementById("tags-access").style.display = "flex";
+    }
+
+  }
+}
+
+
+// Function to remove a filter tag and reapply filters
+function removeFilterTag(tagId, filterType) {
+  // Clear the corresponding input value
+    if (filterType === "Project") {
+        document.getElementById("project-filter").value = "";
+        document.getElementById("tags-project").style.display = "none";    
+    } 
+    else if (filterType === "Owner") {
+        document.getElementById("owner-filter").value = "";
+        document.getElementById("tags-owner").style.display = "none";    
+    } 
+    else if (filterType === "DateBefore") {
+        document.getElementById("created-before-filter-day").value = "";
+        document.getElementById("created-before-filter-month").value = "";
+        document.getElementById("created-before-filter-year").value = "";
+        document.getElementById("tags-dateBefore").style.display = "none";    
+    } 
+    else if (filterType === "DateAfter") {
+        document.getElementById("created-after-filter-day").value = "";
+        document.getElementById("created-after-filter-month").value = "";
+        document.getElementById("created-after-filter-year").value = "";
+        document.getElementById("tags-dateAfter").style.display = "none";    
+    } 
+    else if (filterType === "Editor") {
+        document.getElementById("editor").checked = false;
+    }
+    else if (filterType === "View-only") {
+        document.getElementById("view-only").checked = false;
+    }
+    else if (filterType === "Read-only") {
+        document.getElementById("read-only").checked = false;
+    }
+
+    document.getElementById(tagId).remove();
+
+
+  // Reapply all filters
+    ApplyFilters();
+}
+
 
 
 
