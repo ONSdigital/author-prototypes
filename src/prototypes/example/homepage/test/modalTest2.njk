@@ -350,25 +350,25 @@ layout: example/homepage/test/2col_Layout
         "borderless": true,
         "checkboxes": [
             {
-                "id": "post-example-with-revealed-radios",
+                "id": "editor",
                 "label": {
-                    "text": "By post"
+                    "text": "Editor"
                 },
-                "value": "post"
+                "value": "Editor"
             },
             {
-                "id": "email-example-with-revealed-radios",
+                "id": "view-only",
                 "label": {
-                    "text": "By email"
+                    "text": "View-only"
                 },
-                "value": "email"
+                "value": "View-only"
             },
             {
-                "id": "email-example-with-revealed-radios",
+                "id": "read-only",
                 "label": {
-                    "text": "By email"
+                    "text": "Read-only for editors"
                 },
-                "value": "email"
+                "value": "Read-only for editors"
             }
         ]
     })
@@ -1022,6 +1022,10 @@ function ApplyFilters() {
     var AfterDayFilter = document.getElementById("created-after-filter-day").value;
     var AfterMonthFilter = document.getElementById("created-after-filter-month").value;
     var AfterYearFilter = document.getElementById("created-after-filter-year").value;
+    var EditorAccess = document.getElementById("editor");
+    var ViewOnlyAccess = document.getElementById("view-only");
+    var ReadOnlyAccess = document.getElementById("read-only");
+
 
     BeforeDayFilter = BeforeDayFilter.replace(/^0+/, "");
     BeforeMonthFilter = BeforeMonthFilter.replace(/^0+/, "");
@@ -1036,6 +1040,8 @@ function ApplyFilters() {
       var row = rows[i];
       var ProjectCell = row.getElementsByTagName("td")[1];
       var OwnerCell = row.getElementsByTagName("td")[2];
+        var AccessCell = row.getElementsByTagName("td")[4];
+
 
       var ProjectCellText = ProjectCell.textContent.toLowerCase();
       var OwnerCellText = OwnerCell.textContent.toLowerCase();
@@ -1070,7 +1076,22 @@ function ApplyFilters() {
         }
       }
 
-      if (projectFilterMatch && ownerFilterMatch && BeforedateFilterMatch && AfterdateFilterMatch) {
+    // Check if the access matches
+    var accessCellValue = AccessCell.textContent.trim();
+    var access = true;
+    if (EditorAccess.checked || ViewOnlyAccess.checked || ReadOnlyAccess.checked) {
+        // Check if any of the checked checkboxes' values match the AccessCell content
+        if ((EditorAccess.checked && EditorAccess.value === accessCellValue) ||
+            (ViewOnlyAccess.checked && ViewOnlyAccess.value === accessCellValue) ||
+            (ReadOnlyAccess.checked && ReadOnlyAccess.value === accessCellValue)) {
+        access = true; // Set access to true if there's a match
+        }
+        else{
+            access = false;
+        }
+    }
+
+      if (projectFilterMatch && ownerFilterMatch && BeforedateFilterMatch && AfterdateFilterMatch && access) {
         row.style.display = "table-row";
       } else {
         row.style.display = "none";
