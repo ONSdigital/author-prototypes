@@ -6,6 +6,9 @@ layout: example/homepage/test/2col_Layout
 {% from "components/button/_macro.njk" import onsButton %}
 {% from "components/autosuggest/_macro.njk" import onsAutosuggest %}
 {% from "components/table/_macro.njk" import onsTable %}
+{% from "components/date-input/_macro.njk" import onsDateInput %}
+{% from "components/checkboxes/_macro.njk" import onsCheckboxes %}
+
 
 {% block head %}
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -244,6 +247,147 @@ layout: example/homepage/test/2col_Layout
         }}
     </div>
 
+    <h2>Filter</h2>
+
+        {{ onsAutosuggest({
+            "id": "owner-filter",
+            "label": {
+                "text": "Owner",
+                "id": "owner-filter-label"
+            },
+            "autocomplete": "off",
+            "instructions": "Use up and down keys to navigate suggestions once you\'ve typed more than two characters. Use the enter key to select a suggestion. Touch device users, explore by touch or with swipe gestures.",
+            "ariaYouHaveSelected": "You have selected",
+            "ariaMinChars": "Enter 3 or more characters for suggestions.",
+            "ariaOneResult": "There is one suggestion available.",
+            "ariaNResults": "There are {n} suggestions available.",
+            "ariaLimitedResults": "Results have been limited to 10 suggestions. Type more characters to improve your search",
+            "moreResults": "Continue entering to improve suggestions",
+            "resultsTitle": "Suggestions",
+            "resultsTitleId": "country-of-birth-suggestions",
+            "autosuggestData": "/owners.json",
+            "noResults": "No suggestions found. You can enter your own answer",
+            "typeMore": "Continue entering to get suggestions"
+        }) }}
+
+        {{ onsAutosuggest({
+            "id": "project-filter",
+            "label": {
+                "text": "Project",
+                "id": "project-filter-label"
+            },
+            "autocomplete": "off",
+            "instructions": "Use up and down keys to navigate suggestions once you\'ve typed more than two characters. Use the enter key to select a suggestion. Touch device users, explore by touch or with swipe gestures.",
+            "ariaYouHaveSelected": "You have selected",
+            "ariaMinChars": "Enter 3 or more characters for suggestions.",
+            "ariaOneResult": "There is one suggestion available.",
+            "ariaNResults": "There are {n} suggestions available.",
+            "ariaLimitedResults": "Results have been limited to 10 suggestions. Type more characters to improve your search",
+            "moreResults": "Continue entering to improve suggestions",
+            "resultsTitle": "Suggestions",
+            "resultsTitleId": "country-of-birth-suggestions",
+            "autosuggestData": "/projects.json",
+            "noResults": "No suggestions found. You can enter your own answer",
+            "typeMore": "Continue entering to get suggestions"
+        }) }}
+
+        {{
+            onsDateInput({
+                "id": "created-before-filter",
+                "legendOrLabel": "Created before",
+                "description": "For example, 31 3 1980",
+                "day": {
+                    "label": {
+                        "text": "Day"
+                    },
+                    "name": "day"
+                },
+                "month": {
+                    "label": {
+                        "text": "Month"
+                    },
+                    "name": "month"
+                },
+                "year": {
+                    "label": {
+                        "text": "Year"
+                    },
+                    "name": "year"
+                }
+            })
+        }}
+
+        {{
+            onsDateInput({
+                "id": "created-after-filter",
+                "legendOrLabel": "Created after",
+                "description": "For example, 31 3 1980",
+                "day": {
+                    "label": {
+                        "text": "Day"
+                    },
+                    "name": "day"
+                },
+                "month": {
+                    "label": {
+                        "text": "Month"
+                    },
+                    "name": "month"
+                },
+                "year": {
+                    "label": {
+                        "text": "Year"
+                    },
+                    "name": "year"
+                }
+            })
+        }}
+
+        {{
+    onsCheckboxes({
+        "legend": "Access",
+        "name": "contact",
+        "borderless": true,
+        "checkboxes": [
+            {
+                "id": "post-example-with-revealed-radios",
+                "label": {
+                    "text": "By post"
+                },
+                "value": "post"
+            },
+            {
+                "id": "email-example-with-revealed-radios",
+                "label": {
+                    "text": "By email"
+                },
+                "value": "email"
+            },
+            {
+                "id": "email-example-with-revealed-radios",
+                "label": {
+                    "text": "By email"
+                },
+                "value": "email"
+            }
+        ]
+    })
+}}
+
+        {{
+            onsButton({
+                "type": 'button',
+                "text": 'Apply filters',
+                "variants": 'small',
+                "classes": "ons-u-mt-s ons-u-mb-m",
+                "attributes": {
+                    "onclick": "ApplyFilters()"
+                }
+            })
+        }}
+
+        <div id="area-for-tags"></div>
+
 
             <h2 class="ons-u-fs-m ons-u-mb-m" id="questionnaireCount">84 questionnaires</h2>
 
@@ -306,114 +450,169 @@ layout: example/homepage/test/2col_Layout
             </thead>
             <tbody class="ons-table__body">
                 <tr class="ons-table__row row-relative" id="row1">
-                <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs" >Copy of V3 Draft 0173</span><a href="#">Copy of Annual Business Survey</a></td>
-                <td class="ons-table__cell"> Annual Business Survey (ABS) </td>
-                <td class="ons-table__cell"> Stuart Davies </td>
-                <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs" >Date created:</span>14th Aug 2023 <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs" >Last opened:</span>16th Aug 2023</td>
-                <td class="ons-table__cell"> Editor </td>
-                <td class="ons-table__cell">
-                    <div class="menu-container">
-                        <button type="button"
-                                id="menubutton1"
-                                class="actionsBtn"
-                                aria-haspopup="true"
-                                aria-controls="menu2" onclick="toggleMenu(event, 'menubutton1', 'menu1')">
-                            Actions
-                        <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
-                        </button>
-                        <ul id="menu1"
-                            role="menu"
-                            aria-labelledby="menubutton" class="menu">
-                            <li role="none" class="duplicate">
-                            <span class="material-symbols-outlined">
-                                content_copy
-                                </span>
-                            <a role="menuitem" class="listItemLink" href="#" onclick="duplicate('menubutton1', 'Copy of V3 Draft 0173', 'Copy of Monthly Business Survey')">
-                                Duplicate
-                            </a>
-                            </li>
-                            <li role="none">
-                            <button role="menuitem" class="listItemButton">
-                                <span class="material-symbols-outlined">
-                                link
-                                </span>
-                                Copy link
+                    <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs" >SMUIS Final</span><a href="#">Social Media Usage and Impact Survey</a></td>
+                    <td class="ons-table__cell"> Social Media </td>
+                    <td class="ons-table__cell"> Isabella Ramirez </td>
+                    <td class="ons-table__cell" data-date-value="2023-08-23"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs"  >Date created:</span>23 Aug 2023<span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs" >Last opened:</span>23 Aug 2023</td>
+                    <td class="ons-table__cell"> Editor </td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button"
+                                    id="menubutton1"
+                                    class="actionsBtn"
+                                    aria-haspopup="true"
+                                    aria-controls="menu2" onclick='toggleMenu(event, "menubutton1", "menu1")'>
+                                Actions
+                            <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
                             </button>
-                            </li>
-                            <li role="none">
-                            <button role="menuitem" class="listItemButton" onclick="addToStarred('row1')">
+                            <ul id="menu1"
+                                role="menu"
+                                aria-labelledby="menubutton" class="menu">
+                                <li role="none" class="duplicate">
                                 <span class="material-symbols-outlined">
-                                star
-                                </span>
-                                Add to starred
-                            </button>
-                            </li>
-                            <li role="none" class="ons-u-mb-no">
-                            <button role="menuitem" class="listItemButton" onclick="confirmDeletion('menubutton1', 'menu1', 'Copy of V3 Draft 0173', 'Copy of Monthly Business Survey', 'Annual Business Survey (ABS)', 'Stuart Davies', 'row1')">
-                                <span class="material-symbols-outlined">
-                                delete
-                                </span>
-                                Delete
-                            </button>
-                            </li>
-                        </ul>
-                    </div>
-                </td>
+                                    content_copy
+                                    </span>
+                                <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton1", "SMUIS Final", "Social Media Usage and Impact Survey")'>
+                                    Duplicate
+                                </a>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton">
+                                    <span class="material-symbols-outlined">
+                                    link
+                                    </span>
+                                    Copy link
+                                </button>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton" onclick="addToStarred('row1')">
+                                    <span class="material-symbols-outlined">
+                                    star
+                                    </span>
+                                    Add to starred
+                                </button>
+                                </li>
+                                <li role="none" class="ons-u-mb-no">
+                                <button role="menuitem" class="listItemButton" onclick='deleteQuestionnaire("menubutton1", "menu1", "SMUIS Final", "Social Media Usage and Impact Survey", "Social Media", "Isabella Ramirez", , "row1")'>
+                                    <span class="material-symbols-outlined">
+                                    delete
+                                    </span>
+                                    Delete
+                                </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
                 </tr>
                 <tr class="ons-table__row row-relative" id="row2">
-                <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs" >Copy of V4 Draft 0173</span><a href="#">Draft</a></td>
-                <td class="ons-table__cell"> Annual Business Survey (ABS) </td>
-                <td class="ons-table__cell"> Stuart Davies </td>
-                <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs" >Date created:</span>16th Aug 2023 <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs" >Last opened:</span>17th Aug 2023</td>
-                <td class="ons-table__cell"> Editor </td>
-                <td class="ons-table__cell">
-                    <div class="menu-container">
-                        <button type="button"
-                                id="menubutton2"
-                                class="actionsBtn"
-                                aria-haspopup="true"
-                                aria-controls="menu2" onclick="toggleMenu(event, 'menubutton2', 'menu2')">
-                            Actions
-                        <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
-                        </button>
-                        <ul id="menu2"
-                            role="menu"
-                            aria-labelledby="menubutton" class="menu">
-                            <li role="none" class="duplicate">
-                            <span class="material-symbols-outlined">
-                                content_copy
-                                </span>
-                            <a role="menuitem" class="listItemLink" href="https://www.w3.org/">
-                                Duplicate
-                            </a>
-                            </li>
-                            <li role="none">
-                            <button role="menuitem" class="listItemButton">
-                                <span class="material-symbols-outlined">
-                                link
-                                </span>
-                                Copy link
+                    <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs" >SMUIS V4</span><a href="#">Draft - Social Media Usage and Impact Survey</a></td>
+                    <td class="ons-table__cell"> Social Media </td>
+                    <td class="ons-table__cell"> Eleanor Prescott </td>
+                    <td class="ons-table__cell" data-date-value="2023-08-20"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>20 Aug 2023<span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs" >Last opened:</span>22 Aug 2023</td>
+                    <td class="ons-table__cell"> Editor </td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button"
+                                    id="menubutton2"
+                                    class="actionsBtn"
+                                    aria-haspopup="true"
+                                    aria-controls="menu2" onclick='toggleMenu(event, "menubutton2", "menu2")'>
+                                Actions
+                            <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
                             </button>
-                            </li>
-                            <li role="none">
-                            <button role="menuitem" class="listItemButton">
+                            <ul id="menu2"
+                                role="menu"
+                                aria-labelledby="menubutton" class="menu">
+                                <li role="none" class="duplicate">
                                 <span class="material-symbols-outlined">
-                                star
-                                </span>
-                                Add to starred
+                                    content_copy
+                                    </span>
+                                <a role="menuitem" class="listItemLink" href="https://www.w3.org/" onclick='duplicate("menubutton2", "SMUIS V4", "Draft - Social Media Usage and Impact Survey")'>
+                                    Duplicate
+                                </a>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton">
+                                    <span class="material-symbols-outlined">
+                                    link
+                                    </span>
+                                    Copy link
+                                </button>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton" onclick='addToStarred("row2" )'>
+                                    <span class="material-symbols-outlined">
+                                    star
+                                    </span>
+                                    Add to starred
+                                </button>
+                                </li>
+                                <li role="none" class="ons-u-mb-no">
+                                <button role="menuitem" class="listItemButton" onclick='deleteQuestionnaire("menubutton2", "menu2", "SMUIS V4", "Draft - Social Media Usage and Impact Survey", "Social Media", "Eleanor Prescott", , "row2")'>
+                                    <span class="material-symbols-outlined">
+                                    delete
+                                    </span>
+                                    Delete
+                                </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="row3">
+                    <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs" >SMUIS V4</span><a href="#">Draft - Social Media Usage and Impact Survey</a></td>
+                    <td class="ons-table__cell"> Small Business Survey </td>
+                    <td class="ons-table__cell"> Eleanor Prescott </td>
+                    <td class="ons-table__cell" data-date-value="2023-08-06"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs" >Date created:</span>6 Aug 2023<span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs" >Last opened:</span>22 Aug 2023</td>
+                    <td class="ons-table__cell"> Editor </td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button"
+                                    id="menubutton2"
+                                    class="actionsBtn"
+                                    aria-haspopup="true"
+                                    aria-controls="menu2" onclick='toggleMenu(event, "menubutton2", "menu2")'>
+                                Actions
+                            <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
                             </button>
-                            </li>
-                            <li role="none" class="ons-u-mb-no">
-                            <button role="menuitem" class="listItemButton" onclick="confirmDeletion('menubutton2', 'menu2', 'Copy of V4 Draft 0173', 'Draft', 'Annual Business Survey (ABS)', 'Stuart Davies', 'row2')">
+                            <ul id="menu2"
+                                role="menu"
+                                aria-labelledby="menubutton" class="menu">
+                                <li role="none" class="duplicate">
                                 <span class="material-symbols-outlined">
-                                delete
-                                </span>
-                                Delete
-                            </button>
-                            </li>
-                        </ul>
-                    </div>
-                </td>
+                                    content_copy
+                                    </span>
+                                <a role="menuitem" class="listItemLink" href="https://www.w3.org/" onclick='duplicate("menubutton2", "SMUIS V4", "Draft - Social Media Usage and Impact Survey")'>
+                                    Duplicate
+                                </a>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton">
+                                    <span class="material-symbols-outlined">
+                                    link
+                                    </span>
+                                    Copy link
+                                </button>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton" onclick='addToStarred("row2" )'>
+                                    <span class="material-symbols-outlined">
+                                    star
+                                    </span>
+                                    Add to starred
+                                </button>
+                                </li>
+                                <li role="none" class="ons-u-mb-no">
+                                <button role="menuitem" class="listItemButton" onclick='deleteQuestionnaire("menubutton2", "menu2", "SMUIS V4", "Draft - Social Media Usage and Impact Survey", "Social Media", "Eleanor Prescott", , "row2")'>
+                                    <span class="material-symbols-outlined">
+                                    delete
+                                    </span>
+                                    Delete
+                                </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
                 </tr>
             </tbody>
             </table>
@@ -812,6 +1011,78 @@ for (var i = 0; i < buttons.length; i++) {
         }
     }
 }
+
+
+function ApplyFilters() {
+    var projectFilter = document.getElementById("project-filter").value.toLowerCase();
+    var ownerFilter = document.getElementById("owner-filter").value.toLowerCase();
+    var BeforeDayFilter = document.getElementById("created-before-filter-day").value;
+    var BeforeMonthFilter = document.getElementById("created-before-filter-month").value;
+    var BeforeYearFilter = document.getElementById("created-before-filter-year").value;
+    var AfterDayFilter = document.getElementById("created-after-filter-day").value;
+    var AfterMonthFilter = document.getElementById("created-after-filter-month").value;
+    var AfterYearFilter = document.getElementById("created-after-filter-year").value;
+
+    BeforeDayFilter = BeforeDayFilter.replace(/^0+/, "");
+    BeforeMonthFilter = BeforeMonthFilter.replace(/^0+/, "");
+    AfterDayFilter = AfterDayFilter.replace(/^0+/, "");
+    AfterMonthFilter = AfterMonthFilter.replace(/^0+/, "");
+
+  function filterTable(tableId) {
+    var table = document.getElementById(tableId);
+    var rows = table.querySelectorAll("tbody tr");
+
+    for (var i = 0; i < rows.length; i++) {
+      var row = rows[i];
+      var ProjectCell = row.getElementsByTagName("td")[1];
+      var OwnerCell = row.getElementsByTagName("td")[2];
+
+      var ProjectCellText = ProjectCell.textContent.toLowerCase();
+      var OwnerCellText = OwnerCell.textContent.toLowerCase();
+      var cell = row.querySelector("td[data-date-value]");
+
+      // Check if the Project filter is non-empty and matches
+      var projectFilterMatch = projectFilter === "" || ProjectCellText.includes(projectFilter);
+
+      // Check if the Owner filter is non-empty and matches
+      var ownerFilterMatch = ownerFilter === "" || OwnerCellText.includes(ownerFilter);
+
+      // Check if the Before filters are non-empty and match
+      var BeforedateFilterMatch = true;
+      if (BeforeDayFilter !== "" && BeforeMonthFilter !== "" && BeforeYearFilter !== "") {
+        if (cell) {
+          var cellDate = cell.getAttribute("data-date-value");
+          var BeforefilterDate = new Date(BeforeYearFilter, BeforeMonthFilter - 1, BeforeDayFilter);
+          var cellDateObj = new Date(cellDate);
+          BeforedateFilterMatch = cellDateObj < BeforefilterDate;
+        }
+      }
+
+    // Check if the After filters are non-empty and match
+      var AfterdateFilterMatch = true;
+      if (AfterDayFilter !== "" && AfterMonthFilter !== "" && AfterYearFilter !== "") {
+        if (cell) {
+          var cellDateAfter = cell.getAttribute("data-date-value");
+          var AfterfilterDate = new Date(AfterYearFilter, AfterMonthFilter - 1, AfterDayFilter);
+          var cellDateObjAfter = new Date(cellDateAfter);
+          AfterdateFilterMatch = cellDateObjAfter > AfterfilterDate;
+          console.log(AfterdateFilterMatch);
+        }
+      }
+
+      if (projectFilterMatch && ownerFilterMatch && BeforedateFilterMatch && AfterdateFilterMatch) {
+        row.style.display = "table-row";
+      } else {
+        row.style.display = "none";
+      }
+    }
+  }
+
+  filterTable("starred-table");
+  filterTable("basic-table");
+}
+
+
 
 
 </script>
