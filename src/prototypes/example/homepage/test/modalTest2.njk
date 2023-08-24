@@ -433,6 +433,19 @@ layout: example/homepage/test/2col_Layout
             })
         }}
 
+        {{
+            onsButton({
+                "type": 'button',
+                "text": 'Clear filters',
+                "variants": ['secondary', 'small'],
+                "classes": "ons-u-mt-s ons-u-mb-m",
+                "attributes":{
+                    "onclick": "clearInputValues()"
+                }
+
+            })
+        }}
+
         <div id="area-for-tags" class="AllFiltersFlexContainer">
             <div id="tags-project" class="FiltersFlexItems" style="display:none;">Project:</div>
             <div id="tags-owner" class="FiltersFlexItems" style="display:none;">Owner:</div>
@@ -1347,34 +1360,42 @@ function ApplyFilters() {
 
 // Function to clear input values
 function clearInputValues() {
-  document.getElementById("project-filter").value = "";
-  document.getElementById("owner-filter").value = "";
-  document.getElementById("created-before-filter-day").value = "";
-  document.getElementById("created-before-filter-month").value = "";
-  document.getElementById("created-before-filter-year").value = "";
-  document.getElementById("created-after-filter-day").value = "";
-  document.getElementById("created-after-filter-month").value = "";
-  document.getElementById("created-after-filter-year").value = "";
-  EditorAccess.checked = false;
-  ViewOnlyAccess.checked = false;
-  ReadOnlyAccess.checked = false;
-}
-{#
-// Function to add a filter tag as a button
-function appendFilterTag(filterText) {
-  // Create a new button element for the filter tag
-  var button = document.createElement("button");
-  button.className = "filter-tag-button"; // You can style this class in your CSS
-  button.textContent = filterText;
 
-  // Add an onclick attribute to remove the filter
-  button.setAttribute("onclick", 'removeFilterTag("' + filterText + '")');
+    const tagsProject = document.getElementById("tags-project");
+    const tagsOwner = document.getElementById("tags-owner");
+    const tagsDateBefore = document.getElementById("tags-dateBefore");
+    const tagsDateAfter = document.getElementById("tags-dateAfter");
+    const tagsAccess = document.getElementById("tags-access");
 
-  // Append the button to the filter tag area
-  var filterTagArea = document.getElementById("area-for-tags");
-  filterTagArea.appendChild(button);
+    while (tagsProject.firstChild) {
+        tagsProject.removeChild(tagsProject.firstChild);
+    }
+    while (tagsOwner.firstChild) {
+        tagsOwner.removeChild(tagsOwner.firstChild);
+    }
+    while (tagsDateBefore.firstChild) {
+        tagsDateBefore.removeChild(tagsDateBefore.firstChild);
+    }
+    while (tagsDateAfter.firstChild) {
+        tagsDateAfter.removeChild(tagsDateAfter.firstChild);
+    }
+    while (tagsAccess.firstChild) {
+        tagsAccess.removeChild(tagsAccess.firstChild);
+    }
+
+    document.getElementById("project-filter").value = "";
+    document.getElementById("owner-filter").value = "";
+    document.getElementById("created-before-filter-day").value = "";
+    document.getElementById("created-before-filter-month").value = "";
+    document.getElementById("created-before-filter-year").value = "";
+    document.getElementById("created-after-filter-day").value = "";
+    document.getElementById("created-after-filter-month").value = "";
+    document.getElementById("created-after-filter-year").value = "";
+    document.getElementById("editor-label").checked = false;
+    document.getElementById("view-only-label").checked = false;
+    document.getElementById("read-only-label").checked = false;
+    ApplyFilters();
 }
-#}
 
 function appendFilterTag(filterText, filterType) {
   // Remove whitespaces from filterText and use it as the element id
@@ -1473,96 +1494,6 @@ function removeFilterTag(tagId, filterType) {
     ApplyFilters();
 }
 
-
-
-{# Pagination #}
-
-{#
-    // Function to update pagination based on row counts
-function updatePagination() {
-  var starredTable = document.getElementById("starred-table");
-  var basicTable = document.getElementById("basic-table");
-  var nextButton = document.getElementById("next");
-var paginationLabel = nextButton.querySelector("span.ons-content-pagination__link-label");
-
-  // Get the <tbody> elements for both tables
-  var starredTBody = starredTable.querySelector("tbody");
-  var basicTBody = basicTable.querySelector("tbody");
-
-  // Get the number of rows in each <tbody>
-  var starredRowCount = starredTBody.rows.length;
-  var basicRowCount = basicTBody.rows.length;
-
-  // Calculate the total row count
-  var totalRowCount = starredRowCount + basicRowCount;
-
-  // Calculate the number of rows to show for 'basic-table'
-  var basicRowsToShow = Math.min(4, 4 - starredRowCount);
-
-  // Hide all rows in both tables
-  for (var i = 0; i < starredRowCount; i++) {
-    starredTBody.rows[i].style.display = "none";
-    starredTBody.rows[i].classList.remove("displayed"); // Clear the 'displayed' class
-  }
-  for (var i = 0; i < basicRowCount; i++) {
-    basicTBody.rows[i].style.display = "none";
-    basicTBody.rows[i].classList.remove("displayed"); // Clear the 'displayed' class
-  }
-
-  // Show the first 'basicRowsToShow' rows in 'basic-table' (skip rows with 'filtered-out' class)
-  for (var i = 0; i < basicRowsToShow; i++) {
-    var row = basicTBody.querySelector("tr:not(.displayed):not(.filtered-out)");
-    if (row) {
-      row.style.display = "table-row";
-      row.classList.add("displayed");
-    }
-  }
-
-    // Calculate the number of pages
-    var totalPages = Math.ceil(totalRowCount / basicRowsToShow);
-
-  // Show or hide the "Next" button based on row counts
-  if (totalRowCount > 4 && basicRowCount > basicRowsToShow) {
-    nextButton.style.display = "inline-block";
-  } else {
-    nextButton.style.display = "none";
-  }
-
-  // Update the pagination label
-  console.log('total pages is:' + totalPages);
-  var Label = paginationLabel.textContent = "1 of " + totalPages + " pages";
-  console.log(Label);
-}
-
-
-
-    // Initial call to update pagination when the page loads
-    updatePagination();
-
-    // Add an event listener to the "Next" button for further pagination if needed
-    var nextButton = document.getElementById("next");
-    nextButton.addEventListener("click", function() {
-    var basicTable = document.getElementById("basic-table");
-    var basicRowCount = basicTable.rows.length;
-
-    // Calculate the number of rows to show for the next page
-    var basicRowsToShow = Math.min(4, basicRowCount);
-
-    // Show the next 'basicRowsToShow' rows in 'basic-table'
-    for (var i = basicRowCount; i < basicRowCount + basicRowsToShow; i++) {
-        if (basicTable.rows[i]) {
-        basicTable.rows[i].style.display = "table-row";
-        }
-    }
-
-    // Hide the "Next" button if all rows have been shown
-    if (basicRowCount + basicRowsToShow >= basicRowCount) {
-        nextButton.style.display = "none";
-    }
-    });
-
-
-#}
 
 var currentPage = 1;
 var TotalPages; // Declare TotalPages as a global variable
