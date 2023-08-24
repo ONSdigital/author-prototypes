@@ -1278,8 +1278,10 @@ function ApplyFilters() {
 
       if (projectFilterMatch && ownerFilterMatch && BeforedateFilterMatch && AfterdateFilterMatch && access) {
         row.style.display = "table-row";
+        row.classList.remove("filtered-out");
       } else {
         row.style.display = "none";
+        row.classList.add("filtered-out");
       }
     }
   }
@@ -1322,7 +1324,8 @@ function ApplyFilters() {
         appendFilterTag("Read-only for editors", "Read-only")
     }
   }
-  updatePagination();
+
+    updatePagination();
 }
 
 // Function to clear input values
@@ -1457,43 +1460,63 @@ function removeFilterTag(tagId, filterType) {
 
 {# Pagination #}
 
+{#
     // Function to update pagination based on row counts
-    function updatePagination() {
-        var starredTable = document.getElementById("starred-table");
-        var basicTable = document.getElementById("basic-table");
-        var nextButton = document.getElementById("next");
+function updatePagination() {
+  var starredTable = document.getElementById("starred-table");
+  var basicTable = document.getElementById("basic-table");
+  var nextButton = document.getElementById("next");
+var paginationLabel = nextButton.querySelector("span.ons-content-pagination__link-label");
 
-        // Get the <tbody> elements for both tables
-        var starredTBody = starredTable.querySelector("tbody");
-        var basicTBody = basicTable.querySelector("tbody");
+  // Get the <tbody> elements for both tables
+  var starredTBody = starredTable.querySelector("tbody");
+  var basicTBody = basicTable.querySelector("tbody");
 
-        // Get the number of rows in each <tbody>
-        var starredRowCount = starredTBody.rows.length;
-        var basicRowCount = basicTBody.rows.length;
+  // Get the number of rows in each <tbody>
+  var starredRowCount = starredTBody.rows.length;
+  var basicRowCount = basicTBody.rows.length;
 
-        // Calculate the total row count
-        var totalRowCount = starredRowCount + basicRowCount;
+  // Calculate the total row count
+  var totalRowCount = starredRowCount + basicRowCount;
 
-        // Calculate the number of rows to show for 'basic-table'
-        var basicRowsToShow = Math.min(4, 4 - starredRowCount);
+  // Calculate the number of rows to show for 'basic-table'
+  var basicRowsToShow = Math.min(4, 4 - starredRowCount);
 
-        // Hide all rows in 'basic-table'
-        for (var i = 0; i < basicRowCount; i++) {
-            basicTBody.rows[i].style.display = "none";
-        }
+  // Hide all rows in both tables
+  for (var i = 0; i < starredRowCount; i++) {
+    starredTBody.rows[i].style.display = "none";
+    starredTBody.rows[i].classList.remove("displayed"); // Clear the 'displayed' class
+  }
+  for (var i = 0; i < basicRowCount; i++) {
+    basicTBody.rows[i].style.display = "none";
+    basicTBody.rows[i].classList.remove("displayed"); // Clear the 'displayed' class
+  }
 
-        // Show the first 'basicRowsToShow' rows in 'basic-table'
-        for (var i = 0; i < basicRowsToShow; i++) {
-            basicTBody.rows[i].style.display = "table-row";
-        }
-
-        // Show or hide the "Next" button based on row counts
-        if (totalRowCount > 4 && basicRowCount > basicRowsToShow) {
-            nextButton.style.display = "inline-block";
-        } else {
-            nextButton.style.display = "none";
-        }
+  // Show the first 'basicRowsToShow' rows in 'basic-table' (skip rows with 'filtered-out' class)
+  for (var i = 0; i < basicRowsToShow; i++) {
+    var row = basicTBody.querySelector("tr:not(.displayed):not(.filtered-out)");
+    if (row) {
+      row.style.display = "table-row";
+      row.classList.add("displayed");
     }
+  }
+
+    // Calculate the number of pages
+    var totalPages = Math.ceil(totalRowCount / basicRowsToShow);
+
+  // Show or hide the "Next" button based on row counts
+  if (totalRowCount > 4 && basicRowCount > basicRowsToShow) {
+    nextButton.style.display = "inline-block";
+  } else {
+    nextButton.style.display = "none";
+  }
+
+  // Update the pagination label
+  console.log('total pages is:' + totalPages);
+  var Label = paginationLabel.textContent = "1 of " + totalPages + " pages";
+  console.log(Label);
+}
+
 
 
     // Initial call to update pagination when the page loads
@@ -1522,9 +1545,105 @@ function removeFilterTag(tagId, filterType) {
     });
 
 
+#}
+
+var currentPage = 1;
+var TotalPages; // Declare TotalPages as a global variable
+
+function updatePagination() {
+  var starredTable = document.getElementById("starred-table");
+  var basicTable = document.getElementById("basic-table");
+  var nextButton = document.getElementById("next");
+  var paginationLabel = nextButton.querySelector("span.ons-content-pagination__link-label");
+
+  // Get the <tbody> elements for both tables
+  var starredTBody = starredTable.querySelector("tbody");
+  var basicTBody = basicTable.querySelector("tbody");
+
+  // Get the number of rows in each <tbody>
+  var AllStarredRowCount = starredTBody.rows.length;
+  var AllBasicRowCount = basicTBody.rows.length;
+
+  var StarredRows = [];
+  var BasicRows = [];
+
+  // Filter rows and add them to respective arrays
+  for (var i = 0; i < AllStarredRowCount; i++) {
+    var StarRow = starredTBody.rows[i];
+    if (!StarRow.classList.contains("filtered-out")) {
+      StarRow.style.display = "none";
+      StarredRows.push(StarRow);
+    }
+  }
+
+  for (var i = 0; i < AllBasicRowCount; i++) {
+    var row = basicTBody.rows[i];
+    if (!row.classList.contains("filtered-out")) {
+      row.style.display = "none";
+      BasicRows.push(row);
+    }
+  }
+
+  // Calculate the total number of rows and pages
+  var TotalRowsToShow = StarredRows.length + BasicRows.length;
+  var RowsPerPage = 4;
+  TotalPages = Math.ceil(TotalRowsToShow / RowsPerPage);
+
+  // Display rows on the current page
+
+  for (var i = 0; i < TotalRowsToShow; i++) {
+    if (i < currentPage * RowsPerPage && i >= (currentPage - 1) * RowsPerPage) {
+      // Display the rows for the current page
+      if (i < StarredRows.length) {
+        StarredRows[i].style.display = "table-row";
+      } else {
+        BasicRows[i - StarredRows.length].style.display = "table-row";
+      }
+    } else {
+      // Hide rows for other pages
+      if (i < StarredRows.length) {
+        StarredRows[i].style.display = "none";
+      } else {
+        BasicRows[i - StarredRows.length].style.display = "none";
+      }
+    }
+  }
+
+  // Update the pagination label
+  paginationLabel.textContent = currentPage + " of " + TotalPages;
+
+  // Show/hide the "Next" link based on the current page
+  nextButton.style.display = currentPage < TotalPages ? "block" : "none";
+}
+
+
+// Function to initialize the pagination
+function initializePagination() {
+  updatePagination(); // Call this function to initially set up the pagination
+  var nextButton = document.getElementById("next");
+
+  // Add an event listener to the "Next" link
+  nextButton.addEventListener("click", function () {
+    console.log('hello');
+    console.log('Current page:' + currentPage);
+    console.log('Total pages:' + TotalPages);
+    if (currentPage < TotalPages) {
+      currentPage++;
+      console.log(currentPage);
+      updatePagination(); // Call updatePagination to update the page
+    }
+  });
+}
+
+// Call the function to initialize the pagination
+initializePagination();
+
+
 
 
 
 
 </script>
 {% endblock %}
+
+
