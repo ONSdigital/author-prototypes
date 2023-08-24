@@ -1551,10 +1551,12 @@ var currentPage = 1;
 var TotalPages; // Declare TotalPages as a global variable
 
 function updatePagination() {
-  var starredTable = document.getElementById("starred-table");
-  var basicTable = document.getElementById("basic-table");
-  var nextButton = document.getElementById("next");
-  var paginationLabel = nextButton.querySelector("span.ons-content-pagination__link-label");
+    var starredTable = document.getElementById("starred-table");
+    var basicTable = document.getElementById("basic-table");
+    var nextButton = document.getElementById("next");
+    var previousButton = document.getElementById("previous");
+    var nextPaginationLabel = nextButton.querySelector("span.ons-content-pagination__link-label");
+    var previousPaginationLabel = previousButton.querySelector("span.ons-content-pagination__link-label");
 
   // Get the <tbody> elements for both tables
   var starredTBody = starredTable.querySelector("tbody");
@@ -1586,8 +1588,8 @@ function updatePagination() {
 
   // Calculate the total number of rows and pages
   var TotalRowsToShow = StarredRows.length + BasicRows.length;
-  var RowsPerPage = 4;
-  TotalPages = Math.ceil(TotalRowsToShow / RowsPerPage);
+  var RowsPerPage = 2;
+  TotalPages = Math.ceil(TotalRowsToShow / RowsPerPage); // Update the global TotalPages variable
 
   // Display rows on the current page
 
@@ -1609,27 +1611,42 @@ function updatePagination() {
     }
   }
 
-  // Update the pagination label
-  paginationLabel.textContent = currentPage + " of " + TotalPages;
+  // Update the pagination labels for "Next" and "Previous" links
+  if (currentPage < TotalPages) {
+    nextPaginationLabel.textContent = (currentPage + 1) + " of " + TotalPages;
+  } else {
+    nextPaginationLabel.textContent = "Next";
+  }
 
-  // Show/hide the "Next" link based on the current page
+  if (currentPage > 1) {
+    previousPaginationLabel.textContent = (currentPage - 1) + " of " + TotalPages;
+  } else {
+    previousPaginationLabel.textContent = "Previous";
+  }
+
+  // Show/hide the "Next" and "Previous" links based on the current page
   nextButton.style.display = currentPage < TotalPages ? "block" : "none";
+  previousButton.style.display = currentPage > 1 ? "block" : "none";
 }
-
 
 // Function to initialize the pagination
 function initializePagination() {
   updatePagination(); // Call this function to initially set up the pagination
   var nextButton = document.getElementById("next");
+  var previousButton = document.getElementById("previous");
 
   // Add an event listener to the "Next" link
   nextButton.addEventListener("click", function () {
-    console.log('hello');
-    console.log('Current page:' + currentPage);
-    console.log('Total pages:' + TotalPages);
     if (currentPage < TotalPages) {
       currentPage++;
-      console.log(currentPage);
+      updatePagination(); // Call updatePagination to update the page
+    }
+  });
+
+  // Add an event listener to the "Previous" link
+  previousButton.addEventListener("click", function () {
+    if (currentPage > 1) {
+      currentPage--;
       updatePagination(); // Call updatePagination to update the page
     }
   });

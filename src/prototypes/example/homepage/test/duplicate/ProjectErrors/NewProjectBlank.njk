@@ -133,6 +133,12 @@ layout: example/views/Author8col
 {% block bodyEnd %}
 
 <script>
+function mutuallyExclusive(){
+    console.log("print");
+    if(document.getElementById('project').value != ""){
+        document.getElementById('project').value = "";
+    }
+}
 
 function duplicationProject() {
     var counter = sessionStorage.getItem('questionnaireCounter');

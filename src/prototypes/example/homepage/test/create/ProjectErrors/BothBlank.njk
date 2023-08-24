@@ -13,8 +13,8 @@ layout: example/views/Author8col
 {% set form =  {
     "method": "GET",
     "attributes": {
-        "name": "duplicateQuestionnaireProject",
-        "onsubmit":  "return duplicationProject()"
+        "name": "createQuestionnaireProject",
+        "onsubmit":  "return creationProject()"
     }
 } %}
 
@@ -141,17 +141,17 @@ function mutuallyExclusive(){
     }
 }
 
-function duplicationProject() {
+function creationProject() {
     var counter = sessionStorage.getItem('questionnaireCounter');
 
     var project = document.getElementById('project').value;
     sessionStorage.setItem('Project_' + counter, project);
 
     if(sessionStorage.getItem('customisePermissions')){
-        document.forms["duplicateQuestionnaireProject"].action = "/prototypes/example/homepage/test/duplicate/CustomisePermissions.html";    
+        document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepage/test/create/CustomisePermissions.html";    
     }
     else{
-        document.forms["duplicateQuestionnaireProject"].action = "/prototypes/example/homepage/test/NewQuestionnaire.html";    
+        document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepage/test/NewQuestionnaire.html";    
     }
 }
 
