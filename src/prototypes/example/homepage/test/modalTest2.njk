@@ -8,6 +8,7 @@ layout: example/homepage/test/2col_Layout
 {% from "components/table/_macro.njk" import onsTable %}
 {% from "components/date-input/_macro.njk" import onsDateInput %}
 {% from "components/checkboxes/_macro.njk" import onsCheckboxes %}
+{% from "components/input/_macro.njk" import onsInput %}
 
 
 {% block head %}
@@ -277,6 +278,21 @@ layout: example/homepage/test/2col_Layout
             })
         }}
     </div>
+
+    {{
+    onsInput({
+        "id": 'search-field',
+        "label": {
+            "text": 'Search by short code or title'
+        },
+        "accessiblePlaceholder": true,
+        "searchButton": {
+            "visuallyHideButtonText": true,
+            "text": 'Search',
+            "iconType": 'search'
+        }
+    })
+    }}
 
     <h2>Filter</h2>
 
@@ -1194,6 +1210,7 @@ for (var i = 0; i < buttons.length; i++) {
 
 
 function ApplyFilters() {
+    currentPage = 1; // Reset currentPage to 1
     var projectFilter = document.getElementById("project-filter").value.toLowerCase();
     var ownerFilter = document.getElementById("owner-filter").value.toLowerCase();
     var BeforeDayFilter = document.getElementById("created-before-filter-day").value;
@@ -1588,7 +1605,8 @@ function updatePagination() {
 
   // Calculate the total number of rows and pages
   var TotalRowsToShow = StarredRows.length + BasicRows.length;
-  var RowsPerPage = 2;
+  console.log(TotalRowsToShow);
+  var RowsPerPage = 4;
   TotalPages = Math.ceil(TotalRowsToShow / RowsPerPage); // Update the global TotalPages variable
 
   // Display rows on the current page
@@ -1627,6 +1645,19 @@ function updatePagination() {
   // Show/hide the "Next" and "Previous" links based on the current page
   nextButton.style.display = currentPage < TotalPages ? "block" : "none";
   previousButton.style.display = currentPage > 1 ? "block" : "none";
+
+    // Hide the starred-table if it's not the first page and there are no rows displayed
+    if (currentPage > 1 && StarredRows.length === 0) {
+        starredTable.style.display = "none";
+        document.getElementById('AddedToStarred').style.display = "none";
+    }    
+    else {
+        starredTable.style.display = "table"; // Show the table if there are rows to display
+    }
+    if (currentPage == 1 && StarredRows.length === 0) {
+        document.getElementById('AddedToStarred').style.display = "block";
+    } 
+
 }
 
 // Function to initialize the pagination
@@ -1639,6 +1670,9 @@ function initializePagination() {
   nextButton.addEventListener("click", function () {
     if (currentPage < TotalPages) {
       currentPage++;
+        window.scrollTo({
+            top: 0
+        });
       updatePagination(); // Call updatePagination to update the page
     }
   });
@@ -1647,6 +1681,9 @@ function initializePagination() {
   previousButton.addEventListener("click", function () {
     if (currentPage > 1) {
       currentPage--;
+        window.scrollTo({
+            top: 0
+        });
       updatePagination(); // Call updatePagination to update the page
     }
   });
