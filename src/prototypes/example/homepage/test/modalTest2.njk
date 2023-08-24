@@ -1403,7 +1403,7 @@ function clearInputValues() {
     document.getElementById("editor-label").checked = false;
     document.getElementById("view-only-label").checked = false;
     document.getElementById("read-only-label").checked = false;
-    ApplyFilters();
+    ApplySearch();
 }
 
 function appendFilterTag(filterText, filterType) {
@@ -1640,8 +1640,8 @@ function initializePagination() {
 
 
 function ApplySearch() {
-    console.log('searching');
-  var searchField = document.getElementById("search-field").value.toLowerCase();
+  console.log('searching');
+  var searchField = document.getElementById("search-field").value.trim().toLowerCase();
   var starredTable = document.getElementById("starred-table");
   var basicTable = document.getElementById("basic-table");
 
@@ -1649,28 +1649,39 @@ function ApplySearch() {
   var starredRows = starredTable.querySelectorAll("tbody tr");
   var basicRows = basicTable.querySelectorAll("tbody tr");
 
-  // Loop through starredRows and add "filtered-out" class to rows that do not contain search input
-  starredRows.forEach(function (row) {
-    var cellText = row.cells[0].textContent.toLowerCase(); // Assuming you want to search the first column
-    if (cellText.includes(searchField)) {
+  // If the search input is empty or contains only spaces, remove all "filtered-out" classes
+  if (searchField === "") {
+    starredRows.forEach(function (row) {
       row.classList.remove("filtered-out");
-    } else {
-      row.classList.add("filtered-out");
-    }
-  });
+    });
 
-  // Loop through basicRows and add "filtered-out" class to rows that do not contain search input
-  basicRows.forEach(function (row) {
-    var cellText = row.cells[0].textContent.toLowerCase(); // Assuming you want to search the first column
-    console.log(cellText);
-    if (!cellText.includes(searchField)) {
-      row.classList.add("filtered-out");
-    }
-  });
+    basicRows.forEach(function (row) {
+      row.classList.remove("filtered-out");
+    });
+  } else {
+    // Loop through starredRows and add "filtered-out" class to rows that do not contain search input
+    starredRows.forEach(function (row) {
+      var cellText = row.cells[0].textContent.toLowerCase(); // Assuming you want to search the first column
+      if (cellText.includes(searchField)) {
+        row.classList.remove("filtered-out");
+      } else {
+        row.classList.add("filtered-out");
+      }
+    });
 
-  // ApplyFilters to hide rows that do not meet filter criteria
-  ApplyFilters();
-} 
+    // Loop through basicRows and add "filtered-out" class to rows that do not contain search input
+    basicRows.forEach(function (row) {
+      var cellText = row.cells[0].textContent.toLowerCase(); // Assuming you want to search the first column
+      console.log(cellText);
+      if (!cellText.includes(searchField)) {
+        row.classList.add("filtered-out");
+      }
+    });
+  }
+    // ApplyFilters to hide rows that do not meet filter criteria
+    ApplyFilters();
+}
+
 
 
 
