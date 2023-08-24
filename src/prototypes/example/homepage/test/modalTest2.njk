@@ -183,6 +183,10 @@ layout: example/homepage/test/2col_Layout
         font-weight: 600;
     }
 
+    .filtered-out{
+        display:none;
+    }
+
 </style>
 
 {% endblock %}
@@ -289,7 +293,11 @@ layout: example/homepage/test/2col_Layout
         "searchButton": {
             "visuallyHideButtonText": true,
             "text": 'Search',
-            "iconType": 'search'
+            "iconType": 'search',
+            "id": "apply-search",
+            "attributes": {
+                "onclick": "ApplySearch()"
+            }
         }
     })
     }}
@@ -1223,6 +1231,7 @@ for (var i = 0; i < buttons.length; i++) {
 
 
 function ApplyFilters() {
+    console.log('executing');
     currentPage = 1; // Reset currentPage to 1
     var projectFilter = document.getElementById("project-filter").value.toLowerCase();
     var ownerFilter = document.getElementById("owner-filter").value.toLowerCase();
@@ -1236,13 +1245,13 @@ function ApplyFilters() {
     var ViewOnlyAccess = document.getElementById("view-only");
     var ReadOnlyAccess = document.getElementById("read-only");
 
-
     BeforeDayFilter = BeforeDayFilter.replace(/^0+/, "");
     BeforeMonthFilter = BeforeMonthFilter.replace(/^0+/, "");
     AfterDayFilter = AfterDayFilter.replace(/^0+/, "");
     AfterMonthFilter = AfterMonthFilter.replace(/^0+/, "");
 
   function filterTable(tableId) {
+    console.log('working');
     var table = document.getElementById(tableId);
     var rows = table.querySelectorAll("tbody tr");
 
@@ -1259,6 +1268,7 @@ function ApplyFilters() {
 
       // Check if the Project filter is non-empty and matches
       var projectFilterMatch = projectFilter === "" || ProjectCellText.includes(projectFilter);
+      console.log(projectFilterMatch);
 
       // Check if the Owner filter is non-empty and matches
       var ownerFilterMatch = ownerFilter === "" || OwnerCellText.includes(ownerFilter);
@@ -1272,7 +1282,7 @@ function ApplyFilters() {
           var cellDateObj = new Date(cellDate);
           BeforedateFilterMatch = cellDateObj < BeforefilterDate;
         }
-      }
+        }
 
     // Check if the After filters are non-empty and match
       var AfterdateFilterMatch = true;
@@ -1306,15 +1316,14 @@ function ApplyFilters() {
         document.getElementById("tags-access").style.display = "none"; 
     }
 
-      if (projectFilterMatch && ownerFilterMatch && BeforedateFilterMatch && AfterdateFilterMatch && access) {
-        row.style.display = "table-row";
-        row.classList.remove("filtered-out");
-      } else {
-        row.style.display = "none";
+    if (!projectFilterMatch || !ownerFilterMatch || !BeforedateFilterMatch || !AfterdateFilterMatch || !access || row.classList.contains("filtered-out")) {
         row.classList.add("filtered-out");
-      }
+        row.style.display = "none";
     }
-  }
+  }}
+
+console.log('test');
+
 
   filterTable("starred-table");
   filterTable("basic-table");
@@ -1479,6 +1488,7 @@ function removeFilterTag(tagId, filterType) {
     } 
     else if (filterType === "Editor") {
         document.getElementById("editor").checked = false;
+
     }
     else if (filterType === "View-only") {
         document.getElementById("view-only").checked = false;
@@ -1487,11 +1497,17 @@ function removeFilterTag(tagId, filterType) {
         document.getElementById("read-only").checked = false;
     }
 
+
     document.getElementById(tagId).remove();
+
+    if (document.getElementById("tags-access").childElementCount === 0) {
+        document.getElementById("tags-access").style.display = "none";    
+    }
 
 
   // Reapply all filters
-    ApplyFilters();
+    {# ApplyFilters(); #}
+    ApplySearch();
 }
 
 
@@ -1533,10 +1549,11 @@ function updatePagination() {
       BasicRows.push(row);
     }
   }
+  console.log(BasicRows);
 
   // Calculate the total number of rows and pages
   var TotalRowsToShow = StarredRows.length + BasicRows.length;
-  console.log(TotalRowsToShow);
+  console.log('Total rows without filtered-out: ' + TotalRowsToShow);
   var RowsPerPage = 4;
   TotalPages = Math.ceil(TotalRowsToShow / RowsPerPage); // Update the global TotalPages variable
 
@@ -1619,6 +1636,43 @@ function initializePagination() {
     }
   });
 }
+
+
+
+function ApplySearch() {
+    console.log('searching');
+  var searchField = document.getElementById("search-field").value.toLowerCase();
+  var starredTable = document.getElementById("starred-table");
+  var basicTable = document.getElementById("basic-table");
+
+  // Get all rows in both tables
+  var starredRows = starredTable.querySelectorAll("tbody tr");
+  var basicRows = basicTable.querySelectorAll("tbody tr");
+
+  // Loop through starredRows and add "filtered-out" class to rows that do not contain search input
+  starredRows.forEach(function (row) {
+    var cellText = row.cells[0].textContent.toLowerCase(); // Assuming you want to search the first column
+    if (cellText.includes(searchField)) {
+      row.classList.remove("filtered-out");
+    } else {
+      row.classList.add("filtered-out");
+    }
+  });
+
+  // Loop through basicRows and add "filtered-out" class to rows that do not contain search input
+  basicRows.forEach(function (row) {
+    var cellText = row.cells[0].textContent.toLowerCase(); // Assuming you want to search the first column
+    console.log(cellText);
+    if (!cellText.includes(searchField)) {
+      row.classList.add("filtered-out");
+    }
+  });
+
+  // ApplyFilters to hide rows that do not meet filter criteria
+  ApplyFilters();
+} 
+
+
 
 // Call the function to initialize the pagination
 initializePagination();
