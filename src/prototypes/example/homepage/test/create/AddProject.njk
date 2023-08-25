@@ -13,7 +13,7 @@ layout: example/views/Author8col
 {% set form =  {
     "method": "GET",
     "attributes": {
-        "name": "creationQuestionnaireProject",
+        "name": "createQuestionnaireProject",
         "onsubmit":  "return creationProject()"
     }
 } %}
@@ -45,7 +45,7 @@ layout: example/views/Author8col
 
 {% block main %}
 
-    <h1><span class="ons-u-fs-m ons-u-db ons-u-mb-xs ons-u-lighter">Duplicate questionnaire</span> Add a project tag</h1>
+    <h1><span class="ons-u-fs-m ons-u-db ons-u-mb-xs ons-u-lighter">Create questionnaire</span> Add a project tag</h1>
 
     <p>A project tag enables the grouping of related questionnaires and enhances filtering options.</p>
 
@@ -141,6 +141,7 @@ function creationProject() {
             document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepage/test/create/CustomisePermissions.html";    
         }
         else{
+            console.log("Lauren Dowling");
             document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepage/test/NewQuestionnaire.html";    
         }
     }
@@ -161,7 +162,7 @@ function creationProject() {
     }
 
     if(document.getElementById('project').value == "" && document.getElementById('create-project').checked === true && document.getElementById('new-project').value == ""){
-        document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepage/test/create//ProjectErrors/NewProjectBlank.html";    
+        document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepage/test/create/ProjectErrors/NewProjectBlank.html";    
     }
 
 

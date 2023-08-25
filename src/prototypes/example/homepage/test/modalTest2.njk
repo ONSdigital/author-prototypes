@@ -263,7 +263,7 @@ layout: example/homepage/test/2col_Layout
             <span class="ons-btn__inner"><span class="ons-btn__text">Cancel</span>
             </span>
         </button>
-        <button type="submit" class="ons-btn ons-js-modal-btn ons-u-mt-s" id="deleteButton" onclick="deleteQuestionnaire(rowId)">
+        <button type="submit" class="ons-btn ons-js-modal-btn ons-u-mt-s" id="deleteButton" {#onclick="deleteQuestionnaire(rowId)"#}>
         <span class="ons-btn__inner"><span class="ons-btn__text">Delete</span>
         </span>
         </button>
@@ -567,7 +567,7 @@ layout: example/homepage/test/2col_Layout
                                 </button>
                                 </li>
                                 <li role="none" class="ons-u-mb-no">
-                                <button role="menuitem" class="listItemButton" onclick='deleteQuestionnaire("menubutton1", "menu1", "SMUIS Final", "Social Media Usage and Impact Survey", "Social Media", "Isabella Ramirez", , "row1")'>
+                                <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton1", "menu1", "SMUIS Final", "Social Media Usage and Impact Survey", "Social Media", "Isabella Ramirez", "row1")'>
                                     <span class="material-symbols-outlined">
                                     delete
                                     </span>
@@ -622,7 +622,7 @@ layout: example/homepage/test/2col_Layout
                                 </button>
                                 </li>
                                 <li role="none" class="ons-u-mb-no">
-                                <button role="menuitem" class="listItemButton" onclick='deleteQuestionnaire("menubutton2", "menu2", "SMUIS V4", "Draft - Social Media Usage and Impact Survey", "Social Media", "Eleanor Prescott", , "row2")'>
+                                <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton2", "menu2", "SMUIS V4", "Draft - Social Media Usage and Impact Survey", "Social Media", "Eleanor Prescott", "row2")'>
                                     <span class="material-symbols-outlined">
                                     delete
                                     </span>
@@ -677,7 +677,7 @@ layout: example/homepage/test/2col_Layout
                                 </button>
                                 </li>
                                 <li role="none" class="ons-u-mb-no">
-                                <button role="menuitem" class="listItemButton" onclick='deleteQuestionnaire("menubutton3", "menu3", "SMUIS V3", "Draft - Social Media Usage and Impact Survey", "Small Business Survey", "Eleanor Prescott", "row3")'>
+                                <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton3", "menu3", "SMUIS V3", "Draft - Social Media Usage and Impact Survey", "Small Business Survey", "Eleanor Prescott", "row3")'>
                                     <span class="material-symbols-outlined">
                                     delete
                                     </span>
@@ -732,7 +732,7 @@ layout: example/homepage/test/2col_Layout
                                 </button>
                                 </li>
                                 <li role="none" class="ons-u-mb-no">
-                                <button role="menuitem" class="listItemButton" onclick='deleteQuestionnaire("menubutton4", "menu4", "SMUIS V2", "Draft - Social Media Usage and Impact Survey", "Social Media", "Eleanor Prescott",  "row4")'>
+                                <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton4", "menu4", "SMUIS V2", "Draft - Social Media Usage and Impact Survey", "Social Media", "Eleanor Prescott",  "row4")'>
                                     <span class="material-symbols-outlined">
                                     delete
                                     </span>
@@ -787,7 +787,7 @@ layout: example/homepage/test/2col_Layout
                                 </button>
                                 </li>
                                 <li role="none" class="ons-u-mb-no">
-                                <button role="menuitem" class="listItemButton" onclick='deleteQuestionnaire("menubutton5", "menu5", "SMUIS V1", "Draft - Social Media Usage and Impact Survey", "Social Media", "Isabella Ramirez",  "row5")'>
+                                <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton5", "menu5", "SMUIS V1", "Draft - Social Media Usage and Impact Survey", "Social Media", "Isabella Ramirez",  "row5")'>
                                     <span class="material-symbols-outlined">
                                     delete
                                     </span>
@@ -869,6 +869,7 @@ layout: example/homepage/test/2col_Layout
 
         var td4 = row.insertCell(3);
         td4.classList.add("ons-table__cell");
+        td4.setAttribute("data-date-value", "2023-08-25");
         td4.innerHTML = `<span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>27 Aug 2023<span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>27 Aug 2023`;
 
         if(sessionStorage.getItem("Access_" + i) == 'Editor'){
@@ -1065,6 +1066,7 @@ function toggleMenu(event, Buttonid, ULid) {
 
 function closeMenuOnClickOutside(ULid, event) {
   var menu = document.getElementById(ULid);
+  console.log(menu);
   
   if (!menu.contains(event.target)) {
     menu.style.display = "none";
@@ -1072,8 +1074,9 @@ function closeMenuOnClickOutside(ULid, event) {
   }
 }
 
+
 function confirmDeletion(Buttonid, ULid, shortcode, title, project, owner, rowId){
-    console.log('hello');
+    console.log('confirm deletion');
     toggleMenu(event, Buttonid, ULid);
     var container = document.getElementById('modalContainer');
     container.style.display = "block";
@@ -1096,12 +1099,12 @@ function confirmDeletion(Buttonid, ULid, shortcode, title, project, owner, rowId
     }
     var ownerSpan = document.querySelector('#owner .ons-summary__text');
     ownerSpan.textContent = owner;
+    console.log('owner is:' + owner);
     
-    {# Defines which row to delete #}
+    
 
     var deleteButton = document.getElementById('deleteButton');
     deleteButton.addEventListener('click', function() {
-    deleteQuestionnaire(Buttonid, ULid, shortcode, title, project, owner, rowId);
 
     var match = Buttonid.match(/_(\d+)$/);
     if (match) {
@@ -1118,10 +1121,15 @@ function confirmDeletion(Buttonid, ULid, shortcode, title, project, owner, rowId
         }
         sessionStorage.removeItem("rowID" + numberAfterUnderscore);
 
-        deleteQuestionnaire(rowId);
+        {#deleteQuestionnaire(Buttonid, ULid, shortcode, title, project, owner, rowId);#}
+
     }
+    deleteQuestionnaire(rowId);
+
 
     });
+        
+
 
 }
 
@@ -1133,26 +1141,27 @@ function cancelDeletion(){
     modal.style.display = "none";
 }
 
-function deleteQuestionnaire(Buttonid, ULid, shortcode, title, project, owner, rowId) {
-console.log(rowId);
-console.log('deletingrow');
-var row = document.getElementById(rowId);
-console.log(document.getElementById(rowId));
-    if (row) {
-        row.remove();
-        var container = document.getElementById('modalContainer');
-        container.style.display = "none";
-        var modal = document.getElementById('modalDialog');
-        modal.style.display = "none";
+function deleteQuestionnaire(rowId) {
+    console.log(rowId);
+    console.log('deleting row');
+    var row = document.getElementById(rowId);
+    console.log(document.getElementById(rowId));
+        if (row) {
+            row.remove();
+            var container = document.getElementById('modalContainer');
+            container.style.display = "none";
+            var modal = document.getElementById('modalDialog');
+            modal.style.display = "none";
 
-        var questionnaireCountElement = document.getElementById('questionnaireCount');
-        var currentCount = parseInt(questionnaireCountElement.textContent, 10);
-        if (!isNaN(currentCount) && currentCount > 0) {
-        questionnaireCountElement.textContent = (currentCount - 1) + ' questionnaires';
+            var questionnaireCountElement = document.getElementById('questionnaireCount');
+            var currentCount = parseInt(questionnaireCountElement.textContent, 10);
+            if (!isNaN(currentCount) && currentCount > 0) {
+            questionnaireCountElement.textContent = (currentCount - 1) + ' questionnaires';
+            }
+
+
         }
-
-
-    }
+        updatePagination();
 }
 
 function duplicate(Buttonid, shortcode, title) {
@@ -1213,8 +1222,14 @@ function addToStarred(rowID) {
         tbody.classList.remove("ons-u-d-no");
     }
 
+    currentPage = 1; // Reset currentPage to 1
+    updatePagination();
+
+
 
 }
+
+{# When questionnaire is added from Questionnaire Directory #}
 
 var buttons = document.querySelectorAll('button');
 
