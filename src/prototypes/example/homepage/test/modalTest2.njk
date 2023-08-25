@@ -1420,6 +1420,19 @@ function clearInputValues() {
     document.getElementById("editor-label").checked = false;
     document.getElementById("view-only-label").checked = false;
     document.getElementById("read-only-label").checked = false;
+    
+    // Remove 'filtered-out' class from all rows in starred-table
+    let starredRows = document.querySelectorAll('#starred-table .ons-table__row');
+    starredRows.forEach(function (row) {
+        row.classList.remove('filtered-out');
+    });
+
+    // Remove 'filtered-out' class from all rows in basic-table
+    let basicRows = document.querySelectorAll('#basic-table .ons-table__row');
+    basicRows.forEach(function (row) {
+        row.classList.remove('filtered-out');
+    });
+
     ApplySearch();
 }
 
