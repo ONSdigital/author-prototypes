@@ -16,116 +16,181 @@ layout: example/views/homepage
 
 
 <style>
-.filter-panel{
-    width:100%;
-    outline: 1px solid #E2E2E3;
-}
-
-.filter-heading-panel{
-    background-color: var(--ons-color-grey-15);
-}
-
-.row-relative{
-    position:relative;
-}
-
-.menu-container{
-    width: fit-content;
-    float: right;
-  }
-
-  .actionsBtn .ons-icon{
-    transform: rotate(90deg);
+    .filter-panel{
+        width:100%;
+        outline: 1px solid #E2E2E3;
     }
-  
-  .actionsBtn{
-    display: flex;
-    box-sizing: border-box;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
-    border: 2px solid #bcbcbd;
-    border-radius: 3px;
-    outline: none;
-    padding: 9px 6px;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 14px;
-    font-weight: bold;
-    color: #707071;
-    line-height: 1.35;
-    cursor: pointer;
-  }
-  
-  .actionsBtn:focus{
-    background-color: #FBC900;
-    border: 2px solid black;
-    color: black;
-  }
-  
-  .menu{
-    display:none;
-    background-color: #206095;
-    padding:18px;
-    list-style:none;
-    width: fit-content;
-    border-radius: 3px;
-    border: 2px solid #003C57;
-    position: absolute;
-    top: 55px;
-    right:0;
-    z-index:1;
-  }
-  
-  .listItemLink{
-    color: white;
-    margin-left: 20px;
-    font-size: 16px;
-  }
-  
-  .listItemLink:hover{
-    color: white;
-    text-decoration: underline solid white 2px;
-  }
-  
-  .duplicate{
-    display: inline-flex;
-    align-items: center;
-    margin-left: 12px;
-    color: white;
-  }
-  
-  .listItemButton {
-    display: inline-flex;
-    box-sizing: border-box;
-    width:180px;
-    line-height: 1.35;
-    align-items: center;
-    background-color: #206095;
-    color: white;
-    border: 2px solid #206095;
-    border-radius:3px;
-    padding: 10px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
-  }
-  
-  .listItemButton .material-symbols-outlined {
-    margin-right: 20px;
-  }
-  
-  .listItemButton:hover {
-    border: 2px solid white;
-  
-  }
-  
-  .listItemButton:focus {
-    outline: none;
-    background-color: #FBC900;
-    border: 3px solid black;
-    color: black;
-}
 
+    .filter-heading-panel{
+        background-color: var(--ons-color-grey-15);
+    }
+
+    {# 16px font size #}
+    .u-fs-16{
+        font-size:16px;
+    }
+
+    {# positioning the actions button relative to the row #}
+    .row-relative{
+        position:relative;
+    }
+
+    {# styling the actions button #}
+    .menu-container{
+        width: fit-content;
+        float: right;
+    }
+
+    .actionsBtn .ons-icon{
+        transform: rotate(90deg);
+        }
+    
+    .actionsBtn{
+        display: flex;
+        box-sizing: border-box;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+        border: 2px solid #bcbcbd;
+        border-radius: 3px;
+        outline: none;
+        padding: 9px 6px;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 14px;
+        font-weight: bold;
+        color: #707071;
+        line-height: 1.35;
+        cursor: pointer;
+    }
+    
+    .actionsBtn:focus{
+        background-color: #FBC900;
+        border: 2px solid black;
+        color: black;
+    }
+    
+    .menu{
+        display:none;
+        background-color: #206095;
+        padding:18px;
+        list-style:none;
+        width: fit-content;
+        border-radius: 3px;
+        border: 2px solid #003C57;
+        position: absolute;
+        top: 55px;
+        right:0;
+        z-index:1;
+    }
+    
+    .listItemLink{
+        color: white;
+        margin-left: 20px;
+        font-size: 16px;
+        padding-bottom: 10px;
+        padding-top:10px;
+    }
+    
+    .listItemLink:hover{
+        color: white;
+        text-decoration: underline solid white 2px;
+    }
+    
+    .duplicate{
+        display: inline-flex;
+        align-items: center;
+        margin-left: 12px;
+        color: white;
+    }
+    
+    .listItemButton {
+        display: inline-flex;
+        box-sizing: border-box;
+        width:100%;
+        line-height: 1.35;
+        align-items: center;
+        background-color: #206095;
+        color: white;
+        border: 2px solid #206095;
+        border-radius:3px;
+        padding: 10px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    }
+    
+    .listItemButton .material-symbols-outlined {
+        margin-right: 20px;
+    }
+    
+    .listItemButton:hover {
+        border: 2px solid white;
+    
+    }
+    
+    .listItemButton:focus {
+        outline: none;
+        background-color: #FBC900;
+        border: 3px solid black;
+        color: black;
+    }
+
+    {# styling the modal #}
+    .modal-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8); 
+        backdrop-filter: blur(3px); 
+        display: none; 
+        z-index: 100;
+    }
+
+    .ons-modal {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 101;
+        display:none;
+        margin:0;
+    }
+
+    .filter-tag-button{
+        border-radius: 3px;
+        border: 1px solid #bcbcbd;
+        background-color: #f5f5f6;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        padding: 4px 4px 4px 7px;
+        margin-left: 10px;
+
+    }
+
+    .filter-tag-button span{
+        color: #707071;
+
+    }
+
+    .AllFiltersFlexContainer{
+        display:flex;
+    }
+
+    .FiltersFlexItems{
+        display: flex;
+        height: fit-content;
+        align-items: center;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .filtered-out{
+        display:none;
+    }
 </style>
 
 
@@ -327,7 +392,7 @@ layout: example/views/homepage
 
     <div class="ons-grid__col ons-col-9@m">
         <div class="ons-u-ml-s">
-            <h2 class="ons-u-fs-m">84 questionnaires</h2>
+            <h2 class="ons-u-fs-m">11 questionnaires</h2>
 
             <div id="area-for-tags" class="AllFiltersFlexContainer">
                 <div id="tags-project" class="FiltersFlexItems" style="display:none;">Project:</div>
