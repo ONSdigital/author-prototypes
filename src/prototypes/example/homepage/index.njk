@@ -180,7 +180,7 @@ layout: example/views/homepage
         display:flex;
         margin: 27px 0px;
         border-bottom: 1px solid #e2e2e3;
-        padding-bottom: 18px;
+        flex-wrap: wrap;    
     }
 
     .FiltersFlexItems{
@@ -190,6 +190,7 @@ layout: example/views/homepage
         font-size: 16px;
         font-weight: 600;
         margin-right: 27px;
+        padding-bottom: 18px;
 
     }
 
@@ -1713,7 +1714,7 @@ function ApplyFilters() {
     var starredTableCount = countUnfilteredRows("starred-table");
     var unfilteredRowsCount = basicTableCount + starredTableCount;
     var numberOfQuestionnairesElement = document.querySelector('#NumberOfQuestionnaires span');
-    if(unfilteredRowsCount > 1){
+    if(unfilteredRowsCount != 1){
         numberOfQuestionnairesElement.textContent = unfilteredRowsCount + ' questionnaires';
     }
     if(unfilteredRowsCount == 1){
@@ -2064,7 +2065,7 @@ function ApplySearch() {
         var searchEntry = document.getElementById("search-field").value;
         var numberOfQuestionnairesElement = document.getElementById("SearchEntry");
         // Append the value of searchEntry to the existing text content
-        numberOfQuestionnairesElement.textContent = searchEntry;
+        numberOfQuestionnairesElement.textContent = ' with ' + '"' + searchEntry + '"';
 
         // ApplyFilters to hide rows that do not meet filter criteria
         ApplyFilters();
