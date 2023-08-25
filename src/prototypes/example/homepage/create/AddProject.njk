@@ -1,0 +1,172 @@
+---
+group: Examples
+title: Example prototype
+layout: example/views/Author8col
+---
+{% from "components/button/_macro.njk" import onsButton %}
+{% from "components/autosuggest/_macro.njk" import onsAutosuggest %}
+{% from "components/table/_macro.njk" import onsTable %}
+{% from "components/panel/_macro.njk" import onsPanel %}
+{% from "components/input/_macro.njk" import onsInput %}
+{% from "components/breadcrumbs/_macro.njk" import onsBreadcrumbs %}
+
+{% set form =  {
+    "method": "GET",
+    "attributes": {
+        "name": "createQuestionnaireProject",
+        "onsubmit":  "return creationProject()"
+    }
+} %}
+
+{% block head %}
+
+
+{% endblock %}
+
+{% block preMain %}
+
+{{
+    onsBreadcrumbs({
+        "ariaLabel": 'Back',
+        "itemsList": [
+            {
+                "url": '/prototypes/example/homepage/',
+                "id": "backlink",
+                "text": 'Back',
+                "attributes": {
+                    "data-attribute": "Example attribute"
+                }
+            }
+        ]
+    })
+}}
+
+{% endblock %}
+
+{% block main %}
+
+    <h1><span class="ons-u-fs-m ons-u-db ons-u-mb-xs ons-u-lighter">Create questionnaire</span> Add a project tag</h1>
+
+    <p>A project tag enables the grouping of related questionnaires and enhances filtering options.</p>
+
+    {{
+        onsPanel({
+            "body": '<p>A project tag can be edited in Settings after the questionnaire is created</p>',
+            "classes": "ons-u-mb-m"
+        })
+    }}
+
+    {{ onsAutosuggest({
+                "id": "project",
+                "label": {
+                    "text": "Search for and select a project tag",
+                    "description": "If the project you need is not listed, you can create a new project",
+                    "id": "project-label"
+                },
+                "autocomplete": "off",
+                "instructions": "Use up and down keys to navigate suggestions once you\'ve typed more than two characters. Use the enter key to select a suggestion. Touch device users, explore by touch or with swipe gestures.",
+                "ariaYouHaveSelected": "You have selected",
+                "ariaMinChars": "Enter 3 or more characters for suggestions.",
+                "ariaOneResult": "There is one suggestion available.",
+                "ariaNResults": "There are {n} suggestions available.",
+                "ariaLimitedResults": "Results have been limited to 10 suggestions. Type more characters to improve your search",
+                "moreResults": "Continue entering to improve suggestions",
+                "resultsTitle": "Suggestions",
+                "resultsTitleId": "project-suggestions",
+                "autosuggestData": "/projects.json",
+                "noResults": "No suggestions found. You can enter your own answer",
+                "typeMore": "Continue entering to get suggestions"
+    }) }}
+
+
+    {{
+        onsCheckboxes({
+            "checkboxesLabel": "Or",
+            "checkboxesLabelClasses": "ons-u-fw-b ons-u-mt-s",
+            "dontWrap": true,
+            "checkboxes": [
+                {
+                    "id": "create-project",
+                    "attributes": {
+                        "onclick": "mutuallyExclusive()"
+                    },
+                    "label": {
+                        "text": "Other",
+                        "description": "After creating the questionnaire, the new project will be available to select"
+                    },
+                    "value": "other",
+                    "other": {
+                        "id": "new-project",
+                        "name": "other-answer",
+                        "label": {
+                            "text": "Enter project tag name"
+                        }
+                    }
+                }
+            ]
+        })
+    }}
+
+    <div class="ons-u-mt-l">
+        {{
+            onsButton({
+                "text": "Continue"
+            })
+        }}
+
+        <a class="ons-u-dib ons-u-ml-s ons-u-mt-xs" href="/prototypes/example/homepage/">Cancel</a>
+
+    </div>
+
+{% endblock %}
+
+{% block bodyEnd %}
+
+<script>
+
+function mutuallyExclusive(){
+    console.log("print");
+    if(document.getElementById('project').value != ""){
+        document.getElementById('project').value = "";
+    }
+}
+
+function creationProject() {
+    console.log('print');
+    var counter = sessionStorage.getItem('questionnaireCounter');
+    if(document.getElementById('project').value != "" && document.getElementById('create-project').checked === false && document.getElementById('new-project').value == ""){
+        var project = document.getElementById('project').value;
+        sessionStorage.setItem('Project_' + counter, project);   
+        if(sessionStorage.getItem('customisePermissions')){
+            document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepage/create/CustomisePermissions.html";    
+        }
+        else{
+            console.log("Lauren Dowling");
+            document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepage/NewQuestionnaire.html";    
+        }
+    }
+
+    if(document.getElementById('project').value == "" && document.getElementById('create-project').checked === true && document.getElementById('new-project').value != ""){
+        var project = document.getElementById('new-project').value;
+        sessionStorage.setItem('Project_' + counter, project);   
+        if(sessionStorage.getItem('customisePermissions')){
+            document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepage/create/CustomisePermissions.html";    
+        }
+        else{
+            document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepage/NewQuestionnaire.html";    
+        }
+    }
+
+    if(document.getElementById('project').value == "" && document.getElementById('create-project').checked === false && document.getElementById('new-project').value == ""){
+        document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepage/create/ProjectErrors/BothBlank.html";    
+    }
+
+    if(document.getElementById('project').value == "" && document.getElementById('create-project').checked === true && document.getElementById('new-project').value == ""){
+        document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepage/create/ProjectErrors/NewProjectBlank.html";    
+    }
+
+
+}
+
+</script>
+{% endblock %}

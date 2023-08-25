@@ -1,0 +1,230 @@
+---
+group: Examples
+title: Example prototype
+layout: example/views/Author8col
+---
+{% from "components/button/_macro.njk" import onsButton %}
+{% from "components/autosuggest/_macro.njk" import onsAutosuggest %}
+{% from "components/table/_macro.njk" import onsTable %}
+{% from "components/panel/_macro.njk" import onsPanel %}
+{% from "components/input/_macro.njk" import onsInput %}
+{% from "components/breadcrumbs/_macro.njk" import onsBreadcrumbs %}
+
+{% set form =  {
+    "method": "GET",
+    "attributes": {
+        "name": "createQuestionnaireProject",
+        "onsubmit":  "return completeSetup()"
+    }
+} %}
+
+{% block head %}
+
+<style>
+ .editorsHeadingDiv{
+    background-color:#E6ECEE;
+ }
+
+ .editorsListDiv{
+    border: 5px solid #E6ECEE; 
+    border-top:0px;
+ }
+
+ .editorsList{
+    list-style-type: none;
+    padding-left: 0px;
+ }
+
+ .removeBtn{
+    background-color:white;
+    border: 2px solid #6390B5;
+    font-size: 16px;
+    padding: 3px 6px;
+    color:  #206095;
+    border-radius: 3px;
+ }
+
+  .removeBtn:hover{
+    background-color: #F5F5F6;
+
+ }
+
+ li{
+    margin-bottom: 1rem;
+ }
+
+
+</style>
+
+
+{% endblock %}
+
+{% block preMain %}
+
+{{
+    onsBreadcrumbs({
+        "ariaLabel": 'Back',
+        "itemsList": [
+            {
+                "url": '/prototypes/example/homepage/test/modalTest2.html',
+                "id": "backlink",
+                "text": 'Back',
+                "attributes": {
+                    "data-attribute": "Example attribute"
+                }
+            }
+        ]
+    })
+}}
+
+{% endblock %}
+
+{% block main %}
+
+    <h1><span class="ons-u-fs-m ons-u-db ons-u-mb-xs ons-u-lighter">Duplicate questionnaire</span> Customise access control and user permissions</h1>
+
+    {{
+        onsPanel({
+            "body": '<p>Permissions can be edited in Sharing after the questionnaire is created.</p>',
+            "classes": "ons-u-mb-m"
+        })
+    }}
+
+    {{
+        onsCheckboxes({
+            "checkboxesLabel": "Access control settings",
+            "checkboxesLabelClasses": "ons-u-fw-b",
+            "dontWrap": true,
+            "name": "devices",
+            "checkboxes": [
+                {
+                    "id": "no-display-questionnaire-directory",
+                    "label": {
+                        "text": "Do not display my questionnaire in the questionnaire directory",
+                        "description": "Your questionnaire will not be visible to other Author users"
+                    },
+                    "value": "no-display-questionnaire-directory"
+                },
+                {
+                    "id": "no-duplicate",
+                    "label": {
+                        "text": "Do not allow non-editors to duplicate this questionnaire"
+                    },
+                    "value": "no-duplicate"
+                },
+                {
+                    "id": "no-comment",
+                    "label": {
+                        "text": "Do not allow non-editors to add comments to this questionnaire"
+                    },
+                    "value": "no-comment"
+                }
+            ]
+        })
+    }}
+
+    <h2 class="ons-u-fs-m ons-u-mt-xl">Add editors</h2>
+
+    <p>Editors can edit questionnaire content, add comments, delete the questionnaire and add other editors.</p>
+
+    {{ onsAutosuggest({
+                "id": "editors",
+                "label": {
+                    "text": "Search by name or email",
+                    "id": "project-label"
+                },
+                "autocomplete": "off",
+                "instructions": "Use up and down keys to navigate suggestions once you\'ve typed more than two characters. Use the enter key to select a suggestion. Touch device users, explore by touch or with swipe gestures.",
+                "ariaYouHaveSelected": "You have selected",
+                "ariaMinChars": "Enter 3 or more characters for suggestions.",
+                "ariaOneResult": "There is one suggestion available.",
+                "ariaNResults": "There are {n} suggestions available.",
+                "ariaLimitedResults": "Results have been limited to 10 suggestions. Type more characters to improve your search",
+                "moreResults": "Continue entering to improve suggestions",
+                "resultsTitle": "Suggestions",
+                "resultsTitleId": "project-suggestions",
+                "autosuggestData": "/projects.json",
+                "noResults": "No suggestions found. You can enter your own answer",
+                "typeMore": "Continue entering to get suggestions"
+    }) }}
+
+    <div class="ons-u-p-s ons-u-mt-l editorsHeadingDiv">
+        <h3 class="ons-u-fs-m ons-u-mb-no">Editors</h3>
+    </div>
+    <div class="ons-u-p-s editorsListDiv" style="border: 5px solid #E6ECEE; border-top:0px;">
+        <ul class="editorsList" id="list-of-editors">
+            <li>Lauren Dowling (you)</li>
+        </ul>
+    </div>
+
+    <div class="ons-u-mt-l">
+        {{
+            onsButton({
+                "text": "Continue"
+            })
+        }}
+
+        <a class="ons-u-dib ons-u-ml-s ons-u-mt-xs" href="#">Cancel</a>
+
+    </div>
+
+{% endblock %}
+
+{% block bodyEnd %}
+
+<script>
+
+function completeSetup() {
+        document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepage/NewQuestionnaire.html";    
+
+
+}
+
+let selectedOptionText = '';
+
+const listOfEditors = document.getElementById('list-of-editors');
+const autosuggestResults = document.querySelector('.ons-autosuggest__results');
+const editorsInput = document.getElementById('editors');
+
+autosuggestResults.addEventListener('click', function (event) {
+  if (event.target && event.target.classList.contains('ons-autosuggest__option')) {
+    selectedOptionText = event.target.textContent.trim();
+    addListItem(selectedOptionText);
+
+    editorsInput.value = '';
+    selectedOptionText = ''; 
+  }
+});
+
+
+function addListItem(text) {
+  // Create a new list item
+  const listItem = document.createElement('li');
+  listItem.textContent = text;
+
+  // Create a button to remove the list item
+  const removeButton = document.createElement('button');
+  removeButton.type = 'button';
+  removeButton.className = 'ons-u-fr removeBtn';
+  removeButton.textContent = 'Remove';
+
+  // Add a click event listener to the remove button
+  removeButton.addEventListener('click', function () {
+    listItem.remove();
+  });
+
+  // Append the text and remove button to the list item
+  listItem.appendChild(removeButton);
+
+  // Append the list item to the list
+  listOfEditors.appendChild(listItem);
+
+  // Clear the input value
+  editorsInput.value = '';
+}
+
+
+
+
+</script>
+{% endblock %}

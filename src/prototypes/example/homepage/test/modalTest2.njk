@@ -494,7 +494,7 @@ layout: example/homepage/test/2col_Layout
 
                 </tbody>
             </table>
-
+            <p class="ons-u-mb-xs" id='StarredReplacement'><span class="material-symbols-outlined ons-u-mr-xs" style="color:#707071">star</span><strong>Starred</strong></p>
             <p class="u-fs-16 ons-u-mb-m" id='AddedToStarred'>No questionnaires have been added to starred</p>
 
 
@@ -1208,6 +1208,7 @@ function addToStarred(rowID) {
     var rowCount = tbody.getElementsByTagName("tr").length;
     if (rowCount === 0){
         document.getElementById('AddedToStarred').style.display = "block";
+        document.getElementById('StarredReplacement').style.display = "block";
         var thead = starredTable.querySelector("thead");
         var tbody = starredTable.querySelector("tbody");
         thead.classList.add("ons-u-d-no");
@@ -1216,6 +1217,7 @@ function addToStarred(rowID) {
     }
     else{
         document.getElementById('AddedToStarred').style.display = "none";
+        document.getElementById('StarredReplacement').style.display = "none";
         var thead = starredTable.querySelector("thead");
         var tbody = starredTable.querySelector("tbody");
         thead.classList.remove("ons-u-d-no");
@@ -1530,77 +1532,65 @@ var currentPage = 1;
 var TotalPages; // Declare TotalPages as a global variable
 
 function updatePagination() {
-    var starredTable = document.getElementById("starred-table");
-    var basicTable = document.getElementById("basic-table");
-    var nextButton = document.getElementById("next");
-    var previousButton = document.getElementById("previous");
-    var nextPaginationLabel = nextButton.querySelector("span.ons-content-pagination__link-label");
-    var previousPaginationLabel = previousButton.querySelector("span.ons-content-pagination__link-label");
+  var starredTable = document.getElementById("starred-table");
+  var basicTable = document.getElementById("basic-table");
+  var nextButton = document.getElementById("next");
+  var previousButton = document.getElementById("previous");
+  var nextPaginationLabel = nextButton.querySelector("span.ons-content-pagination__link-label");
+  var previousPaginationLabel = previousButton.querySelector("span.ons-content-pagination__link-label");
 
   // Get the <tbody> elements for both tables
   var starredTBody = starredTable.querySelector("tbody");
   var basicTBody = basicTable.querySelector("tbody");
 
-  // Get the number of rows in each <tbody>
-  var AllStarredRowCount = starredTBody.rows.length;
-  var AllBasicRowCount = basicTBody.rows.length;
-
-  var StarredRows = [];
-  var BasicRows = [];
+  // Get all rows in both tables
+  var starredRows = starredTBody.querySelectorAll("tr");
+  var basicRows = basicTBody.querySelectorAll("tr");
 
   // Filter rows and add them to respective arrays
-  for (var i = 0; i < AllStarredRowCount; i++) {
-    var StarRow = starredTBody.rows[i];
-    if (!StarRow.classList.contains("filtered-out")) {
-      StarRow.style.display = "none";
-      StarredRows.push(StarRow);
-    }
-  }
+  var filteredStarredRows = Array.from(starredRows).filter(function (row) {
+    return !row.classList.contains("filtered-out");
+  });
 
-  for (var i = 0; i < AllBasicRowCount; i++) {
-    var row = basicTBody.rows[i];
-    if (!row.classList.contains("filtered-out")) {
-      row.style.display = "none";
-      BasicRows.push(row);
-    }
-  }
-  console.log(BasicRows);
+  var filteredBasicRows = Array.from(basicRows).filter(function (row) {
+    return !row.classList.contains("filtered-out");
+  });
 
   // Calculate the total number of rows and pages
-  var TotalRowsToShow = StarredRows.length + BasicRows.length;
-  console.log('Total rows without filtered-out: ' + TotalRowsToShow);
-  var RowsPerPage = 4;
-  TotalPages = Math.ceil(TotalRowsToShow / RowsPerPage); // Update the global TotalPages variable
+  var totalRows = filteredStarredRows.length + filteredBasicRows.length;
+  var rowsPerPage = 4;
+  TotalPages = Math.ceil(totalRows / rowsPerPage); // Update the global TotalPages variable
+
+  // Calculate the current page's rows
+  var startIndex = (currentPage - 1) * rowsPerPage;
+  var endIndex = startIndex + rowsPerPage;
 
   // Display rows on the current page
-
-  for (var i = 0; i < TotalRowsToShow; i++) {
-    if (i < currentPage * RowsPerPage && i >= (currentPage - 1) * RowsPerPage) {
-      // Display the rows for the current page
-      if (i < StarredRows.length) {
-        StarredRows[i].style.display = "table-row";
-      } else {
-        BasicRows[i - StarredRows.length].style.display = "table-row";
-      }
+  for (var i = 0; i < filteredStarredRows.length; i++) {
+    if (i >= startIndex && i < endIndex) {
+      filteredStarredRows[i].style.display = "table-row";
     } else {
-      // Hide rows for other pages
-      if (i < StarredRows.length) {
-        StarredRows[i].style.display = "none";
-      } else {
-        BasicRows[i - StarredRows.length].style.display = "none";
-      }
+      filteredStarredRows[i].style.display = "none";
+    }
+  }
+
+  for (var j = 0; j < filteredBasicRows.length; j++) {
+    if (i + j >= startIndex && i + j < endIndex) {
+      filteredBasicRows[j].style.display = "table-row";
+    } else {
+      filteredBasicRows[j].style.display = "none";
     }
   }
 
   // Update the pagination labels for "Next" and "Previous" links
   if (currentPage < TotalPages) {
-    nextPaginationLabel.textContent = (currentPage + 1) + " of " + TotalPages;
+    nextPaginationLabel.textContent = currentPage + 1 + " of " + TotalPages;
   } else {
     nextPaginationLabel.textContent = "Next";
   }
 
   if (currentPage > 1) {
-    previousPaginationLabel.textContent = (currentPage - 1) + " of " + TotalPages;
+    previousPaginationLabel.textContent = currentPage - 1 + " of " + TotalPages;
   } else {
     previousPaginationLabel.textContent = "Previous";
   }
@@ -1609,19 +1599,13 @@ function updatePagination() {
   nextButton.style.display = currentPage < TotalPages ? "block" : "none";
   previousButton.style.display = currentPage > 1 ? "block" : "none";
 
-    // Hide the starred-table if it's not the first page and there are no rows displayed
-    if (currentPage > 1 && StarredRows.length === 0) {
-        starredTable.style.display = "none";
-        document.getElementById('AddedToStarred').style.display = "none";
-    }    
-    else {
-        starredTable.style.display = "table"; // Show the table if there are rows to display
-    }
-    if (currentPage == 1 && StarredRows.length === 0) {
-        document.getElementById('AddedToStarred').style.display = "block";
-    } 
-
+  // Hide the tables if no rows are displayed
+  starredTable.style.display = filteredStarredRows.some(row => row.style.display === "table-row") ? "table" : "none";
+  basicTable.style.display = filteredBasicRows.some(row => row.style.display === "table-row") ? "table" : "none";
 }
+
+
+
 
 // Function to initialize the pagination
 function initializePagination() {

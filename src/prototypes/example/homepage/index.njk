@@ -1,0 +1,1923 @@
+---
+group: Examples
+title: Example prototype
+layout: example/views/homepage
+---
+{% from "components/button/_macro.njk" import onsButton %}
+{% from "components/autosuggest/_macro.njk" import onsAutosuggest %}
+{% from "components/table/_macro.njk" import onsTable %}
+{% from "components/input/_macro.njk" import onsInput %}
+
+{% block head %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+
+<style>
+.filter-panel{
+    width:100%;
+    outline: 1px solid #E2E2E3;
+}
+
+.filter-heading-panel{
+    background-color: var(--ons-color-grey-15);
+}
+
+.row-relative{
+    position:relative;
+}
+
+.menu-container{
+    width: fit-content;
+    float: right;
+  }
+
+  .actionsBtn .ons-icon{
+    transform: rotate(90deg);
+    }
+  
+  .actionsBtn{
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border: 2px solid #bcbcbd;
+    border-radius: 3px;
+    outline: none;
+    padding: 9px 6px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: #707071;
+    line-height: 1.35;
+    cursor: pointer;
+  }
+  
+  .actionsBtn:focus{
+    background-color: #FBC900;
+    border: 2px solid black;
+    color: black;
+  }
+  
+  .menu{
+    display:none;
+    background-color: #206095;
+    padding:18px;
+    list-style:none;
+    width: fit-content;
+    border-radius: 3px;
+    border: 2px solid #003C57;
+    position: absolute;
+    top: 55px;
+    right:0;
+    z-index:1;
+  }
+  
+  .listItemLink{
+    color: white;
+    margin-left: 20px;
+    font-size: 16px;
+  }
+  
+  .listItemLink:hover{
+    color: white;
+    text-decoration: underline solid white 2px;
+  }
+  
+  .duplicate{
+    display: inline-flex;
+    align-items: center;
+    margin-left: 12px;
+    color: white;
+  }
+  
+  .listItemButton {
+    display: inline-flex;
+    box-sizing: border-box;
+    width:180px;
+    line-height: 1.35;
+    align-items: center;
+    background-color: #206095;
+    color: white;
+    border: 2px solid #206095;
+    border-radius:3px;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+  }
+  
+  .listItemButton .material-symbols-outlined {
+    margin-right: 20px;
+  }
+  
+  .listItemButton:hover {
+    border: 2px solid white;
+  
+  }
+  
+  .listItemButton:focus {
+    outline: none;
+    background-color: #FBC900;
+    border: 3px solid black;
+    color: black;
+}
+
+</style>
+
+
+
+{% endblock %}
+
+{% block main %}
+
+<div class="ons-grid">
+    <div class="ons-grid__col ons-col-7@m">
+        <h1 class="ons-u-mb-l">My questionnaires</h1>
+    </div>
+    <div class="ons-grid__col ons-col-5@m">
+        <div style="float:right;">
+            <a href="#" class="ons-u-dib ons-u-mt-xs ons-u-mb-xs ons-u-mr-m">Questionnaire directory</a>
+            {{
+                onsButton({
+                    "text": 'Create questionnaire',
+                    "url": '/prototypes/example/homepage/test/create/enterDetails.html'            
+                })
+            }}
+        </div>
+    </div>
+    <div class="ons-grid__col ons-col-12@m ons-u-mb-xl">
+        {{
+            onsInput({
+                "id": 'search-field',
+                "label": {
+                    "text": 'Search by short code or title'
+                },
+                "accessiblePlaceholder": true,
+                "searchButton": {
+                    "visuallyHideButtonText": true,
+                    "text": 'Search',
+                    "iconType": 'search',
+                    "id": "apply-search",
+                    "attributes": {
+                        "onclick": "ApplySearch()"
+                    }
+                }
+            })
+        }}
+    </div>
+    <div class="ons-grid__col ons-col-3@m">
+        <div class="filter-panel">
+            <div class="filter-heading-panel ons-u-pl-s ons-u-pr-s ons-u-pt-xs ons-u-pb-xs">
+                <h2 class="ons-u-mb-no">Filter</h2>
+            </div>
+            <div class="ons-u-p-s">
+                {{
+                    onsButton({
+                        "type": 'button',
+                        "text": 'Apply filters',
+                        "variants": 'small',
+                        "classes": "ons-u-mb-m ons-u-mt-xs",
+                        "attributes": {
+                            "onclick": "ApplyFilters()"
+                        }
+                    })
+                }}
+
+                {{ onsAutosuggest({
+                    "id": "owner-filter",
+                    "label": {
+                    "text": "Owner",
+                    "id": "owner-filter-label"
+                    },
+                    "classes": "ons-u-mb-m",
+                    "autocomplete": "off",
+                    "instructions": "Use up and down keys to navigate suggestions once you\'ve typed more than two characters. Use the enter key to select a suggestion. Touch device users, explore by touch or with swipe gestures.",
+                    "ariaYouHaveSelected": "You have selected",
+                    "ariaMinChars": "Enter 3 or more characters for suggestions.",
+                    "ariaOneResult": "There is one suggestion available.",
+                    "ariaNResults": "There are {n} suggestions available.",
+                    "ariaLimitedResults": "Results have been limited to 10 suggestions. Type more characters to improve your search",
+                    "moreResults": "Continue entering to improve suggestions",
+                    "resultsTitle": "Suggestions",
+                    "resultsTitleId": "country-of-birth-suggestions",
+                    "autosuggestData": "/owners.json",
+                    "noResults": "No suggestions found. You can enter your own answer",
+                    "typeMore": "Continue entering to get suggestions",
+                    "attributes": {
+                        "style": "width:261.5px;"
+                    }
+                }) }}
+
+                {{ onsAutosuggest({
+                    "id": "project-filter",
+                    "label": {
+                        "text": "Project",
+                        "id": "project-filter-label"
+                    },
+                    "classes": "ons-u-mb-m",
+                    "autocomplete": "off",
+                    "instructions": "Use up and down keys to navigate suggestions once you\'ve typed more than two characters. Use the enter key to select a suggestion. Touch device users, explore by touch or with swipe gestures.",
+                    "ariaYouHaveSelected": "You have selected",
+                    "ariaMinChars": "Enter 3 or more characters for suggestions.",
+                    "ariaOneResult": "There is one suggestion available.",
+                    "ariaNResults": "There are {n} suggestions available.",
+                    "ariaLimitedResults": "Results have been limited to 10 suggestions. Type more characters to improve your search",
+                    "moreResults": "Continue entering to improve suggestions",
+                    "resultsTitle": "Suggestions",
+                    "resultsTitleId": "country-of-birth-suggestions",
+                    "autosuggestData": "/projects.json",
+                    "noResults": "No suggestions found. You can enter your own answer",
+                    "typeMore": "Continue entering to get suggestions",
+                    "attributes": {
+                        "style": "width:261.5px;"
+                    }
+                }) }}
+
+                {{
+                    onsDateInput({
+                        "id": "created-before-filter",
+                        "legendOrLabel": "Created before",
+                        "description": "For example, 31 3 1980",
+                        "day": {
+                            "label": {
+                                "text": "Day"
+                            },
+                            "name": "day"
+                        },
+                        "month": {
+                            "label": {
+                                "text": "Month"
+                            },
+                            "name": "month"
+                        },
+                        "year": {
+                            "label": {
+                                "text": "Year"
+                            },
+                            "name": "year"
+                        }
+                    })
+                }}
+
+                {{
+                    onsDateInput({
+                        "id": "created-after-filter",
+                        "legendOrLabel": "Created after",
+                        "description": "For example, 31 3 1980",
+                        "day": {
+                            "label": {
+                                "text": "Day"
+                            },
+                            "name": "day"
+                        },
+                        "month": {
+                            "label": {
+                                "text": "Month"
+                            },
+                            "name": "month"
+                        },
+                        "year": {
+                            "label": {
+                                "text": "Year"
+                            },
+                            "name": "year"
+                        }
+                    })
+                }}
+
+                {{
+                    onsCheckboxes({
+                        "legend": "Access",
+                        "name": "contact",
+                        "borderless": true,
+                        "classes": "ons-u-mb-s",
+                        "checkboxes": [
+                            {
+                                "id": "editor",
+                                "label": {
+                                    "text": "Editor"
+                                },
+                                "value": "Editor"
+                            },
+                            {
+                                "id": "view-only",
+                                "label": {
+                                    "text": "View-only"
+                                },
+                                "value": "View-only"
+                            },
+                            {
+                                "id": "read-only",
+                                "label": {
+                                    "text": "Read-only for editors"
+                                },
+                                "value": "Read-only for editors"
+                            }
+                        ]
+                    })
+                }}
+
+            </div>
+        </div>
+    </div>
+
+    <div class="ons-grid__col ons-col-9@m">
+        <div class="ons-u-ml-s">
+            <h2 class="ons-u-fs-m">84 questionnaires</h2>
+
+            <div id="area-for-tags" class="AllFiltersFlexContainer">
+                <div id="tags-project" class="FiltersFlexItems" style="display:none;">Project:</div>
+                <div id="tags-owner" class="FiltersFlexItems" style="display:none;">Owner:</div>
+                <div id="tags-dateBefore" class="FiltersFlexItems" style="display:none;">Created before:</div>
+                <div id="tags-dateAfter" class="FiltersFlexItems" style="display:none;">Created after:</div>
+                <div id="tags-access" class="FiltersFlexItems" style="display:none;">Access:</div>
+            </div>
+
+            <table id="starred-table" class="ons-table ons-u-mb-xs">
+                <caption class="ons-table__caption"><span class="material-symbols-outlined ons-u-mr-xs" style="color:#707071">star</span>Starred</caption>
+                <thead class="ons-table__head ons-u-d-no">
+                    <tr class="ons-table__row">
+                    <th scope="col" class="ons-table__header">
+                        <span class="ons-table__header-text">Short code and title</span>
+                    </th>
+                    <th scope="col" class="ons-table__header">
+                        <span class="ons-table__header-text">Project</span>
+                    </th>
+                    <th scope="col" class="ons-table__header">
+                        <span class="ons-table__header-text">Owner</span>
+                    </th>
+                    <th scope="col" class="ons-table__header">
+                        <span class="ons-table__header-text">Activity</span>
+                    </th>
+                    <th scope="col" class="ons-table__header">
+                        <span class="ons-table__header-text">Access</span>
+                    </th>
+                    <th scope="col" class="ons-table__header">
+                        <span class="ons-table__header-text ons-u-invisible">Actions</span>
+                    </th>
+                    </tr>
+                </thead>
+                <tbody class="ons-table__body ons-u-d-no">
+
+                </tbody>
+            </table>
+
+            <p class="u-fs-16 ons-u-mb-m" id='AddedToStarred'>No questionnaires have been added to starred</p>
+
+            <table id="basic-table" class="ons-table">
+                <caption class="ons-table__caption">Non-starred</caption>
+                <thead class="ons-table__head">
+                    <tr class="ons-table__row">
+                    <th scope="col" class="ons-table__header">
+                        <span class="ons-table__header-text">Short code and title</span>
+                    </th>
+                    <th scope="col" class="ons-table__header">
+                        <span class="ons-table__header-text">Project</span>
+                    </th>
+                    <th scope="col" class="ons-table__header">
+                        <span class="ons-table__header-text">Owner</span>
+                    </th>
+                    <th scope="col" class="ons-table__header">
+                        <span class="ons-table__header-text">Activity</span>
+                    </th>
+                    <th scope="col" class="ons-table__header">
+                        <span class="ons-table__header-text">Access</span>
+                    </th>
+                    <th scope="col" class="ons-table__header">
+                        <span class="ons-table__header-text ons-u-invisible">Actions</span>
+                    </th>
+                    </tr>
+                </thead>
+                <tbody class="ons-table__body">
+                    <tr class="ons-table__row row-relative" id="row1">
+                        <td class="ons-table__cell">
+                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">SMUIS Final</span>
+                            <a href="#">Social Media Usage and Impact Survey</a>
+                        </td>
+                        <td class="ons-table__cell">Social Media</td>
+                        <td class="ons-table__cell">Isabella Ramirez</td>
+                        <td class="ons-table__cell" data-date-value="2023-08-30">
+                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
+                            30 Aug 2023
+                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>
+                            30 Aug 2023
+                        </td>
+                        <td class="ons-table__cell">Editor</td>
+                        <td class="ons-table__cell">
+                            <div class="menu-container">
+                                <button type="button" id="menubutton1" class="actionsBtn" aria-haspopup="true" aria-controls="menu1" onclick='toggleMenu(event, "menubutton1", "menu1")'>
+                                    Actions
+                                    <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                                </button>
+                                <ul id="menu1" role="menu" aria-labelledby="menubutton" class="menu">
+                                    <li role="none" class="duplicate">
+                                        <span class="material-symbols-outlined">
+                                            content_copy
+                                        </span>
+                                        <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton1", "SMUIS Final", "Social Media Usage and Impact Survey")'>
+                                            Duplicate
+                                        </a>
+                                    </li>
+                                    <li role="none">
+                                        <button role="menuitem" class="listItemButton">
+                                            <span class="material-symbols-outlined">
+                                                link
+                                            </span>
+                                            Copy link
+                                        </button>
+                                    </li>
+                                    <li role="none">
+                                        <button role="menuitem" class="listItemButton" onclick='addToStarred("row1")'>
+                                            <span class="material-symbols-outlined">
+                                                star
+                                            </span>
+                                            Add to starred
+                                        </button>
+                                    </li>
+                                    <li role="none" class="ons-u-mb-no">
+                                        <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton1", "menu1", "SMUIS Final", "Social Media Usage and Impact Survey", "Social Media", "Isabella Ramirez", "row1")'>
+                                            <span class="material-symbols-outlined">
+                                                delete
+                                            </span>
+                                            Delete
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="ons-table__row row-relative" id="row2">
+                        <td class="ons-table__cell">
+                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">SMUIS V4</span>
+                            <a href="#">Draft - Social Media Usage and Impact Survey</a>
+                        </td>
+                        <td class="ons-table__cell">Social Media</td>
+                        <td class="ons-table__cell">Eleanor Prescott</td>
+                        <td class="ons-table__cell" data-date-value="2023-08-29">
+                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
+                            29 Aug 2023
+                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>
+                            30 Aug 2023
+                        </td>
+                        <td class="ons-table__cell">Editor</td>
+                        <td class="ons-table__cell">
+                            <div class="menu-container">
+                                <button type="button" id="menubutton2" class="actionsBtn" aria-haspopup="true" aria-controls="menu2" onclick='toggleMenu(event, "menubutton2", "menu2")'>
+                                    Actions
+                                    <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                                </button>
+                                <ul id="menu2" role="menu" aria-labelledby="menubutton" class="menu">
+                                    <li role="none" class="duplicate">
+                                        <span class="material-symbols-outlined">
+                                            content_copy
+                                        </span>
+                                        <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton2", "SMUIS V4", "Draft - Social Media Usage and Impact Survey")'>
+                                            Duplicate
+                                        </a>
+                                    </li>
+                                    <li role="none">
+                                        <button role="menuitem" class="listItemButton">
+                                            <span class="material-symbols-outlined">
+                                                link
+                                            </span>
+                                            Copy link
+                                        </button>
+                                    </li>
+                                    <li role="none">
+                                        <button role="menuitem" class="listItemButton" onclick='addToStarred("row2")'>
+                                            <span class="material-symbols-outlined">
+                                                star
+                                            </span>
+                                            Add to starred
+                                        </button>
+                                    </li>
+                                    <li role="none" class="ons-u-mb-no">
+                                        <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton2", "menu2", "SMUIS V4", "Draft - Social Media Usage and Impact Survey", "Social Media", "Eleanor Prescott", "row2")'>
+                                            <span class="material-symbols-outlined">
+                                                delete
+                                            </span>
+                                            Delete
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="ons-table__row row-relative" id="row3">
+                        <td class="ons-table__cell">
+                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">SMUIS V3</span>
+                            <a href="#">Draft - Social Media Usage and Impact Survey</a>
+                        </td>
+                        <td class="ons-table__cell">Social Media</td>
+                        <td class="ons-table__cell">Eleanor Prescott</td>
+                        <td class="ons-table__cell" data-date-value="2023-08-24">
+                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
+                            24 Aug 2023
+                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>
+                            29 Aug 2023
+                        </td>
+                        <td class="ons-table__cell">Editor</td>
+                        <td class="ons-table__cell">
+                            <div class="menu-container">
+                                <button type="button" id="menubutton3" class="actionsBtn" aria-haspopup="true" aria-controls="menu3" onclick='toggleMenu(event, "menubutton3", "menu3")'>
+                                    Actions
+                                    <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                                </button>
+                                <ul id="menu3" role="menu" aria-labelledby="menubutton" class="menu">
+                                    <li role="none" class="duplicate">
+                                        <span class="material-symbols-outlined">
+                                            content_copy
+                                        </span>
+                                        <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton3", "SMUIS V3", "Draft - Social Media Usage and Impact Survey")'>
+                                            Duplicate
+                                        </a>
+                                    </li>
+                                    <li role="none">
+                                        <button role="menuitem" class="listItemButton">
+                                            <span class="material-symbols-outlined">
+                                                link
+                                            </span>
+                                            Copy link
+                                        </button>
+                                    </li>
+                                    <li role="none">
+                                        <button role="menuitem" class="listItemButton" onclick='addToStarred("row3")'>
+                                            <span class="material-symbols-outlined">
+                                                star
+                                            </span>
+                                            Add to starred
+                                        </button>
+                                    </li>
+                                    <li role="none" class="ons-u-mb-no">
+                                        <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton3", "menu3", "SMUIS V3", "Draft - Social Media Usage and Impact Survey", "Social Media", "Eleanor Prescott", "row3")'>
+                                            <span class="material-symbols-outlined">
+                                                delete
+                                            </span>
+                                            Delete
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="ons-table__row row-relative" id="row4">
+                        <td class="ons-table__cell">
+                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs"></span>
+                            <a href="#">Alternative questions for Social Media Survey</a>
+                        </td>
+                        <td class="ons-table__cell">Social Media</td>
+                        <td class="ons-table__cell">Chris Smith</td>
+                        <td class="ons-table__cell" data-date-value="2023-08-25">
+                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
+                            25 Aug 2023
+                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>
+                            25 Aug 2023
+                        </td>
+                        <td class="ons-table__cell">Editor</td>
+                        <td class="ons-table__cell">
+                            <div class="menu-container">
+                                <button type="button" id="menubutton4" class="actionsBtn" aria-haspopup="true" aria-controls="menu4" onclick='toggleMenu(event, "menubutton4", "menu4")'>
+                                    Actions
+                                    <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                                </button>
+                                <ul id="menu4" role="menu" aria-labelledby="menubutton" class="menu">
+                                    <li role="none" class="duplicate">
+                                        <span class="material-symbols-outlined">
+                                            content_copy
+                                        </span>
+                                        <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton4", "", "Alternative questions for Social Media Survey")'>
+                                            Duplicate
+                                        </a>
+                                    </li>
+                                    <li role="none">
+                                        <button role="menuitem" class="listItemButton">
+                                            <span class="material-symbols-outlined">
+                                                link
+                                            </span>
+                                            Copy link
+                                        </button>
+                                    </li>
+                                    <li role="none">
+                                        <button role="menuitem" class="listItemButton" onclick='addToStarred("row4")'>
+                                            <span class="material-symbols-outlined">
+                                                star
+                                            </span>
+                                            Add to starred
+                                        </button>
+                                    </li>
+                                    <li role="none" class="ons-u-mb-no">
+                                        <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton4", "menu4", "", "Alternative questions for Social Media Survey", "", "Chris Smith", "row4")'>
+                                            <span class="material-symbols-outlined">
+                                                delete
+                                            </span>
+                                            Delete
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="ons-table__row row-relative" id="row5">
+                        <td class="ons-table__cell">
+                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">FPS-23 FINAL</span>
+                            <a href="#">Financial Planning Survey</a>
+                        </td>
+                        <td class="ons-table__cell">Financial Planning Survey</td>
+                        <td class="ons-table__cell">Javier Fernandez</td>
+                        <td class="ons-table__cell" data-date-value="2023-08-05">
+                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
+                            5 Aug 2023
+                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>
+                            8 Aug 2023
+                        </td>
+                        <td class="ons-table__cell">Editor</td>
+                        <td class="ons-table__cell">
+                            <div class="menu-container">
+                                <button type="button" id="menubutton5" class="actionsBtn" aria-haspopup="true" aria-controls="menu5" onclick='toggleMenu(event, "menubutton5", "menu5")'>
+                                    Actions
+                                    <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                                </button>
+                                <ul id="menu5" role="menu" aria-labelledby="menubutton" class="menu">
+                                    <li role="none" class="duplicate">
+                                        <span class="material-symbols-outlined">
+                                            content_copy
+                                        </span>
+                                        <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton5", "FPS-23 FINAL", "Financial Planning Survey")'>
+                                            Duplicate
+                                        </a>
+                                    </li>
+                                    <li role="none">
+                                        <button role="menuitem" class="listItemButton">
+                                            <span class="material-symbols-outlined">
+                                                link
+                                            </span>
+                                            Copy link
+                                        </button>
+                                    </li>
+                                    <li role="none">
+                                        <button role="menuitem" class="listItemButton" onclick='addToStarred("row5")'>
+                                            <span class="material-symbols-outlined">
+                                                star
+                                            </span>
+                                            Add to starred
+                                        </button>
+                                    </li>
+                                    <li role="none" class="ons-u-mb-no">
+                                        <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton5", "menu5", "FPS-23 FINAL", "Financial Planning Survey", "Financial Planning Survey", "Javier Fernandez", "row5")'>
+                                            <span class="material-symbols-outlined">
+                                                delete
+                                            </span>
+                                            Delete
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="ons-table__row row-relative" id="row6">
+                        <td class="ons-table__cell">
+                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">FPS-23 testing version</span>
+                            <a href="#">Financial Planning Survey</a>
+                        </td>
+                        <td class="ons-table__cell">Financial Planning Survey</td>
+                        <td class="ons-table__cell">Javier Fernandez</td>
+                        <td class="ons-table__cell" data-date-value="2023-08-01">
+                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
+                            1 Aug 2023
+                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>
+                            4 Aug 2023
+                        </td>
+                        <td class="ons-table__cell">Editor</td>
+                        <td class="ons-table__cell">
+                            <div class="menu-container">
+                                <button type="button" id="menubutton6" class="actionsBtn" aria-haspopup="true" aria-controls="menu6" onclick='toggleMenu(event, "menubutton6", "menu6")'>
+                                    Actions
+                                    <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                                </button>
+                                <ul id="menu6" role="menu" aria-labelledby="menubutton" class="menu">
+                                    <li role="none" class="duplicate">
+                                        <span class="material-symbols-outlined">
+                                            content_copy
+                                        </span>
+                                        <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton6", "FPS-23 testing version", "Financial Planning Survey")'>
+                                            Duplicate
+                                        </a>
+                                    </li>
+                                    <li role="none">
+                                        <button role="menuitem" class="listItemButton">
+                                            <span class="material-symbols-outlined">
+                                                link
+                                            </span>
+                                            Copy link
+                                        </button>
+                                    </li>
+                                    <li role="none">
+                                        <button role="menuitem" class="listItemButton" onclick='addToStarred("row6")'>
+                                            <span class="material-symbols-outlined">
+                                                star
+                                            </span>
+                                            Add to starred
+                                        </button>
+                                    </li>
+                                    <li role="none" class="ons-u-mb-no">
+                                        <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton6", "menu6", "FPS-23 testing version", "Financial Planning Survey", "Financial Planning Survey", "Javier Fernandez", "row6")'>
+                                            <span class="material-symbols-outlined">
+                                                delete
+                                            </span>
+                                            Delete
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="ons-table__row row-relative" id="row7">
+                        <td class="ons-table__cell">
+                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">SMUIS Cognitive Testing Version</span>
+                            <a href="#">Social Media Usage and Impact Survey</a>
+                        </td>
+                        <td class="ons-table__cell">Social Media</td>
+                        <td class="ons-table__cell">Eleanor Prescott</td>
+                        <td class="ons-table__cell" data-date-value="2023-08-24">
+                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
+                            24 Aug 2023
+                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>
+                            25 Aug 2023
+                        </td>
+                        <td class="ons-table__cell">Editor</td>
+                        <td class="ons-table__cell">
+                            <div class="menu-container">
+                                <button type="button" id="menubutton7" class="actionsBtn" aria-haspopup="true" aria-controls="menu7" onclick='toggleMenu(event, "menubutton7", "menu7")'>
+                                    Actions
+                                    <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                                </button>
+                                <ul id="menu7" role="menu" aria-labelledby="menubutton" class="menu">
+                                    <li role="none" class="duplicate">
+                                        <span class="material-symbols-outlined">
+                                            content_copy
+                                        </span>
+                                        <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton7", "SMUIS Cognitive Testing Version", "Social Media Usage and Impact Survey")'>
+                                            Duplicate
+                                        </a>
+                                    </li>
+                                    <li role="none">
+                                        <button role="menuitem" class="listItemButton">
+                                            <span class="material-symbols-outlined">
+                                                link
+                                            </span>
+                                            Copy link
+                                        </button>
+                                    </li>
+                                    <li role="none">
+                                        <button role="menuitem" class="listItemButton" onclick='addToStarred("row7")'>
+                                            <span class="material-symbols-outlined">
+                                                star
+                                            </span>
+                                            Add to starred
+                                        </button>
+                                    </li>
+                                    <li role="none" class="ons-u-mb-no">
+                                        <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton7", "menu7", "SMUIS Cognitive Testing Version", "Social Media Usage and Impact Survey", "Social Media", "Eleanor Prescott", "row7")'>
+                                            <span class="material-symbols-outlined">
+                                                delete
+                                            </span>
+                                            Delete
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="ons-table__row row-relative" id="row8">
+                        <td class="ons-table__cell">
+                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">SMUIS Draft test</span>
+                            <a href="#">Test 2 - Social Media Usage and Impact Survey</a>
+                        </td>
+                        <td class="ons-table__cell">Social Media</td>
+                        <td class="ons-table__cell">Lucas Bennett</td>
+                        <td class="ons-table__cell" data-date-value="2023-08-10">
+                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
+                            10 Aug 2023
+                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>
+                            21 Aug 2023
+                        </td>
+                        <td class="ons-table__cell">Editor</td>
+                        <td class="ons-table__cell">
+                            <div class="menu-container">
+                                <button type="button" id="menubutton8" class="actionsBtn" aria-haspopup="true" aria-controls="menu8" onclick='toggleMenu(event, "menubutton8", "menu8")'>
+                                    Actions
+                                    <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                                </button>
+                                <ul id="menu8" role="menu" aria-labelledby="menubutton" class="menu">
+                                    <li role="none" class="duplicate">
+                                        <span class="material-symbols-outlined">
+                                            content_copy
+                                        </span>
+                                        <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton8", "SMUIS Draft test", "Test 2 - Social Media Usage and Impact Survey")'>
+                                            Duplicate
+                                        </a>
+                                    </li>
+                                    <li role="none">
+                                        <button role="menuitem" class="listItemButton">
+                                            <span class="material-symbols-outlined">
+                                                link
+                                            </span>
+                                            Copy link
+                                        </button>
+                                    </li>
+                                    <li role="none">
+                                        <button role="menuitem" class="listItemButton" onclick='addToStarred("row8")'>
+                                            <span class="material-symbols-outlined">
+                                                star
+                                            </span>
+                                            Add to starred
+                                        </button>
+                                    </li>
+                                    <li role="none" class="ons-u-mb-no">
+                                        <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton8", "menu8", "SMUIS Draft test", "Test 2 - Social Media Usage and Impact Survey", "Social Media", "Lucas Bennett", "row8")'>
+                                            <span class="material-symbols-outlined">
+                                                delete
+                                            </span>
+                                            Delete
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="ons-table__row row-relative" id="row9">
+                        <td class="ons-table__cell">
+                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">FPS-23 second draft</span>
+                            <a href="#">D2 - Financial Planning Survey</a>
+                        </td>
+                        <td class="ons-table__cell">Financial Planning Survey</td>
+                        <td class="ons-table__cell">Helen Jones</td>
+                        <td class="ons-table__cell" data-date-value="2023-06-14">
+                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
+                            14 Jun 2023
+                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>
+                            1 Jul 2023
+                        </td>
+                        <td class="ons-table__cell">Editor</td>
+                        <td class="ons-table__cell">
+                            <div class="menu-container">
+                                <button type="button" id="menubutton9" class="actionsBtn" aria-haspopup="true" aria-controls="menu9" onclick='toggleMenu(event, "menubutton9", "menu9")'>
+                                    Actions
+                                    <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                                </button>
+                                <ul id="menu9" role="menu" aria-labelledby="menubutton" class="menu">
+                                    <li role="none" class="duplicate">
+                                        <span class="material-symbols-outlined">
+                                            content_copy
+                                        </span>
+                                        <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton9", "FPS-23 second draft", "D2 - Financial Planning Survey")'>
+                                            Duplicate
+                                        </a>
+                                    </li>
+                                    <li role="none">
+                                        <button role="menuitem" class="listItemButton">
+                                            <span class="material-symbols-outlined">
+                                                link
+                                            </span>
+                                            Copy link
+                                        </button>
+                                    </li>
+                                    <li role="none">
+                                        <button role="menuitem" class="listItemButton" onclick='addToStarred("row9")'>
+                                            <span class="material-symbols-outlined">
+                                                star
+                                            </span>
+                                            Add to starred
+                                        </button>
+                                    </li>
+                                    <li role="none" class="ons-u-mb-no">
+                                        <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton9", "menu9", "FPS-23 second draft", "D2 - Financial Planning Survey", "Financial Planning Survey", "Helen Jones", "row9")'>
+                                            <span class="material-symbols-outlined">
+                                                delete
+                                            </span>
+                                            Delete
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="ons-table__row row-relative" id="row10">
+                        <td class="ons-table__cell">
+                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">SMUIS V2</span>
+                            <a href="#">Draft - Social Media Usage and Impact Survey</a>
+                        </td>
+                        <td class="ons-table__cell">Social Media</td>
+                        <td class="ons-table__cell">Isabella Ramirez</td>
+                        <td class="ons-table__cell" data-date-value="2023-07-26">
+                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
+                            26 Jul 2023
+                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>
+                            25 Aug 2023
+                        </td>
+                        <td class="ons-table__cell">Editor</td>
+                        <td class="ons-table__cell">
+                            <div class="menu-container">
+                                <button type="button" id="menubutton10" class="actionsBtn" aria-haspopup="true" aria-controls="menu10" onclick='toggleMenu(event, "menubutton10", "menu10")'>
+                                    Actions
+                                    <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                                </button>
+                                <ul id="menu10" role="menu" aria-labelledby="menubutton" class="menu">
+                                    <li role="none" class="duplicate">
+                                        <span class="material-symbols-outlined">
+                                            content_copy
+                                        </span>
+                                        <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton10", "SMUIS V2", "Draft - Social Media Usage and Impact Survey")'>
+                                            Duplicate
+                                        </a>
+                                    </li>
+                                    <li role="none">
+                                        <button role="menuitem" class="listItemButton">
+                                            <span class="material-symbols-outlined">
+                                                link
+                                            </span>
+                                            Copy link
+                                        </button>
+                                    </li>
+                                    <li role="none">
+                                        <button role="menuitem" class="listItemButton" onclick='addToStarred("row10")'>
+                                            <span class="material-symbols-outlined">
+                                                star
+                                            </span>
+                                            Add to starred
+                                        </button>
+                                    </li>
+                                    <li role="none" class="ons-u-mb-no">
+                                        <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton10", "menu10", "SMUIS V2", "Draft - Social Media Usage and Impact Survey", "Social Media", "Isabella Ramirez", "row10")'>
+                                            <span class="material-symbols-outlined">
+                                                delete
+                                            </span>
+                                            Delete
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="ons-table__row row-relative" id="row11">
+                        <td class="ons-table__cell">
+                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">SMUIS V1</span>
+                            <a href="#">Draft - Social Media Usage and Impact Survey</a>
+                        </td>
+                        <td class="ons-table__cell">Social Media</td>
+                        <td class="ons-table__cell">Chris Smith</td>
+                        <td class="ons-table__cell" data-date-value="2023-07-02">
+                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
+                            2 Jul 2023
+                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>
+                            25 Jul 2023
+                        </td>
+                        <td class="ons-table__cell">Editor</td>
+                        <td class="ons-table__cell">
+                            <div class="menu-container">
+                                <button type="button" id="menubutton11" class="actionsBtn" aria-haspopup="true" aria-controls="menu11" onclick='toggleMenu(event, "menubutton11", "menu11")'>
+                                    Actions
+                                    <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                                </button>
+                                <ul id="menu11" role="menu" aria-labelledby="menubutton" class="menu">
+                                    <li role="none" class="duplicate">
+                                        <span class="material-symbols-outlined">
+                                            content_copy
+                                        </span>
+                                        <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton11", "SMUIS V1", "Draft - Social Media Usage and Impact Survey")'>
+                                            Duplicate
+                                        </a>
+                                    </li>
+                                    <li role="none">
+                                        <button role="menuitem" class="listItemButton">
+                                            <span class="material-symbols-outlined">
+                                                link
+                                            </span>
+                                            Copy link
+                                        </button>
+                                    </li>
+                                    <li role="none">
+                                        <button role="menuitem" class="listItemButton" onclick='addToStarred("row11")'>
+                                            <span class="material-symbols-outlined">
+                                                star
+                                            </span>
+                                            Add to starred
+                                        </button>
+                                    </li>
+                                    <li role="none" class="ons-u-mb-no">
+                                        <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton11", "menu11", "SMUIS V1", "Draft - Social Media Usage and Impact Survey", "Social Media", "Chris Smith", "row11")'>
+                                            <span class="material-symbols-outlined">
+                                                delete
+                                            </span>
+                                            Delete
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+
+
+
+
+
+                </tbody>
+            </table>
+
+            <nav class="ons-content-pagination" aria-label="Guide pagination">
+                <ul class="ons-content-pagination__list">
+                    <li class="ons-content-pagination__item">
+                    <a href="#0" class="ons-content-pagination__link" rel="prev" id="previous" style="display:none;">
+                        <span class="ons-content-pagination__link-title">
+                        <svg class="ons-icon ons-icon--m" viewBox="0 0 17 13" xmlns="http://www.w3.org/2000/svg" focusable="false"
+                            fill="currentColor">
+                            <path
+                            d="M6.4.2.3 6.4c-.2.2-.2.4 0 .6l6.2 5.8c.2.2.4.1.6 0l.8-.9c.2-.2.1-.4 0-.6l-4-3.7h12.5c.2 0 .4-.2.4-.4V6c0-.2-.2-.4-.4-.4H3.8l4-4c.2-.1.2-.4.1-.5L7 .2c-.1-.1-.4-.1-.6 0z" />
+                        </svg>
+                        <span class="ons-content-pagination__link-text"> Previous </span>
+                        </span>
+                        <span class="ons-content-pagination__link-divider ons-u-vh">page in this guide is:</span>
+                        <span class="ons-content-pagination__link-label">Overview</span>
+                    </a>
+                    </li>
+                    <li class="ons-content-pagination__item">
+                    <a href="#0" class="ons-content-pagination__link" rel="next" id="next" style="display:none;">
+                        <span class="ons-content-pagination__link-title">
+                        <svg class="ons-icon ons-icon--m" viewBox="0 0 17 13" xmlns="http://www.w3.org/2000/svg" focusable="false"
+                            fill="currentColor">
+                            <path
+                            d="m10 .2-.9.9c-.1.1-.1.4 0 .5l4 4H.6c-.2 0-.4.2-.4.4v1.2c0 .2.2.4.4.4h12.5l-3.9 3.7c-.2.2-.2.4 0 .6l.8.9c.2.2.4.2.6 0L16.8 7c.2-.2.2-.4 0-.6L10.7.3c-.3-.2-.5-.2-.7-.1z" />
+                        </svg>
+                        <span class="ons-content-pagination__link-text"> Next </span>
+                        </span>
+                        <span class="ons-content-pagination__link-divider ons-u-vh">page in this guide is:</span>
+                        <span class="ons-content-pagination__link-label">2 of 2</span>
+                    </a>
+                    </li>
+                </ul>
+            </nav>
+
+
+
+        </div>
+    </div>
+
+</div>
+
+
+
+{% endblock %}
+
+{% block bodyEnd %}
+
+<script>
+
+    {# Rendering new questionnaires #}
+        var table = document.getElementById("basic-table");
+        var counter = parseInt(sessionStorage.getItem("questionnaireCounter")) || 0;
+        var tbody = table.querySelector("tbody");
+
+        for (var i = 1; i <= counter; i++) {
+            if(sessionStorage.getItem("Buttonid_" + i)){
+            var row = tbody.insertRow(0);
+            row.classList.add("ons-table__row", "row-relative");
+            var ROWid = sessionStorage.getItem('rowID' + i);
+            row.id = ROWid;
+
+            var td1 = row.insertCell(0);
+            td1.classList.add("ons-table__cell");
+            td1.innerHTML = `<span class="ons-u-db ons-u-fs-s ons-u-mb-xs">${sessionStorage.getItem('Shortcode_' + i)}</span><a href="#">${sessionStorage.getItem('Title_' + i)}</a>`;
+
+            var td2 = row.insertCell(1);
+            td2.classList.add("ons-table__cell");
+            td2.textContent = sessionStorage.getItem('Project_' + i);
+
+            var td3 = row.insertCell(2);
+            td3.classList.add("ons-table__cell");
+            td3.textContent = "Lauren Dowling";
+
+            var td4 = row.insertCell(3);
+            td4.classList.add("ons-table__cell");
+            td4.setAttribute("data-date-value", "2023-08-25");
+            td4.innerHTML = `<span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>27 Aug 2023<span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>27 Aug 2023`;
+
+            if(sessionStorage.getItem("Access_" + i) == 'Editor'){
+                var td5 = row.insertCell(4);
+                td5.classList.add("ons-table__cell");
+                td5.textContent = "Editor";
+            }
+
+            if(sessionStorage.getItem("Access_" + i) == 'View-only'){
+                var td5 = row.insertCell(4);
+                td5.classList.add("ons-table__cell");
+                td5.textContent = "View-only";
+            }
+
+            var td6 = row.insertCell(5);
+            td6.classList.add("ons-table__cell");
+
+            var menuContainer = document.createElement("div");
+            menuContainer.className = "menu-container";
+
+            var buttonId = sessionStorage.getItem('Buttonid_' + i);
+            var ulId = sessionStorage.getItem('ULid' + i);
+
+            var actionsButton = document.createElement("button");
+            actionsButton.type = "button";
+            actionsButton.id = buttonId;
+            actionsButton.className = "actionsBtn";
+            actionsButton.setAttribute("aria-haspopup", "true");
+            actionsButton.setAttribute("aria-controls", ulId);
+            actionsButton.setAttribute("onclick", `toggleMenu(event, '${sessionStorage.getItem('Buttonid_' + i)}', '${sessionStorage.getItem('ULid' + i)}')`);
+
+            var SVGIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            SVGIcon.classList.add("ons-icon", "ons-u-ml-xs");
+            SVGIcon.setAttribute("viewBox", "0 0 8 13");
+            SVGIcon.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+            SVGIcon.setAttribute("focusable", "false");
+            SVGIcon.setAttribute("fill", "currentColor");
+
+            var path = document.createElementNS("http://www.w3.org/2000/svg", "path");        
+            path.setAttribute("d", "M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z");
+            path.setAttribute("transform", "translate(-5.02 -1.59)");
+
+            SVGIcon.appendChild(path);
+            actionsButton.appendChild(document.createTextNode(" Actions"));
+            actionsButton.appendChild(SVGIcon);
+
+
+            var ul = document.createElement("ul");
+            ul.id = ulId;
+            ul.role = "menu";
+            ul.setAttribute("aria-labelledby", buttonId);
+            ul.className = "menu";
+
+            var duplicateLi = document.createElement("li");
+            duplicateLi.role = "none";
+            duplicateLi.className = "duplicate";
+
+            var duplicateSpan = document.createElement("span");
+            duplicateSpan.className = "material-symbols-outlined";
+            duplicateSpan.textContent = "content_copy";
+
+            var duplicateLink = document.createElement("a");
+            duplicateLink.role = "menuitem";
+            duplicateLink.className = "listItemLink";
+            duplicateLink.href = "#";
+            duplicateLink.textContent = "Duplicate";
+            duplicateLink.setAttribute("onclick", `duplicate('${buttonId}', '${sessionStorage.getItem('Shortcode_' + i)}', '${sessionStorage.getItem('Title_' + i)}')`);
+
+            duplicateLi.appendChild(duplicateSpan);
+            duplicateLi.appendChild(duplicateLink);
+
+            ul.appendChild(duplicateLi);
+
+            var copyLinkLi = document.createElement("li");
+            copyLinkLi.role = "none";
+
+            var copyLinkButton = document.createElement("button");
+            copyLinkButton.role = "menuitem";
+            copyLinkButton.className = "listItemButton";
+
+            var copyLinkSpan = document.createElement("span");
+            copyLinkSpan.className = "material-symbols-outlined";
+            copyLinkSpan.textContent = "link";
+
+            var buttonText = document.createTextNode("Copy link");
+            
+            copyLinkButton.appendChild(copyLinkSpan);
+            copyLinkButton.appendChild(buttonText);
+
+
+            copyLinkLi.appendChild(copyLinkButton);
+            ul.appendChild(copyLinkLi);
+
+
+    {# Copy link button #}
+            var addToStarredLi = document.createElement("li");
+            addToStarredLi.role = "none";
+
+            var addToStarredButton = document.createElement("button");
+            addToStarredButton.role = "menuitem";
+            addToStarredButton.className = "listItemButton";
+
+            var addToStarredSpan = document.createElement("span");
+            addToStarredSpan.className = "material-symbols-outlined";
+            addToStarredSpan.textContent = "star";
+
+            var StarText = document.createTextNode("Add to starred");
+
+            addToStarredButton.appendChild(addToStarredSpan);
+            addToStarredButton.appendChild(StarText);
+
+            addToStarredLi.appendChild(addToStarredButton);
+            ul.appendChild(addToStarredLi);
+
+    {# Remove from My questionnaires #}
+            
+            if(sessionStorage.getItem("Access_" + i) == 'View-only'){
+                var removeFromMyQuestionnairesLi = document.createElement("li");
+                removeFromMyQuestionnairesLi.role = "none";
+
+                var removeFromMyQuestionnairesButton = document.createElement("button");
+                removeFromMyQuestionnairesButton.role = "menuitem";
+                removeFromMyQuestionnairesButton.className = "listItemButton";
+
+                var removeFromMyQuestionnairesSpan = document.createElement("span");
+                removeFromMyQuestionnairesSpan.className = "material-symbols-outlined";
+                removeFromMyQuestionnairesSpan.textContent = "bookmark_remove";
+
+                var RemoveText = document.createTextNode("Remove from My questionnaires");
+
+                removeFromMyQuestionnairesButton.appendChild(removeFromMyQuestionnairesSpan);
+                removeFromMyQuestionnairesButton.appendChild(RemoveText);
+
+                removeFromMyQuestionnairesLi.appendChild(removeFromMyQuestionnairesButton);
+                ul.appendChild(removeFromMyQuestionnairesLi);
+            }
+
+    {# Delete button #}
+            if(sessionStorage.getItem("Access_" + i) != 'View-only'){
+
+                var deleteLi = document.createElement("li");
+                deleteLi.role = "none";
+                deleteLi.className = "ons-u-mb-no";
+
+                var deleteButton = document.createElement("button");
+                deleteButton.role = "menuitem";
+                deleteButton.className = "listItemButton";
+                deleteButton.setAttribute("onclick", `confirmDeletion('${sessionStorage.getItem('Buttonid_' + i)}', '${sessionStorage.getItem('ULid' + i)}', '${sessionStorage.getItem('Shortcode_' + i)}', '${sessionStorage.getItem('Title_' + i)}', '${sessionStorage.getItem('Project_' + i)}', 'Lauren Dowling', '${sessionStorage.getItem('rowID' + i)}')`);
+
+                var deleteSpan = document.createElement("span");
+                deleteSpan.className = "material-symbols-outlined";
+                deleteSpan.textContent = "delete";
+
+                var DeleteText = document.createTextNode("Delete");
+
+                deleteButton.appendChild(deleteSpan);
+                deleteButton.appendChild(DeleteText);
+
+                deleteLi.appendChild(deleteButton);
+                ul.appendChild(deleteLi);
+            }
+
+                menuContainer.appendChild(actionsButton);
+                menuContainer.appendChild(ul);
+                td6.appendChild(menuContainer);
+
+        }
+    }
+
+
+
+
+    function toggleMenu(event, Buttonid, ULid) {
+    event.stopPropagation(); 
+    console.log('executing');
+        console.log('Buttonid:', Buttonid);
+    console.log('ULid:', ULid);
+    var menu = document.getElementById(ULid);
+    console.log(menu);
+    var svgIcon = document.querySelector(`#${Buttonid} .ons-icon`);
+
+    if (menu.style.display === "none" || menu.style.display === "") {
+        menu.style.display = "block";
+        document.addEventListener("click", closeMenuOnClickOutside.bind(null, ULid));
+        svgIcon.style.transform = "rotate(-90deg)"; 
+        svgIcon.style.padding = "0 0 0 4px";
+    } else {
+        menu.style.display = "none";
+        document.removeEventListener("click", closeMenuOnClickOutside.bind(null, ULid));
+        svgIcon.style.transform = "rotate(90deg)"; 
+        svgIcon.style.padding = "0 0 0 0"; 
+    }
+    }
+
+    function closeMenuOnClickOutside(ULid, event) {
+    var menu = document.getElementById(ULid);
+    console.log(menu);
+    
+    if (!menu.contains(event.target)) {
+        menu.style.display = "none";
+        document.removeEventListener("click", closeMenuOnClickOutside.bind(null, ULid));
+    }
+    }
+
+
+    function confirmDeletion(Buttonid, ULid, shortcode, title, project, owner, rowId){
+        console.log('confirm deletion');
+        toggleMenu(event, Buttonid, ULid);
+        var container = document.getElementById('modalContainer');
+        container.style.display = "block";
+        var modal = document.getElementById('modalDialog');
+        modal.style.display = "block";
+
+        {# Updates the values in the modal #}
+        var shortcodeSpan = document.querySelector('#shortcode .ons-summary__text');
+        shortcodeSpan.textContent = shortcode;
+        var titleSpan = document.querySelector('#title .ons-summary__text');
+        titleSpan.textContent = title;
+        var projectSpan = document.querySelector('#project .ons-summary__text');
+        if (project != 'null'){
+            console.log(project);
+            projectSpan.textContent = project;
+        }
+        else{
+            projectSpan.textContent = '';
+
+        }
+        var ownerSpan = document.querySelector('#owner .ons-summary__text');
+        ownerSpan.textContent = owner;
+        console.log('owner is:' + owner);
+        
+        
+
+        var deleteButton = document.getElementById('deleteButton');
+        deleteButton.addEventListener('click', function() {
+
+        var match = Buttonid.match(/_(\d+)$/);
+        if (match) {
+            var numberAfterUnderscore = match[1];
+
+            sessionStorage.removeItem("Buttonid_" + numberAfterUnderscore);
+            sessionStorage.removeItem("ULid" + numberAfterUnderscore);
+            if(sessionStorage.getItem("Shortcode_" + numberAfterUnderscore)){
+                sessionStorage.removeItem("Shortcode_" + numberAfterUnderscore);
+            }
+            sessionStorage.removeItem("Title_" + numberAfterUnderscore);
+            if(sessionStorage.getItem("Project_" + numberAfterUnderscore)){
+                sessionStorage.removeItem("Project_" + numberAfterUnderscore);
+            }
+            sessionStorage.removeItem("rowID" + numberAfterUnderscore);
+
+            {#deleteQuestionnaire(Buttonid, ULid, shortcode, title, project, owner, rowId);#}
+
+        }
+        deleteQuestionnaire(rowId);
+
+
+        });
+            
+
+
+    }
+
+    function cancelDeletion(){
+        console.log('hello');
+        var container = document.getElementById('modalContainer');
+        container.style.display = "none";
+        var modal = document.getElementById('modalDialog');
+        modal.style.display = "none";
+    }
+
+    function deleteQuestionnaire(rowId) {
+        console.log(rowId);
+        console.log('deleting row');
+        var row = document.getElementById(rowId);
+        console.log(document.getElementById(rowId));
+            if (row) {
+                row.remove();
+                var container = document.getElementById('modalContainer');
+                container.style.display = "none";
+                var modal = document.getElementById('modalDialog');
+                modal.style.display = "none";
+
+                var questionnaireCountElement = document.getElementById('questionnaireCount');
+                var currentCount = parseInt(questionnaireCountElement.textContent, 10);
+                if (!isNaN(currentCount) && currentCount > 0) {
+                questionnaireCountElement.textContent = (currentCount - 1) + ' questionnaires';
+                }
+
+
+            }
+            updatePagination();
+    }
+
+    function duplicate(Buttonid, shortcode, title) {
+        var button = document.getElementById(Buttonid);
+        button.style.border = "2px solid #003C57";
+        button.style.backgroundColor = "#206095";
+        button.style.color = "white"; 
+
+        if (shortcode) {
+            sessionStorage.setItem('duplicateShortcode', shortcode);
+        }
+        if (title) {
+            sessionStorage.setItem('duplicateTitle', title);
+        }
+
+        window.location.href = "/prototypes/example/homepage/test/duplicate/enterDetails";
+    }
+
+
+    {# starring functionality #}
+
+    function addToStarred(rowID) {
+        var rowToMove = document.getElementById(rowID);
+        var starredTable = document.getElementById("starred-table");
+        var NonstarredTable = document.getElementById("basic-table");
+
+        buttons = rowToMove.querySelectorAll("button");
+
+        for (var j = 0; j < buttons.length; j++) {
+            var button = buttons[j];
+            if (button.textContent.includes("Add to starred")) {
+                rowToMove.parentNode.removeChild(rowToMove);
+                starredTable.querySelector("tbody").insertBefore(rowToMove, starredTable.querySelector("tbody").firstChild);
+                button.innerHTML = "<span class='material-symbols-outlined'>star</span>Remove from starred";
+            }
+            else if (button.textContent.includes("Remove from starred")){
+                rowToMove.parentNode.removeChild(rowToMove);
+                NonstarredTable.querySelector("tbody").insertBefore(rowToMove, NonstarredTable.querySelector("tbody").firstChild);
+                button.innerHTML = "<span class='material-symbols-outlined'>star</span>Add to starred";
+            }
+        }
+
+        var tbody = starredTable.querySelector("tbody");
+        var rowCount = tbody.getElementsByTagName("tr").length;
+        if (rowCount === 0){
+            document.getElementById('AddedToStarred').style.display = "block";
+            var thead = starredTable.querySelector("thead");
+            var tbody = starredTable.querySelector("tbody");
+            thead.classList.add("ons-u-d-no");
+            tbody.classList.add("ons-u-d-no");
+
+        }
+        else{
+            document.getElementById('AddedToStarred').style.display = "none";
+            var thead = starredTable.querySelector("thead");
+            var tbody = starredTable.querySelector("tbody");
+            thead.classList.remove("ons-u-d-no");
+            tbody.classList.remove("ons-u-d-no");
+        }
+
+        currentPage = 1; // Reset currentPage to 1
+        updatePagination();
+
+
+
+    }
+
+    {# When questionnaire is added from Questionnaire Directory #}
+
+    var buttons = document.querySelectorAll('button');
+
+    for (var i = 0; i < buttons.length; i++) {
+        var button = buttons[i];
+        if (button.textContent.includes("Add to My questionnaires")) {
+            var buttonId = button.id;
+            if(sessionStorage.getItem(buttonId)){
+                button.innerHTML = "<span class='material-symbols-outlined'>bookmark_remove</span>Remove from My questionnaires";
+
+            }
+        }
+    }
+
+
+    function ApplyFilters() {
+        console.log('executing');
+        currentPage = 1; // Reset currentPage to 1
+        var projectFilter = document.getElementById("project-filter").value.toLowerCase();
+        var ownerFilter = document.getElementById("owner-filter").value.toLowerCase();
+        var BeforeDayFilter = document.getElementById("created-before-filter-day").value;
+        var BeforeMonthFilter = document.getElementById("created-before-filter-month").value;
+        var BeforeYearFilter = document.getElementById("created-before-filter-year").value;
+        var AfterDayFilter = document.getElementById("created-after-filter-day").value;
+        var AfterMonthFilter = document.getElementById("created-after-filter-month").value;
+        var AfterYearFilter = document.getElementById("created-after-filter-year").value;
+        var EditorAccess = document.getElementById("editor");
+        var ViewOnlyAccess = document.getElementById("view-only");
+        var ReadOnlyAccess = document.getElementById("read-only");
+
+        BeforeDayFilter = BeforeDayFilter.replace(/^0+/, "");
+        BeforeMonthFilter = BeforeMonthFilter.replace(/^0+/, "");
+        AfterDayFilter = AfterDayFilter.replace(/^0+/, "");
+        AfterMonthFilter = AfterMonthFilter.replace(/^0+/, "");
+
+    function filterTable(tableId) {
+        console.log('working');
+        var table = document.getElementById(tableId);
+        var rows = table.querySelectorAll("tbody tr");
+
+        for (var i = 0; i < rows.length; i++) {
+        var row = rows[i];
+        var ProjectCell = row.getElementsByTagName("td")[1];
+        var OwnerCell = row.getElementsByTagName("td")[2];
+            var AccessCell = row.getElementsByTagName("td")[4];
+
+
+        var ProjectCellText = ProjectCell.textContent.toLowerCase();
+        var OwnerCellText = OwnerCell.textContent.toLowerCase();
+        var cell = row.querySelector("td[data-date-value]");
+
+        // Check if the Project filter is non-empty and matches
+        var projectFilterMatch = projectFilter === "" || ProjectCellText.includes(projectFilter);
+        console.log(projectFilterMatch);
+
+        // Check if the Owner filter is non-empty and matches
+        var ownerFilterMatch = ownerFilter === "" || OwnerCellText.includes(ownerFilter);
+
+        // Check if the Before filters are non-empty and match
+        var BeforedateFilterMatch = true;
+        if (BeforeDayFilter !== "" && BeforeMonthFilter !== "" && BeforeYearFilter !== "") {
+            if (cell) {
+            var cellDate = cell.getAttribute("data-date-value");
+            var BeforefilterDate = new Date(BeforeYearFilter, BeforeMonthFilter - 1, BeforeDayFilter);
+            var cellDateObj = new Date(cellDate);
+            BeforedateFilterMatch = cellDateObj < BeforefilterDate;
+            }
+            }
+
+        // Check if the After filters are non-empty and match
+        var AfterdateFilterMatch = true;
+        if (AfterDayFilter !== "" && AfterMonthFilter !== "" && AfterYearFilter !== "") {
+            if (cell) {
+            var cellDateAfter = cell.getAttribute("data-date-value");
+            var AfterfilterDate = new Date(AfterYearFilter, AfterMonthFilter - 1, AfterDayFilter);
+            var cellDateObjAfter = new Date(cellDateAfter);
+            AfterdateFilterMatch = cellDateObjAfter > AfterfilterDate;
+            console.log(AfterdateFilterMatch);
+            }
+        }
+
+        // Check if the access matches
+        var accessCellValue = AccessCell.textContent.trim();
+        var access = true;
+        if (EditorAccess.checked || ViewOnlyAccess.checked || ReadOnlyAccess.checked) {
+            // Check if any of the checked checkboxes' values match the AccessCell content
+            if ((EditorAccess.checked && EditorAccess.value === accessCellValue) ||
+                (ViewOnlyAccess.checked && ViewOnlyAccess.value === accessCellValue) ||
+                (ReadOnlyAccess.checked && ReadOnlyAccess.value === accessCellValue)) {
+            access = true; // Set access to true if there's a match
+            }
+            else{
+                access = false;
+    
+            }
+        }
+        else{
+            console.log('no access checked');
+            document.getElementById("tags-access").style.display = "none"; 
+        }
+
+        if (!projectFilterMatch || !ownerFilterMatch || !BeforedateFilterMatch || !AfterdateFilterMatch || !access || row.classList.contains("filtered-out")) {
+            row.classList.add("filtered-out");
+            row.style.display = "none";
+        }
+    }}
+
+    console.log('test');
+
+
+    filterTable("starred-table");
+    filterTable("basic-table");
+
+    // Check if the Project filter is non-empty and matches
+    if (projectFilter !== "") {
+        var originalProjectFilter = document.getElementById("project-filter").value;
+        appendFilterTag(originalProjectFilter, "Project");
+    }
+
+    // Check if the Owner filter is non-empty and matches
+    if (ownerFilter !== "") {
+        var originalownerFilter = document.getElementById("owner-filter").value;
+        appendFilterTag(originalownerFilter, "Owner");
+    }
+
+    // Check if the Before filters are non-empty and match
+    if (BeforeDayFilter !== "" && BeforeMonthFilter !== "" && BeforeYearFilter !== "") {
+        appendFilterTag(BeforeDayFilter + "/" + BeforeMonthFilter + "/" + BeforeYearFilter, "DateBefore");
+    }
+
+    // Check if the After filters are non-empty and match
+    if (AfterDayFilter !== "" && AfterMonthFilter !== "" && AfterYearFilter !== "") {
+        appendFilterTag(AfterDayFilter + "/" + AfterMonthFilter + "/" + AfterYearFilter, "DateAfter");
+    }
+
+    // Check if the access matches
+    if (EditorAccess.checked || ViewOnlyAccess.checked || ReadOnlyAccess.checked) {
+        if (EditorAccess.checked) {
+        appendFilterTag("Editor", "Editor")
+        }
+        if (ViewOnlyAccess.checked) {
+            appendFilterTag("View-only", "View-only")
+
+        }
+        if (ReadOnlyAccess.checked) {
+            appendFilterTag("Read-only for editors", "Read-only")
+        }
+    }
+
+        updatePagination();
+    }
+
+    // Function to clear input values
+    function clearInputValues() {
+
+        const tagsProject = document.getElementById("tags-project");
+        const tagsOwner = document.getElementById("tags-owner");
+        const tagsDateBefore = document.getElementById("tags-dateBefore");
+        const tagsDateAfter = document.getElementById("tags-dateAfter");
+        const tagsAccess = document.getElementById("tags-access");
+
+        while (tagsProject.firstChild) {
+            tagsProject.removeChild(tagsProject.firstChild);
+        }
+        while (tagsOwner.firstChild) {
+            tagsOwner.removeChild(tagsOwner.firstChild);
+        }
+        while (tagsDateBefore.firstChild) {
+            tagsDateBefore.removeChild(tagsDateBefore.firstChild);
+        }
+        while (tagsDateAfter.firstChild) {
+            tagsDateAfter.removeChild(tagsDateAfter.firstChild);
+        }
+        while (tagsAccess.firstChild) {
+            tagsAccess.removeChild(tagsAccess.firstChild);
+        }
+
+        document.getElementById("project-filter").value = "";
+        document.getElementById("owner-filter").value = "";
+        document.getElementById("created-before-filter-day").value = "";
+        document.getElementById("created-before-filter-month").value = "";
+        document.getElementById("created-before-filter-year").value = "";
+        document.getElementById("created-after-filter-day").value = "";
+        document.getElementById("created-after-filter-month").value = "";
+        document.getElementById("created-after-filter-year").value = "";
+        document.getElementById("editor-label").checked = false;
+        document.getElementById("view-only-label").checked = false;
+        document.getElementById("read-only-label").checked = false;
+        ApplySearch();
+    }
+
+    function appendFilterTag(filterText, filterType) {
+    // Remove whitespaces from filterText and use it as the element id
+    var filterId = filterText.replace(/\s/g, "");
+
+    // Check if an element with the id already exists
+    if (!document.getElementById(filterId)) {
+        // Create a new button element for the filter tag
+        var button = document.createElement("button");
+        button.className = "filter-tag-button"; // You can style this class in your CSS
+        button.textContent = filterText;
+
+        // Create a span element for the close icon
+        var closeIcon = document.createElement("span");
+        closeIcon.className = "material-symbols-outlined";
+        closeIcon.textContent = "close";
+
+        // Append the close icon to the button
+        button.appendChild(closeIcon);
+
+        // Set the onclick attribute to remove the filter
+        button.setAttribute("onclick", 'removeFilterTag("' + filterId + '", "' + filterType + '")');
+        
+        // Set the id of the element to the filterId
+        button.id = filterId;
+
+        // Append the button to the filter tag area
+
+        if (filterType === "Project") {
+            var filterTagArea = document.getElementById("tags-project");
+            filterTagArea.appendChild(button);
+            document.getElementById("tags-project").style.display = "flex";    
+        } 
+        if (filterType === "Owner") {
+            var filterTagArea = document.getElementById("tags-owner");
+            filterTagArea.appendChild(button); 
+            document.getElementById("tags-owner").style.display = "flex";   
+        } 
+        if (filterType === "DateBefore") {
+            var filterTagArea = document.getElementById("tags-dateBefore");
+            filterTagArea.appendChild(button);
+            document.getElementById("tags-dateBefore").style.display = "flex";
+        }
+        if (filterType === "DateAfter") {
+            var filterTagArea = document.getElementById("tags-dateAfter");
+            filterTagArea.appendChild(button);
+            document.getElementById("tags-dateAfter").style.display = "flex";
+        }
+        if ((filterType === "Editor") || (filterType === "View-only") || (filterType === "Read-only")) {
+            var filterTagArea = document.getElementById("tags-access");
+            filterTagArea.appendChild(button);    
+            document.getElementById("tags-access").style.display = "flex";
+        }
+
+    }
+    }
+
+
+    // Function to remove a filter tag and reapply filters
+    function removeFilterTag(tagId, filterType) {
+    // Clear the corresponding input value
+        if (filterType === "Project") {
+            document.getElementById("project-filter").value = "";
+            document.getElementById("tags-project").style.display = "none";    
+        } 
+        else if (filterType === "Owner") {
+            document.getElementById("owner-filter").value = "";
+            document.getElementById("tags-owner").style.display = "none";    
+        } 
+        else if (filterType === "DateBefore") {
+            document.getElementById("created-before-filter-day").value = "";
+            document.getElementById("created-before-filter-month").value = "";
+            document.getElementById("created-before-filter-year").value = "";
+            document.getElementById("tags-dateBefore").style.display = "none";    
+        } 
+        else if (filterType === "DateAfter") {
+            document.getElementById("created-after-filter-day").value = "";
+            document.getElementById("created-after-filter-month").value = "";
+            document.getElementById("created-after-filter-year").value = "";
+            document.getElementById("tags-dateAfter").style.display = "none";    
+        } 
+        else if (filterType === "Editor") {
+            document.getElementById("editor").checked = false;
+
+        }
+        else if (filterType === "View-only") {
+            document.getElementById("view-only").checked = false;
+        }
+        else if (filterType === "Read-only") {
+            document.getElementById("read-only").checked = false;
+        }
+
+
+        document.getElementById(tagId).remove();
+
+        if (document.getElementById("tags-access").childElementCount === 0) {
+            document.getElementById("tags-access").style.display = "none";    
+        }
+
+
+    // Reapply all filters
+        {# ApplyFilters(); #}
+        ApplySearch();
+    }
+
+
+    var currentPage = 1;
+    var TotalPages; // Declare TotalPages as a global variable
+
+    function updatePagination() {
+    var starredTable = document.getElementById("starred-table");
+    var basicTable = document.getElementById("basic-table");
+    var nextButton = document.getElementById("next");
+    var previousButton = document.getElementById("previous");
+    var nextPaginationLabel = nextButton.querySelector("span.ons-content-pagination__link-label");
+    var previousPaginationLabel = previousButton.querySelector("span.ons-content-pagination__link-label");
+
+    // Get the <tbody> elements for both tables
+    var starredTBody = starredTable.querySelector("tbody");
+    var basicTBody = basicTable.querySelector("tbody");
+
+    // Get all rows in both tables
+    var starredRows = starredTBody.querySelectorAll("tr");
+    var basicRows = basicTBody.querySelectorAll("tr");
+
+    // Filter rows and add them to respective arrays
+    var filteredStarredRows = Array.from(starredRows).filter(function (row) {
+        return !row.classList.contains("filtered-out");
+    });
+
+    var filteredBasicRows = Array.from(basicRows).filter(function (row) {
+        return !row.classList.contains("filtered-out");
+    });
+
+    // Calculate the total number of rows and pages
+    var totalRows = filteredStarredRows.length + filteredBasicRows.length;
+    var rowsPerPage = 8;
+    TotalPages = Math.ceil(totalRows / rowsPerPage); // Update the global TotalPages variable
+
+    // Calculate the current page's rows
+    var startIndex = (currentPage - 1) * rowsPerPage;
+    var endIndex = startIndex + rowsPerPage;
+
+    // Display rows on the current page
+    for (var i = 0; i < filteredStarredRows.length; i++) {
+        if (i >= startIndex && i < endIndex) {
+        filteredStarredRows[i].style.display = "table-row";
+        } else {
+        filteredStarredRows[i].style.display = "none";
+        }
+    }
+
+    for (var j = 0; j < filteredBasicRows.length; j++) {
+        if (i + j >= startIndex && i + j < endIndex) {
+        filteredBasicRows[j].style.display = "table-row";
+        } else {
+        filteredBasicRows[j].style.display = "none";
+        }
+    }
+
+    // Update the pagination labels for "Next" and "Previous" links
+    if (currentPage < TotalPages) {
+        nextPaginationLabel.textContent = currentPage + 1 + " of " + TotalPages;
+    } else {
+        nextPaginationLabel.textContent = "Next";
+    }
+
+    if (currentPage > 1) {
+        previousPaginationLabel.textContent = currentPage - 1 + " of " + TotalPages;
+    } else {
+        previousPaginationLabel.textContent = "Previous";
+    }
+
+    // Show/hide the "Next" and "Previous" links based on the current page
+    nextButton.style.display = currentPage < TotalPages ? "block" : "none";
+    previousButton.style.display = currentPage > 1 ? "block" : "none";
+
+    // Hide the tables if no rows are displayed
+    starredTable.style.display = filteredStarredRows.some(row => row.style.display === "table-row") ? "table" : "none";
+    basicTable.style.display = filteredBasicRows.some(row => row.style.display === "table-row") ? "table" : "none";
+    }
+
+
+
+
+    // Function to initialize the pagination
+    function initializePagination() {
+    updatePagination(); // Call this function to initially set up the pagination
+    var nextButton = document.getElementById("next");
+    var previousButton = document.getElementById("previous");
+
+    // Add an event listener to the "Next" link
+    nextButton.addEventListener("click", function () {
+        if (currentPage < TotalPages) {
+        currentPage++;
+            window.scrollTo({
+                top: 0
+            });
+        updatePagination(); // Call updatePagination to update the page
+        }
+    });
+
+    // Add an event listener to the "Previous" link
+    previousButton.addEventListener("click", function () {
+        if (currentPage > 1) {
+        currentPage--;
+            window.scrollTo({
+                top: 0
+            });
+        updatePagination(); // Call updatePagination to update the page
+        }
+    });
+    }
+
+
+
+    function ApplySearch() {
+    console.log('searching');
+    var searchField = document.getElementById("search-field").value.trim().toLowerCase();
+    var starredTable = document.getElementById("starred-table");
+    var basicTable = document.getElementById("basic-table");
+
+    // Get all rows in both tables
+    var starredRows = starredTable.querySelectorAll("tbody tr");
+    var basicRows = basicTable.querySelectorAll("tbody tr");
+
+    // If the search input is empty or contains only spaces, remove all "filtered-out" classes
+    if (searchField === "") {
+        starredRows.forEach(function (row) {
+        row.classList.remove("filtered-out");
+        });
+
+        basicRows.forEach(function (row) {
+        row.classList.remove("filtered-out");
+        });
+    } else {
+        // Loop through starredRows and add "filtered-out" class to rows that do not contain search input
+        starredRows.forEach(function (row) {
+        var cellText = row.cells[0].textContent.toLowerCase(); // Assuming you want to search the first column
+        if (cellText.includes(searchField)) {
+            row.classList.remove("filtered-out");
+        } else {
+            row.classList.add("filtered-out");
+        }
+        });
+
+        // Loop through basicRows and add "filtered-out" class to rows that do not contain search input
+        basicRows.forEach(function (row) {
+        var cellText = row.cells[0].textContent.toLowerCase(); // Assuming you want to search the first column
+        console.log(cellText);
+        if (!cellText.includes(searchField)) {
+            row.classList.add("filtered-out");
+        }
+        });
+    }
+        // ApplyFilters to hide rows that do not meet filter criteria
+        ApplyFilters();
+    }
+
+
+
+
+    // Call the function to initialize the pagination
+    initializePagination();
+
+
+</script>
+{% endblock %}
