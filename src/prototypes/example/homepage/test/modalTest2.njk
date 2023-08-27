@@ -283,7 +283,7 @@ layout: example/homepage/test/2col_Layout
             onsSummary({
                 "summaries": [
                     {
-                        "summaryTitle": "Are you sure you want to delete this questionniare?",
+                        "summaryTitle": "Are you sure you want to remove this questionnaire from 'My questionnaires'?",
                         "groups": [
                             {
                                 "rows": [
@@ -294,7 +294,7 @@ layout: example/homepage/test/2col_Layout
                                                 "id": "shortcode",
                                                 "valueList": [
                                                     {
-                                                        "text": "Copy of V3 Draft QCAS 0019"                                                    }
+                                                        "text": ""                                                    }
                                                 ]
                                             },
                                             {
@@ -302,7 +302,7 @@ layout: example/homepage/test/2col_Layout
                                                 "id": "title",
                                                 "valueList": [
                                                     {
-                                                        "text": "Copy of Quarterly Acquisitions and Disposals of Capital Assets Survey"
+                                                        "text": ""
                                                     }
                                                 ]
                                             },
@@ -311,7 +311,7 @@ layout: example/homepage/test/2col_Layout
                                                 "id": "project",
                                                 "valueList": [
                                                     {
-                                                        "text": "Annual Business Survey (ABS)"
+                                                        "text": ""
                                                     }
                                                 ]
                                             },
@@ -320,7 +320,7 @@ layout: example/homepage/test/2col_Layout
                                                 "id": "owner",
                                                 "valueList": [
                                                     {
-                                                        "text": "Deborah O'Shaughnessy"
+                                                        "text": ""
                                                     }
                                                 ]
                                             }
@@ -340,7 +340,7 @@ layout: example/homepage/test/2col_Layout
             <span class="ons-btn__inner"><span class="ons-btn__text">Cancel</span>
             </span>
         </button>
-        <button type="submit" class="ons-btn ons-js-modal-btn ons-u-mt-s" id="deleteButton" {#onclick="deleteQuestionnaire(rowId)"#}>
+        <button type="submit" class="ons-btn ons-js-modal-btn ons-u-mt-s" id="removeButton">
         <span class="ons-btn__inner"><span class="ons-btn__text">Remove</span>
         </span>
         </button>
@@ -944,10 +944,19 @@ layout: example/homepage/test/2col_Layout
         td3.classList.add("ons-table__cell");
         td3.textContent = "Lauren Dowling";
 
-        var td4 = row.insertCell(3);
-        td4.classList.add("ons-table__cell");
-        td4.setAttribute("data-date-value", "2023-08-25");
-        td4.innerHTML = `<span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>27 Aug 2023<span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>27 Aug 2023`;
+        if(sessionStorage.getItem("DateCreated_" + i)){
+           var td4 = row.insertCell(3);
+            td4.classList.add("ons-table__cell");
+            td4.setAttribute("data-date-value", "2023-08-25");
+            td4.innerHTML = `<span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>${sessionStorage.getItem("DateCreated_" + i)}<span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>${sessionStorage.getItem("DateLastOpened_" + i)}`;
+        }
+        else{
+            var td4 = row.insertCell(3);
+            td4.classList.add("ons-table__cell");
+            td4.setAttribute("data-date-value", "2023-08-25");
+            td4.innerHTML = `<span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>27 Aug 2023<span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>27 Aug 2023`;
+
+        }
 
         if(sessionStorage.getItem("Access_" + i) == 'Editor'){
             var td5 = row.insertCell(4);
@@ -1070,6 +1079,7 @@ layout: example/homepage/test/2col_Layout
             var removeFromMyQuestionnairesButton = document.createElement("button");
             removeFromMyQuestionnairesButton.role = "menuitem";
             removeFromMyQuestionnairesButton.className = "listItemButton";
+            removeFromMyQuestionnairesButton.id = sessionStorage.getItem("AddToBtnID_" + i)
 
             var removeFromMyQuestionnairesSpan = document.createElement("span");
             removeFromMyQuestionnairesSpan.className = "material-symbols-outlined";
@@ -1083,7 +1093,7 @@ layout: example/homepage/test/2col_Layout
             removeFromMyQuestionnairesLi.appendChild(removeFromMyQuestionnairesButton);
             ul.appendChild(removeFromMyQuestionnairesLi);
             
-            removeFromMyQuestionnairesButton.setAttribute("onclick", `confirmRemovalFromMyQuestionnaires('${sessionStorage.getItem('Buttonid_' + i)}', '${sessionStorage.getItem('ULid' + i)}', '${sessionStorage.getItem('Shortcode_' + i)}', '${sessionStorage.getItem('Title_' + i)}', '${sessionStorage.getItem('Project_' + i)}', 'Lauren Dowling', '${sessionStorage.getItem('rowID' + i)}')`);
+            removeFromMyQuestionnairesButton.setAttribute("onclick", `addToMyQuestionnaires('${sessionStorage.getItem('rowID' + i)}','${sessionStorage.getItem('Buttonid_' + i)}', '${sessionStorage.getItem('ULid' + i)}', '${sessionStorage.getItem('Shortcode_' + i)}', '${sessionStorage.getItem('Title_' + i)}', '${sessionStorage.getItem('Project_' + i)}', 'Lauren Dowling', '${sessionStorage.getItem('DateCreated_' + i)}', '${sessionStorage.getItem('DateLastOpened_' + i)}', '${sessionStorage.getItem('Access_' + i)}', '${sessionStorage.getItem('AddToBtnID_' + i)}')`);
 
         }
 
@@ -1327,9 +1337,9 @@ for (var i = 0; i < buttons.length; i++) {
 function confirmRemovalFromMyQuestionnaires(Buttonid, ULid, shortcode, title, project, owner, rowId){
     console.log('confirm removal from My Questionnaires');
     toggleMenu(event, Buttonid, ULid);
-    var container = document.getElementById('modalContainer');
+    var container = document.getElementById('modalContainer2');
     container.style.display = "block";
-    var modal = document.getElementById('modalDialog');
+    var modal = document.getElementById('modalDialog2');
     modal.style.display = "block";
 
     {# Updates the values in the modal #}
@@ -1350,11 +1360,12 @@ function confirmRemovalFromMyQuestionnaires(Buttonid, ULid, shortcode, title, pr
     ownerSpan.textContent = owner;    
     
 
-    var deleteButton = document.getElementById('deleteButton');
-    deleteButton.addEventListener('click', function() {
+    var removeButton = document.getElementById('removeButton');
+    removeButton.addEventListener('click', function() {
 
     var match = Buttonid.match(/_(\d+)$/);
     if (match) {
+        console.log('removinggggg');
         var numberAfterUnderscore = match[1];
 
         sessionStorage.removeItem("Buttonid_" + numberAfterUnderscore);
@@ -1370,13 +1381,36 @@ function confirmRemovalFromMyQuestionnaires(Buttonid, ULid, shortcode, title, pr
 
 
     }
-    deleteQuestionnaire(rowId);
+    removeViewOnlyQuestionnaire(rowId);
 
 
     });
         
 
 
+}
+
+function removeViewOnlyQuestionnaire(rowId) {
+    console.log(rowId);
+    console.log('deleting row');
+    var row = document.getElementById(rowId);
+    console.log(document.getElementById(rowId));
+        if (row) {
+            row.remove();
+            var container = document.getElementById('modalContainer2');
+            container.style.display = "none";
+            var modal = document.getElementById('modalDialog2');
+            modal.style.display = "none";
+
+            var questionnaireCountElement = document.getElementById('questionnaireCount');
+            var currentCount = parseInt(questionnaireCountElement.textContent, 10);
+            if (!isNaN(currentCount) && currentCount > 0) {
+            questionnaireCountElement.textContent = (currentCount - 1) + ' questionnaires';
+            }
+
+
+        }
+        updatePagination();
 }
 
 function addToMyQuestionnaires(rowId, Buttonid, ULid, shortcode, title, project, owner, dateCreated, dateLastOpened, access, addToBtnID) {
@@ -1400,7 +1434,7 @@ function addToMyQuestionnaires(rowId, Buttonid, ULid, shortcode, title, project,
         sessionStorage.setItem('DateCreated_' + counter, dateCreated);
         sessionStorage.setItem('DateLastOpened_' + counter, dateLastOpened);
         sessionStorage.setItem('Access_' + counter, access);
-        sessionStorage.setItem(addToBtnID, true);
+        sessionStorage.setItem('AddToBtnID_' + counter, addToBtnID);
 
     } 
     else {
@@ -1409,7 +1443,6 @@ function addToMyQuestionnaires(rowId, Buttonid, ULid, shortcode, title, project,
 
     toggleMenu(event, Buttonid, ULid);
     var container2 = document.getElementById('modalContainer2');
-    console.log('This is the new function executing');
     container2.style.display = "block";
     var modal2 = document.getElementById('modalDialog2');
     modal2.style.display = "block";
@@ -1417,6 +1450,7 @@ function addToMyQuestionnaires(rowId, Buttonid, ULid, shortcode, title, project,
     {# Updates the values in the modal #}
     var shortcodeSpan = document.querySelector('#modalDialog2 #shortcode .ons-summary__text');
     shortcodeSpan.textContent = shortcode;
+    console.log(shortcode);
     var titleSpan = document.querySelector('#modalDialog2 #title .ons-summary__text');
     titleSpan.textContent = title;
     var projectSpan = document.querySelector('#modalDialog2 #project .ons-summary__text');
@@ -1432,12 +1466,8 @@ function addToMyQuestionnaires(rowId, Buttonid, ULid, shortcode, title, project,
     ownerSpan.textContent = owner;    
     
 
-    var deleteButton = document.getElementById('deleteButton');
-    deleteButton.addEventListener('click', function() {
-
-    var match = Buttonid.match(/_(\d+)$/);
-    if (match) {
-        var numberAfterUnderscore = match[1];
+    var removeFromMyQuestionnaires = document.getElementById('removeButton');
+    removeFromMyQuestionnaires.addEventListener('click', function() {
 
         sessionStorage.removeItem('rowID' + counterAtTimeOfAdd);
         sessionStorage.removeItem('Buttonid_' + counterAtTimeOfAdd);
@@ -1449,11 +1479,16 @@ function addToMyQuestionnaires(rowId, Buttonid, ULid, shortcode, title, project,
         sessionStorage.removeItem('DateCreated_' + counterAtTimeOfAdd);
         sessionStorage.removeItem('DateLastOpened_' + counterAtTimeOfAdd);
         sessionStorage.removeItem('Access_' + counterAtTimeOfAdd);
-        sessionStorage.removeItem(addToBtnID);
+        sessionStorage.removeItem('AddToBtnID_' + counterAtTimeOfAdd);
+
+        var closeModal = document.getElementById('modalDialog2');
+        var closeBackground = document.getElementById('modalContainer2');
+
+        closeModal.style.display = 'none';
+        closeBackground.style.display = 'none';
 
 
-    }
-    deleteQuestionnaire(rowId);
+        deleteQuestionnaire(rowId);
 
 
     });

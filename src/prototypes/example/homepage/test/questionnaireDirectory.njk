@@ -6,6 +6,8 @@ layout: example/homepage/test/2col_Layout
 {% from "components/button/_macro.njk" import onsButton %}
 {% from "components/autosuggest/_macro.njk" import onsAutosuggest %}
 {% from "components/table/_macro.njk" import onsTable %}
+{% from "components/breadcrumbs/_macro.njk" import onsBreadcrumbs %}
+
 
 {% block head %}
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -153,6 +155,25 @@ layout: example/homepage/test/2col_Layout
 
 {% endblock %}
 
+{% block preMain %}
+
+{{
+    onsBreadcrumbs({
+        "ariaLabel": 'Back',
+        "itemsList": [
+            {
+                "url": '/prototypes/example/homepage/test/modalTest2.html',
+                "id": "backlink",
+                "text": 'Back',
+                "attributes": {
+                    "data-attribute": "Example attribute"
+                }
+            }
+        ]
+    })
+}}
+
+{% endblock %}
 
 {% block main %}
 
@@ -234,7 +255,6 @@ layout: example/homepage/test/2col_Layout
   </dialog>
 </div>
     <a href="/prototypes/example/homepage/test/NewQuestionnaire">Link</a>
-    <a href="/prototypes/example/homepage/test/modalTest2">My questionnaires</a>
 
     <div class="ons-u-db ons-u-mt-s ons-u-mb-s">
         {{
@@ -249,188 +269,188 @@ layout: example/homepage/test/2col_Layout
             <h2 class="ons-u-fs-m ons-u-mb-m" id="questionnaireCount">84 questionnaires</h2>
 
             <table id="basic-table" class="ons-table">
-            {#<caption class="ons-table__caption">A basic table with a caption</caption>#}
-            <thead class="ons-table__head">
-                <tr class="ons-table__row">
-                <th scope="col" class="ons-table__header">
-                    <span class="ons-table__header-text">Short code and title</span>
-                </th>
-                <th scope="col" class="ons-table__header">
-                    <span class="ons-table__header-text">Project</span>
-                </th>
-                <th scope="col" class="ons-table__header">
-                    <span class="ons-table__header-text">Owner</span>
-                </th>
-                <th scope="col" class="ons-table__header">
-                    <span class="ons-table__header-text">Activity</span>
-                </th>
-                <th scope="col" class="ons-table__header">
-                    <span class="ons-table__header-text">Access</span>
-                </th>
-                <th scope="col" class="ons-table__header">
-                    <span class="ons-table__header-text ons-u-invisible">Actions</span>
-                </th>
-                </tr>
-            </thead>
-            <tbody class="ons-table__body">
-                <tr class="ons-table__row row-relative" id="row1">
-                <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs" >Copy of V3 Draft 0173</span><a href="#">Copy of Annual Business Survey</a></td>
-                <td class="ons-table__cell"> Annual Business Survey (ABS) </td>
-                <td class="ons-table__cell"> Stuart Davies </td>
-                <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs" >Date created:</span>14th Aug 2023 <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs" >Last opened:</span>16th Aug 2023</td>
-                <td class="ons-table__cell"> Editor </td>
-                <td class="ons-table__cell">
-                    <div class="menu-container">
-                        <button type="button"
-                                id="menubutton1"
-                                class="actionsBtn"
-                                aria-haspopup="true"
-                                aria-controls="menu2" onclick="toggleMenu(event, 'menubutton1', 'menu1')">
-                            Actions
-                        <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
-                        </button>
-                        <ul id="menu1"
-                            role="menu"
-                            aria-labelledby="menubutton" class="menu">
-                            <li role="none" class="duplicate">
-                            <span class="material-symbols-outlined">
-                                content_copy
-                                </span>
-                            <a role="menuitem" class="listItemLink" href="#" onclick="duplicate('menubutton1', 'Copy of V3 Draft 0173', 'Copy of Monthly Business Survey')">
-                                Duplicate
-                            </a>
-                            </li>
-                            <li role="none">
-                            <button role="menuitem" class="listItemButton">
-                                <span class="material-symbols-outlined">
-                                link
-                                </span>
-                                Copy link
+                {#<caption class="ons-table__caption">A basic table with a caption</caption>#}
+                <thead class="ons-table__head">
+                    <tr class="ons-table__row">
+                    <th scope="col" class="ons-table__header">
+                        <span class="ons-table__header-text">Short code and title</span>
+                    </th>
+                    <th scope="col" class="ons-table__header">
+                        <span class="ons-table__header-text">Project</span>
+                    </th>
+                    <th scope="col" class="ons-table__header">
+                        <span class="ons-table__header-text">Owner</span>
+                    </th>
+                    <th scope="col" class="ons-table__header">
+                        <span class="ons-table__header-text">Activity</span>
+                    </th>
+                    <th scope="col" class="ons-table__header">
+                        <span class="ons-table__header-text">Access</span>
+                    </th>
+                    <th scope="col" class="ons-table__header">
+                        <span class="ons-table__header-text ons-u-invisible">Actions</span>
+                    </th>
+                    </tr>
+                </thead>
+                <tbody class="ons-table__body">
+                    <tr class="ons-table__row row-relative" id="row1">
+                    <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs" >Copy of V3 Draft 0173</span><a href="#">Copy of Annual Business Survey</a></td>
+                    <td class="ons-table__cell"> Annual Business Survey (ABS) </td>
+                    <td class="ons-table__cell"> Stuart Davies </td>
+                    <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs" >Date created:</span>14th Aug 2023 <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs" >Last opened:</span>16th Aug 2023</td>
+                    <td class="ons-table__cell"> Editor </td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button"
+                                    id="menubutton1"
+                                    class="actionsBtn"
+                                    aria-haspopup="true"
+                                    aria-controls="menu2" onclick="toggleMenu(event, 'menubutton1', 'menu1')">
+                                Actions
+                            <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
                             </button>
-                            </li>
-                            <li role="none">
-                            <button role="menuitem" class="listItemButton">
+                            <ul id="menu1"
+                                role="menu"
+                                aria-labelledby="menubutton" class="menu">
+                                <li role="none" class="duplicate">
                                 <span class="material-symbols-outlined">
-                                star
-                                </span>
-                                Add to starred
+                                    content_copy
+                                    </span>
+                                <a role="menuitem" class="listItemLink" href="#" onclick="duplicate('menubutton1', 'Copy of V3 Draft 0173', 'Copy of Monthly Business Survey')">
+                                    Duplicate
+                                </a>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton">
+                                    <span class="material-symbols-outlined">
+                                    link
+                                    </span>
+                                    Copy link
+                                </button>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton">
+                                    <span class="material-symbols-outlined">
+                                    star
+                                    </span>
+                                    Add to starred
+                                </button>
+                                </li>
+                                <li role="none" class="ons-u-mb-no">
+                                <button role="menuitem" class="listItemButton" onclick="confirmDeletion('menubutton1', 'menu1', 'Copy of V3 Draft 0173', 'Copy of Monthly Business Survey', 'Annual Business Survey (ABS)', 'Stuart Davies', 'row1')">
+                                    <span class="material-symbols-outlined">
+                                    delete
+                                    </span>
+                                    Delete
+                                </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                    </tr>
+                    <tr class="ons-table__row row-relative" id="row2">
+                    <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs" >Copy of V4 Draft 0173</span><a href="#">Draft</a></td>
+                    <td class="ons-table__cell"> Annual Business Survey (ABS) </td>
+                    <td class="ons-table__cell"> Stuart Davies </td>
+                    <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs" >Date created:</span>16th Aug 2023 <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs" >Last opened:</span>17th Aug 2023</td>
+                    <td class="ons-table__cell"> Editor </td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button"
+                                    id="menubutton2"
+                                    class="actionsBtn"
+                                    aria-haspopup="true"
+                                    aria-controls="menu2" onclick="toggleMenu(event, 'menubutton2', 'menu2')">
+                                Actions
+                            <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
                             </button>
-                            </li>
-                            <li role="none" class="ons-u-mb-no">
-                            <button role="menuitem" class="listItemButton" onclick="confirmDeletion('menubutton1', 'menu1', 'Copy of V3 Draft 0173', 'Copy of Monthly Business Survey', 'Annual Business Survey (ABS)', 'Stuart Davies', 'row1')">
+                            <ul id="menu2"
+                                role="menu"
+                                aria-labelledby="menubutton" class="menu">
+                                <li role="none" class="duplicate">
                                 <span class="material-symbols-outlined">
-                                delete
-                                </span>
-                                Delete
+                                    content_copy
+                                    </span>
+                                <a role="menuitem" class="listItemLink" href="https://www.w3.org/">
+                                    Duplicate
+                                </a>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton">
+                                    <span class="material-symbols-outlined">
+                                    link
+                                    </span>
+                                    Copy link
+                                </button>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton">
+                                    <span class="material-symbols-outlined">
+                                    star
+                                    </span>
+                                    Add to starred
+                                </button>
+                                </li>
+                                <li role="none" class="ons-u-mb-no">
+                                <button role="menuitem" class="listItemButton" onclick="confirmDeletion('menubutton2', 'menu2', 'Copy of V4 Draft 0173', 'Draft', 'Annual Business Survey (ABS)', 'Stuart Davies', 'row2')">
+                                    <span class="material-symbols-outlined">
+                                    delete
+                                    </span>
+                                    Delete
+                                </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                    </tr>
+                    <tr class="ons-table__row row-relative" id="row3">
+                    <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs" >Final draft</span><a href="#">Trust in Government</a></td>
+                    <td class="ons-table__cell">Trust in Government</td>
+                    <td class="ons-table__cell">Lisa Brown</td>
+                    <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs" >Date created:</span>14th Aug 2023 <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs" >Last opened:</span>16th Aug 2023</td>
+                    <td class="ons-table__cell">View-only</td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button"
+                                    id="menubutton3"
+                                    class="actionsBtn"
+                                    aria-haspopup="true"
+                                    aria-controls="menu2" onclick="toggleMenu(event, 'menubutton3', 'menu3')">
+                                Actions
+                            <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
                             </button>
-                            </li>
-                        </ul>
-                    </div>
-                </td>
-                </tr>
-                <tr class="ons-table__row row-relative" id="row2">
-                <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs" >Copy of V4 Draft 0173</span><a href="#">Draft</a></td>
-                <td class="ons-table__cell"> Annual Business Survey (ABS) </td>
-                <td class="ons-table__cell"> Stuart Davies </td>
-                <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs" >Date created:</span>16th Aug 2023 <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs" >Last opened:</span>17th Aug 2023</td>
-                <td class="ons-table__cell"> Editor </td>
-                <td class="ons-table__cell">
-                    <div class="menu-container">
-                        <button type="button"
-                                id="menubutton2"
-                                class="actionsBtn"
-                                aria-haspopup="true"
-                                aria-controls="menu2" onclick="toggleMenu(event, 'menubutton2', 'menu2')">
-                            Actions
-                        <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
-                        </button>
-                        <ul id="menu2"
-                            role="menu"
-                            aria-labelledby="menubutton" class="menu">
-                            <li role="none" class="duplicate">
-                            <span class="material-symbols-outlined">
-                                content_copy
-                                </span>
-                            <a role="menuitem" class="listItemLink" href="https://www.w3.org/">
-                                Duplicate
-                            </a>
-                            </li>
-                            <li role="none">
-                            <button role="menuitem" class="listItemButton">
+                            <ul id="menu3"
+                                role="menu"
+                                aria-labelledby="menubutton" class="menu">
+                                <li role="none" class="duplicate">
                                 <span class="material-symbols-outlined">
-                                link
-                                </span>
-                                Copy link
-                            </button>
-                            </li>
-                            <li role="none">
-                            <button role="menuitem" class="listItemButton">
-                                <span class="material-symbols-outlined">
-                                star
-                                </span>
-                                Add to starred
-                            </button>
-                            </li>
-                            <li role="none" class="ons-u-mb-no">
-                            <button role="menuitem" class="listItemButton" onclick="confirmDeletion('menubutton2', 'menu2', 'Copy of V4 Draft 0173', 'Draft', 'Annual Business Survey (ABS)', 'Stuart Davies', 'row2')">
-                                <span class="material-symbols-outlined">
-                                delete
-                                </span>
-                                Delete
-                            </button>
-                            </li>
-                        </ul>
-                    </div>
-                </td>
-                </tr>
-                <tr class="ons-table__row row-relative" id="row3">
-                <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs" >Final draft</span><a href="#">Trust in Government</a></td>
-                <td class="ons-table__cell">Trust in Government</td>
-                <td class="ons-table__cell">Lisa Brown</td>
-                <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs" >Date created:</span>14th Aug 2023 <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs" >Last opened:</span>16th Aug 2023</td>
-                <td class="ons-table__cell">View-only</td>
-                <td class="ons-table__cell">
-                    <div class="menu-container">
-                        <button type="button"
-                                id="menubutton3"
-                                class="actionsBtn"
-                                aria-haspopup="true"
-                                aria-controls="menu2" onclick="toggleMenu(event, 'menubutton3', 'menu3')">
-                            Actions
-                        <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
-                        </button>
-                        <ul id="menu3"
-                            role="menu"
-                            aria-labelledby="menubutton" class="menu">
-                            <li role="none" class="duplicate">
-                            <span class="material-symbols-outlined">
-                                content_copy
-                                </span>
-                            <a role="menuitem" class="listItemLink" href="#" onclick="duplicate('menubutton3', 'Copy of V3 Draft 0173', 'Copy of Monthly Business Survey')">
-                                Duplicate
-                            </a>
-                            </li>
-                            <li role="none">
-                            <button role="menuitem" class="listItemButton">
-                                <span class="material-symbols-outlined">
-                                link
-                                </span>
-                                Copy link
-                            </button>
-                            </li>
-                            <li role="none">
-                            <button role="menuitem" class="listItemButton" id="AddTo1" onclick="addToMyQuestionnaires('row3', 'menubutton3', 'menu3', 'Final draft', 'Trust in Government', 'Trust in Government', 'Lisa Brown', '1 Aug 2023', '2 Aug 2023', 'View-only', 'AddTo1')">
-                                <span class="material-symbols-outlined">
-                                    bookmark_add
-                                </span>
-                                Add to My questionnaires
-                            </button>
-                            </li>
-                        </ul>
-                    </div>
-                </td>
-                </tr>
-            </tbody>
+                                    content_copy
+                                    </span>
+                                <a role="menuitem" class="listItemLink" href="#" onclick="duplicate('menubutton3', 'Copy of V3 Draft 0173', 'Copy of Monthly Business Survey')">
+                                    Duplicate
+                                </a>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton">
+                                    <span class="material-symbols-outlined">
+                                    link
+                                    </span>
+                                    Copy link
+                                </button>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton" id="AddTo1" onclick="addToMyQuestionnaires('row3', 'menubutton3', 'menu3', 'Final draft', 'Trust in Government', 'Trust in Government', 'Lisa Brown', '1 Aug 2023', '2 Aug 2023', 'View-only', 'AddTo1')">
+                                    <span class="material-symbols-outlined">
+                                        bookmark_add
+                                    </span>
+                                    Add to My questionnaires
+                                </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                    </tr>
+                </tbody>
             </table>
 
 
@@ -787,7 +807,7 @@ function addToMyQuestionnaires(rowId, Buttonid, ULid, shortcode, title, project,
         sessionStorage.setItem('DateCreated_' + counter, dateCreated);
         sessionStorage.setItem('DateLastOpened_' + counter, dateLastOpened);
         sessionStorage.setItem('Access_' + counter, access);
-        sessionStorage.setItem(addToBtnID, true);
+        sessionStorage.setItem('AddToBtnID_' + counter, addToBtnID);
 
     } else {
         button.innerHTML = "<span class='material-symbols-outlined'>bookmark_add</span>Add to My questionnaires";
