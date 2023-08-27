@@ -1057,6 +1057,8 @@ layout: example/homepage/test/2col_Layout
         var addToStarredButton = document.createElement("button");
         addToStarredButton.role = "menuitem";
         addToStarredButton.className = "listItemButton";
+        addToStarredButton.setAttribute("onclick", `addToStarred('${sessionStorage.getItem('rowID' + i)}')`);
+
 
         var addToStarredSpan = document.createElement("span");
         addToStarredSpan.className = "material-symbols-outlined";
