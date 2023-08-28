@@ -7,6 +7,7 @@ layout: example/views/homepage
 {% from "components/autosuggest/_macro.njk" import onsAutosuggest %}
 {% from "components/table/_macro.njk" import onsTable %}
 {% from "components/input/_macro.njk" import onsInput %}
+{% from "components/radios/_macro.njk" import onsRadios %}
 
 {% block head %}
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -520,12 +521,12 @@ layout: example/views/homepage
                 }}
 
                 {{
-                    onsCheckboxes({
+                    onsRadios({
                         "legend": "Access",
                         "name": "contact",
-                        "borderless": true,
                         "classes": "ons-u-mb-s",
-                        "checkboxes": [
+                        "borderless": "true",
+                        "radios": [
                             {
                                 "id": "editor",
                                 "label": {
@@ -2281,6 +2282,29 @@ function updatePagination() {
     // Hide the tables if no rows are displayed
     starredTable.style.display = filteredStarredRows.some(row => row.style.display === "table-row") ? "table" : "none";
     basicTable.style.display = filteredBasicRows.some(row => row.style.display === "table-row") ? "table" : "none";
+
+    //Hide the starred message if necessary
+    var starred = document.getElementById('starred-table');
+    var noOfRows = starred.querySelectorAll("tbody tr");
+    var noOfStarredRows = 0;
+
+    for (var i = 0; i < noOfRows.length; i++) {
+        var Row = noOfRows[i];
+        if (!Row.classList.contains("filtered-out")) {
+            noOfStarredRows++;
+        }
+    }
+    console.log('Number of starred rows: ' + noOfStarredRows);
+
+    if ((noOfStarredRows == 0 && (sessionStorage.getItem('searchEntry') != '' && sessionStorage.getItem('searchEntry') != null)) || (noOfStarredRows == 0 && (sessionStorage.getItem("projectFilter") != '' && sessionStorage.getItem("projectFilter") != null || sessionStorage.getItem("ownerFilter") != '' && sessionStorage.getItem('ownerFilter') != null || sessionStorage.getItem("BeforeDayFilter") != '' && sessionStorage.getItem('BeforeDayFilter') != null || sessionStorage.getItem("AfterDayFilter") != '' && sessionStorage.getItem('AfterDayFilter') != null))){
+        console.log('getting rid');
+        document.getElementById('StarredReplacement').style.display = 'none';
+        document.getElementById('AddedToStarred').style.display = 'none';
+    }
+    else{
+        document.getElementById('StarredReplacement').style.display = 'block';
+        document.getElementById('AddedToStarred').style.display = 'block';
+    }
 }
 
 
@@ -2320,6 +2344,7 @@ function initializePagination() {
 function ApplySearch() {
     console.log('searching');
     var searchField = document.getElementById("search-field").value.trim().toLowerCase();
+    sessionStorage.setItem('searchEntry', searchField);
     var starredTable = document.getElementById("starred-table");
     var basicTable = document.getElementById("basic-table");
 
@@ -2353,8 +2378,7 @@ function ApplySearch() {
         if (!cellText.includes(searchField)) {
             row.classList.add("filtered-out");
         }
-        });
-    
+        });  
 
         //Update the header
         var searchEntry = document.getElementById("search-field").value;
@@ -2387,6 +2411,28 @@ function ApplySearch() {
         document.getElementById("created-after-filter-day").value = storedAfterDayFilter;
         document.getElementById("created-after-filter-month").value = storedAfterMonthFilter;
         document.getElementById("created-after-filter-year").value = storedAfterYearFilter;
+
+        //Hide the starred message if necessary
+            var starred = document.getElementById('starred-table');
+            var noOfRows = starred.querySelectorAll("tbody tr");
+            var noOfStarredRows = 0;
+
+            for (var i = 0; i < noOfRows.length; i++) {
+                var Row = noOfRows[i];
+                if (!Row.classList.contains("filtered-out")) {
+                    noOfStarredRows++;
+                }
+            }
+            console.log('Number of starred rows: ' + noOfStarredRows);
+
+            if (noOfStarredRows == 0 && searchEntry != '' && sessionStorage.getItem("projectFilter") == '' && sessionStorage.getItem("ownerFilter") == '' && sessionStorage.getItem("BeforeDayFilter") == '' && sessionStorage.getItem("AfterDayFilter") == ''){
+                document.getElementById('StarredReplacement').style.display = 'none';
+                document.getElementById('AddedToStarred').style.display = 'none';
+            }
+            else if(noOfStarredRows == 0 && searchEntry == '' && sessionStorage.getItem("projectFilter") == '' && sessionStorage.getItem("ownerFilter") == '' && sessionStorage.getItem("BeforeDayFilter") == '' && sessionStorage.getItem("AfterDayFilter") == ''){
+                document.getElementById('StarredReplacement').style.display = 'block';
+                document.getElementById('AddedToStarred').style.display = 'block';
+            }
 
         // ApplyFilters to hide rows that do not meet filter criteria
         ApplyFilters();
