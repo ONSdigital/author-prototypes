@@ -1336,61 +1336,11 @@ for (var i = 0; i < buttons.length; i++) {
     }
 }
 
-function confirmRemovalFromMyQuestionnaires(Buttonid, ULid, shortcode, title, project, owner, rowId){
-    console.log('confirm removal from My Questionnaires');
-    toggleMenu(event, Buttonid, ULid);
-    var container = document.getElementById('modalContainer2');
-    container.style.display = "block";
-    var modal = document.getElementById('modalDialog2');
-    modal.style.display = "block";
-
-    {# Updates the values in the modal #}
-    var shortcodeSpan = document.querySelector('#shortcode .ons-summary__text');
-    shortcodeSpan.textContent = shortcode;
-    var titleSpan = document.querySelector('#title .ons-summary__text');
-    titleSpan.textContent = title;
-    var projectSpan = document.querySelector('#project .ons-summary__text');
-    if (project != 'null'){
-        console.log(project);
-        projectSpan.textContent = project;
-    }
-    else{
-        projectSpan.textContent = '';
-
-    }
-    var ownerSpan = document.querySelector('#owner .ons-summary__text');
-    ownerSpan.textContent = owner;    
-    
-
-    var removeButton = document.getElementById('removeButton');
-    removeButton.addEventListener('click', function() {
-
-    var match = Buttonid.match(/_(\d+)$/);
-    if (match) {
-        console.log('removinggggg');
-        var numberAfterUnderscore = match[1];
-
-        sessionStorage.removeItem("Buttonid_" + numberAfterUnderscore);
-        sessionStorage.removeItem("ULid" + numberAfterUnderscore);
-        if(sessionStorage.getItem("Shortcode_" + numberAfterUnderscore)){
-            sessionStorage.removeItem("Shortcode_" + numberAfterUnderscore);
-        }
-        sessionStorage.removeItem("Title_" + numberAfterUnderscore);
-        if(sessionStorage.getItem("Project_" + numberAfterUnderscore)){
-            sessionStorage.removeItem("Project_" + numberAfterUnderscore);
-        }
-        sessionStorage.removeItem("rowID" + numberAfterUnderscore);
 
 
-    }
-    removeViewOnlyQuestionnaire(rowId);
 
 
-    });
-        
 
-
-}
 
 function removeViewOnlyQuestionnaire(rowId) {
     console.log(rowId);
