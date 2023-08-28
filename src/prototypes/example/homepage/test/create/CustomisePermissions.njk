@@ -175,6 +175,13 @@ layout: example/views/Author8col
 <script>
 
 function completeSetup() {
+
+        var counter = parseInt(sessionStorage.getItem('questionnaireCounter')) || 0;
+
+        if(document.getElementById('no-display-questionnaire-directory').checked === true){
+            console.log('checked');
+            sessionStorage.setItem('NoDisplayInDirectory_' + counter, true);
+        }
         document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepage/test/NewQuestionnaire.html";    
 
 

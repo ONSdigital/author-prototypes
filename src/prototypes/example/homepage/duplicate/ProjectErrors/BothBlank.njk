@@ -13,8 +13,8 @@ layout: example/views/Author8col
 {% set form =  {
     "method": "GET",
     "attributes": {
-        "name": "createQuestionnaireProject",
-        "onsubmit":  "return creationProject()"
+        "name": "duplicateQuestionnaireProject",
+        "onsubmit":  "return duplicationProject()"
     }
 } %}
 
@@ -30,7 +30,7 @@ layout: example/views/Author8col
         "ariaLabel": 'Back',
         "itemsList": [
             {
-                "url": '/prototypes/example/homepage/create/enterDetails.html',
+                "url": '/prototypes/example/homepage/duplicate/enterDetails.html',
                 "id": "backlink",
                 "text": 'Back',
                 "attributes": {
@@ -45,7 +45,7 @@ layout: example/views/Author8col
 
 {% block main %}
 
-    <h1><span class="ons-u-fs-m ons-u-db ons-u-mb-xs ons-u-lighter">Create questionnaire</span> Add a project tag</h1>
+    <h1><span class="ons-u-fs-m ons-u-db ons-u-mb-xs ons-u-lighter">Duplicate questionnaire</span> Add a project tag</h1>
 
     <p>A project tag enables the grouping of related questionnaires and enhances filtering options.</p>
 
@@ -56,7 +56,14 @@ layout: example/views/Author8col
         })
     }}
 
-    {{ onsAutosuggest({
+    <div class="ons-panel ons-panel--error ons-panel--no-title" id="date-mutually-exclusive-error">
+  <span class="ons-panel__assistive-text ons-u-vh">Error: </span>
+  <div class="ons-panel__body">
+    <p class="ons-panel__error">
+      <strong>Select a project tag or create a new project tag</strong>
+    </p>
+    <div class="ons-field">
+            {{ onsAutosuggest({
                 "id": "project",
                 "label": {
                     "text": "Search for and select a project tag",
@@ -75,11 +82,12 @@ layout: example/views/Author8col
                 "resultsTitleId": "project-suggestions",
                 "autosuggestData": "/projects.json",
                 "noResults": "No suggestions found. You can enter your own answer",
-                "typeMore": "Continue entering to get suggestions"
+                "typeMore": "Continue entering to get suggestions",
+                "classes": "ons-input--error"
     }) }}
-
-
-    {{
+        </div>
+      <div class="ons-js-mutually-exclusive ons-mutually-exclusive">
+            {{
         onsCheckboxes({
             "checkboxesLabel": "Or",
             "checkboxesLabelClasses": "ons-u-fw-b ons-u-mt-s",
@@ -91,7 +99,7 @@ layout: example/views/Author8col
                         "onclick": "mutuallyExclusive()"
                     },
                     "label": {
-                        "text": "Other",
+                        "text": "Create a new project tag",
                         "description": "After creating the questionnaire, the new project will be available to select"
                     },
                     "value": "other",
@@ -106,6 +114,9 @@ layout: example/views/Author8col
             ]
         })
     }}
+      </div>
+  </div>
+</div>
 
     <div class="ons-u-mt-l">
         {{
@@ -123,24 +134,6 @@ layout: example/views/Author8col
 {% block bodyEnd %}
 
 <script>
-
-var referringPageURL = document.referrer;
-
-    if (referringPageURL.includes('/homepage/create/CustomisePermissions.html')){
-        var counter = parseInt(sessionStorage.getItem('questionnaireCounter')) || 0;
-        var enteredTitle = sessionStorage.getItem('Title_' + counter);
-        var addedProject = sessionStorage.getItem('Project_' + counter);
-        if(  addedProject === 'Social Media' || addedProject === 'Small Business Survey' || addedProject === 'Trust in Government 2023' || addedProject === 'Teachers Survey' || addedProject === 'Financial Planning Survey'){
-            document.getElementById('project').value = addedProject;
-        }
-        else{
-            document.getElementById('create-project').checked = true;
-            document.getElementById('new-project').value = addedProject;
-
-        }
-    }
-
-
 function mutuallyExclusive(){
     console.log("print");
     if(document.getElementById('project').value != ""){
@@ -148,41 +141,18 @@ function mutuallyExclusive(){
     }
 }
 
-function creationProject() {
-    console.log('print');
+function duplicationProject() {
     var counter = sessionStorage.getItem('questionnaireCounter');
-    if(document.getElementById('project').value != "" && document.getElementById('create-project').checked === false && document.getElementById('new-project').value == ""){
-        var project = document.getElementById('project').value;
-        sessionStorage.setItem('Project_' + counter, project);   
-        if(sessionStorage.getItem('customisePermissions')){
-            document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepage/create/CustomisePermissions.html";    
-        }
-        else{
-            console.log("Lauren Dowling");
-            document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepage/NewQuestionnaire.html";    
-        }
+
+    var project = document.getElementById('project').value;
+    sessionStorage.setItem('Project_' + counter, project);
+
+    if(sessionStorage.getItem('customisePermissions')){
+        document.forms["duplicateQuestionnaireProject"].action = "/prototypes/example/homepage/duplicate/CustomisePermissions.html";    
     }
-
-    if(document.getElementById('project').value == "" && document.getElementById('create-project').checked === true && document.getElementById('new-project').value != ""){
-        var project = document.getElementById('new-project').value;
-        sessionStorage.setItem('Project_' + counter, project);   
-        if(sessionStorage.getItem('customisePermissions')){
-            document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepage/create/CustomisePermissions.html";    
-        }
-        else{
-            document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepage/NewQuestionnaire.html";    
-        }
+    else{
+        document.forms["duplicateQuestionnaireProject"].action = "/prototypes/example/homepage/NewQuestionnaire.html";    
     }
-
-    if(document.getElementById('project').value == "" && document.getElementById('create-project').checked === false && document.getElementById('new-project').value == ""){
-        document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepage/create/ProjectErrors/BothBlank.html";    
-    }
-
-    if(document.getElementById('project').value == "" && document.getElementById('create-project').checked === true && document.getElementById('new-project').value == ""){
-        document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepage/create/ProjectErrors/NewProjectBlank.html";    
-    }
-
-
 }
 
 </script>

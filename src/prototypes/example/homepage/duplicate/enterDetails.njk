@@ -14,8 +14,8 @@ layout: example/views/Author8col
 {% set form =  {
     "method": "GET",
     "attributes": {
-        "name": "CreationEnterDetails",
-        "onsubmit":  "return creationEnterDetails()"
+        "name": "duplicateQuestionnaireDetails",
+        "onsubmit":  "return duplicationEnterDetails()"
     }
 } %}
 
@@ -31,7 +31,7 @@ layout: example/views/Author8col
         "ariaLabel": 'Back',
         "itemsList": [
             {
-                "url": '/prototypes/example/homepage/test/modalTest2.html',
+                "url": '/prototypes/example/homepage/',
                 "id": "backlink",
                 "text": 'Back',
                 "attributes": {
@@ -46,7 +46,7 @@ layout: example/views/Author8col
 
 {% block main %}
 
-    <h1><span class="ons-u-fs-m ons-u-db ons-u-mb-xs ons-u-lighter">Create questionnaire</span> Enter questionnaire details</h1>
+    <h1><span class="ons-u-fs-m ons-u-db ons-u-mb-xs ons-u-lighter">Duplicate questionnaire</span> Enter questionnaire details</h1>
 
     {{
         onsPanel({
@@ -108,7 +108,7 @@ layout: example/views/Author8col
             })
         }}
 
-        <a class="ons-u-dib ons-u-ml-s ons-u-mt-xs" href="#">Cancel</a>
+        <a class="ons-u-dib ons-u-ml-s ons-u-mt-xs" href="/prototypes/example/homepage/">Cancel</a>
 
     </div>
 
@@ -118,9 +118,14 @@ layout: example/views/Author8col
 
 <script>
 
+    var duplicatedTitle = sessionStorage.getItem('duplicateShortcode');
+    var duplicatedShortcode = sessionStorage.getItem('duplicateTitle');
+    var title = document.getElementById('title-input');
+    var shortcode = document.getElementById('shortcode-input');
+    title.value = "Copy of " + duplicatedTitle;
+    shortcode.value = "Copy of " + duplicatedShortcode;
 
-function creationEnterDetails() {
-    console.log('executing');
+function duplicationEnterDetails() {
     var counter = parseInt(sessionStorage.getItem('questionnaireCounter')) || 0;
     counter++;
     sessionStorage.setItem('questionnaireCounter', counter);
@@ -141,15 +146,15 @@ function creationEnterDetails() {
         if (document.getElementById('customise-access-permissions').checked == true) {
             sessionStorage.setItem('customisePermissions', true);
         }
-        document.forms["CreationEnterDetails"].action = "/prototypes/example/homepage/test/create/AddProject.html";    
+        document.forms["duplicateQuestionnaireDetails"].action = "/prototypes/example/homepage/duplicate/AddProject.html";    
     } 
     else {
         console.log('running');
         if (document.getElementById('customise-access-permissions').checked == true) {
-            document.forms["CreationEnterDetails"].action = "/prototypes/example/homepage/test/create/CustomisePermissions.html";    
+            document.forms["duplicateQuestionnaireDetails"].action = "/prototypes/example/homepage/duplicate/customisePermissions.html";    
 
         } else {
-            document.forms["CreationEnterDetails"].action = "/prototypes/example/homepage/test/NewQuestionnaire.html";    
+            document.forms["duplicateQuestionnaireDetails"].action = "/prototypes/example/homepage/NewQuestionnaire.html";    
 
         }
     }

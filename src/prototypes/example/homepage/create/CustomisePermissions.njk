@@ -66,11 +66,12 @@ layout: example/views/Author8col
         "ariaLabel": 'Back',
         "itemsList": [
             {
-                "url": '/prototypes/example/homepage/test/modalTest2.html',
+                "url": '#',
                 "id": "backlink",
                 "text": 'Back',
                 "attributes": {
-                    "data-attribute": "Example attribute"
+                    "data-attribute": "Example attribute",
+                    "onclick": "defineBack()"
                 }
             }
         ]
@@ -173,8 +174,25 @@ layout: example/views/Author8col
 {% block bodyEnd %}
 
 <script>
+var referringPageURL = document.referrer;
+console.log("Referring Page URL: " + referringPageURL);
+
+function defineBack(){
+    if (referringPageURL.includes('/homepage/create/AddProject.html')){
+        window.location.href = "AddProject.html";
+    }
+    if (referringPageURL.includes('/homepage/create/enterDetails.html')){
+        window.location.href = "enterDetails.html";
+    }
+}
 
 function completeSetup() {
+        var counter = parseInt(sessionStorage.getItem('questionnaireCounter')) || 0;
+
+        if(document.getElementById('no-display-questionnaire-directory').checked === true){
+            console.log('checked');
+            sessionStorage.setItem('NoDisplayInDirectory_' + counter, true);
+        }
         document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepage/NewQuestionnaire.html";    
 
 

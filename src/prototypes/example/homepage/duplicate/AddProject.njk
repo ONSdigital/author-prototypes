@@ -13,8 +13,8 @@ layout: example/views/Author8col
 {% set form =  {
     "method": "GET",
     "attributes": {
-        "name": "createQuestionnaireProject",
-        "onsubmit":  "return creationProject()"
+        "name": "duplicateQuestionnaireProject",
+        "onsubmit":  "return duplicationProject()"
     }
 } %}
 
@@ -30,7 +30,7 @@ layout: example/views/Author8col
         "ariaLabel": 'Back',
         "itemsList": [
             {
-                "url": '/prototypes/example/homepage/create/enterDetails.html',
+                "url": '/prototypes/example/homepage/duplicate/enterDetails.html',
                 "id": "backlink",
                 "text": 'Back',
                 "attributes": {
@@ -45,7 +45,7 @@ layout: example/views/Author8col
 
 {% block main %}
 
-    <h1><span class="ons-u-fs-m ons-u-db ons-u-mb-xs ons-u-lighter">Create questionnaire</span> Add a project tag</h1>
+    <h1><span class="ons-u-fs-m ons-u-db ons-u-mb-xs ons-u-lighter">Duplicate questionnaire</span> Add a project tag</h1>
 
     <p>A project tag enables the grouping of related questionnaires and enhances filtering options.</p>
 
@@ -124,23 +124,6 @@ layout: example/views/Author8col
 
 <script>
 
-var referringPageURL = document.referrer;
-
-    if (referringPageURL.includes('/homepage/create/CustomisePermissions.html')){
-        var counter = parseInt(sessionStorage.getItem('questionnaireCounter')) || 0;
-        var enteredTitle = sessionStorage.getItem('Title_' + counter);
-        var addedProject = sessionStorage.getItem('Project_' + counter);
-        if(  addedProject === 'Social Media' || addedProject === 'Small Business Survey' || addedProject === 'Trust in Government 2023' || addedProject === 'Teachers Survey' || addedProject === 'Financial Planning Survey'){
-            document.getElementById('project').value = addedProject;
-        }
-        else{
-            document.getElementById('create-project').checked = true;
-            document.getElementById('new-project').value = addedProject;
-
-        }
-    }
-
-
 function mutuallyExclusive(){
     console.log("print");
     if(document.getElementById('project').value != ""){
@@ -148,18 +131,17 @@ function mutuallyExclusive(){
     }
 }
 
-function creationProject() {
+function duplicationProject() {
     console.log('print');
     var counter = sessionStorage.getItem('questionnaireCounter');
     if(document.getElementById('project').value != "" && document.getElementById('create-project').checked === false && document.getElementById('new-project').value == ""){
         var project = document.getElementById('project').value;
         sessionStorage.setItem('Project_' + counter, project);   
         if(sessionStorage.getItem('customisePermissions')){
-            document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepage/create/CustomisePermissions.html";    
+            document.forms["duplicateQuestionnaireProject"].action = "/prototypes/example/homepage/duplicate/CustomisePermissions.html";    
         }
         else{
-            console.log("Lauren Dowling");
-            document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepage/NewQuestionnaire.html";    
+            document.forms["duplicateQuestionnaireProject"].action = "/prototypes/example/homepage/NewQuestionnaire.html";    
         }
     }
 
@@ -167,19 +149,19 @@ function creationProject() {
         var project = document.getElementById('new-project').value;
         sessionStorage.setItem('Project_' + counter, project);   
         if(sessionStorage.getItem('customisePermissions')){
-            document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepage/create/CustomisePermissions.html";    
+            document.forms["duplicateQuestionnaireProject"].action = "/prototypes/example/homepage/duplicate/CustomisePermissions.html";    
         }
         else{
-            document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepage/NewQuestionnaire.html";    
+            document.forms["duplicateQuestionnaireProject"].action = "/prototypes/example/homepage/NewQuestionnaire.html";    
         }
     }
 
     if(document.getElementById('project').value == "" && document.getElementById('create-project').checked === false && document.getElementById('new-project').value == ""){
-        document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepage/create/ProjectErrors/BothBlank.html";    
+        document.forms["duplicateQuestionnaireProject"].action = "/prototypes/example/homepage/duplicate/ProjectErrors/BothBlank.html";    
     }
 
     if(document.getElementById('project').value == "" && document.getElementById('create-project').checked === true && document.getElementById('new-project').value == ""){
-        document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepage/create/ProjectErrors/NewProjectBlank.html";    
+        document.forms["duplicateQuestionnaireProject"].action = "/prototypes/example/homepage/duplicate//ProjectErrors/NewProjectBlank.html";    
     }
 
 
