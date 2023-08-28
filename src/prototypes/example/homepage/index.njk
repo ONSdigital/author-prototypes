@@ -1308,24 +1308,7 @@ layout: example/views/homepage
 
 <script>
 
-{# Updating number of questionnaires #}
-    var StarredTable = document.getElementById('starred-table');
-    var BasicTable = document.getElementById('basic-table');
-
-    // Count the rows in each table
-    var StarredRowCount = StarredTable.rows.length;
-    var BasicRowCount = BasicTable.rows.length;
-
-    // Calculate the total number of rows
-    var TotalRowCount = StarredRowCount + BasicRowCount - 2;
-
-    // Update the text content of the element with id="NumberOfQuestionnaires"
-    var numberOfQuestionnairesElement = document.querySelector('#NumberOfQuestionnaires span');
-    numberOfQuestionnairesElement.textContent = TotalRowCount + ' questionnaires';
-
-
-
-    {# Rendering new questionnaires #}
+{# Rendering new questionnaires #}
         var table = document.getElementById("basic-table");
         var counter = parseInt(sessionStorage.getItem("questionnaireCounter")) || 0;
         var tbody = table.querySelector("tbody");
@@ -1631,6 +1614,22 @@ layout: example/views/homepage
     }
 
 
+{# Updating number of questionnaires #}
+    var StarredTable = document.getElementById('starred-table');
+    var BasicTable = document.getElementById('basic-table');
+
+    // Count the rows in each table
+    var StarredRowCount = StarredTable.rows.length;
+    var BasicRowCount = BasicTable.rows.length;
+
+    // Calculate the total number of rows
+    var TotalRowCount = StarredRowCount + BasicRowCount - 2;
+
+    // Update the text content of the element with id="NumberOfQuestionnaires"
+    var numberOfQuestionnairesElement = document.querySelector('#NumberOfQuestionnaires span');
+    numberOfQuestionnairesElement.textContent = TotalRowCount + ' questionnaires';
+
+
 {# Delete questionnaire #}
     function deleteQuestionnaire(rowId) {
         console.log(rowId);
@@ -1644,15 +1643,18 @@ layout: example/views/homepage
                 var modal = document.getElementById('modalDialog');
                 modal.style.display = "none";
 
-                var questionnaireCountElement = document.getElementById('questionnaireCount');
+                {#var questionnaireCountElement = document.getElementById('questionnaireCount');
                 var currentCount = parseInt(questionnaireCountElement.textContent, 10);
                 if (!isNaN(currentCount) && currentCount > 0) {
                 questionnaireCountElement.textContent = (currentCount - 1) + ' questionnaires';
                 }
+                #}
 
 
             }
+        updateQuestionnaireCounter();
         updatePagination();
+
     }
 
 
@@ -1845,12 +1847,15 @@ layout: example/views/homepage
 
             }
             updatePagination();
+            updateQuestionnaireCounter();
     }
 
 
 function ApplyFilters() {
         console.log('executing');
         currentPage = 1; // Reset currentPage to 1
+        var projectFilterCapitals = document.getElementById("project-filter").value;
+        var ownerFilterCapitals = document.getElementById("owner-filter").value;
         var projectFilter = document.getElementById("project-filter").value.toLowerCase();
         var ownerFilter = document.getElementById("owner-filter").value.toLowerCase();
         var BeforeDayFilter = document.getElementById("created-before-filter-day").value;
@@ -1994,8 +1999,8 @@ function ApplyFilters() {
     }
     
     // Save filter values in session storage
-    sessionStorage.setItem("projectFilter", projectFilter);
-    sessionStorage.setItem("ownerFilter", ownerFilter);
+    sessionStorage.setItem("projectFilter", projectFilterCapitals);
+    sessionStorage.setItem("ownerFilter", ownerFilterCapitals);
     sessionStorage.setItem("BeforeDayFilter", BeforeDayFilter);
     sessionStorage.setItem("BeforeMonthFilter", BeforeMonthFilter);
     sessionStorage.setItem("BeforeYearFilter", BeforeYearFilter);
@@ -2131,21 +2136,30 @@ function appendFilterTag(filterText, filterType) {
 function removeFilterTag(tagId, filterType) {
     // Clear the corresponding input value
     if (filterType === "Project") {
+        sessionStorage.removeItem("projectFilter");
         document.getElementById("project-filter").value = "";
         document.getElementById("tags-project").style.display = "none";    
     } 
     else if (filterType === "Owner") {
+        console.log('clearing owner filter');
+        sessionStorage.removeItem("ownerFilter");
         document.getElementById("owner-filter").value = "";
         document.getElementById("tags-owner").style.display = "none";
 
     } 
     else if (filterType === "DateBefore") {
+        sessionStorage.removeItem("BeforeDayFilter");
+        sessionStorage.removeItem("BeforeMonthFilter");
+        sessionStorage.removeItem("BeforeYearFilter");
         document.getElementById("created-before-filter-day").value = "";
         document.getElementById("created-before-filter-month").value = "";
         document.getElementById("created-before-filter-year").value = "";
         document.getElementById("tags-dateBefore").style.display = "none"; 
     } 
     else if (filterType === "DateAfter") {
+        sessionStorage.removeItem("AfterDayFilter");
+        sessionStorage.removeItem("AfterMonthFilter");
+        sessionStorage.removeItem("AfterYearFilter");
         document.getElementById("created-after-filter-day").value = "";
         document.getElementById("created-after-filter-month").value = "";
         document.getElementById("created-after-filter-year").value = "";
@@ -2313,8 +2327,7 @@ function ApplySearch() {
     var starredRows = starredTable.querySelectorAll("tbody tr");
     var basicRows = basicTable.querySelectorAll("tbody tr");
 
-    // If the search input is empty or contains only spaces, remove all "filtered-out" classes
-    if (searchField === "") {
+    // Remove the filtered out classes so search can be restarted
         starredRows.forEach(function (row) {
         row.classList.remove("filtered-out");
         });
@@ -2322,7 +2335,7 @@ function ApplySearch() {
         basicRows.forEach(function (row) {
         row.classList.remove("filtered-out");
         });
-    } else {
+
         // Loop through starredRows and add "filtered-out" class to rows that do not contain search input
         starredRows.forEach(function (row) {
         var cellText = row.cells[0].textContent.toLowerCase(); // Assuming you want to search the first column
@@ -2341,13 +2354,18 @@ function ApplySearch() {
             row.classList.add("filtered-out");
         }
         });
-    }
+    
 
         //Update the header
         var searchEntry = document.getElementById("search-field").value;
         var numberOfQuestionnairesElement = document.getElementById("SearchEntry");
         // Append the value of searchEntry to the existing text content
-        numberOfQuestionnairesElement.textContent = ' with ' + '"' + searchEntry + '"';
+        if(searchEntry != ""){
+            numberOfQuestionnairesElement.textContent = ' with ' + '"' + searchEntry + '"';
+        }
+        if(searchEntry == ""){
+            numberOfQuestionnairesElement.textContent = '';
+        }
 
         // Check if there are filter values in session storage and apply them
         var storedProjectFilter = sessionStorage.getItem("projectFilter");
@@ -2389,6 +2407,19 @@ function countUnfilteredRows(tableId) {
     return unfilteredRowCount;
 }
 
+function updateQuestionnaireCounter(){
+    // Update the total count of unfiltered rows
+    var basicTableCount = countUnfilteredRows("basic-table");
+    var starredTableCount = countUnfilteredRows("starred-table");
+    var unfilteredRowsCount = basicTableCount + starredTableCount;
+    var numberOfQuestionnairesElement = document.querySelector('#NumberOfQuestionnaires span');
+    if(unfilteredRowsCount != 1){
+        numberOfQuestionnairesElement.textContent = unfilteredRowsCount + ' questionnaires';
+    }
+    if(unfilteredRowsCount == 1){
+        numberOfQuestionnairesElement.textContent = unfilteredRowsCount + ' questionnaire';
+    }
+}
 
 
 // Call the function to initialize the pagination
