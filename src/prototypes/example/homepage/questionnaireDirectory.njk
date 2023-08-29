@@ -1102,6 +1102,53 @@ layout: example/views/homepage
                             </div>
                         </td>
                     </tr>
+<tr class="ons-table__row row-relative" id="rowTest">
+    <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs" >Final draft</span><a href="#">Trust in Government</a></td>
+    <td class="ons-table__cell">Trust in Government</td>
+    <td class="ons-table__cell">Lisa Brown</td>
+    <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs" >Date created:</span>14th Aug 2023 <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs" >Last opened:</span>16th Aug 2023</td>
+    <td class="ons-table__cell">View-only</td>
+    <td class="ons-table__cell">
+        <div class="menu-container">
+            <button type="button"
+                    id="menubuttonTest"
+                    class="actionsBtn"
+                    aria-haspopup="true"
+                    aria-controls="menu2" onclick="toggleMenu(event, 'menubuttonTest', 'menuTest')">
+                Actions
+            <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+            </button>
+            <ul id="menuTest"
+                role="menu"
+                aria-labelledby="menubutton" class="menu">
+                <li role="none" class="duplicate">
+                <span class="material-symbols-outlined">
+                    content_copy
+                    </span>
+                <a role="menuitem" class="listItemLink" href="#" onclick="duplicate('menubuttonTest', 'Copy of V3 Draft 0173', 'Copy of Monthly Business Survey')">
+                    Duplicate
+                </a>
+                </li>
+                <li role="none">
+                <button role="menuitem" class="listItemButton">
+                    <span class="material-symbols-outlined">
+                    link
+                    </span>
+                    Copy link
+                </button>
+                </li>
+                <li role="none">
+                <button role="menuitem" class="listItemButton" id="AddTo1" onclick="addToMyQuestionnaires('rowTest', 'menubuttonTest', 'menuTest', 'Final draft', 'Trust in Government', 'Trust in Government', 'Lisa Brown', '1 Aug 2023', '2 Aug 2023', 'View-only', 'AddTo1')">
+                    <span class="material-symbols-outlined">
+                        bookmark_add
+                    </span>
+                    Add to My questionnaires
+                </button>
+                </li>
+            </ul>
+        </div>
+    </td>
+</tr>
 
 
 
