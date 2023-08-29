@@ -1853,7 +1853,6 @@ layout: example/views/homepage
 
 
 function ApplyFilters() {
-        console.log('executing');
         currentPage = 1; // Reset currentPage to 1
         var projectFilterCapitals = document.getElementById("project-filter").value;
         var ownerFilterCapitals = document.getElementById("owner-filter").value;
@@ -1892,7 +1891,6 @@ function ApplyFilters() {
 
         // Check if the Project filter is non-empty and matches
         var projectFilterMatch = projectFilter === "" || ProjectCellText.includes(projectFilter);
-        console.log(projectFilterMatch);
 
         // Check if the Owner filter is non-empty and matches
         var ownerFilterMatch = ownerFilter === "" || OwnerCellText.includes(ownerFilter);
@@ -1944,8 +1942,6 @@ function ApplyFilters() {
             row.style.display = "none";
         }
     }}
-
-    console.log('test');
 
 
     filterTable("starred-table");
@@ -2008,7 +2004,24 @@ function ApplyFilters() {
     sessionStorage.setItem("AfterDayFilter", AfterDayFilter);
     sessionStorage.setItem("AfterMonthFilter", AfterMonthFilter);
     sessionStorage.setItem("AfterYearFilter", AfterYearFilter);
-
+    if(document.getElementById('editor').checked == false){
+        sessionStorage.setItem("Editor", '');
+    }
+    else{
+        sessionStorage.setItem("Editor", true);
+    }
+    if(document.getElementById('view-only').checked == false){
+        sessionStorage.setItem("ViewOnly", '');
+    }
+    else{
+        sessionStorage.setItem("ViewOnly", true);
+    }
+    if(document.getElementById('read-only').checked == false){
+        sessionStorage.setItem("ReadOnly", '');
+    }
+    else{
+        sessionStorage.setItem("ReadOnly", true);
+    }
 
     updatePagination();
 }
@@ -2127,7 +2140,6 @@ function appendFilterTag(filterText, filterType) {
 
         }
 
-        console.log('testing the console');
 
     }
 }
@@ -2141,14 +2153,14 @@ function removeFilterTag(tagId, filterType) {
         document.getElementById("project-filter").value = "";
         document.getElementById("tags-project").style.display = "none";    
     } 
-    else if (filterType === "Owner") {
+    if (filterType === "Owner") {
         console.log('clearing owner filter');
         sessionStorage.removeItem("ownerFilter");
         document.getElementById("owner-filter").value = "";
         document.getElementById("tags-owner").style.display = "none";
 
     } 
-    else if (filterType === "DateBefore") {
+    if (filterType === "DateBefore") {
         sessionStorage.removeItem("BeforeDayFilter");
         sessionStorage.removeItem("BeforeMonthFilter");
         sessionStorage.removeItem("BeforeYearFilter");
@@ -2157,7 +2169,7 @@ function removeFilterTag(tagId, filterType) {
         document.getElementById("created-before-filter-year").value = "";
         document.getElementById("tags-dateBefore").style.display = "none"; 
     } 
-    else if (filterType === "DateAfter") {
+    if (filterType === "DateAfter") {
         sessionStorage.removeItem("AfterDayFilter");
         sessionStorage.removeItem("AfterMonthFilter");
         sessionStorage.removeItem("AfterYearFilter");
@@ -2166,18 +2178,24 @@ function removeFilterTag(tagId, filterType) {
         document.getElementById("created-after-filter-year").value = "";
         document.getElementById("tags-dateAfter").style.display = "none"; 
     } 
-    else if (filterType === "Editor") {
+    if (filterType == "Editor") {
         document.getElementById("editor").checked = false;
+        sessionStorage.setItem("Editor", '');
+        console.log('removing editor');
 
     }
-    else if (filterType === "View-only") {
+    if (filterType == "View-only") {
         document.getElementById("view-only").checked = false;
+        sessionStorage.setItem("ViewOnly", '');
+
     }
-    else if (filterType === "Read-only") {
+    if (filterType == "Read-only") {
         document.getElementById("read-only").checked = false;
+        sessionStorage.setItem("ReadOnly", '');
+
     }
 
-
+    console.log('tag ID is: ', tagId);
     document.getElementById(tagId).remove();
 
     if (document.getElementById("tags-access").childElementCount === 0) {
@@ -2296,7 +2314,7 @@ function updatePagination() {
     }
     console.log('Number of starred rows: ' + noOfStarredRows);
 
-    if ((noOfStarredRows == 0 && (sessionStorage.getItem('searchEntry') != '' && sessionStorage.getItem('searchEntry') != null)) || (noOfStarredRows == 0 && (sessionStorage.getItem("projectFilter") != '' && sessionStorage.getItem("projectFilter") != null || sessionStorage.getItem("ownerFilter") != '' && sessionStorage.getItem('ownerFilter') != null || sessionStorage.getItem("BeforeDayFilter") != '' && sessionStorage.getItem('BeforeDayFilter') != null || sessionStorage.getItem("AfterDayFilter") != '' && sessionStorage.getItem('AfterDayFilter') != null))){
+    if (sessionStorage.length !== 0 && noOfStarredRows == 0 && (sessionStorage.getItem('searchEntry') != '' || (sessionStorage.getItem("projectFilter") != '' || sessionStorage.getItem("ownerFilter") != '' || sessionStorage.getItem("BeforeDayFilter") != '' || sessionStorage.getItem("AfterDayFilter") != '' || sessionStorage.getItem("Editor") != '' || sessionStorage.getItem("ViewOnly") != '' || sessionStorage.getItem("ReadOnly") != '' ))){
         console.log('getting rid');
         document.getElementById('StarredReplacement').style.display = 'none';
         document.getElementById('AddedToStarred').style.display = 'none';
@@ -2400,6 +2418,9 @@ function ApplySearch() {
         var storedAfterDayFilter = sessionStorage.getItem("AfterDayFilter");
         var storedAfterMonthFilter = sessionStorage.getItem("AfterMonthFilter");
         var storedAfterYearFilter = sessionStorage.getItem("AfterYearFilter");
+        var storedEditor = sessionStorage.getItem("Editor");
+        var storedViewOnly = sessionStorage.getItem("ViewOnly");
+        var storedReadOnly = sessionStorage.getItem("ReadOnly");
         // ... Retrieve other filter values from session storage ...
 
         // Set the filter values back to the filter inputs
@@ -2411,6 +2432,24 @@ function ApplySearch() {
         document.getElementById("created-after-filter-day").value = storedAfterDayFilter;
         document.getElementById("created-after-filter-month").value = storedAfterMonthFilter;
         document.getElementById("created-after-filter-year").value = storedAfterYearFilter;
+        if(storedEditor != ''){
+            document.getElementById("editor").checked = true;
+        }
+        else{
+            document.getElementById("editor").checked = false;
+        }
+        if(storedViewOnly != ''){
+            document.getElementById("view-only").checked = true;
+        }
+        else{
+            document.getElementById("view-only").checked = false;
+        }
+        if(storedReadOnly != ''){
+            document.getElementById("read-only").checked = true;
+        }
+        else{
+            document.getElementById("read-only").checked = false;
+        }
 
         //Hide the starred message if necessary
             var starred = document.getElementById('starred-table');
@@ -2425,11 +2464,11 @@ function ApplySearch() {
             }
             console.log('Number of starred rows: ' + noOfStarredRows);
 
-            if (noOfStarredRows == 0 && searchEntry != '' && sessionStorage.getItem("projectFilter") == '' && sessionStorage.getItem("ownerFilter") == '' && sessionStorage.getItem("BeforeDayFilter") == '' && sessionStorage.getItem("AfterDayFilter") == ''){
+            if (noOfStarredRows == 0 && searchEntry != '' && sessionStorage.getItem("projectFilter") == '' && sessionStorage.getItem("ownerFilter") == '' && sessionStorage.getItem("BeforeDayFilter") == '' && sessionStorage.getItem("AfterDayFilter") == '' && sessionStorage.getItem("Editor") == '' && sessionStorage.getItem("ViewOnly") == '' && sessionStorage.getItem("ReadOnly") == ''){
                 document.getElementById('StarredReplacement').style.display = 'none';
                 document.getElementById('AddedToStarred').style.display = 'none';
             }
-            else if(noOfStarredRows == 0 && searchEntry == '' && sessionStorage.getItem("projectFilter") == '' && sessionStorage.getItem("ownerFilter") == '' && sessionStorage.getItem("BeforeDayFilter") == '' && sessionStorage.getItem("AfterDayFilter") == ''){
+            else if(noOfStarredRows == 0 && searchEntry == '' && sessionStorage.getItem("projectFilter") == '' && sessionStorage.getItem("ownerFilter") == '' && sessionStorage.getItem("BeforeDayFilter") == '' && sessionStorage.getItem("AfterDayFilter") == '' && sessionStorage.getItem("Editor") == '' && sessionStorage.getItem("ViewOnly") == '' && sessionStorage.getItem("ReadOnly") == ''){
                 document.getElementById('StarredReplacement').style.display = 'block';
                 document.getElementById('AddedToStarred').style.display = 'block';
             }
