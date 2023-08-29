@@ -2465,7 +2465,7 @@ function ApplySearch() {
             console.log('Number of starred rows: ' + noOfStarredRows);
 
         
-
+            {#
             if (noOfStarredRows == 0 && searchEntry != '' && sessionStorage.getItem("projectFilter") == '' && sessionStorage.getItem("ownerFilter") == '' && sessionStorage.getItem("BeforeDayFilter") == '' && sessionStorage.getItem("AfterDayFilter") == '' && sessionStorage.getItem("Editor") == '' && sessionStorage.getItem("ViewOnly") == '' && sessionStorage.getItem("ReadOnly") == ''){
                 document.getElementById('StarredReplacement').style.display = 'none';
                 document.getElementById('AddedToStarred').style.display = 'none';
@@ -2474,7 +2474,7 @@ function ApplySearch() {
                 document.getElementById('StarredReplacement').style.display = 'block';
                 document.getElementById('AddedToStarred').style.display = 'block';
             }
-
+            #}
             
 
         // ApplyFilters to hide rows that do not meet filter criteria
