@@ -179,8 +179,6 @@ layout: example/views/homepage
 
     .AllFiltersFlexContainer{
         display:flex;
-        margin: 27px 0px;
-        border-bottom: 1px solid #e2e2e3;
         flex-wrap: wrap;    
     }
 
@@ -201,6 +199,22 @@ layout: example/views/homepage
 
     .ons-table__row:last-child{
         border-bottom: 1px solid #707071;
+    }
+
+    .tagAndClearFiltersContainer{
+        display: flex;
+        justify-content: space-between;
+        margin: 27px 0px;
+        border-bottom: 1px solid #e2e2e3;
+    }
+
+    .clearFilterBtn{
+        background-color:white;
+        border: 2px solid #6390B5;
+        font-size: 16px;
+        padding: 3px 6px;
+        color:  #206095;
+        border-radius: 3px;
     }
     
 </style>
@@ -282,31 +296,6 @@ layout: example/views/homepage
                 }}
 
                 {{ onsAutosuggest({
-                    "id": "owner-filter",
-                    "label": {
-                    "text": "Owner",
-                    "id": "owner-filter-label"
-                    },
-                    "classes": "ons-u-mb-m",
-                    "autocomplete": "off",
-                    "instructions": "Use up and down keys to navigate suggestions once you\'ve typed more than two characters. Use the enter key to select a suggestion. Touch device users, explore by touch or with swipe gestures.",
-                    "ariaYouHaveSelected": "You have selected",
-                    "ariaMinChars": "Enter 3 or more characters for suggestions.",
-                    "ariaOneResult": "There is one suggestion available.",
-                    "ariaNResults": "There are {n} suggestions available.",
-                    "ariaLimitedResults": "Results have been limited to 10 suggestions. Type more characters to improve your search",
-                    "moreResults": "Continue entering to improve suggestions",
-                    "resultsTitle": "Suggestions",
-                    "resultsTitleId": "country-of-birth-suggestions",
-                    "autosuggestData": "/owners.json",
-                    "noResults": "No suggestions found. You can enter your own answer",
-                    "typeMore": "Continue entering to get suggestions",
-                    "attributes": {
-                        "style": "width:261.5px;"
-                    }
-                }) }}
-
-                {{ onsAutosuggest({
                     "id": "project-filter",
                     "label": {
                         "text": "Project",
@@ -324,6 +313,31 @@ layout: example/views/homepage
                     "resultsTitle": "Suggestions",
                     "resultsTitleId": "country-of-birth-suggestions",
                     "autosuggestData": "/projects.json",
+                    "noResults": "No suggestions found. You can enter your own answer",
+                    "typeMore": "Continue entering to get suggestions",
+                    "attributes": {
+                        "style": "width:261.5px;"
+                    }
+                }) }}
+
+                {{ onsAutosuggest({
+                    "id": "owner-filter",
+                    "label": {
+                    "text": "Owner",
+                    "id": "owner-filter-label"
+                    },
+                    "classes": "ons-u-mb-m",
+                    "autocomplete": "off",
+                    "instructions": "Use up and down keys to navigate suggestions once you\'ve typed more than two characters. Use the enter key to select a suggestion. Touch device users, explore by touch or with swipe gestures.",
+                    "ariaYouHaveSelected": "You have selected",
+                    "ariaMinChars": "Enter 3 or more characters for suggestions.",
+                    "ariaOneResult": "There is one suggestion available.",
+                    "ariaNResults": "There are {n} suggestions available.",
+                    "ariaLimitedResults": "Results have been limited to 10 suggestions. Type more characters to improve your search",
+                    "moreResults": "Continue entering to improve suggestions",
+                    "resultsTitle": "Suggestions",
+                    "resultsTitleId": "country-of-birth-suggestions",
+                    "autosuggestData": "/owners.json",
                     "noResults": "No suggestions found. You can enter your own answer",
                     "typeMore": "Continue entering to get suggestions",
                     "attributes": {
@@ -423,49 +437,21 @@ layout: example/views/homepage
         <div class="ons-u-ml-s">
             <h2 class="ons-u-fs-m ons-u-mb-m" id="NumberOfQuestionnaires"><span></span><span id="SearchEntry"></span></h2>
 
-            <div id="area-for-tags">
-                <div id="tags-project" class="FiltersFlexItems" style="display:none;">Project:</div>
-                <div id="tags-owner" class="FiltersFlexItems" style="display:none;">Owner:</div>
-                <div id="tags-dateBefore" class="FiltersFlexItems" style="display:none;">Created before:</div>
-                <div id="tags-dateAfter" class="FiltersFlexItems" style="display:none;">Created after:</div>
-                <div id="tags-access" class="FiltersFlexItems" style="display:none;">Access:</div>
+            <div id="tagsAndBtnContainer">
+                <div id="area-for-tags">
+                    <div id="tags-project" style="display:none;">Project:</div>
+                    <div id="tags-owner" style="display:none;">Owner:</div>
+                    <div id="tags-dateBefore" style="display:none;">Created before:</div>
+                    <div id="tags-dateAfter" style="display:none;">Created after:</div>
+                    <div id="tags-access" style="display:none;">Access:</div>
+                </div>
+                <div>
+                    <button class="clearFilterBtn" id="clearFiltersBtn" style="display:none;" onclick="clearInputValues()">Clear filters</button>
+                </div>
             </div>
 
-            <p class="ons-u-mb-xs" id='StarredReplacement'><span class="material-symbols-outlined ons-u-mr-xs" style="color:#707071">star</span><strong>Starred</strong></p>
-
-            <table id="starred-table" class="ons-table ons-u-mb-xl">
-                <caption class="ons-table__caption"><span class="material-symbols-outlined ons-u-mr-xs" style="color:#707071">star</span>Starred</caption>
-                <thead class="ons-table__head ons-u-d-no">
-                    <tr class="ons-table__row">
-                    <th scope="col" class="ons-table__header">
-                        <span class="ons-table__header-text">Short code and title</span>
-                    </th>
-                    <th scope="col" class="ons-table__header">
-                        <span class="ons-table__header-text">Project</span>
-                    </th>
-                    <th scope="col" class="ons-table__header">
-                        <span class="ons-table__header-text">Owner</span>
-                    </th>
-                    <th scope="col" class="ons-table__header">
-                        <span class="ons-table__header-text">Activity</span>
-                    </th>
-                    <th scope="col" class="ons-table__header">
-                        <span class="ons-table__header-text">Access</span>
-                    </th>
-                    <th scope="col" class="ons-table__header">
-                        <span class="ons-table__header-text ons-u-invisible">Actions</span>
-                    </th>
-                    </tr>
-                </thead>
-                <tbody class="ons-table__body ons-u-d-no">
-
-                </tbody>
-            </table>
-
-            <p class="u-fs-16 ons-u-mb-m" id='AddedToStarred'>No questionnaires have been added to starred</p>
 
             <table id="basic-table" class="ons-table">
-                <caption class="ons-table__caption">Non-starred</caption>
                 <thead class="ons-table__head">
                     <tr class="ons-table__row">
                     <th scope="col" class="ons-table__header">
@@ -1166,4 +1152,1166 @@ layout: example/views/homepage
 
 
 
+{% endblock %}
+
+{% block bodyEnd %}
+
+<script>
+
+{# Rendering new questionnaires #}
+        var table = document.getElementById("basic-table");
+        var counter = parseInt(sessionStorage.getItem("questionnaireCounter")) || 0;
+        var tbody = table.querySelector("tbody");
+
+        for (var i = 1; i <= counter; i++) {
+            if(sessionStorage.getItem("Buttonid_" + i)){
+            var row = tbody.insertRow(0);
+            row.classList.add("ons-table__row", "row-relative");
+            var ROWid = sessionStorage.getItem('rowID' + i);
+            row.id = ROWid;
+
+            var td1 = row.insertCell(0);
+            td1.classList.add("ons-table__cell");
+            td1.innerHTML = `<span class="ons-u-db ons-u-fs-s ons-u-mb-xs">${sessionStorage.getItem('Shortcode_' + i)}</span><a href="#">${sessionStorage.getItem('Title_' + i)}</a>`;
+
+            var td2 = row.insertCell(1);
+            td2.classList.add("ons-table__cell");
+            td2.textContent = sessionStorage.getItem('Project_' + i);
+
+            var td3 = row.insertCell(2);
+            td3.classList.add("ons-table__cell");
+            td3.textContent = "Lauren Dowling";
+
+            var td4 = row.insertCell(3);
+            td4.classList.add("ons-table__cell");
+            td4.setAttribute("data-date-value", "2023-08-30");
+            td4.innerHTML = `<span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>30 Aug 2023<span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>30 Aug 2023`;
+
+            if(sessionStorage.getItem("Access_" + i) == 'Editor'){
+                var td5 = row.insertCell(4);
+                td5.classList.add("ons-table__cell");
+                td5.textContent = "Editor";
+            }
+
+            if(sessionStorage.getItem("Access_" + i) == 'View-only'){
+                var td5 = row.insertCell(4);
+                td5.classList.add("ons-table__cell");
+                td5.textContent = "View-only";
+            }
+
+            var td6 = row.insertCell(5);
+            td6.classList.add("ons-table__cell");
+
+            var menuContainer = document.createElement("div");
+            menuContainer.className = "menu-container";
+
+            var buttonId = sessionStorage.getItem('Buttonid_' + i);
+            var ulId = sessionStorage.getItem('ULid' + i);
+
+            var actionsButton = document.createElement("button");
+            actionsButton.type = "button";
+            actionsButton.id = buttonId;
+            actionsButton.className = "actionsBtn";
+            actionsButton.setAttribute("aria-haspopup", "true");
+            actionsButton.setAttribute("aria-controls", ulId);
+            actionsButton.setAttribute("onclick", `toggleMenu(event, '${sessionStorage.getItem('Buttonid_' + i)}', '${sessionStorage.getItem('ULid' + i)}')`);
+
+            var SVGIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            SVGIcon.classList.add("ons-icon", "ons-u-ml-xs");
+            SVGIcon.setAttribute("viewBox", "0 0 8 13");
+            SVGIcon.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+            SVGIcon.setAttribute("focusable", "false");
+            SVGIcon.setAttribute("fill", "currentColor");
+
+            var path = document.createElementNS("http://www.w3.org/2000/svg", "path");        
+            path.setAttribute("d", "M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z");
+            path.setAttribute("transform", "translate(-5.02 -1.59)");
+
+            SVGIcon.appendChild(path);
+            actionsButton.appendChild(document.createTextNode(" Actions"));
+            actionsButton.appendChild(SVGIcon);
+
+
+            var ul = document.createElement("ul");
+            ul.id = ulId;
+            ul.role = "menu";
+            ul.setAttribute("aria-labelledby", buttonId);
+            ul.className = "menu";
+
+            var duplicateLi = document.createElement("li");
+            duplicateLi.role = "none";
+            duplicateLi.className = "duplicate";
+
+            var duplicateSpan = document.createElement("span");
+            duplicateSpan.className = "material-symbols-outlined";
+            duplicateSpan.textContent = "content_copy";
+
+            var duplicateLink = document.createElement("a");
+            duplicateLink.role = "menuitem";
+            duplicateLink.className = "listItemLink";
+            duplicateLink.href = "#";
+            duplicateLink.textContent = "Duplicate";
+            duplicateLink.setAttribute("onclick", `duplicate('${buttonId}', '${sessionStorage.getItem('Shortcode_' + i)}', '${sessionStorage.getItem('Title_' + i)}')`);
+
+            duplicateLi.appendChild(duplicateSpan);
+            duplicateLi.appendChild(duplicateLink);
+
+            ul.appendChild(duplicateLi);
+
+            var copyLinkLi = document.createElement("li");
+            copyLinkLi.role = "none";
+
+            var copyLinkButton = document.createElement("button");
+            copyLinkButton.role = "menuitem";
+            copyLinkButton.className = "listItemButton";
+
+            var copyLinkSpan = document.createElement("span");
+            copyLinkSpan.className = "material-symbols-outlined";
+            copyLinkSpan.textContent = "link";
+
+            var buttonText = document.createTextNode("Copy link");
+            
+            copyLinkButton.appendChild(copyLinkSpan);
+            copyLinkButton.appendChild(buttonText);
+
+
+            copyLinkLi.appendChild(copyLinkButton);
+            ul.appendChild(copyLinkLi);
+
+
+    {# Add to starred button #}
+            var addToStarredLi = document.createElement("li");
+            addToStarredLi.role = "none";
+
+            var addToStarredButton = document.createElement("button");
+            addToStarredButton.role = "menuitem";
+            addToStarredButton.className = "listItemButton";
+            addToStarredButton.setAttribute("onclick", `addToStarred('${sessionStorage.getItem('rowID' + i)}')`);
+
+
+            var addToStarredSpan = document.createElement("span");
+            addToStarredSpan.className = "material-symbols-outlined";
+            addToStarredSpan.textContent = "star";
+
+            var StarText = document.createTextNode("Add to starred");
+
+            addToStarredButton.appendChild(addToStarredSpan);
+            addToStarredButton.appendChild(StarText);
+
+            addToStarredLi.appendChild(addToStarredButton);
+            ul.appendChild(addToStarredLi);
+
+    {# Remove from My questionnaires #}
+            
+            if(sessionStorage.getItem("Access_" + i) == 'View-only'){
+                var removeFromMyQuestionnairesLi = document.createElement("li");
+                removeFromMyQuestionnairesLi.role = "none";
+
+                var removeFromMyQuestionnairesButton = document.createElement("button");
+                removeFromMyQuestionnairesButton.role = "menuitem";
+                removeFromMyQuestionnairesButton.className = "listItemButton";
+                removeFromMyQuestionnairesButton.id = sessionStorage.getItem("AddToBtnID_" + i)
+
+
+                var removeFromMyQuestionnairesSpan = document.createElement("span");
+                removeFromMyQuestionnairesSpan.className = "material-symbols-outlined";
+                removeFromMyQuestionnairesSpan.textContent = "bookmark_remove";
+
+                var RemoveText = document.createTextNode("Remove from My questionnaires");
+
+                removeFromMyQuestionnairesButton.appendChild(removeFromMyQuestionnairesSpan);
+                removeFromMyQuestionnairesButton.appendChild(RemoveText);
+
+                removeFromMyQuestionnairesLi.appendChild(removeFromMyQuestionnairesButton);
+                ul.appendChild(removeFromMyQuestionnairesLi);
+
+                removeFromMyQuestionnairesButton.setAttribute("onclick", `addToMyQuestionnaires('${sessionStorage.getItem('rowID' + i)}','${sessionStorage.getItem('Buttonid_' + i)}', '${sessionStorage.getItem('ULid' + i)}', '${sessionStorage.getItem('Shortcode_' + i)}', '${sessionStorage.getItem('Title_' + i)}', '${sessionStorage.getItem('Project_' + i)}', 'Lauren Dowling', '${sessionStorage.getItem('DateCreated_' + i)}', '${sessionStorage.getItem('DateLastOpened_' + i)}', '${sessionStorage.getItem('Access_' + i)}', '${sessionStorage.getItem('AddToBtnID_' + i)}')`);
+
+            }
+
+    {# Delete button #}
+            if(sessionStorage.getItem("Access_" + i) != 'View-only'){
+
+                var deleteLi = document.createElement("li");
+                deleteLi.role = "none";
+                deleteLi.className = "ons-u-mb-no";
+
+                var deleteButton = document.createElement("button");
+                deleteButton.role = "menuitem";
+                deleteButton.className = "listItemButton";
+                deleteButton.setAttribute("onclick", `confirmDeletion('${sessionStorage.getItem('Buttonid_' + i)}', '${sessionStorage.getItem('ULid' + i)}', '${sessionStorage.getItem('Shortcode_' + i)}', '${sessionStorage.getItem('Title_' + i)}', '${sessionStorage.getItem('Project_' + i)}', 'Lauren Dowling', '${sessionStorage.getItem('rowID' + i)}')`);
+
+                var deleteSpan = document.createElement("span");
+                deleteSpan.className = "material-symbols-outlined";
+                deleteSpan.textContent = "delete";
+
+                var DeleteText = document.createTextNode("Delete");
+
+                deleteButton.appendChild(deleteSpan);
+                deleteButton.appendChild(DeleteText);
+
+                deleteLi.appendChild(deleteButton);
+                ul.appendChild(deleteLi);
+            }
+
+                menuContainer.appendChild(actionsButton);
+                menuContainer.appendChild(ul);
+                td6.appendChild(menuContainer);
+
+        }
+    }
+
+
+
+
+    function toggleMenu(event, Buttonid, ULid) {
+    event.stopPropagation(); 
+    console.log('executing');
+        console.log('Buttonid:', Buttonid);
+    console.log('ULid:', ULid);
+    var menu = document.getElementById(ULid);
+    console.log(menu);
+    var svgIcon = document.querySelector(`#${Buttonid} .ons-icon`);
+
+    if (menu.style.display === "none" || menu.style.display === "") {
+        menu.style.display = "block";
+        document.addEventListener("click", closeMenuOnClickOutside.bind(null, ULid));
+        svgIcon.style.transform = "rotate(-90deg)"; 
+        svgIcon.style.padding = "0 0 0 4px";
+    } else {
+        menu.style.display = "none";
+        document.removeEventListener("click", closeMenuOnClickOutside.bind(null, ULid));
+        svgIcon.style.transform = "rotate(90deg)"; 
+        svgIcon.style.padding = "0 0 0 0"; 
+    }
+    }
+
+    function closeMenuOnClickOutside(ULid, event) {
+    var menu = document.getElementById(ULid);
+    console.log(menu);
+    
+    if (!menu.contains(event.target)) {
+        menu.style.display = "none";
+        document.removeEventListener("click", closeMenuOnClickOutside.bind(null, ULid));
+    }
+    }
+
+
+    function confirmDeletion(Buttonid, ULid, shortcode, title, project, owner, rowId){
+        console.log('confirm deletion');
+        toggleMenu(event, Buttonid, ULid);
+        var container = document.getElementById('modalContainer');
+        container.style.display = "block";
+        var modal = document.getElementById('modalDialog');
+        modal.style.display = "block";
+
+        {# Updates the values in the modal #}
+        var shortcodeSpan = document.querySelector('#shortcode .ons-summary__text');
+        shortcodeSpan.textContent = shortcode;
+        var titleSpan = document.querySelector('#title .ons-summary__text');
+        titleSpan.textContent = title;
+        var projectSpan = document.querySelector('#project .ons-summary__text');
+        if (project != 'null'){
+            console.log(project);
+            projectSpan.textContent = project;
+        }
+        else{
+            projectSpan.textContent = '';
+
+        }
+        var ownerSpan = document.querySelector('#owner .ons-summary__text');
+        ownerSpan.textContent = owner;
+        console.log('owner is:' + owner);
+        
+        
+
+        var deleteButton = document.getElementById('deleteButton');
+        deleteButton.addEventListener('click', function() {
+
+        var match = Buttonid.match(/_(\d+)$/);
+        if (match) {
+            var numberAfterUnderscore = match[1];
+
+            sessionStorage.removeItem("Buttonid_" + numberAfterUnderscore);
+            sessionStorage.removeItem("ULid" + numberAfterUnderscore);
+            if(sessionStorage.getItem("Shortcode_" + numberAfterUnderscore)){
+                sessionStorage.removeItem("Shortcode_" + numberAfterUnderscore);
+            }
+            sessionStorage.removeItem("Title_" + numberAfterUnderscore);
+            if(sessionStorage.getItem("Project_" + numberAfterUnderscore)){
+                sessionStorage.removeItem("Project_" + numberAfterUnderscore);
+            }
+            sessionStorage.removeItem("rowID" + numberAfterUnderscore);
+
+            {#deleteQuestionnaire(Buttonid, ULid, shortcode, title, project, owner, rowId);#}
+
+        }
+        deleteQuestionnaire(rowId);
+
+
+        });
+            
+
+
+    }
+
+    function cancelDeletion(){
+        console.log('hello');
+        var container = document.getElementById('modalContainer');
+        container.style.display = "none";
+        var modal = document.getElementById('modalDialog');
+        modal.style.display = "none";
+    }
+
+
+{# Updating number of questionnaires #}
+    var BasicTable = document.getElementById('basic-table');
+
+    // Count the rows in each table
+    var BasicRowCount = BasicTable.rows.length;
+    var TotalRows = BasicRowCount - 1;
+
+    // Update the text content of the element with id="NumberOfQuestionnaires"
+    var numberOfQuestionnairesElement = document.querySelector('#NumberOfQuestionnaires span');
+    numberOfQuestionnairesElement.textContent = TotalRows + ' questionnaires';
+
+
+{# Delete questionnaire #}
+    function deleteQuestionnaire(rowId) {
+        console.log(rowId);
+        console.log('deleting row');
+        var row = document.getElementById(rowId);
+        console.log(document.getElementById(rowId));
+            if (row) {
+                row.remove();
+                var container = document.getElementById('modalContainer');
+                container.style.display = "none";
+                var modal = document.getElementById('modalDialog');
+                modal.style.display = "none";
+
+                {#var questionnaireCountElement = document.getElementById('questionnaireCount');
+                var currentCount = parseInt(questionnaireCountElement.textContent, 10);
+                if (!isNaN(currentCount) && currentCount > 0) {
+                questionnaireCountElement.textContent = (currentCount - 1) + ' questionnaires';
+                }
+                #}
+
+
+            }
+        updateQuestionnaireCounter();
+        updatePagination();
+
+    }
+
+
+{# Duplicate questionnaire #}
+    function duplicate(Buttonid, shortcode, title) {
+        var button = document.getElementById(Buttonid);
+        button.style.border = "2px solid #003C57";
+        button.style.backgroundColor = "#206095";
+        button.style.color = "white"; 
+
+        if (shortcode) {
+            sessionStorage.setItem('duplicateShortcode', shortcode);
+        }
+        if (title) {
+            sessionStorage.setItem('duplicateTitle', title);
+        }
+
+        window.location.href = "/prototypes/example/homepage/duplicate/enterDetails";
+    }
+
+
+{# Starring questionnaire #}
+{#
+    function addToStarred(rowID) {
+            var rowToMove = document.getElementById(rowID);
+            var starredTable = document.getElementById("starred-table");
+            var NonstarredTable = document.getElementById("basic-table");
+
+            buttons = rowToMove.querySelectorAll("button");
+
+            for (var j = 0; j < buttons.length; j++) {
+                var button = buttons[j];
+                if (button.textContent.includes("Add to starred")) {
+                    rowToMove.parentNode.removeChild(rowToMove);
+                    starredTable.querySelector("tbody").insertBefore(rowToMove, starredTable.querySelector("tbody").firstChild);
+                    button.innerHTML = "<span class='material-symbols-outlined'>star</span>Remove from starred";
+                }
+                else if (button.textContent.includes("Remove from starred")){
+                    rowToMove.parentNode.removeChild(rowToMove);
+                    NonstarredTable.querySelector("tbody").insertBefore(rowToMove, NonstarredTable.querySelector("tbody").firstChild);
+                    button.innerHTML = "<span class='material-symbols-outlined'>star</span>Add to starred";
+                }
+            }
+
+            var tbody = starredTable.querySelector("tbody");
+            var rowCount = tbody.getElementsByTagName("tr").length;
+            if (rowCount === 0){
+                document.getElementById('AddedToStarred').style.display = "block";
+                document.getElementById('StarredReplacement').style.display = "block";
+                var thead = starredTable.querySelector("thead");
+                var tbody = starredTable.querySelector("tbody");
+                thead.classList.add("ons-u-d-no");
+                tbody.classList.add("ons-u-d-no");
+
+            }
+            else{
+                document.getElementById('AddedToStarred').style.display = "none";
+                document.getElementById('StarredReplacement').style.display = "none";
+                var thead = starredTable.querySelector("thead");
+                var tbody = starredTable.querySelector("tbody");
+                thead.classList.remove("ons-u-d-no");
+                tbody.classList.remove("ons-u-d-no");
+            }
+
+            currentPage = 1; // Reset currentPage to 1
+            updatePagination();
+
+    }
+#}
+
+{# Adding and removing view-only questionnaires #}
+
+    var buttons = document.querySelectorAll('button');
+
+    for (var i = 0; i < buttons.length; i++) {
+        var button = buttons[i];
+        if (button.textContent.includes("Add to My questionnaires")) {
+            var buttonId = button.id;
+            if(sessionStorage.getItem(buttonId)){
+                button.innerHTML = "<span class='material-symbols-outlined'>bookmark_remove</span>Remove from My questionnaires";
+
+            }
+        }
+    }
+
+    function addToMyQuestionnaires(rowId, Buttonid, ULid, shortcode, title, project, owner, dateCreated, dateLastOpened, access, addToBtnID) {
+
+        var button = document.getElementById(addToBtnID);
+        if (button.textContent.includes("Add to My questionnaires")) {
+            button.innerHTML = "<span class='material-symbols-outlined'>bookmark_remove</span>Remove from My questionnaires";
+
+            var counter = parseInt(sessionStorage.getItem('questionnaireCounter')) || 0;
+            counter++;
+            sessionStorage.setItem('questionnaireCounter', counter);
+            sessionStorage.setItem('questionnaireCounter' + addToBtnID, counter);
+
+            sessionStorage.setItem('rowID' + counter, rowId);
+            sessionStorage.setItem('Buttonid_' + counter, Buttonid);
+            sessionStorage.setItem('ULid' + counter, ULid);
+            sessionStorage.setItem('Shortcode_' + counter, shortcode);
+            sessionStorage.setItem('Title_' + counter, title);
+            sessionStorage.setItem('Project_' + counter, project);
+            sessionStorage.setItem('Owner_' + counter, owner);
+            sessionStorage.setItem('DateCreated_' + counter, dateCreated);
+            sessionStorage.setItem('DateLastOpened_' + counter, dateLastOpened);
+            sessionStorage.setItem('Access_' + counter, access);
+            sessionStorage.setItem('AddToBtnID_' + counter, addToBtnID);
+
+        } 
+        else {
+        button.innerHTML = "<span class='material-symbols-outlined'>bookmark_add</span>Add to My questionnaires";
+        var counterAtTimeOfAdd = sessionStorage.getItem('questionnaireCounter' + addToBtnID);
+
+        toggleMenu(event, Buttonid, ULid);
+        var container2 = document.getElementById('modalContainer2');
+        container2.style.display = "block";
+        var modal2 = document.getElementById('modalDialog2');
+        modal2.style.display = "block";
+
+        {# Updates the values in the modal #}
+        var shortcodeSpan = document.querySelector('#modalDialog2 #shortcode .ons-summary__text');
+        shortcodeSpan.textContent = shortcode;
+        console.log(shortcode);
+        var titleSpan = document.querySelector('#modalDialog2 #title .ons-summary__text');
+        titleSpan.textContent = title;
+        var projectSpan = document.querySelector('#modalDialog2 #project .ons-summary__text');
+        if (project != 'null'){
+            console.log(project);
+            projectSpan.textContent = project;
+        }
+        else{
+            projectSpan.textContent = '';
+
+        }
+        var ownerSpan = document.querySelector('#modalDialog2 #owner .ons-summary__text');
+        ownerSpan.textContent = owner;    
+        
+
+        var removeFromMyQuestionnaires = document.getElementById('removeButton');
+        removeFromMyQuestionnaires.addEventListener('click', function() {
+
+            sessionStorage.removeItem('rowID' + counterAtTimeOfAdd);
+            sessionStorage.removeItem('Buttonid_' + counterAtTimeOfAdd);
+            sessionStorage.removeItem('ULid' + counterAtTimeOfAdd);
+            sessionStorage.removeItem('Shortcode_' + counterAtTimeOfAdd);
+            sessionStorage.removeItem('Title_' + counterAtTimeOfAdd);
+            sessionStorage.removeItem('Project_' + counterAtTimeOfAdd);
+            sessionStorage.removeItem('Owner_' + counterAtTimeOfAdd);
+            sessionStorage.removeItem('DateCreated_' + counterAtTimeOfAdd);
+            sessionStorage.removeItem('DateLastOpened_' + counterAtTimeOfAdd);
+            sessionStorage.removeItem('Access_' + counterAtTimeOfAdd);
+            sessionStorage.removeItem('AddToBtnID_' + counterAtTimeOfAdd);
+
+            var closeModal = document.getElementById('modalDialog2');
+            var closeBackground = document.getElementById('modalContainer2');
+
+            closeModal.style.display = 'none';
+            closeBackground.style.display = 'none';
+
+
+            deleteQuestionnaire(rowId);
+
+
+        });
+            
+
+
+        }
+
+    }
+
+    function removeViewOnlyQuestionnaire(rowId) {
+        console.log(rowId);
+        console.log('deleting row');
+        var row = document.getElementById(rowId);
+        console.log(document.getElementById(rowId));
+            if (row) {
+                row.remove();
+                var container = document.getElementById('modalContainer2');
+                container.style.display = "none";
+                var modal = document.getElementById('modalDialog2');
+                modal.style.display = "none";
+
+                var questionnaireCountElement = document.getElementById('questionnaireCount');
+                var currentCount = parseInt(questionnaireCountElement.textContent, 10);
+                if (!isNaN(currentCount) && currentCount > 0) {
+                questionnaireCountElement.textContent = (currentCount - 1) + ' questionnaires';
+                }
+
+
+            }
+            updatePagination();
+            updateQuestionnaireCounter();
+    }
+
+
+function ApplyFilters() {
+        currentPage = 1; // Reset currentPage to 1
+        var projectFilterCapitals = document.getElementById("project-filter").value;
+        var ownerFilterCapitals = document.getElementById("owner-filter").value;
+        var projectFilter = document.getElementById("project-filter").value.toLowerCase();
+        var ownerFilter = document.getElementById("owner-filter").value.toLowerCase();
+        var BeforeDayFilter = document.getElementById("created-before-filter-day").value;
+        var BeforeMonthFilter = document.getElementById("created-before-filter-month").value;
+        var BeforeYearFilter = document.getElementById("created-before-filter-year").value;
+        var AfterDayFilter = document.getElementById("created-after-filter-day").value;
+        var AfterMonthFilter = document.getElementById("created-after-filter-month").value;
+        var AfterYearFilter = document.getElementById("created-after-filter-year").value;
+        var EditorAccess = document.getElementById("editor");
+        var ViewOnlyAccess = document.getElementById("view-only");
+        var ReadOnlyAccess = document.getElementById("read-only");
+
+        BeforeDayFilter = BeforeDayFilter.replace(/^0+/, "");
+        BeforeMonthFilter = BeforeMonthFilter.replace(/^0+/, "");
+        AfterDayFilter = AfterDayFilter.replace(/^0+/, "");
+        AfterMonthFilter = AfterMonthFilter.replace(/^0+/, "");
+
+    function filterTable(tableId) {
+        console.log('working');
+        var table = document.getElementById(tableId);
+        var rows = table.querySelectorAll("tbody tr");
+
+        for (var i = 0; i < rows.length; i++) {
+        var row = rows[i];
+        var ProjectCell = row.getElementsByTagName("td")[1];
+        var OwnerCell = row.getElementsByTagName("td")[2];
+        var AccessCell = row.getElementsByTagName("td")[4];
+
+
+        var ProjectCellText = ProjectCell.textContent.toLowerCase();
+        var OwnerCellText = OwnerCell.textContent.toLowerCase();
+        var cell = row.querySelector("td[data-date-value]");
+
+        // Check if the Project filter is non-empty and matches
+        var projectFilterMatch = projectFilter === "" || ProjectCellText.includes(projectFilter);
+
+        // Check if the Owner filter is non-empty and matches
+        var ownerFilterMatch = ownerFilter === "" || OwnerCellText.includes(ownerFilter);
+
+        // Check if the Before filters are non-empty and match
+        var BeforedateFilterMatch = true;
+        if (BeforeDayFilter !== "" && BeforeMonthFilter !== "" && BeforeYearFilter !== "") {
+            if (cell) {
+            var cellDate = cell.getAttribute("data-date-value");
+            var BeforefilterDate = new Date(BeforeYearFilter, BeforeMonthFilter - 1, BeforeDayFilter);
+            var cellDateObj = new Date(cellDate);
+            BeforedateFilterMatch = cellDateObj < BeforefilterDate;
+            }
+            }
+
+        // Check if the After filters are non-empty and match
+        var AfterdateFilterMatch = true;
+        if (AfterDayFilter !== "" && AfterMonthFilter !== "" && AfterYearFilter !== "") {
+            if (cell) {
+            var cellDateAfter = cell.getAttribute("data-date-value");
+            var AfterfilterDate = new Date(AfterYearFilter, AfterMonthFilter - 1, AfterDayFilter);
+            var cellDateObjAfter = new Date(cellDateAfter);
+            AfterdateFilterMatch = cellDateObjAfter > AfterfilterDate;
+            console.log(AfterdateFilterMatch);
+            }
+        }
+
+        // Check if the access matches
+        var accessCellValue = AccessCell.textContent.trim();
+        var access = true;
+        if (EditorAccess.checked || ViewOnlyAccess.checked || ReadOnlyAccess.checked) {
+            // Check if any of the checked checkboxes' values match the AccessCell content
+            if ((EditorAccess.checked && EditorAccess.value === accessCellValue) ||
+                (ViewOnlyAccess.checked && ViewOnlyAccess.value === accessCellValue) ||
+                (ReadOnlyAccess.checked && ReadOnlyAccess.value === accessCellValue)) {
+            access = true; // Set access to true if there's a match
+            }
+            else{
+                access = false;
+    
+            }
+        }
+        else{
+            document.getElementById("tags-access").style.display = "none"; 
+        }
+
+        if (!projectFilterMatch || !ownerFilterMatch || !BeforedateFilterMatch || !AfterdateFilterMatch || !access || row.classList.contains("filtered-out")) {
+            row.classList.add("filtered-out");
+            row.style.display = "none";
+        }
+    }}
+
+    filterTable("basic-table");
+
+    // Check if the Project filter is non-empty and matches
+    if (projectFilter !== "") {
+        var originalProjectFilter = document.getElementById("project-filter").value;
+        appendFilterTag(originalProjectFilter, "Project");
+    }
+
+    // Check if the Owner filter is non-empty and matches
+    if (ownerFilter !== "") {
+        var originalownerFilter = document.getElementById("owner-filter").value;
+        appendFilterTag(originalownerFilter, "Owner");
+    }
+
+    // Check if the Before filters are non-empty and match
+    if (BeforeDayFilter !== "" && BeforeMonthFilter !== "" && BeforeYearFilter !== "") {
+        appendFilterTag(BeforeDayFilter + "/" + BeforeMonthFilter + "/" + BeforeYearFilter, "DateBefore");
+    }
+
+    // Check if the After filters are non-empty and match
+    if (AfterDayFilter !== "" && AfterMonthFilter !== "" && AfterYearFilter !== "") {
+        appendFilterTag(AfterDayFilter + "/" + AfterMonthFilter + "/" + AfterYearFilter, "DateAfter");
+    }
+
+    // Check if the access matches
+    if (EditorAccess.checked || ViewOnlyAccess.checked || ReadOnlyAccess.checked) {
+        if (EditorAccess.checked) {
+        appendFilterTag("Editor", "Editor")
+        }
+        if (ViewOnlyAccess.checked) {
+            appendFilterTag("View-only", "View-only")
+
+        }
+        if (ReadOnlyAccess.checked) {
+            appendFilterTag("Read-only for editors", "Read-only")
+        }
+    }
+
+    // Update the total count of unfiltered rows
+    var basicTableCount = countUnfilteredRows("basic-table");
+    var numberOfQuestionnairesElement = document.querySelector('#NumberOfQuestionnaires span');
+    if(basicTableCount != 1){
+        numberOfQuestionnairesElement.textContent = basicTableCount + ' questionnaires';
+    }
+    if(basicTableCount == 1){
+        numberOfQuestionnairesElement.textContent = basicTableCount + ' questionnaire';
+    }
+    
+    // Save filter values in session storage
+    sessionStorage.setItem("projectFilter", projectFilterCapitals);
+    sessionStorage.setItem("ownerFilter", ownerFilterCapitals);
+    sessionStorage.setItem("BeforeDayFilter", BeforeDayFilter);
+    sessionStorage.setItem("BeforeMonthFilter", BeforeMonthFilter);
+    sessionStorage.setItem("BeforeYearFilter", BeforeYearFilter);
+    sessionStorage.setItem("AfterDayFilter", AfterDayFilter);
+    sessionStorage.setItem("AfterMonthFilter", AfterMonthFilter);
+    sessionStorage.setItem("AfterYearFilter", AfterYearFilter);
+
+    if(document.getElementById('editor').checked === false){
+        sessionStorage.setItem("Editor", '');
+    }
+    else{
+        sessionStorage.setItem("Editor", true);
+    }
+    if(document.getElementById('view-only').checked === false){
+        sessionStorage.setItem("ViewOnly", '');
+    }
+    else{
+        sessionStorage.setItem("ViewOnly", true);
+    }
+    if(document.getElementById('read-only').checked === false){
+        sessionStorage.setItem("ReadOnly", '');
+    }
+    else{
+        sessionStorage.setItem("ReadOnly", true);
+        console.log('setting to true');
+    }
+    
+
+    updatePagination();
+}
+
+// Function to clear input values
+function clearInputValues() {
+
+    const tagsProject = document.getElementById("tags-project");
+    const tagsOwner = document.getElementById("tags-owner");
+    const tagsDateBefore = document.getElementById("tags-dateBefore");
+    const tagsDateAfter = document.getElementById("tags-dateAfter");
+    const tagsAccess = document.getElementById("tags-access");
+
+    while (tagsProject.firstChild) {
+        tagsProject.removeChild(tagsProject.firstChild);
+        tagsProject.classList.remove('FiltersFlexItems');
+    }
+    while (tagsOwner.firstChild) {
+        tagsOwner.removeChild(tagsOwner.firstChild);
+        tagsOwner.classList.remove('FiltersFlexItems');
+    }
+    while (tagsDateBefore.firstChild) {
+        tagsDateBefore.removeChild(tagsDateBefore.firstChild);
+        tagsDateBefore.classList.remove('FiltersFlexItems');
+    }
+    while (tagsDateAfter.firstChild) {
+        tagsDateAfter.removeChild(tagsDateAfter.firstChild);
+        tagsDateAfter.classList.remove('FiltersFlexItems');
+    }
+    while (tagsAccess.firstChild) {
+        tagsAccess.removeChild(tagsAccess.firstChild);
+        tagsAccess.classList.remove('FiltersFlexItems');
+    }
+
+    document.getElementById("project-filter").value = "";
+    document.getElementById("owner-filter").value = "";
+    document.getElementById("created-before-filter-day").value = "";
+    document.getElementById("created-before-filter-month").value = "";
+    document.getElementById("created-before-filter-year").value = "";
+    document.getElementById("created-after-filter-day").value = "";
+    document.getElementById("created-after-filter-month").value = "";
+    document.getElementById("created-after-filter-year").value = "";
+    document.getElementById("editor-label").checked = false;
+    document.getElementById("view-only-label").checked = false;
+    document.getElementById("read-only-label").checked = false;
+    
+    // Remove 'filtered-out' class from all rows in starred-table
+    let starredRows = document.querySelectorAll('#starred-table .ons-table__row');
+    starredRows.forEach(function (row) {
+        row.classList.remove('filtered-out');
+    });
+
+    // Remove 'filtered-out' class from all rows in basic-table
+    let basicRows = document.querySelectorAll('#basic-table .ons-table__row');
+    basicRows.forEach(function (row) {
+        row.classList.remove('filtered-out');
+    });
+    document.getElementById('area-for-tags').classList.remove('AllFiltersFlexContainer'); 
+    document.getElementById('tagsAndBtnContainer').classList.remove('tagAndClearFiltersContainer');
+    document.getElementById('clearFiltersBtn').style.display = 'none';    
+
+    // Update filter values in session storage
+    sessionStorage.setItem("projectFilter", '');
+    sessionStorage.setItem("ownerFilter", '');
+    sessionStorage.setItem("BeforeDayFilter", '');
+    sessionStorage.setItem("BeforeMonthFilter", '');
+    sessionStorage.setItem("BeforeYearFilter", '');
+    sessionStorage.setItem("AfterDayFilter", '');
+    sessionStorage.setItem("AfterMonthFilter", '');
+    sessionStorage.setItem("AfterYearFilter", '');
+    sessionStorage.setItem("Editor", '');
+    sessionStorage.setItem("ViewOnly", '');
+    sessionStorage.setItem("ReadOnly", '');
+
+    ApplySearch();
+}
+
+function appendFilterTag(filterText, filterType) {
+    // Remove whitespaces from filterText and use it as the element id
+    var filterId = filterText.replace(/\s/g, "");
+
+    // Check if an element with the id already exists
+    if (!document.getElementById(filterId)) {
+        // Create a new button element for the filter tag
+        var button = document.createElement("button");
+        button.className = "filter-tag-button"; // You can style this class in your CSS
+        button.textContent = filterText;
+
+        // Create a span element for the close icon
+        var closeIcon = document.createElement("span");
+        closeIcon.className = "material-symbols-outlined";
+        closeIcon.textContent = "close";
+
+        // Append the close icon to the button
+        button.appendChild(closeIcon);
+
+        // Set the onclick attribute to remove the filter
+        button.setAttribute("onclick", "removeFilterTag('" + filterId + "', '" + filterType + "')");
+        
+        // Set the id of the element to the filterId
+        button.id = filterId;
+
+        // Append the button to the filter tag area
+
+        if (filterType === "Project") {
+            var filterTagArea = document.getElementById("tags-project");
+            filterTagArea.appendChild(button);
+            document.getElementById("tags-project").style.display = "flex";
+            document.getElementById('tags-project').classList.add('FiltersFlexItems');
+            document.getElementById('area-for-tags').classList.add('AllFiltersFlexContainer');
+            document.getElementById('tagsAndBtnContainer').classList.add('tagAndClearFiltersContainer');
+            document.getElementById('clearFiltersBtn').style.display = 'block'; 
+
+        } 
+        if (filterType === "Owner") {
+            var filterTagArea = document.getElementById("tags-owner");
+            filterTagArea.appendChild(button); 
+            document.getElementById("tags-owner").style.display = "flex";
+            document.getElementById('tags-owner').classList.add('FiltersFlexItems');
+            document.getElementById('area-for-tags').classList.add('AllFiltersFlexContainer'); 
+            document.getElementById('tagsAndBtnContainer').classList.add('tagAndClearFiltersContainer');
+            document.getElementById('clearFiltersBtn').style.display = 'block'; 
+      
+        } 
+        if (filterType === "DateBefore") {
+            var filterTagArea = document.getElementById("tags-dateBefore");
+            filterTagArea.appendChild(button);
+            document.getElementById("tags-dateBefore").style.display = "flex";
+            document.getElementById('tags-dateBefore').classList.add('FiltersFlexItems');
+            document.getElementById('area-for-tags').classList.add('AllFiltersFlexContainer'); 
+            document.getElementById('tagsAndBtnContainer').classList.add('tagAndClearFiltersContainer');
+            document.getElementById('clearFiltersBtn').style.display = 'block'; 
+   
+        }
+        if (filterType === "DateAfter") {
+            var filterTagArea = document.getElementById("tags-dateAfter");
+            filterTagArea.appendChild(button);
+            document.getElementById("tags-dateAfter").style.display = "flex";
+            document.getElementById('tags-dateAfter').classList.add('FiltersFlexItems');
+            document.getElementById('area-for-tags').classList.add('AllFiltersFlexContainer');
+            document.getElementById('tagsAndBtnContainer').classList.add('tagAndClearFiltersContainer');
+            document.getElementById('clearFiltersBtn').style.display = 'block'; 
+    
+        }
+        if ((filterType === "Editor") || (filterType === "View-only") || (filterType === "Read-only")) {
+            var filterTagArea = document.getElementById("tags-access");
+            filterTagArea.appendChild(button);    
+            document.getElementById("tags-access").style.display = "flex";
+            document.getElementById('tags-access').classList.add('FiltersFlexItems');
+            document.getElementById('area-for-tags').classList.add('AllFiltersFlexContainer'); 
+            document.getElementById('tagsAndBtnContainer').classList.add('tagAndClearFiltersContainer');
+            document.getElementById('clearFiltersBtn').style.display = 'block'; 
+
+        }
+
+
+    }
+}
+
+
+// Function to remove a filter tag and reapply filters
+function removeFilterTag(tagId, filterType) {
+    // Clear the corresponding input value
+    if (filterType === "Project") {
+        sessionStorage.removeItem("projectFilter");
+        document.getElementById("project-filter").value = "";
+        document.getElementById("tags-project").style.display = "none";    
+    } 
+    if (filterType === "Owner") {
+        console.log('clearing owner filter');
+        sessionStorage.removeItem("ownerFilter");
+        document.getElementById("owner-filter").value = "";
+        document.getElementById("tags-owner").style.display = "none";
+
+    } 
+    if (filterType === "DateBefore") {
+        sessionStorage.removeItem("BeforeDayFilter");
+        sessionStorage.removeItem("BeforeMonthFilter");
+        sessionStorage.removeItem("BeforeYearFilter");
+        document.getElementById("created-before-filter-day").value = "";
+        document.getElementById("created-before-filter-month").value = "";
+        document.getElementById("created-before-filter-year").value = "";
+        document.getElementById("tags-dateBefore").style.display = "none"; 
+    } 
+    if (filterType === "DateAfter") {
+        sessionStorage.removeItem("AfterDayFilter");
+        sessionStorage.removeItem("AfterMonthFilter");
+        sessionStorage.removeItem("AfterYearFilter");
+        document.getElementById("created-after-filter-day").value = "";
+        document.getElementById("created-after-filter-month").value = "";
+        document.getElementById("created-after-filter-year").value = "";
+        document.getElementById("tags-dateAfter").style.display = "none"; 
+    } 
+    if (filterType == "Editor") {
+        document.getElementById("editor").checked = false;
+        sessionStorage.setItem("Editor", '');
+        console.log('removing editor');
+
+    }
+    if (filterType == "View-only") {
+        document.getElementById("view-only").checked = false;
+        sessionStorage.setItem("ViewOnly", '');
+
+    }
+    if (filterType == "Read-only") {
+        document.getElementById("read-only").checked = false;
+        sessionStorage.setItem("ReadOnly", '');
+
+    }
+
+    console.log('tag ID is: ', tagId);
+    document.getElementById(tagId).remove();
+
+    if (document.getElementById("tags-access").childElementCount === 0) {
+        document.getElementById("tags-access").style.display = "none";
+
+    }
+
+    var parentElement = document.getElementById("area-for-tags");
+    var childElements = parentElement.children;
+    var hiddenChildrenCount = 0;
+
+    for (var i = 0; i < childElements.length; i++) {
+        var computedStyle = getComputedStyle(childElements[i]);
+        if (computedStyle.display === "none") {
+            hiddenChildrenCount++;
+        }
+    }
+
+    console.log(hiddenChildrenCount);
+
+    if (hiddenChildrenCount == 5) {
+        parentElement.classList.remove("AllFiltersFlexContainer");
+        document.getElementById('tagsAndBtnContainer').classList.remove('tagAndClearFiltersContainer');
+        document.getElementById('clearFiltersBtn').style.display = 'none'; 
+    }
+
+
+    // Reapply all filters
+    ApplySearch();
+}
+
+
+    var currentPage = 1;
+    var TotalPages; // Declare TotalPages as a global variable
+
+function updatePagination() {
+    var basicTable = document.getElementById("basic-table");
+    var nextButton = document.getElementById("next");
+    var previousButton = document.getElementById("previous");
+    var nextPaginationLabel = nextButton.querySelector("span.ons-content-pagination__link-label");
+    var previousPaginationLabel = previousButton.querySelector("span.ons-content-pagination__link-label");
+
+    // Get the <tbody> element
+    var basicTBody = basicTable.querySelector("tbody");
+
+    // Get all rows 
+    var basicRows = basicTBody.querySelectorAll("tr");
+
+    // Filter rows and add them to respective arrays
+    var filteredBasicRows = Array.from(basicRows).filter(function (row) {
+        return !row.classList.contains("filtered-out");
+    });
+
+    // Calculate the total number of rows and pages
+    var totalRows = filteredBasicRows.length;
+    var rowsPerPage = 8;
+    TotalPages = Math.ceil(totalRows / rowsPerPage); // Update the global TotalPages variable
+
+    // Calculate the current page's rows
+    var startIndex = (currentPage - 1) * rowsPerPage;
+    var endIndex = startIndex + rowsPerPage;
+
+    // Display rows on the current page
+
+    for (var j = 0; j < filteredBasicRows.length; j++) {
+        if (j >= startIndex && j < endIndex) {
+        filteredBasicRows[j].style.display = "table-row";
+        } else {
+        filteredBasicRows[j].style.display = "none";
+        }
+    }
+
+    // Update the pagination labels for "Next" and "Previous" links
+    if (currentPage < TotalPages) {
+        nextPaginationLabel.textContent = currentPage + 1 + " of " + TotalPages;
+    } else {
+        nextPaginationLabel.textContent = "Next";
+    }
+
+    if (currentPage > 1) {
+        previousPaginationLabel.textContent = currentPage - 1 + " of " + TotalPages;
+    } else {
+        previousPaginationLabel.textContent = "Previous";
+    }
+
+    // Show/hide the "Next" and "Previous" links based on the current page
+    nextButton.style.display = currentPage < TotalPages ? "block" : "none";
+    previousButton.style.display = currentPage > 1 ? "block" : "none";
+
+    // Hide the tables if no rows are displayed
+    basicTable.style.display = filteredBasicRows.some(row => row.style.display === "table-row") ? "table" : "none";
+
+
+}
+
+
+    // Function to initialize the pagination
+function initializePagination() {
+    updatePagination(); // Call this function to initially set up the pagination
+    var nextButton = document.getElementById("next");
+    var previousButton = document.getElementById("previous");
+
+    // Add an event listener to the "Next" link
+    nextButton.addEventListener("click", function () {
+        if (currentPage < TotalPages) {
+        currentPage++;
+            window.scrollTo({
+                top: 0
+            });
+        updatePagination(); // Call updatePagination to update the page
+        }
+    });
+
+    // Add an event listener to the "Previous" link
+    previousButton.addEventListener("click", function () {
+        if (currentPage > 1) {
+        currentPage--;
+            window.scrollTo({
+                top: 0
+            });
+        updatePagination(); // Call updatePagination to update the page
+        }
+    });
+}
+
+
+function ApplySearch() {
+    console.log('searching');
+    var searchField = document.getElementById("search-field").value.trim().toLowerCase();
+    sessionStorage.setItem('searchEntry', searchField);
+    var basicTable = document.getElementById("basic-table");
+
+    // Get all rows
+    var basicRows = basicTable.querySelectorAll("tbody tr");
+
+    // Remove the filtered out classes so search can be restarted
+
+        basicRows.forEach(function (row) {
+        row.classList.remove("filtered-out");
+        });
+
+        // Loop through basicRows and add "filtered-out" class to rows that do not contain search input
+        basicRows.forEach(function (row) {
+        var cellText = row.cells[0].textContent.toLowerCase(); // Assuming you want to search the first column
+        console.log(cellText);
+        if (!cellText.includes(searchField)) {
+            row.classList.add("filtered-out");
+        }
+        });  
+
+        //Update the header
+        var searchEntry = document.getElementById("search-field").value;
+        var numberOfQuestionnairesElement = document.getElementById("SearchEntry");
+        // Append the value of searchEntry to the existing text content
+        if(searchEntry != ""){
+            numberOfQuestionnairesElement.textContent = ' with ' + '"' + searchEntry + '"';
+        }
+        if(searchEntry == ""){
+            numberOfQuestionnairesElement.textContent = '';
+        }
+
+        // Check if there are filter values in session storage and apply them
+        var storedProjectFilter = sessionStorage.getItem("projectFilter");
+        var storedOwnerFilter = sessionStorage.getItem("ownerFilter");
+        var storedBeforeDayFilter = sessionStorage.getItem("BeforeDayFilter");
+        var storedBeforeMonthFilter = sessionStorage.getItem("BeforeMonthFilter");
+        var storedBeforeYearFilter = sessionStorage.getItem("BeforeYearFilter");
+        var storedAfterDayFilter = sessionStorage.getItem("AfterDayFilter");
+        var storedAfterMonthFilter = sessionStorage.getItem("AfterMonthFilter");
+        var storedAfterYearFilter = sessionStorage.getItem("AfterYearFilter");
+        // ... Retrieve other filter values from session storage ...
+
+        // Set the filter values back to the filter inputs
+        document.getElementById("project-filter").value = storedProjectFilter;
+        document.getElementById("owner-filter").value = storedOwnerFilter;
+        document.getElementById("created-before-filter-day").value = storedBeforeDayFilter;
+        document.getElementById("created-before-filter-month").value = storedBeforeMonthFilter;
+        document.getElementById("created-before-filter-year").value = storedBeforeYearFilter;
+        document.getElementById("created-after-filter-day").value = storedAfterDayFilter;
+        document.getElementById("created-after-filter-month").value = storedAfterMonthFilter;
+        document.getElementById("created-after-filter-year").value = storedAfterYearFilter;
+        if(sessionStorage.getItem("Editor") != '' && sessionStorage.getItem("Editor") != null){
+            document.getElementById("editor").checked = true;
+        }
+        else{
+            document.getElementById("editor").checked = false;
+        }
+        if(sessionStorage.getItem("ViewOnly") != '' && sessionStorage.getItem("ViewOnly") != null){
+            document.getElementById("view-only").checked = true;
+        }
+        else{
+            document.getElementById("view-only").checked = false;
+        }
+        if(sessionStorage.getItem("ReadOnly") != '' && sessionStorage.getItem("ReadOnly") != null){
+            document.getElementById("read-only").checked = true;
+        }
+        else{
+            document.getElementById("read-only").checked = false;
+        }
+
+        // ApplyFilters to hide rows that do not meet filter criteria
+        ApplyFilters();
+}
+
+function countUnfilteredRows(tableId) {
+    var table = document.getElementById(tableId);
+    var rows = table.querySelectorAll("tbody tr");
+    var unfilteredRowCount = 0;
+
+    for (var i = 0; i < rows.length; i++) {
+        var row = rows[i];
+        if (!row.classList.contains("filtered-out")) {
+            unfilteredRowCount++;
+        }
+    }
+
+    return unfilteredRowCount;
+}
+
+function updateQuestionnaireCounter(){
+    // Update the total count of unfiltered rows
+    var basicTableCount = countUnfilteredRows("basic-table");
+    var numberOfQuestionnairesElement = document.querySelector('#NumberOfQuestionnaires span');
+    if(basicTableCount != 1){
+        numberOfQuestionnairesElement.textContent = basicTableCount + ' questionnaires';
+    }
+    if(basicTableCount == 1){
+        numberOfQuestionnairesElement.textContent = basicTableCount + ' questionnaire';
+    }
+}
+
+
+// Call the function to initialize the pagination
+initializePagination();
+
+
+</script>
 {% endblock %}
