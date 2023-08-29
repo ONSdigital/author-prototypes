@@ -1522,55 +1522,6 @@ layout: example/views/homepage
     }
 
 
-{# Starring questionnaire #}
-{#
-    function addToStarred(rowID) {
-            var rowToMove = document.getElementById(rowID);
-            var starredTable = document.getElementById("starred-table");
-            var NonstarredTable = document.getElementById("basic-table");
-
-            buttons = rowToMove.querySelectorAll("button");
-
-            for (var j = 0; j < buttons.length; j++) {
-                var button = buttons[j];
-                if (button.textContent.includes("Add to starred")) {
-                    rowToMove.parentNode.removeChild(rowToMove);
-                    starredTable.querySelector("tbody").insertBefore(rowToMove, starredTable.querySelector("tbody").firstChild);
-                    button.innerHTML = "<span class='material-symbols-outlined'>star</span>Remove from starred";
-                }
-                else if (button.textContent.includes("Remove from starred")){
-                    rowToMove.parentNode.removeChild(rowToMove);
-                    NonstarredTable.querySelector("tbody").insertBefore(rowToMove, NonstarredTable.querySelector("tbody").firstChild);
-                    button.innerHTML = "<span class='material-symbols-outlined'>star</span>Add to starred";
-                }
-            }
-
-            var tbody = starredTable.querySelector("tbody");
-            var rowCount = tbody.getElementsByTagName("tr").length;
-            if (rowCount === 0){
-                document.getElementById('AddedToStarred').style.display = "block";
-                document.getElementById('StarredReplacement').style.display = "block";
-                var thead = starredTable.querySelector("thead");
-                var tbody = starredTable.querySelector("tbody");
-                thead.classList.add("ons-u-d-no");
-                tbody.classList.add("ons-u-d-no");
-
-            }
-            else{
-                document.getElementById('AddedToStarred').style.display = "none";
-                document.getElementById('StarredReplacement').style.display = "none";
-                var thead = starredTable.querySelector("thead");
-                var tbody = starredTable.querySelector("tbody");
-                thead.classList.remove("ons-u-d-no");
-                tbody.classList.remove("ons-u-d-no");
-            }
-
-            currentPage = 1; // Reset currentPage to 1
-            updatePagination();
-
-    }
-#}
-
 {# Adding and removing view-only questionnaires #}
 
     var buttons = document.querySelectorAll('button');

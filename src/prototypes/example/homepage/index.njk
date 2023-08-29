@@ -2391,7 +2391,9 @@ layout: example/views/homepage
 
             var tbody = starredTable.querySelector("tbody");
             var rowCount = tbody.getElementsByTagName("tr").length;
+            console.log('New row count is: ' + rowCount);
             if (rowCount === 0){
+                console.log('hiding');
                 document.getElementById('AddedToStarred').style.display = "block";
                 document.getElementById('StarredReplacement').style.display = "block";
                 var thead = starredTable.querySelector("thead");
@@ -2401,6 +2403,7 @@ layout: example/views/homepage
 
             }
             else{
+                console.log('displaying');
                 document.getElementById('AddedToStarred').style.display = "none";
                 document.getElementById('StarredReplacement').style.display = "none";
                 var thead = starredTable.querySelector("thead");
@@ -3050,13 +3053,15 @@ function updatePagination() {
         document.getElementById('StarredReplacement').style.display = 'none';
         document.getElementById('AddedToStarred').style.display = 'none';
     }
+    else if(noOfStarredRows != 0){
+        document.getElementById('StarredReplacement').style.display = 'none';
+        document.getElementById('AddedToStarred').style.display = 'none';
+    }
     else{
         document.getElementById('StarredReplacement').style.display = 'block';
         document.getElementById('AddedToStarred').style.display = 'block';
     }
 }
-
-
 
 
     // Function to initialize the pagination
@@ -3087,7 +3092,6 @@ function initializePagination() {
         }
     });
 }
-
 
 
 function ApplySearch() {
