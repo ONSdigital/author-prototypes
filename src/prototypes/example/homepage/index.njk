@@ -2004,24 +2004,27 @@ function ApplyFilters() {
     sessionStorage.setItem("AfterDayFilter", AfterDayFilter);
     sessionStorage.setItem("AfterMonthFilter", AfterMonthFilter);
     sessionStorage.setItem("AfterYearFilter", AfterYearFilter);
-    if(document.getElementById('editor').checked == false){
+
+    if(document.getElementById('editor').checked === false){
         sessionStorage.setItem("Editor", '');
     }
     else{
         sessionStorage.setItem("Editor", true);
     }
-    if(document.getElementById('view-only').checked == false){
+    if(document.getElementById('view-only').checked === false){
         sessionStorage.setItem("ViewOnly", '');
     }
     else{
         sessionStorage.setItem("ViewOnly", true);
     }
-    if(document.getElementById('read-only').checked == false){
+    if(document.getElementById('read-only').checked === false){
         sessionStorage.setItem("ReadOnly", '');
     }
     else{
         sessionStorage.setItem("ReadOnly", true);
+        console.log('setting to true');
     }
+    
 
     updatePagination();
 }
@@ -2418,9 +2421,6 @@ function ApplySearch() {
         var storedAfterDayFilter = sessionStorage.getItem("AfterDayFilter");
         var storedAfterMonthFilter = sessionStorage.getItem("AfterMonthFilter");
         var storedAfterYearFilter = sessionStorage.getItem("AfterYearFilter");
-        var storedEditor = sessionStorage.getItem("Editor");
-        var storedViewOnly = sessionStorage.getItem("ViewOnly");
-        var storedReadOnly = sessionStorage.getItem("ReadOnly");
         // ... Retrieve other filter values from session storage ...
 
         // Set the filter values back to the filter inputs
@@ -2432,19 +2432,19 @@ function ApplySearch() {
         document.getElementById("created-after-filter-day").value = storedAfterDayFilter;
         document.getElementById("created-after-filter-month").value = storedAfterMonthFilter;
         document.getElementById("created-after-filter-year").value = storedAfterYearFilter;
-        if(storedEditor != ''){
+        if(sessionStorage.getItem("Editor") != '' && sessionStorage.getItem("Editor") != null){
             document.getElementById("editor").checked = true;
         }
         else{
             document.getElementById("editor").checked = false;
         }
-        if(storedViewOnly != ''){
+        if(sessionStorage.getItem("ViewOnly") != '' && sessionStorage.getItem("ViewOnly") != null){
             document.getElementById("view-only").checked = true;
         }
         else{
             document.getElementById("view-only").checked = false;
         }
-        if(storedReadOnly != ''){
+        if(sessionStorage.getItem("ReadOnly") != '' && sessionStorage.getItem("ReadOnly") != null){
             document.getElementById("read-only").checked = true;
         }
         else{
@@ -2464,6 +2464,8 @@ function ApplySearch() {
             }
             console.log('Number of starred rows: ' + noOfStarredRows);
 
+        
+
             if (noOfStarredRows == 0 && searchEntry != '' && sessionStorage.getItem("projectFilter") == '' && sessionStorage.getItem("ownerFilter") == '' && sessionStorage.getItem("BeforeDayFilter") == '' && sessionStorage.getItem("AfterDayFilter") == '' && sessionStorage.getItem("Editor") == '' && sessionStorage.getItem("ViewOnly") == '' && sessionStorage.getItem("ReadOnly") == ''){
                 document.getElementById('StarredReplacement').style.display = 'none';
                 document.getElementById('AddedToStarred').style.display = 'none';
@@ -2472,6 +2474,8 @@ function ApplySearch() {
                 document.getElementById('StarredReplacement').style.display = 'block';
                 document.getElementById('AddedToStarred').style.display = 'block';
             }
+
+            
 
         // ApplyFilters to hide rows that do not meet filter criteria
         ApplyFilters();
