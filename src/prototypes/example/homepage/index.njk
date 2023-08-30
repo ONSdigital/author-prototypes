@@ -2034,6 +2034,8 @@ layout: example/views/homepage
 
 <script>
 
+sessionStorage.clear();
+
 {# Rendering new questionnaires #}
         var table = document.getElementById("basic-table");
         var counter = parseInt(sessionStorage.getItem("questionnaireCounter")) || 0;
@@ -2054,9 +2056,16 @@ layout: example/views/homepage
             td2.classList.add("ons-table__cell");
             td2.textContent = sessionStorage.getItem('Project_' + i);
 
-            var td3 = row.insertCell(2);
-            td3.classList.add("ons-table__cell");
-            td3.textContent = "Lauren Dowling";
+            if(sessionStorage.getItem("Owner_" + i)){
+                var td3 = row.insertCell(2);
+                td3.classList.add("ons-table__cell");
+                td3.textContent = sessionStorage.getItem("Owner_" + i);
+            }
+            else{
+                var td3 = row.insertCell(2);
+                td3.classList.add("ons-table__cell");
+                td3.textContent = "Sam Lake";
+            }
 
             var td4 = row.insertCell(3);
             td4.classList.add("ons-table__cell");
@@ -3082,6 +3091,9 @@ function ApplyFilters() {
 
     console.log('function still running');
 
+    //Ensure more than one of each type of filter can't be applied
+    resetFilters();
+
     BeforeDayFilter = BeforeDayFilter.replace(/^0+/, "");
     BeforeMonthFilter = BeforeMonthFilter.replace(/^0+/, "");
     AfterDayFilter = AfterDayFilter.replace(/^0+/, "");
@@ -3243,6 +3255,64 @@ function ApplyFilters() {
     updatePagination();
 }
 
+//Function to reset filters
+function resetFilters(){
+    const tagsProject = document.getElementById("tags-project");
+    const tagsOwner = document.getElementById("tags-owner");
+    const tagsDateBefore = document.getElementById("tags-dateBefore");
+    const tagsDateAfter = document.getElementById("tags-dateAfter");
+    const tagsAccess = document.getElementById("tags-access");
+
+    while (tagsProject.firstChild) {
+        tagsProject.removeChild(tagsProject.firstChild);
+        tagsProject.classList.remove('FiltersFlexItems');
+    }
+    while (tagsOwner.firstChild) {
+        tagsOwner.removeChild(tagsOwner.firstChild);
+        tagsOwner.classList.remove('FiltersFlexItems');
+    }
+    while (tagsDateBefore.firstChild) {
+        tagsDateBefore.removeChild(tagsDateBefore.firstChild);
+        tagsDateBefore.classList.remove('FiltersFlexItems');
+    }
+    while (tagsDateAfter.firstChild) {
+        tagsDateAfter.removeChild(tagsDateAfter.firstChild);
+        tagsDateAfter.classList.remove('FiltersFlexItems');
+    }
+    while (tagsAccess.firstChild) {
+        tagsAccess.removeChild(tagsAccess.firstChild);
+        tagsAccess.classList.remove('FiltersFlexItems');
+    }
+    
+    // Remove 'filtered-out' class from all rows in starred-table
+    let starredRows = document.querySelectorAll('#starred-table .ons-table__row');
+    starredRows.forEach(function (row) {
+        row.classList.remove('filtered-out');
+    });
+
+    // Remove 'filtered-out' class from all rows in basic-table
+    let basicRows = document.querySelectorAll('#basic-table .ons-table__row');
+    basicRows.forEach(function (row) {
+        row.classList.remove('filtered-out');
+    });
+    document.getElementById('area-for-tags').classList.remove('AllFiltersFlexContainer'); 
+    document.getElementById('tagsAndBtnContainer').classList.remove('tagAndClearFiltersContainer');
+    document.getElementById('clearFiltersBtn').style.display = 'none';    
+
+    // Update filter values in session storage
+    sessionStorage.setItem("projectFilter", '');
+    sessionStorage.setItem("ownerFilter", '');
+    sessionStorage.setItem("BeforeDayFilter", '');
+    sessionStorage.setItem("BeforeMonthFilter", '');
+    sessionStorage.setItem("BeforeYearFilter", '');
+    sessionStorage.setItem("AfterDayFilter", '');
+    sessionStorage.setItem("AfterMonthFilter", '');
+    sessionStorage.setItem("AfterYearFilter", '');
+    sessionStorage.setItem("Editor", '');
+    sessionStorage.setItem("ViewOnly", '');
+    sessionStorage.setItem("ReadOnly", '');
+}
+
 // Function to clear input values
 function clearInputValues() {
 
@@ -3345,6 +3415,7 @@ function appendFilterTag(filterText, filterType) {
 
         if (filterType === "Project") {
             var filterTagArea = document.getElementById("tags-project");
+            filterTagArea.textContent = "Project: ";
             filterTagArea.appendChild(button);
             document.getElementById("tags-project").style.display = "flex";
             document.getElementById('tags-project').classList.add('FiltersFlexItems');
@@ -3355,6 +3426,7 @@ function appendFilterTag(filterText, filterType) {
         } 
         if (filterType === "Owner") {
             var filterTagArea = document.getElementById("tags-owner");
+            filterTagArea.textContent = "Owner: ";
             filterTagArea.appendChild(button); 
             document.getElementById("tags-owner").style.display = "flex";
             document.getElementById('tags-owner').classList.add('FiltersFlexItems');
@@ -3365,6 +3437,7 @@ function appendFilterTag(filterText, filterType) {
         } 
         if (filterType === "DateBefore") {
             var filterTagArea = document.getElementById("tags-dateBefore");
+            filterTagArea.textContent = "Created before: ";
             filterTagArea.appendChild(button);
             document.getElementById("tags-dateBefore").style.display = "flex";
             document.getElementById('tags-dateBefore').classList.add('FiltersFlexItems');
@@ -3375,6 +3448,7 @@ function appendFilterTag(filterText, filterType) {
         }
         if (filterType === "DateAfter") {
             var filterTagArea = document.getElementById("tags-dateAfter");
+            filterTagArea.textContent = "Created after: ";
             filterTagArea.appendChild(button);
             document.getElementById("tags-dateAfter").style.display = "flex";
             document.getElementById('tags-dateAfter').classList.add('FiltersFlexItems');
@@ -3385,6 +3459,7 @@ function appendFilterTag(filterText, filterType) {
         }
         if ((filterType === "Editor") || (filterType === "View-only") || (filterType === "Read-only")) {
             var filterTagArea = document.getElementById("tags-access");
+            filterTagArea.textContent = "Access: ";
             filterTagArea.appendChild(button);    
             document.getElementById("tags-access").style.display = "flex";
             document.getElementById('tags-access').classList.add('FiltersFlexItems');
