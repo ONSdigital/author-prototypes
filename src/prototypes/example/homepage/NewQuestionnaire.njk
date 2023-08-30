@@ -38,5 +38,10 @@ layout: example/views/Author8col
 
 {% block bodyEnd %}
 
+<script>
+if(sessionStorage.getItem('customisePermissions')){
+    sessionStorage.removeItem('customisePermissions');
+}
+</script>
 
 {% endblock %}
