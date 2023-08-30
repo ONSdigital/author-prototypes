@@ -388,19 +388,20 @@ layout: example/views/homepage
         {% call onsPanel({
                 "title": 'There is a problem with this page',
                 "type": 'error',
-                "id": "date-error-panel"
+                "id": "date-error-panel",
+                "classes": "ons-u-d-no"
         }) %}
             {{
                 onsList({
                     "element": 'ol',
                     "itemsList": [
                         {
-                            "text": 'Enter a number',
+                            "text": 'Error message 1',
                             "url": '#created-before-filter',
                             "variants": "inPageLink"
                         },
                         {
-                            "text": 'Enter a number less than or equal to 100',
+                            "text": 'Error message 2',
                             "url": '#created-after-filter',
                             "variants": "inPageLink"
                         }
@@ -630,9 +631,9 @@ layout: example/views/homepage
                 </div>
             </div>
 
-            <div class="ons-field" class="ons-u-mb-m">
-                <label class="ons-label" for="select-example" style="display:inline-block; margin-right:9px">Sort by:</label>
-                <select id="select-example" name="select" class="ons-input ons-input--select" onchange="sortTables()" style="width:fit-content; display:inline-block;">
+            <div class="ons-field ons-u-mb-m">
+                <label class="ons-label" for="select-example" style="display:inline-block; margin-right:9px; font-size: 16px;">Sort by:</label>
+                <select id="select-example" name="select" class="ons-input ons-input--select" onchange="sortTables()" style="width:fit-content; display:inline-block; font-size: 16px;">
                     <option value="" selected>Select an option</option>
                     <option value="created-newest">Created (newest)</option>
                     <option value="created-oldest">Created (oldest)</option>
@@ -2673,6 +2674,7 @@ function ApplyFilters() {
 
     // Check if all three "Before" date fields are not empty when one of them is not empty
     if (isAnyDateFilterNotEmpty && (BeforeDayFilter.trim() === "" || BeforeMonthFilter.trim() === "" || BeforeYearFilter.trim() === "")) {
+        errorsForDateBefore = true;
         console.log('... if');
         // One or more date fields are not empty, but not all of them, add error classes and update error message
 
@@ -2700,7 +2702,7 @@ function ApplyFilters() {
         var errorPanel = document.getElementById("date-error-panel");
         errorPanel.style.display = "block";
         var firstListItem = document.querySelector("#date-error-panel li a");
-        firstListItem.textContent = 'Enter the day, month and year that the questionnaire was created';
+        firstListItem.textContent = 'Enter the day, month and year that the questionnaire after was created';
 
 
         if (BeforeDayFilter.trim() === "") {
@@ -2718,7 +2720,6 @@ function ApplyFilters() {
         } else {
             document.getElementById("created-before-filter-year").classList.remove('ons-input--error');
         }
-        errorsForDateBefore = true;
     }
 
     // Check if the Before filters are non-empty and match
@@ -2726,12 +2727,14 @@ function ApplyFilters() {
         console.log('else if');
         // Check for numeric values
         if (!numericRegex.test(BeforeDayFilter) || !numericRegex.test(BeforeMonthFilter) || !numericRegex.test(BeforeYearFilter)) {
-
+            errorsForDateBefore = true;
             console.log('Date before not a number');
             // Add classes to parent div and its parent
             var Fieldset = document.getElementById("created-before-filter");
             var parentDiv = document.querySelector('fieldset#created-before-filter').closest('div');
-            var grandParentDiv = parentDiv.closest('div');
+            console.log(parentDiv);
+            var grandParentDiv = parentDiv.parentNode;
+            console.log(grandParentDiv);
 
             // Add classes to the found parent div
             parentDiv.classList.add('ons-panel__body');
@@ -2753,6 +2756,7 @@ function ApplyFilters() {
             errorPanel.style.display = "block";
             var firstListItem = document.querySelector("#date-error-panel li a");
             firstListItem.textContent = 'Enter a number';
+
             
             if (!numericRegex.test(BeforeDayFilter)) {
                 document.getElementById("created-before-filter-day").classList.add('ons-input--error');
@@ -2779,6 +2783,8 @@ function ApplyFilters() {
             parseInt(BeforeDayFilter) < 1 || parseInt(BeforeDayFilter) > 31 ||
             parseInt(BeforeMonthFilter) < 1 || parseInt(BeforeMonthFilter) > 12
         ) {
+            errorsForDateBefore = true;
+            console.log('this is executing too');
 
             // Add classes to parent div and its parent
             var fieldset = document.getElementById("created-before-filter");
@@ -2818,9 +2824,34 @@ function ApplyFilters() {
             errorPanel.style.display = "block";
             var firstListItem = document.querySelector("#date-error-panel li a");
             firstListItem.textContent = 'Enter a valid date';
-
+            
             errorsForDateBefore = true;
 
+        }
+
+        else{
+
+            console.log('else');
+            var fieldset = document.getElementById("created-before-filter");
+            var parentDiv = fieldset.closest(".ons-panel--error"); // Find the parent div with class ons-panel--error
+            var panelBodyDiv = fieldset.closest(".ons-panel__body");
+
+            if (parentDiv) {
+                // Add classes to the found parent div
+                parentDiv.classList.remove('ons-panel', 'ons-panel--error', 'ons-panel--no-title');
+                panelBodyDiv.classList.remove('ons-panel__body');
+
+                // Update the display style of the p element within the parent div
+                var errorP = parentDiv.querySelector('p');
+                if (errorP) {
+                    errorP.style.display = 'none';
+                }
+
+                document.getElementById('created-before-filter-day').classList.remove('ons-input--error');
+                document.getElementById('created-before-filter-month').classList.remove('ons-input--error')
+                document.getElementById('created-before-filter-year').classList.remove('ons-input--error')
+
+            }
         }
     }
 
@@ -2830,7 +2861,7 @@ function ApplyFilters() {
         AfterMonthFilter.trim() !== "" ||
         AfterYearFilter.trim() !== "";
 
-    // Check if all three "Before" date fields are not empty when one of them is not empty
+    // Check if all three "After" date fields are not empty when one of them is not empty
     if (isAnyAfterDateFilterNotEmpty && (AfterDayFilter.trim() === "" || AfterMonthFilter.trim() === "" || AfterYearFilter.trim() === "")) {
         console.log('... if');
         // One or more date fields are not empty, but not all of them, add error classes and update error message
@@ -2859,15 +2890,17 @@ function ApplyFilters() {
         var errorPanel = document.getElementById("date-error-panel");
         errorPanel.style.display = "block";
         var firstListItem = document.querySelector("#date-error-panel li a");
-        if(firstListItem.textContent == 'Enter the day, month and year that the questionnaire was created' || firstListItem.textContent == 'Enter a valid date' || firstListItem.textContent == 'Enter a number'){
+        if(errorsForDateBefore == true){
             var secondChildLi = document.querySelector('#date-error-panel li:nth-child(2)');
             var secondLink = secondChildLi.querySelector('a');
             secondLink.textContent = 'Enter the day, month and year that the questionnaire after was created';
+            console.log('first already taken');
         }
         else{
             errorPanel.style.display = "block";
             var firstListItem = document.querySelector("#date-error-panel li a");
             firstListItem.textContent = 'Enter the day, month and year that the questionnaire after was created';
+            console.log('first not taken');
 
         }
 
@@ -2889,7 +2922,7 @@ function ApplyFilters() {
         errorsForDateAfter = true; 
     }
 
-    // Check if the Before filters are non-empty and match
+    // Check if the After filters are non-empty and match
     else if (AfterDayFilter !== "" && AfterMonthFilter !== "" && AfterYearFilter !== "") {
         console.log('else if');
         // Check for numeric values
@@ -2919,7 +2952,7 @@ function ApplyFilters() {
             var errorPanel = document.getElementById("date-error-panel");
             errorPanel.style.display = "block";
             var firstListItem = document.querySelector("#date-error-panel li a");
-            if(firstListItem.textContent == 'Enter the day, month and year that the questionnaire was created' || firstListItem.textContent == 'Enter a valid date' || firstListItem.textContent == 'Enter a number'){
+            if(errorsForDateBefore == true){
                 var secondChildLi = document.querySelector('#date-error-panel li:nth-child(2)');
                 var secondLink = secondChildLi.querySelector('a');
                 console.log('Second: not a number');
@@ -2951,96 +2984,121 @@ function ApplyFilters() {
         }
 
         // Check for valid ranges for day and month
-        if (
+        else if (
             parseInt(AfterDayFilter) < 1 || parseInt(AfterDayFilter) > 31 ||
             parseInt(AfterMonthFilter) < 1 || parseInt(AfterMonthFilter) > 12
         ) {
+            console.log('second got an input that is invalid');
 
-        // Add classes to parent div and its parent
-        var Afterfieldset = document.getElementById("created-after-filter");
-        var AfterparentDiv = document.querySelector('fieldset#created-after-filter').closest('div');
-        var AftergrandParentDiv = AfterparentDiv.closest('div');
+            // Add classes to parent div and its parent
+            var Afterfieldset = document.getElementById("created-after-filter");
+            var AfterparentDiv = document.querySelector('fieldset#created-after-filter').closest('div');
+            var AftergrandParentDiv = AfterparentDiv.closest('div');
 
-        // Add classes to the found parent div
-        AfterparentDiv.classList.add('ons-panel__body');
-        AftergrandParentDiv.classList.add('ons-panel', 'ons-panel--error', 'ons-panel--no-title');
+            // Add classes to the found parent div
+            AfterparentDiv.classList.add('ons-panel__body');
+            AftergrandParentDiv.classList.add('ons-panel', 'ons-panel--error', 'ons-panel--no-title');
 
-        // Update the display style of the p element within the parent div
-        var AftererrorP = AfterparentDiv.querySelector('p');
-        if (AftererrorP) {
-            AftererrorP.style.display = 'block';
+            // Update the display style of the p element within the parent div
+            var AftererrorP = AfterparentDiv.querySelector('p');
+            if (AftererrorP) {
+                AftererrorP.style.display = 'block';
 
-            // Update the text content of the <strong> tag within the p element
-            var AfterstrongTag = AftererrorP.querySelector('strong');
-            if (AfterstrongTag) {
-                AfterstrongTag.textContent = 'Enter a valid date';
+                // Update the text content of the <strong> tag within the p element
+                var AfterstrongTag = AftererrorP.querySelector('strong');
+                if (AfterstrongTag) {
+                    AfterstrongTag.textContent = 'Enter a valid date';
+                }
             }
-        }
 
-        var errorPanel = document.getElementById("date-error-panel");
-        errorPanel.style.display = "block";
-        var firstListItem = document.querySelector("#date-error-panel li a");
-        if(firstListItem.textContent == 'Enter the day, month and year that the questionnaire was created' || firstListItem.textContent == 'Enter a valid date' || firstListItem.textContent == 'Enter a number'){
-            var secondChildLi = document.querySelector('#date-error-panel li:nth-child(2)');
-            var secondLink = secondChildLi.querySelector('a');
-            secondLink.textContent = 'Enter a valid date';
-        }
-        else{
-            errorPanel.style.display = "block";
-            var firstListItem = document.querySelector("#date-error-panel li a");
-            firstListItem.textContent = 'Enter a valid date';
-
-        }
-
-            // Invalid day or month, update error message and add error classes
-            if (parseInt(AfterDayFilter) < 1 || parseInt(AfterDayFilter) > 31) {
-                document.getElementById("created-after-filter-day").classList.add('ons-input--error');
-            } else {
-                document.getElementById("created-after-filter-day").classList.remove('ons-input--error');
-            }
-            if (parseInt(AfterMonthFilter) < 1 || parseInt(AfterMonthFilter) > 12) {
-                document.getElementById("created-after-filter-month").classList.add('ons-input--error');
-            } else {
-                document.getElementById("created-after-filter-month").classList.remove('ons-input--error');
-            }
-            document.getElementById("created-after-filter-year").classList.remove('ons-input--error');
-            
             var errorPanel = document.getElementById("date-error-panel");
             errorPanel.style.display = "block";
             var firstListItem = document.querySelector("#date-error-panel li a");
-            firstListItem.textContent = 'Enter a valid date';
-
-            errorsForDateAfter = true; 
-
-        }
-
-        console.log('else');
-        var fieldset = document.getElementById("created-before-filter");
-        var parentDiv = fieldset.closest(".ons-panel--error"); // Find the parent div with class ons-panel--error
-        var panelBodyDiv = fieldset.closest(".ons-panel__body");
-
-        if (parentDiv) {
-            // Add classes to the found parent div
-            parentDiv.classList.remove('ons-panel', 'ons-panel--error', 'ons-panel--no-title');
-            panelBodyDiv.classList.remove('ons-panel__body');
-
-            // Update the display style of the p element within the parent div
-            var errorP = parentDiv.querySelector('p');
-            if (errorP) {
-                errorP.style.display = 'none';
+            if(errorsForDateBefore == true){
+                var secondChildLi = document.querySelector('#date-error-panel li:nth-child(2)');
+                var secondLink = secondChildLi.querySelector('a');
+                secondLink.textContent = 'Enter a valid date';
             }
+            else{
+                errorPanel.style.display = "block";
+                var firstListItem = document.querySelector("#date-error-panel li a");
+                firstListItem.textContent = 'Enter a valid date';
 
-            document.getElementById('created-before-filter-day').classList.remove('ons-input--error');
-            document.getElementById('created-before-filter-month').classList.remove('ons-input--error')
-            document.getElementById('created-before-filter-year').classList.remove('ons-input--error')
+            
 
+                // Invalid day or month, update error message and add error classes
+                if (parseInt(AfterDayFilter) < 1 || parseInt(AfterDayFilter) > 31) {
+                    document.getElementById("created-after-filter-day").classList.add('ons-input--error');
+                } else {
+                    document.getElementById("created-after-filter-day").classList.remove('ons-input--error');
+                }
+                if (parseInt(AfterMonthFilter) < 1 || parseInt(AfterMonthFilter) > 12) {
+                    document.getElementById("created-after-filter-month").classList.add('ons-input--error');
+                } else {
+                    document.getElementById("created-after-filter-month").classList.remove('ons-input--error');
+                }
+                document.getElementById("created-after-filter-year").classList.remove('ons-input--error');
+                
+                var errorPanel = document.getElementById("date-error-panel");
+                errorPanel.style.display = "block";
+                var firstListItem = document.querySelector("#date-error-panel li a");
+                firstListItem.textContent = 'Enter a valid date';
+
+                errorsForDateAfter = true; 
+
+            }
         }
+        else{
+
+            console.log('else');
+            var fieldset = document.getElementById("created-after-filter");
+            var parentDiv = fieldset.closest(".ons-panel--error"); // Find the parent div with class ons-panel--error
+            var panelBodyDiv = fieldset.closest(".ons-panel__body");
+
+            if (parentDiv) {
+                // Add classes to the found parent div
+                parentDiv.classList.remove('ons-panel', 'ons-panel--error', 'ons-panel--no-title');
+                panelBodyDiv.classList.remove('ons-panel__body');
+
+                // Update the display style of the p element within the parent div
+                var errorP = parentDiv.querySelector('p');
+                if (errorP) {
+                    errorP.style.display = 'none';
+                }
+
+                document.getElementById('created-after-filter-day').classList.remove('ons-input--error');
+                document.getElementById('created-after-filter-month').classList.remove('ons-input--error')
+                document.getElementById('created-after-filter-year').classList.remove('ons-input--error')
+
+            }
+        }
+    
     }
 
     if(errorsForDateBefore == true || errorsForDateAfter == true){
+        if(errorsForDateBefore == true && errorsForDateAfter == true){
+            var secondLiElement = document.querySelectorAll('.ons-list__item')[1];
+            secondLiElement.style.display = "list-item";
+            var ErrorPanelHeading = document.getElementById('alert');
+            ErrorPanelHeading.textContent = 'There are 2 problems with this page';
+        }
+        else{
+            console.log('only one error');
+            var secondLiElement = document.querySelectorAll('.ons-list__item')[1];
+            secondLiElement.style.display = "none";
+        }
+        var ErrorPanel = document.getElementById('date-error-panel');
+        ErrorPanel.classList.remove('ons-u-d-no');
+        ErrorPanel.classList.add('ons-u-mb-xl');
         return;
     }
+    else{
+        var ErrorPanel = document.getElementById('date-error-panel');
+        ErrorPanel.classList.add('ons-u-d-no');
+        ErrorPanel.classList.remove('ons-u-mb-xl');
+    }
 
+    console.log('function still running');
 
     BeforeDayFilter = BeforeDayFilter.replace(/^0+/, "");
     BeforeMonthFilter = BeforeMonthFilter.replace(/^0+/, "");
