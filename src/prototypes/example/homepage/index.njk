@@ -3168,21 +3168,34 @@ function ApplyFilters() {
 
     // Check if the Project filter is non-empty and matches
     if (projectFilter !== "") {
-        var projectFilterCapitals = document.getElementById("project-filter").value;
-        var enteredProject = sessionStorage.setItem('NewProject', projectFilterCapitals)
+        var OriginalProject = document.getElementById("project-filter").value;
+        var enteredProject = sessionStorage.setItem('NewProject', OriginalProject)
         var ProjectTagDiv = document.getElementById('tags-project');
         if(ProjectTagDiv.classList.contains('FiltersFlexItems')){
             var button = ProjectTagDiv.querySelector('button');
-            button.onclick();
+            if(button){
+                button.onclick();
+            }        
         }
         document.getElementById("project-filter").value = sessionStorage.getItem('NewProject');
-        appendFilterTag(projectFilterCapitals, "Project");
+        appendFilterTag(OriginalProject, "Project");
     }
 
     // Check if the Owner filter is non-empty and matches
     if (ownerFilter !== "") {
-        var originalownerFilter = document.getElementById("owner-filter").value;
-        appendFilterTag(originalownerFilter, "Owner");
+        {#var originalownerFilter = document.getElementById("owner-filter").value;#}
+
+        var OriginalOwner = document.getElementById("owner-filter").value;
+        var enteredOwner = sessionStorage.setItem('NewOwner', OriginalOwner)
+        var OwnerTagDiv = document.getElementById('tags-owner');
+        if(OwnerTagDiv.classList.contains('FiltersFlexItems')){
+            var button = OwnerTagDiv.querySelector('button');
+            if(button){
+                button.onclick();
+            }
+        }
+        document.getElementById("owner-filter").value = sessionStorage.getItem('NewOwner');
+        appendFilterTag(OriginalOwner, "Owner");
     }
 
     // Check if the Before filters are non-empty and match
