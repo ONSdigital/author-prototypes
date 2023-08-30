@@ -3091,9 +3091,6 @@ function ApplyFilters() {
 
     console.log('function still running');
 
-    //Ensure more than one of each type of filter can't be applied
-    resetFilters();
-
     BeforeDayFilter = BeforeDayFilter.replace(/^0+/, "");
     BeforeMonthFilter = BeforeMonthFilter.replace(/^0+/, "");
     AfterDayFilter = AfterDayFilter.replace(/^0+/, "");
@@ -3169,14 +3166,17 @@ function ApplyFilters() {
         }
     }}
 
-
-    filterTable("starred-table");
-    filterTable("basic-table");
-
     // Check if the Project filter is non-empty and matches
     if (projectFilter !== "") {
-        var originalProjectFilter = document.getElementById("project-filter").value;
-        appendFilterTag(originalProjectFilter, "Project");
+        var projectFilterCapitals = document.getElementById("project-filter").value;
+        var enteredProject = sessionStorage.setItem('NewProject', projectFilterCapitals)
+        var ProjectTagDiv = document.getElementById('tags-project');
+        if(ProjectTagDiv.classList.contains('FiltersFlexItems')){
+            var button = ProjectTagDiv.querySelector('button');
+            button.onclick();
+        }
+        document.getElementById("project-filter").value = sessionStorage.getItem('NewProject');
+        appendFilterTag(projectFilterCapitals, "Project");
     }
 
     // Check if the Owner filter is non-empty and matches
@@ -3208,6 +3208,9 @@ function ApplyFilters() {
             appendFilterTag("Read-only for editors", "Read-only")
         }
     }
+
+    filterTable("starred-table");
+    filterTable("basic-table");
 
     // Update the total count of unfiltered rows
     var basicTableCount = countUnfilteredRows("basic-table");
@@ -3255,63 +3258,6 @@ function ApplyFilters() {
     updatePagination();
 }
 
-//Function to reset filters
-function resetFilters(){
-    const tagsProject = document.getElementById("tags-project");
-    const tagsOwner = document.getElementById("tags-owner");
-    const tagsDateBefore = document.getElementById("tags-dateBefore");
-    const tagsDateAfter = document.getElementById("tags-dateAfter");
-    const tagsAccess = document.getElementById("tags-access");
-
-    while (tagsProject.firstChild) {
-        tagsProject.removeChild(tagsProject.firstChild);
-        tagsProject.classList.remove('FiltersFlexItems');
-    }
-    while (tagsOwner.firstChild) {
-        tagsOwner.removeChild(tagsOwner.firstChild);
-        tagsOwner.classList.remove('FiltersFlexItems');
-    }
-    while (tagsDateBefore.firstChild) {
-        tagsDateBefore.removeChild(tagsDateBefore.firstChild);
-        tagsDateBefore.classList.remove('FiltersFlexItems');
-    }
-    while (tagsDateAfter.firstChild) {
-        tagsDateAfter.removeChild(tagsDateAfter.firstChild);
-        tagsDateAfter.classList.remove('FiltersFlexItems');
-    }
-    while (tagsAccess.firstChild) {
-        tagsAccess.removeChild(tagsAccess.firstChild);
-        tagsAccess.classList.remove('FiltersFlexItems');
-    }
-    
-    // Remove 'filtered-out' class from all rows in starred-table
-    let starredRows = document.querySelectorAll('#starred-table .ons-table__row');
-    starredRows.forEach(function (row) {
-        row.classList.remove('filtered-out');
-    });
-
-    // Remove 'filtered-out' class from all rows in basic-table
-    let basicRows = document.querySelectorAll('#basic-table .ons-table__row');
-    basicRows.forEach(function (row) {
-        row.classList.remove('filtered-out');
-    });
-    document.getElementById('area-for-tags').classList.remove('AllFiltersFlexContainer'); 
-    document.getElementById('tagsAndBtnContainer').classList.remove('tagAndClearFiltersContainer');
-    document.getElementById('clearFiltersBtn').style.display = 'none';    
-
-    // Update filter values in session storage
-    sessionStorage.setItem("projectFilter", '');
-    sessionStorage.setItem("ownerFilter", '');
-    sessionStorage.setItem("BeforeDayFilter", '');
-    sessionStorage.setItem("BeforeMonthFilter", '');
-    sessionStorage.setItem("BeforeYearFilter", '');
-    sessionStorage.setItem("AfterDayFilter", '');
-    sessionStorage.setItem("AfterMonthFilter", '');
-    sessionStorage.setItem("AfterYearFilter", '');
-    sessionStorage.setItem("Editor", '');
-    sessionStorage.setItem("ViewOnly", '');
-    sessionStorage.setItem("ReadOnly", '');
-}
 
 // Function to clear input values
 function clearInputValues() {
