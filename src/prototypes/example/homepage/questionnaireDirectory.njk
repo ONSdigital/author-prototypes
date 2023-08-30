@@ -1905,15 +1905,20 @@ function cancelDeletion(){
 
 {# Adding and removing view-only questionnaires #}
 
-    var buttons = document.querySelectorAll('button');
+    var buttons = document.querySelectorAll('.listItemButton');
 
     for (var i = 0; i < buttons.length; i++) {
         var button = buttons[i];
+
         if (button.textContent.includes("Add to My questionnaires")) {
             var buttonId = button.id;
-            if(sessionStorage.getItem(buttonId)){
-                button.innerHTML = "<span class='material-symbols-outlined'>bookmark_remove</span>Remove from My questionnaires";
+            var counter = parseInt(sessionStorage.getItem("questionnaireCounter")) || 0;
 
+            for (var j = 1; j <= counter; j++) {
+                if (sessionStorage.getItem('AddToBtnID_' + j) === buttonId) {
+                    // If the button ID matches the stored ID, change text and behavior
+                    button.innerHTML = "<span class='material-symbols-outlined'>bookmark_remove</span>Remove from My questionnaires";
+                }
             }
         }
     }
