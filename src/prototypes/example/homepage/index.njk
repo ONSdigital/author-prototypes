@@ -2034,8 +2034,6 @@ layout: example/views/homepage
 
 <script>
 
-sessionStorage.clear();
-
 {# Rendering new questionnaires #}
         var table = document.getElementById("basic-table");
         var counter = parseInt(sessionStorage.getItem("questionnaireCounter")) || 0;
@@ -2246,40 +2244,63 @@ sessionStorage.clear();
         }
     }
 
+// Initialize a variable to keep track of the currently open menu
+var currentOpenMenu = null;
 
-
-
-    function toggleMenu(event, Buttonid, ULid) {
-    event.stopPropagation(); 
-    console.log('executing');
-        console.log('Buttonid:', Buttonid);
-    console.log('ULid:', ULid);
+function toggleMenu(event, Buttonid, ULid) {
+    event.stopPropagation();
     var menu = document.getElementById(ULid);
-    console.log(menu);
     var svgIcon = document.querySelector(`#${Buttonid} .ons-icon`);
 
     if (menu.style.display === "none" || menu.style.display === "") {
-        menu.style.display = "block";
-        document.addEventListener("click", closeMenuOnClickOutside.bind(null, ULid));
-        svgIcon.style.transform = "rotate(-90deg)"; 
-        svgIcon.style.padding = "0 0 0 4px";
-    } else {
-        menu.style.display = "none";
-        document.removeEventListener("click", closeMenuOnClickOutside.bind(null, ULid));
-        svgIcon.style.transform = "rotate(90deg)"; 
-        svgIcon.style.padding = "0 0 0 0"; 
-    }
-    }
+        // Close the currently open menu, if any
+        if (currentOpenMenu !== null) {
+            currentOpenMenu.style.display = "none";
+            // Update the icon of the previously open button
+            var prevButtonId = currentOpenMenu.getAttribute("data-button-id");
+            var prevSvgIcon = document.querySelector(`#${prevButtonId} .ons-icon`);
+            prevSvgIcon.style.transform = "rotate(90deg)";
+            prevSvgIcon.style.padding = "0 0 0 0";
+        }
 
-    function closeMenuOnClickOutside(ULid, event) {
-    var menu = document.getElementById(ULid);
-    console.log(menu);
-    
-    if (!menu.contains(event.target)) {
+        // Set the current open menu and associated button ID
+        currentOpenMenu = menu;
+        currentOpenMenu.setAttribute("data-button-id", Buttonid);
+
+        menu.style.display = "block";
+        svgIcon.style.transform = "rotate(-90deg)";
+        svgIcon.style.padding = "0 0 0 4px";
+
+        // Add a click event listener to the button to prevent propagation
+        var button = document.getElementById(Buttonid);
+        button.addEventListener("click", function (e) {
+            e.stopPropagation();
+        });
+
+        // Add a click event listener to close the menu when clicking outside
+        var closeMenu = function (e) {
+            if (!menu.contains(e.target) && e.target.id !== Buttonid) {
+                menu.style.display = "none";
+                svgIcon.style.transform = "rotate(90deg)";
+                svgIcon.style.padding = "0 0 0 0";
+                document.removeEventListener("click", closeMenu);
+                currentOpenMenu = null; // Reset the current open menu
+            }
+        };
+        document.addEventListener("click", closeMenu);
+    } else {
+        // Close the menu
         menu.style.display = "none";
-        document.removeEventListener("click", closeMenuOnClickOutside.bind(null, ULid));
+        svgIcon.style.transform = "rotate(90deg)";
+        svgIcon.style.padding = "0 0 0 0";
+        document.removeEventListener("click", closeMenu);
+        currentOpenMenu = null; // Reset the current open menu
     }
-    }
+}
+
+
+
+
 
 
     function confirmDeletion(Buttonid, ULid, shortcode, title, project, owner, rowId){
@@ -2634,6 +2655,7 @@ sessionStorage.clear();
         document.getElementById('created-after-filter-year').classList.remove('ons-input--error')
 
     }
+
 
 function ApplyFilters() {
     currentPage = 1; // Reset currentPage to 1
