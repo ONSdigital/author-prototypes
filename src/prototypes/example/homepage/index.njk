@@ -2586,29 +2586,6 @@ function cancelDeletion(){
 
     }
 
-    function removeViewOnlyQuestionnaire(rowId) {
-        console.log(rowId);
-        console.log('deleting row');
-        var row = document.getElementById(rowId);
-        console.log(document.getElementById(rowId));
-            if (row) {
-                row.remove();
-                var container = document.getElementById('modalContainer2');
-                container.style.display = "none";
-                var modal = document.getElementById('modalDialog2');
-                modal.style.display = "none";
-
-                var questionnaireCountElement = document.getElementById('questionnaireCount');
-                var currentCount = parseInt(questionnaireCountElement.textContent, 10);
-                if (!isNaN(currentCount) && currentCount > 0) {
-                questionnaireCountElement.textContent = (currentCount - 1) + ' questionnaires';
-                }
-
-
-            }
-            updatePagination();
-            updateQuestionnaireCounter();
-    }
 
 {# Hiding the error messages and panel onload #}
 
