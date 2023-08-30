@@ -1,0 +1,53 @@
+---
+group: Examples
+title: Example prototype
+layout: example/views/Author8col
+---
+{% from "components/button/_macro.njk" import onsButton %}
+
+{% block preMain %}
+{{
+    onsBreadcrumbs({
+        "ariaLabel": 'Back',
+        "itemsList": [
+            {
+                "url": '/prototypes/example/homepage/URTasks/UserTaskList.html',
+                "id": "back",
+                "text": 'Back',
+                "attributes": {
+                    "data-attribute": "Example attribute"
+                }
+            }
+        ]
+    })
+}}
+{% endblock %}
+
+{% block main %}
+
+    <h1 class="ons-u-mb-s">Task 10</h1>
+
+
+    <p>You are trying out some new questions for the latest Impacts of Social Media survey. Some of these questions are of a sensitive nature and you would prefer if the questionnaire was not visible within the questionnaire directory.
+
+    </p>
+
+    <p>You are going to use the <strong>'First mockups for Social Media Survey'</strong> as a starting point.</p>
+        <p>Duplicate this questionnaire and adjust viewing permissions to ensure it is not added to the questionnaire directory.</p>
+
+
+        <br>
+
+{{
+    onsExternalLink({
+        "url": "/prototypes/example/homepage/",
+        "linkText": "Start task",
+        "classes": "externalLink ons-u-fs-l"
+    })
+}}
+
+{% endblock %}
+
+{% block bodyEnd %}
+
+{% endblock %}
