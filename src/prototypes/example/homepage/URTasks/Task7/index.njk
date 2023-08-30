@@ -1,0 +1,55 @@
+---
+group: Examples
+title: Example prototype
+layout: example/views/Author8col
+---
+{% from "components/button/_macro.njk" import onsButton %}
+
+{% block preMain %}
+{{
+    onsBreadcrumbs({
+        "ariaLabel": 'Back',
+        "itemsList": [
+            {
+                "url": '/prototypes/example/homepage/URTasks/UserTaskList.html',
+                "id": "back",
+                "text": 'Back',
+                "attributes": {
+                    "data-attribute": "Example attribute"
+                }
+            }
+        ]
+    })
+}}
+{% endblock %}
+
+{% block main %}
+
+    <h1 class="ons-u-mb-s">Task 7</h1>
+
+
+    <p>Your manager has asked you to create a questionnaire with the following details. 
+
+    </p>
+    <ul>
+        <li><strong>Short code:</strong> SMUIS Testing Round 2</li>
+        <li><strong>Title:</strong> Social Media Usage and Impact Survey</li>
+        <li><strong>Project tag:</strong> Social Media </li>
+
+    </ul>
+
+        <br>
+
+{{
+    onsExternalLink({
+        "url": "/prototypes/example/homepage/",
+        "linkText": "Start task",
+        "classes": "externalLink ons-u-fs-l"
+    })
+}}
+
+{% endblock %}
+
+{% block bodyEnd %}
+
+{% endblock %}

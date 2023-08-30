@@ -1,0 +1,40 @@
+---
+group: Examples
+title: Example prototype
+layout: example/views/Author8col
+---
+{% from "components/button/_macro.njk" import onsButton %}
+
+
+{% block main %}
+    <h1 class="ons-u-mb-s">User research - August 2023</h1>
+
+    {{
+        onsExternalLink({
+            "url": "/prototypes/example/homepage/",
+            "linkText": "Preview"
+        })
+    }}    
+    <br><br>
+    <h2 class="ons-u-mb-s">Tasks</h2>
+
+    <a href="/prototypes/example/homepage/URTasks/Task1/index.html">Task 1</a>
+    <br><br>
+    <a href="/prototypes/example/homepage/URTasks/Task2/index.html">Task 2</a>
+    <br><br>
+    <a href="/prototypes/example/homepage/URTasks/Task3/index.html">Task 3</a>
+    <br><br>
+    <a href="/prototypes/example/homepage/URTasks/Task4/index.html">Task 4</a>
+    <br><br>
+    <a href="/prototypes/example/homepage/URTasks/Task5/index.html">Task 5</a>
+    <br><br>
+    <a href="/prototypes/example/homepage/URTasks/Task6/index.html">Task 6</a>
+    <br><br>
+    <a href="/prototypes/example/homepage/URTasks/Task7/index.html">Task 7</a>
+    <br><br>
+    <a href="/prototypes/example/homepage/URTasks/Task8/index.html">Task 8</a>
+{% endblock %}
+
+{% block bodyEnd %}
+
+{% endblock %}

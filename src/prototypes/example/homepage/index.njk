@@ -3168,13 +3168,6 @@ function ApplyFilters() {
     // Check if the Project filter is non-empty and matches
     if (projectFilter !== "") {
         var projectFilterCapitals = document.getElementById("project-filter").value;
-        var enteredProject = sessionStorage.setItem('NewProject', projectFilterCapitals)
-        var ProjectTagDiv = document.getElementById('tags-project');
-        if(ProjectTagDiv.classList.contains('FiltersFlexItems')){
-            var button = ProjectTagDiv.querySelector('button');
-            button.onclick();
-        }
-        document.getElementById("project-filter").value = sessionStorage.getItem('NewProject');
         appendFilterTag(projectFilterCapitals, "Project");
     }
 

@@ -635,6 +635,16 @@ layout: example/views/homepage
             </div>
 
 
+            <div class="ons-field ons-u-mb-m">
+                <label class="ons-label" for="select-example" style="display:inline-block; margin-right:9px; font-size: 16px;">Sort by:</label>
+                <select id="select-example" name="select" class="ons-input ons-input--select" onchange="sortTables()" style="width:fit-content; display:inline-block; font-size: 16px;">
+                    <option value="" selected>Select an option</option>
+                    <option value="created-newest">Created (newest)</option>
+                    <option value="created-oldest">Created (oldest)</option>
+                </select>
+            </div>
+
+
             <table id="basic-table" class="ons-table">
                 <thead class="ons-table__head">
                     <tr class="ons-table__row">
@@ -661,8 +671,8 @@ layout: example/views/homepage
                 <tbody class="ons-table__body">
 
                 <tr class="ons-table__row row-relative" id="VOrow1">
-                    <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">PPSS - testing round 1</span><a href="#">People & Policy: Shaping Society</a></td>
-                    <td class="ons-table__cell">People & Policy</td>
+                    <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">PPSS - testing round 1</span><a href="#">People and Policy: Shaping Society</a></td>
+                    <td class="ons-table__cell">People and Policy</td>
                     <td class="ons-table__cell">Liz Wright</td>
                     <td class="ons-table__cell" data-date-value="2023-08-31"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>31 Aug 2023<span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>31 Aug 2023</td>
                     <td class="ons-table__cell">View-only</td>
@@ -683,7 +693,7 @@ layout: example/views/homepage
                                 <span class="material-symbols-outlined">
                                     content_copy
                                     </span>
-                                <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("VOmenubutton1", "PPSS - testing round 1", "People & Policy: Shaping Society")'>
+                                <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("VOmenubutton1", "PPSS - testing round 1", "People and Policy: Shaping Society")'>
                                     Duplicate
                                 </a>
                                 </li>
@@ -696,7 +706,7 @@ layout: example/views/homepage
                                 </button>
                                 </li>
                                 <li role="none">
-                                <button role="menuitem" class="listItemButton" id="addToBtnID1" onclick='addToMyQuestionnaires("VOrow1", "VOmenubutton1", "VOmenu1", "PPSS - testing round 1", "People & Policy: Shaping Society", "People & Policy",  "Liz Wright" ,  "45169" ,  "45169" ,  "View-only" ,  "addToBtnID1")'>
+                                <button role="menuitem" class="listItemButton" id="addToBtnID1" onclick='addToMyQuestionnaires("VOrow1", "VOmenubutton1", "VOmenu1", "PPSS - testing round 1", "People and Policy: Shaping Society", "People and Policy",  "Liz Wright" ,  "45169" ,  "45169" ,  "View-only" ,  "addToBtnID1")'>
                                     <span class="material-symbols-outlined">
                                         bookmark_add
                                     </span>
@@ -801,687 +811,1915 @@ layout: example/views/homepage
                         </div>
                     </td>
                 </tr>
-
-
-
-                    <tr class="ons-table__row row-relative" id="row1">
-                        <td class="ons-table__cell">
-                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">SMUIS Final</span>
-                            <a href="#">Social Media Usage and Impact Survey</a>
-                        </td>
-                        <td class="ons-table__cell">Social Media</td>
-                        <td class="ons-table__cell">Isabella Ramirez</td>
-                        <td class="ons-table__cell" data-date-value="2023-08-30">
-                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
-                            30 Aug 2023
-                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>
-                            30 Aug 2023
-                        </td>
-                        <td class="ons-table__cell">Editor</td>
-                        <td class="ons-table__cell">
-                            <div class="menu-container">
-                                <button type="button" id="menubutton1" class="actionsBtn" aria-haspopup="true" aria-controls="menu1" onclick='toggleMenu(event, "menubutton1", "menu1")'>
-                                    Actions
-                                    <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                <tr class="ons-table__row row-relative" id="VOrow4">
+                    <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">UKHTS 2023</span><a href="#">Health and Lifestyle Survey</a></td>
+                    <td class="ons-table__cell">UK Health Trends</td>
+                    <td class="ons-table__cell">Emma Smith</td>
+                    <td class="ons-table__cell" data-date-value="2023-08-31"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>31 Aug 2023<span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>31 Aug 2023</td>
+                    <td class="ons-table__cell">View-only</td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button"
+                                    id="VOmenubutton4"
+                                    class="actionsBtn"
+                                    aria-haspopup="true"
+                                    aria-controls="VOmenu4" onclick='toggleMenu(event, "VOmenubutton4", "VOmenu4")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="VOmenu4"
+                                role="menu"
+                                aria-labelledby="VOmenubutton4" class="menu">
+                                <li role="none" class="duplicate">
+                                <span class="material-symbols-outlined">
+                                    content_copy
+                                    </span>
+                                <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("VOmenubutton4", "UKHTS 2023", "Health and Lifestyle Survey")'>
+                                    Duplicate
+                                </a>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton">
+                                    <span class="material-symbols-outlined">
+                                    link
+                                    </span>
+                                    Copy link
                                 </button>
-                                <ul id="menu1" role="menu" aria-labelledby="menubutton" class="menu">
-                                    <li role="none" class="duplicate">
-                                        <span class="material-symbols-outlined">
-                                            content_copy
-                                        </span>
-                                        <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton1", "SMUIS Final", "Social Media Usage and Impact Survey")'>
-                                            Duplicate
-                                        </a>
-                                    </li>
-                                    <li role="none">
-                                        <button role="menuitem" class="listItemButton">
-                                            <span class="material-symbols-outlined">
-                                                link
-                                            </span>
-                                            Copy link
-                                        </button>
-                                    </li>
-                                    <li role="none">
-                                        <button role="menuitem" class="listItemButton" onclick='addToStarred("row1")'>
-                                            <span class="material-symbols-outlined">
-                                                star
-                                            </span>
-                                            Add to starred
-                                        </button>
-                                    </li>
-                                    <li role="none" class="ons-u-mb-no">
-                                        <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton1", "menu1", "SMUIS Final", "Social Media Usage and Impact Survey", "Social Media", "Isabella Ramirez", "row1")'>
-                                            <span class="material-symbols-outlined">
-                                                delete
-                                            </span>
-                                            Delete
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="ons-table__row row-relative" id="row2">
-                        <td class="ons-table__cell">
-                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">SMUIS V4</span>
-                            <a href="#">Draft - Social Media Usage and Impact Survey</a>
-                        </td>
-                        <td class="ons-table__cell">Social Media</td>
-                        <td class="ons-table__cell">Eleanor Prescott</td>
-                        <td class="ons-table__cell" data-date-value="2023-08-29">
-                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
-                            29 Aug 2023
-                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>
-                            30 Aug 2023
-                        </td>
-                        <td class="ons-table__cell">Editor</td>
-                        <td class="ons-table__cell">
-                            <div class="menu-container">
-                                <button type="button" id="menubutton2" class="actionsBtn" aria-haspopup="true" aria-controls="menu2" onclick='toggleMenu(event, "menubutton2", "menu2")'>
-                                    Actions
-                                    <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton" id="addToBtnID4" onclick='addToMyQuestionnaires("VOrow4", "VOmenubutton4", "VOmenu4", "UKHTS 2023", "Health and Lifestyle Survey", "UK Health Trends",  "Emma Smith" ,  "45169" ,  "45169" ,  "View-only" ,  "addToBtnID4")'>
+                                    <span class="material-symbols-outlined">
+                                        bookmark_add
+                                    </span>
+                                    Add to My questionnaires
                                 </button>
-                                <ul id="menu2" role="menu" aria-labelledby="menubutton" class="menu">
-                                    <li role="none" class="duplicate">
-                                        <span class="material-symbols-outlined">
-                                            content_copy
-                                        </span>
-                                        <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton2", "SMUIS V4", "Draft - Social Media Usage and Impact Survey")'>
-                                            Duplicate
-                                        </a>
-                                    </li>
-                                    <li role="none">
-                                        <button role="menuitem" class="listItemButton">
-                                            <span class="material-symbols-outlined">
-                                                link
-                                            </span>
-                                            Copy link
-                                        </button>
-                                    </li>
-                                    <li role="none">
-                                        <button role="menuitem" class="listItemButton" onclick='addToStarred("row2")'>
-                                            <span class="material-symbols-outlined">
-                                                star
-                                            </span>
-                                            Add to starred
-                                        </button>
-                                    </li>
-                                    <li role="none" class="ons-u-mb-no">
-                                        <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton2", "menu2", "SMUIS V4", "Draft - Social Media Usage and Impact Survey", "Social Media", "Eleanor Prescott", "row2")'>
-                                            <span class="material-symbols-outlined">
-                                                delete
-                                            </span>
-                                            Delete
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="ons-table__row row-relative" id="row3">
-                        <td class="ons-table__cell">
-                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">SMUIS V3</span>
-                            <a href="#">Draft - Social Media Usage and Impact Survey</a>
-                        </td>
-                        <td class="ons-table__cell">Social Media</td>
-                        <td class="ons-table__cell">Eleanor Prescott</td>
-                        <td class="ons-table__cell" data-date-value="2023-08-24">
-                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
-                            24 Aug 2023
-                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>
-                            29 Aug 2023
-                        </td>
-                        <td class="ons-table__cell">Editor</td>
-                        <td class="ons-table__cell">
-                            <div class="menu-container">
-                                <button type="button" id="menubutton3" class="actionsBtn" aria-haspopup="true" aria-controls="menu3" onclick='toggleMenu(event, "menubutton3", "menu3")'>
-                                    Actions
-                                    <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="VOrow5">
+                    <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs"></span><a href="#">Wording test</a></td>
+                    <td class="ons-table__cell"></td>
+                    <td class="ons-table__cell">Christine Humphrey</td>
+                    <td class="ons-table__cell" data-date-value="2023-08-31"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>31 Aug 2023<span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>31 Aug 2023</td>
+                    <td class="ons-table__cell">View-only</td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button"
+                                    id="VOmenubutton5"
+                                    class="actionsBtn"
+                                    aria-haspopup="true"
+                                    aria-controls="VOmenu5" onclick='toggleMenu(event, "VOmenubutton5", "VOmenu5")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="VOmenu5"
+                                role="menu"
+                                aria-labelledby="VOmenubutton5" class="menu">
+                                <li role="none" class="duplicate">
+                                <span class="material-symbols-outlined">
+                                    content_copy
+                                    </span>
+                                <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("VOmenubutton5", "", "Wording test")'>
+                                    Duplicate
+                                </a>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton">
+                                    <span class="material-symbols-outlined">
+                                    link
+                                    </span>
+                                    Copy link
                                 </button>
-                                <ul id="menu3" role="menu" aria-labelledby="menubutton" class="menu">
-                                    <li role="none" class="duplicate">
-                                        <span class="material-symbols-outlined">
-                                            content_copy
-                                        </span>
-                                        <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton3", "SMUIS V3", "Draft - Social Media Usage and Impact Survey")'>
-                                            Duplicate
-                                        </a>
-                                    </li>
-                                    <li role="none">
-                                        <button role="menuitem" class="listItemButton">
-                                            <span class="material-symbols-outlined">
-                                                link
-                                            </span>
-                                            Copy link
-                                        </button>
-                                    </li>
-                                    <li role="none">
-                                        <button role="menuitem" class="listItemButton" onclick='addToStarred("row3")'>
-                                            <span class="material-symbols-outlined">
-                                                star
-                                            </span>
-                                            Add to starred
-                                        </button>
-                                    </li>
-                                    <li role="none" class="ons-u-mb-no">
-                                        <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton3", "menu3", "SMUIS V3", "Draft - Social Media Usage and Impact Survey", "Social Media", "Eleanor Prescott", "row3")'>
-                                            <span class="material-symbols-outlined">
-                                                delete
-                                            </span>
-                                            Delete
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="ons-table__row row-relative" id="row4">
-                        <td class="ons-table__cell">
-                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs"></span>
-                            <a href="#">Alternative questions for Social Media Survey</a>
-                        </td>
-                        <td class="ons-table__cell">Social Media</td>
-                        <td class="ons-table__cell">Chris Smith</td>
-                        <td class="ons-table__cell" data-date-value="2023-08-25">
-                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
-                            25 Aug 2023
-                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>
-                            25 Aug 2023
-                        </td>
-                        <td class="ons-table__cell">Editor</td>
-                        <td class="ons-table__cell">
-                            <div class="menu-container">
-                                <button type="button" id="menubutton4" class="actionsBtn" aria-haspopup="true" aria-controls="menu4" onclick='toggleMenu(event, "menubutton4", "menu4")'>
-                                    Actions
-                                    <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton" id="addToBtnID5" onclick='addToMyQuestionnaires("VOrow5", "VOmenubutton5", "VOmenu5", "", "Wording test", "",  "Christine Humphrey" ,  "45169" ,  "45169" ,  "View-only" ,  "addToBtnID5")'>
+                                    <span class="material-symbols-outlined">
+                                        bookmark_add
+                                    </span>
+                                    Add to My questionnaires
                                 </button>
-                                <ul id="menu4" role="menu" aria-labelledby="menubutton" class="menu">
-                                    <li role="none" class="duplicate">
-                                        <span class="material-symbols-outlined">
-                                            content_copy
-                                        </span>
-                                        <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton4", "", "Alternative questions for Social Media Survey")'>
-                                            Duplicate
-                                        </a>
-                                    </li>
-                                    <li role="none">
-                                        <button role="menuitem" class="listItemButton">
-                                            <span class="material-symbols-outlined">
-                                                link
-                                            </span>
-                                            Copy link
-                                        </button>
-                                    </li>
-                                    <li role="none">
-                                        <button role="menuitem" class="listItemButton" onclick='addToStarred("row4")'>
-                                            <span class="material-symbols-outlined">
-                                                star
-                                            </span>
-                                            Add to starred
-                                        </button>
-                                    </li>
-                                    <li role="none" class="ons-u-mb-no">
-                                        <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton4", "menu4", "", "Alternative questions for Social Media Survey", "", "Chris Smith", "row4")'>
-                                            <span class="material-symbols-outlined">
-                                                delete
-                                            </span>
-                                            Delete
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="ons-table__row row-relative" id="row5">
-                        <td class="ons-table__cell">
-                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">FPS-23 FINAL</span>
-                            <a href="#">Financial Planning Survey</a>
-                        </td>
-                        <td class="ons-table__cell">Financial Planning Survey</td>
-                        <td class="ons-table__cell">Javier Fernandez</td>
-                        <td class="ons-table__cell" data-date-value="2023-08-05">
-                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
-                            5 Aug 2023
-                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>
-                            8 Aug 2023
-                        </td>
-                        <td class="ons-table__cell">Editor</td>
-                        <td class="ons-table__cell">
-                            <div class="menu-container">
-                                <button type="button" id="menubutton5" class="actionsBtn" aria-haspopup="true" aria-controls="menu5" onclick='toggleMenu(event, "menubutton5", "menu5")'>
-                                    Actions
-                                    <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="VOrow6">
+                    <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">PPSS Draft 2</span><a href="#">Draft 2 - People and Policy: Shaping Society</a></td>
+                    <td class="ons-table__cell">People and Policy</td>
+                    <td class="ons-table__cell">Liz Wright</td>
+                    <td class="ons-table__cell" data-date-value="2023-08-30"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>30 Aug 2023<span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>31 Aug 2023</td>
+                    <td class="ons-table__cell">View-only</td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button"
+                                    id="VOmenubutton6"
+                                    class="actionsBtn"
+                                    aria-haspopup="true"
+                                    aria-controls="VOmenu6" onclick='toggleMenu(event, "VOmenubutton6", "VOmenu6")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="VOmenu6"
+                                role="menu"
+                                aria-labelledby="VOmenubutton6" class="menu">
+                                <li role="none" class="duplicate">
+                                <span class="material-symbols-outlined">
+                                    content_copy
+                                    </span>
+                                <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("VOmenubutton6", "PPSS Draft 2", "Draft 2 - People and Policy: Shaping Society")'>
+                                    Duplicate
+                                </a>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton">
+                                    <span class="material-symbols-outlined">
+                                    link
+                                    </span>
+                                    Copy link
                                 </button>
-                                <ul id="menu5" role="menu" aria-labelledby="menubutton" class="menu">
-                                    <li role="none" class="duplicate">
-                                        <span class="material-symbols-outlined">
-                                            content_copy
-                                        </span>
-                                        <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton5", "FPS-23 FINAL", "Financial Planning Survey")'>
-                                            Duplicate
-                                        </a>
-                                    </li>
-                                    <li role="none">
-                                        <button role="menuitem" class="listItemButton">
-                                            <span class="material-symbols-outlined">
-                                                link
-                                            </span>
-                                            Copy link
-                                        </button>
-                                    </li>
-                                    <li role="none">
-                                        <button role="menuitem" class="listItemButton" onclick='addToStarred("row5")'>
-                                            <span class="material-symbols-outlined">
-                                                star
-                                            </span>
-                                            Add to starred
-                                        </button>
-                                    </li>
-                                    <li role="none" class="ons-u-mb-no">
-                                        <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton5", "menu5", "FPS-23 FINAL", "Financial Planning Survey", "Financial Planning Survey", "Javier Fernandez", "row5")'>
-                                            <span class="material-symbols-outlined">
-                                                delete
-                                            </span>
-                                            Delete
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="ons-table__row row-relative" id="row6">
-                        <td class="ons-table__cell">
-                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">FPS-23 testing version</span>
-                            <a href="#">Financial Planning Survey</a>
-                        </td>
-                        <td class="ons-table__cell">Financial Planning Survey</td>
-                        <td class="ons-table__cell">Javier Fernandez</td>
-                        <td class="ons-table__cell" data-date-value="2023-08-01">
-                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
-                            1 Aug 2023
-                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>
-                            4 Aug 2023
-                        </td>
-                        <td class="ons-table__cell">Editor</td>
-                        <td class="ons-table__cell">
-                            <div class="menu-container">
-                                <button type="button" id="menubutton6" class="actionsBtn" aria-haspopup="true" aria-controls="menu6" onclick='toggleMenu(event, "menubutton6", "menu6")'>
-                                    Actions
-                                    <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton" id="addToBtnID6" onclick='addToMyQuestionnaires("VOrow6", "VOmenubutton6", "VOmenu6", "PPSS Draft 2", "Draft 2 - People and Policy: Shaping Society", "People and Policy",  "Liz Wright" ,  "45168" ,  "45169" ,  "View-only" ,  "addToBtnID6")'>
+                                    <span class="material-symbols-outlined">
+                                        bookmark_add
+                                    </span>
+                                    Add to My questionnaires
                                 </button>
-                                <ul id="menu6" role="menu" aria-labelledby="menubutton" class="menu">
-                                    <li role="none" class="duplicate">
-                                        <span class="material-symbols-outlined">
-                                            content_copy
-                                        </span>
-                                        <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton6", "FPS-23 testing version", "Financial Planning Survey")'>
-                                            Duplicate
-                                        </a>
-                                    </li>
-                                    <li role="none">
-                                        <button role="menuitem" class="listItemButton">
-                                            <span class="material-symbols-outlined">
-                                                link
-                                            </span>
-                                            Copy link
-                                        </button>
-                                    </li>
-                                    <li role="none">
-                                        <button role="menuitem" class="listItemButton" onclick='addToStarred("row6")'>
-                                            <span class="material-symbols-outlined">
-                                                star
-                                            </span>
-                                            Add to starred
-                                        </button>
-                                    </li>
-                                    <li role="none" class="ons-u-mb-no">
-                                        <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton6", "menu6", "FPS-23 testing version", "Financial Planning Survey", "Financial Planning Survey", "Javier Fernandez", "row6")'>
-                                            <span class="material-symbols-outlined">
-                                                delete
-                                            </span>
-                                            Delete
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="ons-table__row row-relative" id="row7">
-                        <td class="ons-table__cell">
-                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">SMUIS Cognitive Testing Version</span>
-                            <a href="#">Social Media Usage and Impact Survey</a>
-                        </td>
-                        <td class="ons-table__cell">Social Media</td>
-                        <td class="ons-table__cell">Eleanor Prescott</td>
-                        <td class="ons-table__cell" data-date-value="2023-08-24">
-                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
-                            24 Aug 2023
-                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>
-                            25 Aug 2023
-                        </td>
-                        <td class="ons-table__cell">Editor</td>
-                        <td class="ons-table__cell">
-                            <div class="menu-container">
-                                <button type="button" id="menubutton7" class="actionsBtn" aria-haspopup="true" aria-controls="menu7" onclick='toggleMenu(event, "menubutton7", "menu7")'>
-                                    Actions
-                                    <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="VOrow8">
+                    <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">QN4 - testing group A</span><a href="#">Environmental Awareness and Actions</a></td>
+                    <td class="ons-table__cell">Green Initiatives Assessment</td>
+                    <td class="ons-table__cell">David Lemaitre</td>
+                    <td class="ons-table__cell" data-date-value="2023-08-30"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>30 Aug 2023<span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>31 Aug 2023</td>
+                    <td class="ons-table__cell">View-only</td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button"
+                                    id="VOmenubutton8"
+                                    class="actionsBtn"
+                                    aria-haspopup="true"
+                                    aria-controls="VOmenu8" onclick='toggleMenu(event, "VOmenubutton8", "VOmenu8")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="VOmenu8"
+                                role="menu"
+                                aria-labelledby="VOmenubutton8" class="menu">
+                                <li role="none" class="duplicate">
+                                <span class="material-symbols-outlined">
+                                    content_copy
+                                    </span>
+                                <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("VOmenubutton8", "QN4 - testing group A", "Environmental Awareness and Actions")'>
+                                    Duplicate
+                                </a>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton">
+                                    <span class="material-symbols-outlined">
+                                    link
+                                    </span>
+                                    Copy link
                                 </button>
-                                <ul id="menu7" role="menu" aria-labelledby="menubutton" class="menu">
-                                    <li role="none" class="duplicate">
-                                        <span class="material-symbols-outlined">
-                                            content_copy
-                                        </span>
-                                        <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton7", "SMUIS Cognitive Testing Version", "Social Media Usage and Impact Survey")'>
-                                            Duplicate
-                                        </a>
-                                    </li>
-                                    <li role="none">
-                                        <button role="menuitem" class="listItemButton">
-                                            <span class="material-symbols-outlined">
-                                                link
-                                            </span>
-                                            Copy link
-                                        </button>
-                                    </li>
-                                    <li role="none">
-                                        <button role="menuitem" class="listItemButton" onclick='addToStarred("row7")'>
-                                            <span class="material-symbols-outlined">
-                                                star
-                                            </span>
-                                            Add to starred
-                                        </button>
-                                    </li>
-                                    <li role="none" class="ons-u-mb-no">
-                                        <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton7", "menu7", "SMUIS Cognitive Testing Version", "Social Media Usage and Impact Survey", "Social Media", "Eleanor Prescott", "row7")'>
-                                            <span class="material-symbols-outlined">
-                                                delete
-                                            </span>
-                                            Delete
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="ons-table__row row-relative" id="row8">
-                        <td class="ons-table__cell">
-                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">SMUIS Draft test</span>
-                            <a href="#">Test 2 - Social Media Usage and Impact Survey</a>
-                        </td>
-                        <td class="ons-table__cell">Social Media</td>
-                        <td class="ons-table__cell">Lucas Bennett</td>
-                        <td class="ons-table__cell" data-date-value="2023-08-10">
-                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
-                            10 Aug 2023
-                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>
-                            21 Aug 2023
-                        </td>
-                        <td class="ons-table__cell">Editor</td>
-                        <td class="ons-table__cell">
-                            <div class="menu-container">
-                                <button type="button" id="menubutton8" class="actionsBtn" aria-haspopup="true" aria-controls="menu8" onclick='toggleMenu(event, "menubutton8", "menu8")'>
-                                    Actions
-                                    <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton" id="addToBtnID8" onclick='addToMyQuestionnaires("VOrow8", "VOmenubutton8", "VOmenu8", "QN4 - testing group A", "Environmental Awareness and Actions", "Green Initiatives Assessment",  "David Lemaitre" ,  "45168" ,  "45169" ,  "View-only" ,  "addToBtnID8")'>
+                                    <span class="material-symbols-outlined">
+                                        bookmark_add
+                                    </span>
+                                    Add to My questionnaires
                                 </button>
-                                <ul id="menu8" role="menu" aria-labelledby="menubutton" class="menu">
-                                    <li role="none" class="duplicate">
-                                        <span class="material-symbols-outlined">
-                                            content_copy
-                                        </span>
-                                        <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton8", "SMUIS Draft test", "Test 2 - Social Media Usage and Impact Survey")'>
-                                            Duplicate
-                                        </a>
-                                    </li>
-                                    <li role="none">
-                                        <button role="menuitem" class="listItemButton">
-                                            <span class="material-symbols-outlined">
-                                                link
-                                            </span>
-                                            Copy link
-                                        </button>
-                                    </li>
-                                    <li role="none">
-                                        <button role="menuitem" class="listItemButton" onclick='addToStarred("row8")'>
-                                            <span class="material-symbols-outlined">
-                                                star
-                                            </span>
-                                            Add to starred
-                                        </button>
-                                    </li>
-                                    <li role="none" class="ons-u-mb-no">
-                                        <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton8", "menu8", "SMUIS Draft test", "Test 2 - Social Media Usage and Impact Survey", "Social Media", "Lucas Bennett", "row8")'>
-                                            <span class="material-symbols-outlined">
-                                                delete
-                                            </span>
-                                            Delete
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="ons-table__row row-relative" id="row9">
-                        <td class="ons-table__cell">
-                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">FPS-23 second draft</span>
-                            <a href="#">D2 - Financial Planning Survey</a>
-                        </td>
-                        <td class="ons-table__cell">Financial Planning Survey</td>
-                        <td class="ons-table__cell">Helen Jones</td>
-                        <td class="ons-table__cell" data-date-value="2023-06-14">
-                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
-                            14 Jun 2023
-                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>
-                            1 Jul 2023
-                        </td>
-                        <td class="ons-table__cell">Editor</td>
-                        <td class="ons-table__cell">
-                            <div class="menu-container">
-                                <button type="button" id="menubutton9" class="actionsBtn" aria-haspopup="true" aria-controls="menu9" onclick='toggleMenu(event, "menubutton9", "menu9")'>
-                                    Actions
-                                    <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="VOrow9">
+                    <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs"></span><a href="#">Test</a></td>
+                    <td class="ons-table__cell"></td>
+                    <td class="ons-table__cell">David Lemaitre</td>
+                    <td class="ons-table__cell" data-date-value="2023-08-30"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>30 Aug 2023<span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>30 Aug 2023</td>
+                    <td class="ons-table__cell">View-only</td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button"
+                                    id="VOmenubutton9"
+                                    class="actionsBtn"
+                                    aria-haspopup="true"
+                                    aria-controls="VOmenu9" onclick='toggleMenu(event, "VOmenubutton9", "VOmenu9")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="VOmenu9"
+                                role="menu"
+                                aria-labelledby="VOmenubutton9" class="menu">
+                                <li role="none" class="duplicate">
+                                <span class="material-symbols-outlined">
+                                    content_copy
+                                    </span>
+                                <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("VOmenubutton9", "", "Test")'>
+                                    Duplicate
+                                </a>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton">
+                                    <span class="material-symbols-outlined">
+                                    link
+                                    </span>
+                                    Copy link
                                 </button>
-                                <ul id="menu9" role="menu" aria-labelledby="menubutton" class="menu">
-                                    <li role="none" class="duplicate">
-                                        <span class="material-symbols-outlined">
-                                            content_copy
-                                        </span>
-                                        <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton9", "FPS-23 second draft", "D2 - Financial Planning Survey")'>
-                                            Duplicate
-                                        </a>
-                                    </li>
-                                    <li role="none">
-                                        <button role="menuitem" class="listItemButton">
-                                            <span class="material-symbols-outlined">
-                                                link
-                                            </span>
-                                            Copy link
-                                        </button>
-                                    </li>
-                                    <li role="none">
-                                        <button role="menuitem" class="listItemButton" onclick='addToStarred("row9")'>
-                                            <span class="material-symbols-outlined">
-                                                star
-                                            </span>
-                                            Add to starred
-                                        </button>
-                                    </li>
-                                    <li role="none" class="ons-u-mb-no">
-                                        <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton9", "menu9", "FPS-23 second draft", "D2 - Financial Planning Survey", "Financial Planning Survey", "Helen Jones", "row9")'>
-                                            <span class="material-symbols-outlined">
-                                                delete
-                                            </span>
-                                            Delete
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="ons-table__row row-relative" id="row10">
-                        <td class="ons-table__cell">
-                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">SMUIS V2</span>
-                            <a href="#">Draft - Social Media Usage and Impact Survey</a>
-                        </td>
-                        <td class="ons-table__cell">Social Media</td>
-                        <td class="ons-table__cell">Isabella Ramirez</td>
-                        <td class="ons-table__cell" data-date-value="2023-07-26">
-                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
-                            26 Jul 2023
-                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>
-                            25 Aug 2023
-                        </td>
-                        <td class="ons-table__cell">Editor</td>
-                        <td class="ons-table__cell">
-                            <div class="menu-container">
-                                <button type="button" id="menubutton10" class="actionsBtn" aria-haspopup="true" aria-controls="menu10" onclick='toggleMenu(event, "menubutton10", "menu10")'>
-                                    Actions
-                                    <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton" id="addToBtnID9" onclick='addToMyQuestionnaires("VOrow9", "VOmenubutton9", "VOmenu9", "", "Test", "",  "David Lemaitre" ,  "45168" ,  "45168" ,  "View-only" ,  "addToBtnID9")'>
+                                    <span class="material-symbols-outlined">
+                                        bookmark_add
+                                    </span>
+                                    Add to My questionnaires
                                 </button>
-                                <ul id="menu10" role="menu" aria-labelledby="menubutton" class="menu">
-                                    <li role="none" class="duplicate">
-                                        <span class="material-symbols-outlined">
-                                            content_copy
-                                        </span>
-                                        <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton10", "SMUIS V2", "Draft - Social Media Usage and Impact Survey")'>
-                                            Duplicate
-                                        </a>
-                                    </li>
-                                    <li role="none">
-                                        <button role="menuitem" class="listItemButton">
-                                            <span class="material-symbols-outlined">
-                                                link
-                                            </span>
-                                            Copy link
-                                        </button>
-                                    </li>
-                                    <li role="none">
-                                        <button role="menuitem" class="listItemButton" onclick='addToStarred("row10")'>
-                                            <span class="material-symbols-outlined">
-                                                star
-                                            </span>
-                                            Add to starred
-                                        </button>
-                                    </li>
-                                    <li role="none" class="ons-u-mb-no">
-                                        <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton10", "menu10", "SMUIS V2", "Draft - Social Media Usage and Impact Survey", "Social Media", "Isabella Ramirez", "row10")'>
-                                            <span class="material-symbols-outlined">
-                                                delete
-                                            </span>
-                                            Delete
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="ons-table__row row-relative" id="row11">
-                        <td class="ons-table__cell">
-                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">SMUIS V1</span>
-                            <a href="#">Draft - Social Media Usage and Impact Survey</a>
-                        </td>
-                        <td class="ons-table__cell">Social Media</td>
-                        <td class="ons-table__cell">Chris Smith</td>
-                        <td class="ons-table__cell" data-date-value="2023-07-02">
-                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
-                            2 Jul 2023
-                            <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>
-                            25 Jul 2023
-                        </td>
-                        <td class="ons-table__cell">Editor</td>
-                        <td class="ons-table__cell">
-                            <div class="menu-container">
-                                <button type="button" id="menubutton11" class="actionsBtn" aria-haspopup="true" aria-controls="menu11" onclick='toggleMenu(event, "menubutton11", "menu11")'>
-                                    Actions
-                                    <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="VOrow10">
+                    <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Draft 3</span><a href="#">Community Engagement and Social Networks</a></td>
+                    <td class="ons-table__cell">Community Connections Study</td>
+                    <td class="ons-table__cell">Jacob Dawes</td>
+                    <td class="ons-table__cell" data-date-value="2023-08-30"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>30 Aug 2023<span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>30 Aug 2023</td>
+                    <td class="ons-table__cell">View-only</td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button"
+                                    id="VOmenubutton10"
+                                    class="actionsBtn"
+                                    aria-haspopup="true"
+                                    aria-controls="VOmenu10" onclick='toggleMenu(event, "VOmenubutton10", "VOmenu10")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="VOmenu10"
+                                role="menu"
+                                aria-labelledby="VOmenubutton10" class="menu">
+                                <li role="none" class="duplicate">
+                                <span class="material-symbols-outlined">
+                                    content_copy
+                                    </span>
+                                <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("VOmenubutton10", "Draft 3", "Community Engagement and Social Networks")'>
+                                    Duplicate
+                                </a>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton">
+                                    <span class="material-symbols-outlined">
+                                    link
+                                    </span>
+                                    Copy link
                                 </button>
-                                <ul id="menu11" role="menu" aria-labelledby="menubutton" class="menu">
-                                    <li role="none" class="duplicate">
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton" id="addToBtnID10" onclick='addToMyQuestionnaires("VOrow10", "VOmenubutton10", "VOmenu10", "Draft 3", "Community Engagement and Social Networks", "Community Connections Study",  "Jacob Dawes" ,  "45168" ,  "45168" ,  "View-only" ,  "addToBtnID10")'>
+                                    <span class="material-symbols-outlined">
+                                        bookmark_add
+                                    </span>
+                                    Add to My questionnaires
+                                </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="row1">
+                    <td class="ons-table__cell">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">SMUIS Final</span>
+                        <a href="#">Social Media Usage and Impact Survey</a>
+                    </td>
+                    <td class="ons-table__cell">Social Media</td>
+                    <td class="ons-table__cell">Isabella Ramirez</td>
+                    <td class="ons-table__cell" data-date-value="2023-08-30">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
+                        30 Aug 2023
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>
+                        30 Aug 2023
+                    </td>
+                    <td class="ons-table__cell">Editor</td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button" id="menubutton1" class="actionsBtn" aria-haspopup="true" aria-controls="menu1" onclick='toggleMenu(event, "menubutton1", "menu1")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="menu1" role="menu" aria-labelledby="menubutton" class="menu">
+                                <li role="none" class="duplicate">
+                                    <span class="material-symbols-outlined">
+                                        content_copy
+                                    </span>
+                                    <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton1", "SMUIS Final", "Social Media Usage and Impact Survey")'>
+                                        Duplicate
+                                    </a>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton">
                                         <span class="material-symbols-outlined">
-                                            content_copy
+                                            link
                                         </span>
-                                        <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton11", "SMUIS V1", "Draft - Social Media Usage and Impact Survey")'>
-                                            Duplicate
-                                        </a>
-                                    </li>
-                                    <li role="none">
-                                        <button role="menuitem" class="listItemButton">
-                                            <span class="material-symbols-outlined">
-                                                link
-                                            </span>
-                                            Copy link
-                                        </button>
-                                    </li>
-                                    <li role="none">
-                                        <button role="menuitem" class="listItemButton" onclick='addToStarred("row11")'>
-                                            <span class="material-symbols-outlined">
-                                                star
-                                            </span>
-                                            Add to starred
-                                        </button>
-                                    </li>
-                                    <li role="none" class="ons-u-mb-no">
-                                        <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton11", "menu11", "SMUIS V1", "Draft - Social Media Usage and Impact Survey", "Social Media", "Chris Smith", "row11")'>
-                                            <span class="material-symbols-outlined">
-                                                delete
-                                            </span>
-                                            Delete
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-
-
-
-<tr class="ons-table__row row-relative" id="rowTest">
-    <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs" >Final draft</span><a href="#">Trust in Government</a></td>
-    <td class="ons-table__cell">Trust in Government</td>
-    <td class="ons-table__cell">Lisa Brown</td>
-    <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs" >Date created:</span>14th Aug 2023 <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs" >Last opened:</span>16th Aug 2023</td>
-    <td class="ons-table__cell">View-only</td>
-    <td class="ons-table__cell">
-        <div class="menu-container">
-            <button type="button"
-                    id="menubuttonTest"
-                    class="actionsBtn"
-                    aria-haspopup="true"
-                    aria-controls="menu2" onclick="toggleMenu(event, 'menubuttonTest', 'menuTest')">
-                Actions
-            <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
-            </button>
-            <ul id="menuTest"
-                role="menu"
-                aria-labelledby="menubutton" class="menu">
-                <li role="none" class="duplicate">
-                <span class="material-symbols-outlined">
-                    content_copy
-                    </span>
-                <a role="menuitem" class="listItemLink" href="#" onclick="duplicate('menubuttonTest', 'Copy of V3 Draft 0173', 'Copy of Monthly Business Survey')">
-                    Duplicate
-                </a>
-                </li>
-                <li role="none">
-                <button role="menuitem" class="listItemButton">
-                    <span class="material-symbols-outlined">
-                    link
-                    </span>
-                    Copy link
-                </button>
-                </li>
-                <li role="none">
-                <button role="menuitem" class="listItemButton" id="AddTo1" onclick="addToMyQuestionnaires('rowTest', 'menubuttonTest', 'menuTest', 'Final draft', 'Trust in Government', 'Trust in Government', 'Lisa Brown', '1 Aug 2023', '2 Aug 2023', 'View-only', 'AddTo1')">
-                    <span class="material-symbols-outlined">
-                        bookmark_add
-                    </span>
-                    Add to My questionnaires
-                </button>
-                </li>
-            </ul>
-        </div>
-    </td>
-</tr>
-
+                                        Copy link
+                                    </button>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton" onclick='addToStarred("row1")'>
+                                        <span class="material-symbols-outlined">
+                                            star
+                                        </span>
+                                        Move to starred
+                                    </button>
+                                </li>
+                                <li role="none" class="ons-u-mb-no">
+                                    <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton1", "menu1", "SMUIS Final", "Social Media Usage and Impact Survey", "Social Media", "Isabella Ramirez", "row1")'>
+                                        <span class="material-symbols-outlined">
+                                            delete
+                                        </span>
+                                        Delete
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="row2">
+                    <td class="ons-table__cell">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">SMUIS V4</span>
+                        <a href="#">Draft - Social Media Usage and Impact Survey</a>
+                    </td>
+                    <td class="ons-table__cell">Social Media</td>
+                    <td class="ons-table__cell">Eleanor Prescott</td>
+                    <td class="ons-table__cell" data-date-value="2023-08-29">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
+                        29 Aug 2023
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>
+                        30 Aug 2023
+                    </td>
+                    <td class="ons-table__cell">Editor</td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button" id="menubutton2" class="actionsBtn" aria-haspopup="true" aria-controls="menu2" onclick='toggleMenu(event, "menubutton2", "menu2")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="menu2" role="menu" aria-labelledby="menubutton" class="menu">
+                                <li role="none" class="duplicate">
+                                    <span class="material-symbols-outlined">
+                                        content_copy
+                                    </span>
+                                    <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton2", "SMUIS V4", "Draft - Social Media Usage and Impact Survey")'>
+                                        Duplicate
+                                    </a>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton">
+                                        <span class="material-symbols-outlined">
+                                            link
+                                        </span>
+                                        Copy link
+                                    </button>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton" onclick='addToStarred("row2")'>
+                                        <span class="material-symbols-outlined">
+                                            star
+                                        </span>
+                                        Move to starred
+                                    </button>
+                                </li>
+                                <li role="none" class="ons-u-mb-no">
+                                    <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton2", "menu2", "SMUIS V4", "Draft - Social Media Usage and Impact Survey", "Social Media", "Eleanor Prescott", "row2")'>
+                                        <span class="material-symbols-outlined">
+                                            delete
+                                        </span>
+                                        Delete
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="row3">
+                    <td class="ons-table__cell">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">SMUIS V3</span>
+                        <a href="#">Draft - Social Media Usage and Impact Survey</a>
+                    </td>
+                    <td class="ons-table__cell">Social Media</td>
+                    <td class="ons-table__cell">Eleanor Prescott</td>
+                    <td class="ons-table__cell" data-date-value="2023-08-24">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
+                        24 Aug 2023
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>
+                        29 Aug 2023
+                    </td>
+                    <td class="ons-table__cell">Editor</td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button" id="menubutton3" class="actionsBtn" aria-haspopup="true" aria-controls="menu3" onclick='toggleMenu(event, "menubutton3", "menu3")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="menu3" role="menu" aria-labelledby="menubutton" class="menu">
+                                <li role="none" class="duplicate">
+                                    <span class="material-symbols-outlined">
+                                        content_copy
+                                    </span>
+                                    <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton3", "SMUIS V3", "Draft - Social Media Usage and Impact Survey")'>
+                                        Duplicate
+                                    </a>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton">
+                                        <span class="material-symbols-outlined">
+                                            link
+                                        </span>
+                                        Copy link
+                                    </button>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton" onclick='addToStarred("row3")'>
+                                        <span class="material-symbols-outlined">
+                                            star
+                                        </span>
+                                        Move to starred
+                                    </button>
+                                </li>
+                                <li role="none" class="ons-u-mb-no">
+                                    <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton3", "menu3", "SMUIS V3", "Draft - Social Media Usage and Impact Survey", "Social Media", "Eleanor Prescott", "row3")'>
+                                        <span class="material-symbols-outlined">
+                                            delete
+                                        </span>
+                                        Delete
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="row4">
+                    <td class="ons-table__cell">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs"></span>
+                        <a href="#">Alternative questions for Social Media Survey</a>
+                    </td>
+                    <td class="ons-table__cell">Social Media</td>
+                    <td class="ons-table__cell">Chris Smith</td>
+                    <td class="ons-table__cell" data-date-value="2023-08-25">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
+                        25 Aug 2023
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>
+                        25 Aug 2023
+                    </td>
+                    <td class="ons-table__cell">Editor</td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button" id="menubutton4" class="actionsBtn" aria-haspopup="true" aria-controls="menu4" onclick='toggleMenu(event, "menubutton4", "menu4")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="menu4" role="menu" aria-labelledby="menubutton" class="menu">
+                                <li role="none" class="duplicate">
+                                    <span class="material-symbols-outlined">
+                                        content_copy
+                                    </span>
+                                    <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton4", "", "Alternative questions for Social Media Survey")'>
+                                        Duplicate
+                                    </a>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton">
+                                        <span class="material-symbols-outlined">
+                                            link
+                                        </span>
+                                        Copy link
+                                    </button>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton" onclick='addToStarred("row4")'>
+                                        <span class="material-symbols-outlined">
+                                            star
+                                        </span>
+                                        Move to starred
+                                    </button>
+                                </li>
+                                <li role="none" class="ons-u-mb-no">
+                                    <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton4", "menu4", "", "Alternative questions for Social Media Survey", "", "Chris Smith", "row4")'>
+                                        <span class="material-symbols-outlined">
+                                            delete
+                                        </span>
+                                        Delete
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="VOrow11">
+                    <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">PPSS Draft 1</span><a href="#">Draft 1 - People and Policy: Shaping Society</a></td>
+                    <td class="ons-table__cell">People and Policy</td>
+                    <td class="ons-table__cell">Liz Wright</td>
+                    <td class="ons-table__cell" data-date-value="2023-08-06"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>6 Aug 2023<span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>31 Aug 2023</td>
+                    <td class="ons-table__cell">View-only</td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button"
+                                    id="VOmenubutton11"
+                                    class="actionsBtn"
+                                    aria-haspopup="true"
+                                    aria-controls="VOmenu11" onclick='toggleMenu(event, "VOmenubutton11", "VOmenu11")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="VOmenu11"
+                                role="menu"
+                                aria-labelledby="VOmenubutton11" class="menu">
+                                <li role="none" class="duplicate">
+                                <span class="material-symbols-outlined">
+                                    content_copy
+                                    </span>
+                                <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("VOmenubutton11", "PPSS Draft 1", "Draft 1 - People and Policy: Shaping Society")'>
+                                    Duplicate
+                                </a>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton">
+                                    <span class="material-symbols-outlined">
+                                    link
+                                    </span>
+                                    Copy link
+                                </button>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton" id="addToBtnID11" onclick='addToMyQuestionnaires("VOrow11", "VOmenubutton11", "VOmenu11", "PPSS Draft 1", "Draft 1 - People and Policy: Shaping Society", "People and Policy",  "Liz Wright" ,  "45144" ,  "45169" ,  "View-only" ,  "addToBtnID11")'>
+                                    <span class="material-symbols-outlined">
+                                        bookmark_add
+                                    </span>
+                                    Add to My questionnaires
+                                </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="row5">
+                    <td class="ons-table__cell">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">FPS-23 FINAL</span>
+                        <a href="#">Financial Planning Survey</a>
+                    </td>
+                    <td class="ons-table__cell">Financial Planning Survey</td>
+                    <td class="ons-table__cell">Javier Fernandez</td>
+                    <td class="ons-table__cell" data-date-value="2023-08-05">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
+                        5 Aug 2023
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>
+                        8 Aug 2023
+                    </td>
+                    <td class="ons-table__cell">Editor</td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button" id="menubutton5" class="actionsBtn" aria-haspopup="true" aria-controls="menu5" onclick='toggleMenu(event, "menubutton5", "menu5")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="menu5" role="menu" aria-labelledby="menubutton" class="menu">
+                                <li role="none" class="duplicate">
+                                    <span class="material-symbols-outlined">
+                                        content_copy
+                                    </span>
+                                    <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton5", "FPS-23 FINAL", "Financial Planning Survey")'>
+                                        Duplicate
+                                    </a>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton">
+                                        <span class="material-symbols-outlined">
+                                            link
+                                        </span>
+                                        Copy link
+                                    </button>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton" onclick='addToStarred("row5")'>
+                                        <span class="material-symbols-outlined">
+                                            star
+                                        </span>
+                                        Move to starred
+                                    </button>
+                                </li>
+                                <li role="none" class="ons-u-mb-no">
+                                    <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton5", "menu5", "FPS-23 FINAL", "Financial Planning Survey", "Financial Planning Survey", "Javier Fernandez", "row5")'>
+                                        <span class="material-symbols-outlined">
+                                            delete
+                                        </span>
+                                        Delete
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="row6">
+                    <td class="ons-table__cell">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">FPS-23 testing version</span>
+                        <a href="#">Financial Planning Survey</a>
+                    </td>
+                    <td class="ons-table__cell">Financial Planning Survey</td>
+                    <td class="ons-table__cell">Javier Fernandez</td>
+                    <td class="ons-table__cell" data-date-value="2023-08-01">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
+                        1 Aug 2023
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>
+                        4 Aug 2023
+                    </td>
+                    <td class="ons-table__cell">Editor</td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button" id="menubutton6" class="actionsBtn" aria-haspopup="true" aria-controls="menu6" onclick='toggleMenu(event, "menubutton6", "menu6")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="menu6" role="menu" aria-labelledby="menubutton" class="menu">
+                                <li role="none" class="duplicate">
+                                    <span class="material-symbols-outlined">
+                                        content_copy
+                                    </span>
+                                    <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton6", "FPS-23 testing version", "Financial Planning Survey")'>
+                                        Duplicate
+                                    </a>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton">
+                                        <span class="material-symbols-outlined">
+                                            link
+                                        </span>
+                                        Copy link
+                                    </button>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton" onclick='addToStarred("row6")'>
+                                        <span class="material-symbols-outlined">
+                                            star
+                                        </span>
+                                        Move to starred
+                                    </button>
+                                </li>
+                                <li role="none" class="ons-u-mb-no">
+                                    <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton6", "menu6", "FPS-23 testing version", "Financial Planning Survey", "Financial Planning Survey", "Javier Fernandez", "row6")'>
+                                        <span class="material-symbols-outlined">
+                                            delete
+                                        </span>
+                                        Delete
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="row7">
+                    <td class="ons-table__cell">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">SMUIS Cognitive Testing Version</span>
+                        <a href="#">Social Media Usage and Impact Survey</a>
+                    </td>
+                    <td class="ons-table__cell">Social Media</td>
+                    <td class="ons-table__cell">Eleanor Prescott</td>
+                    <td class="ons-table__cell" data-date-value="2023-08-24">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
+                        24 Aug 2023
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>
+                        25 Aug 2023
+                    </td>
+                    <td class="ons-table__cell">Editor</td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button" id="menubutton7" class="actionsBtn" aria-haspopup="true" aria-controls="menu7" onclick='toggleMenu(event, "menubutton7", "menu7")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="menu7" role="menu" aria-labelledby="menubutton" class="menu">
+                                <li role="none" class="duplicate">
+                                    <span class="material-symbols-outlined">
+                                        content_copy
+                                    </span>
+                                    <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton7", "SMUIS Cognitive Testing Version", "Social Media Usage and Impact Survey")'>
+                                        Duplicate
+                                    </a>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton">
+                                        <span class="material-symbols-outlined">
+                                            link
+                                        </span>
+                                        Copy link
+                                    </button>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton" onclick='addToStarred("row7")'>
+                                        <span class="material-symbols-outlined">
+                                            star
+                                        </span>
+                                        Move to starred
+                                    </button>
+                                </li>
+                                <li role="none" class="ons-u-mb-no">
+                                    <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton7", "menu7", "SMUIS Cognitive Testing Version", "Social Media Usage and Impact Survey", "Social Media", "Eleanor Prescott", "row7")'>
+                                        <span class="material-symbols-outlined">
+                                            delete
+                                        </span>
+                                        Delete
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="row8">
+                    <td class="ons-table__cell">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">SMUIS Draft test</span>
+                        <a href="#">Test 2 - Social Media Usage and Impact Survey</a>
+                    </td>
+                    <td class="ons-table__cell">Social Media</td>
+                    <td class="ons-table__cell">Lucas Bennett</td>
+                    <td class="ons-table__cell" data-date-value="2023-08-10">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
+                        10 Aug 2023
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>
+                        21 Aug 2023
+                    </td>
+                    <td class="ons-table__cell">Editor</td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button" id="menubutton8" class="actionsBtn" aria-haspopup="true" aria-controls="menu8" onclick='toggleMenu(event, "menubutton8", "menu8")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="menu8" role="menu" aria-labelledby="menubutton" class="menu">
+                                <li role="none" class="duplicate">
+                                    <span class="material-symbols-outlined">
+                                        content_copy
+                                    </span>
+                                    <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton8", "SMUIS Draft test", "Test 2 - Social Media Usage and Impact Survey")'>
+                                        Duplicate
+                                    </a>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton">
+                                        <span class="material-symbols-outlined">
+                                            link
+                                        </span>
+                                        Copy link
+                                    </button>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton" onclick='addToStarred("row8")'>
+                                        <span class="material-symbols-outlined">
+                                            star
+                                        </span>
+                                        Move to starred
+                                    </button>
+                                </li>
+                                <li role="none" class="ons-u-mb-no">
+                                    <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton8", "menu8", "SMUIS Draft test", "Test 2 - Social Media Usage and Impact Survey", "Social Media", "Lucas Bennett", "row8")'>
+                                        <span class="material-symbols-outlined">
+                                            delete
+                                        </span>
+                                        Delete
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="row9">
+                    <td class="ons-table__cell">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">FPS-23 second draft</span>
+                        <a href="#">D2 - Financial Planning Survey</a>
+                    </td>
+                    <td class="ons-table__cell">Financial Planning Survey</td>
+                    <td class="ons-table__cell">Helen Jones</td>
+                    <td class="ons-table__cell" data-date-value="2023-06-14">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
+                        14 Jun 2023
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>
+                        1 Jul 2023
+                    </td>
+                    <td class="ons-table__cell">Editor</td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button" id="menubutton9" class="actionsBtn" aria-haspopup="true" aria-controls="menu9" onclick='toggleMenu(event, "menubutton9", "menu9")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="menu9" role="menu" aria-labelledby="menubutton" class="menu">
+                                <li role="none" class="duplicate">
+                                    <span class="material-symbols-outlined">
+                                        content_copy
+                                    </span>
+                                    <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton9", "FPS-23 second draft", "D2 - Financial Planning Survey")'>
+                                        Duplicate
+                                    </a>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton">
+                                        <span class="material-symbols-outlined">
+                                            link
+                                        </span>
+                                        Copy link
+                                    </button>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton" onclick='addToStarred("row9")'>
+                                        <span class="material-symbols-outlined">
+                                            star
+                                        </span>
+                                        Move to starred
+                                    </button>
+                                </li>
+                                <li role="none" class="ons-u-mb-no">
+                                    <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton9", "menu9", "FPS-23 second draft", "D2 - Financial Planning Survey", "Financial Planning Survey", "Helen Jones", "row9")'>
+                                        <span class="material-symbols-outlined">
+                                            delete
+                                        </span>
+                                        Delete
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="VOrow15">
+                    <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Draft</span><a href="#">Environmental Awareness and Actions V3</a></td>
+                    <td class="ons-table__cell">Green Initiatives Assessment</td>
+                    <td class="ons-table__cell">David Lemaitre</td>
+                    <td class="ons-table__cell" data-date-value="2023-06-10"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>10 Jun 2023<span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>31 Aug 2023</td>
+                    <td class="ons-table__cell">View-only</td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button"
+                                    id="VOmenubutton15"
+                                    class="actionsBtn"
+                                    aria-haspopup="true"
+                                    aria-controls="VOmenu15" onclick='toggleMenu(event, "VOmenubutton15", "VOmenu15")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="VOmenu15"
+                                role="menu"
+                                aria-labelledby="VOmenubutton15" class="menu">
+                                <li role="none" class="duplicate">
+                                <span class="material-symbols-outlined">
+                                    content_copy
+                                    </span>
+                                <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("VOmenubutton15", "Draft", "Environmental Awareness and Actions V3")'>
+                                    Duplicate
+                                </a>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton">
+                                    <span class="material-symbols-outlined">
+                                    link
+                                    </span>
+                                    Copy link
+                                </button>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton" id="addToBtnID15" onclick='addToMyQuestionnaires("VOrow15", "VOmenubutton15", "VOmenu15", "Draft", "Environmental Awareness and Actions V3", "Green Initiatives Assessment",  "David Lemaitre" ,  "45087" ,  "45169" ,  "View-only" ,  "addToBtnID15")'>
+                                    <span class="material-symbols-outlined">
+                                        bookmark_add
+                                    </span>
+                                    Add to My questionnaires
+                                </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="row10">
+                    <td class="ons-table__cell">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">SMUIS V2</span>
+                        <a href="#">Draft - Social Media Usage and Impact Survey</a>
+                    </td>
+                    <td class="ons-table__cell">Social Media</td>
+                    <td class="ons-table__cell">Isabella Ramirez</td>
+                    <td class="ons-table__cell" data-date-value="2023-07-26">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
+                        26 Jul 2023
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>
+                        25 Aug 2023
+                    </td>
+                    <td class="ons-table__cell">Editor</td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button" id="menubutton10" class="actionsBtn" aria-haspopup="true" aria-controls="menu10" onclick='toggleMenu(event, "menubutton10", "menu10")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="menu10" role="menu" aria-labelledby="menubutton" class="menu">
+                                <li role="none" class="duplicate">
+                                    <span class="material-symbols-outlined">
+                                        content_copy
+                                    </span>
+                                    <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton10", "SMUIS V2", "Draft - Social Media Usage and Impact Survey")'>
+                                        Duplicate
+                                    </a>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton">
+                                        <span class="material-symbols-outlined">
+                                            link
+                                        </span>
+                                        Copy link
+                                    </button>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton" onclick='addToStarred("row10")'>
+                                        <span class="material-symbols-outlined">
+                                            star
+                                        </span>
+                                        Move to starred
+                                    </button>
+                                </li>
+                                <li role="none" class="ons-u-mb-no">
+                                    <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton10", "menu10", "SMUIS V2", "Draft - Social Media Usage and Impact Survey", "Social Media", "Isabella Ramirez", "row10")'>
+                                        <span class="material-symbols-outlined">
+                                            delete
+                                        </span>
+                                        Delete
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="row11">
+                    <td class="ons-table__cell">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">SMUIS V1</span>
+                        <a href="#">Draft - Social Media Usage and Impact Survey</a>
+                    </td>
+                    <td class="ons-table__cell">Social Media</td>
+                    <td class="ons-table__cell">Chris Smith</td>
+                    <td class="ons-table__cell" data-date-value="2023-07-02">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
+                        2 Jul 2023
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>
+                        25 Jul 2023
+                    </td>
+                    <td class="ons-table__cell">Editor</td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button" id="menubutton11" class="actionsBtn" aria-haspopup="true" aria-controls="menu11" onclick='toggleMenu(event, "menubutton11", "menu11")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="menu11" role="menu" aria-labelledby="menubutton" class="menu">
+                                <li role="none" class="duplicate">
+                                    <span class="material-symbols-outlined">
+                                        content_copy
+                                    </span>
+                                    <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton11", "SMUIS V1", "Draft - Social Media Usage and Impact Survey")'>
+                                        Duplicate
+                                    </a>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton">
+                                        <span class="material-symbols-outlined">
+                                            link
+                                        </span>
+                                        Copy link
+                                    </button>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton" onclick='addToStarred("row11")'>
+                                        <span class="material-symbols-outlined">
+                                            star
+                                        </span>
+                                        Move to starred
+                                    </button>
+                                </li>
+                                <li role="none" class="ons-u-mb-no">
+                                    <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton11", "menu11", "SMUIS V1", "Draft - Social Media Usage and Impact Survey", "Social Media", "Chris Smith", "row11")'>
+                                        <span class="material-symbols-outlined">
+                                            delete
+                                        </span>
+                                        Delete
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="row12">
+                    <td class="ons-table__cell">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs"></span>
+                        <a href="#">Experimenting with routing logic</a>
+                    </td>
+                    <td class="ons-table__cell"></td>
+                    <td class="ons-table__cell">Chris Smith</td>
+                    <td class="ons-table__cell" data-date-value="2023-06-29">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>29 Jun 2023
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>29 Jun 2023
+                    </td>
+                    <td class="ons-table__cell"> Editor </td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button"
+                                    id="menubutton12"
+                                    class="actionsBtn"
+                                    aria-haspopup="true"
+                                    aria-controls="menu2" onclick='toggleMenu(event, "menubutton12", "menu12")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="menu12"
+                                role="menu"
+                                aria-labelledby="menubutton" class="menu">
+                                <li role="none" class="duplicate">
+                                    <span class="material-symbols-outlined">
+                                        content_copy
+                                    </span>
+                                    <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton12", "", "Experimenting with routing logic")'>
+                                        Duplicate
+                                    </a>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton">
+                                        <span class="material-symbols-outlined">
+                                            link
+                                        </span>
+                                        Copy link
+                                    </button>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton" onclick='addToStarred("row12")'>
+                                        <span class="material-symbols-outlined">
+                                            star
+                                        </span>
+                                        Move to starred
+                                    </button>
+                                </li>
+                                <li role="none" class="ons-u-mb-no">
+                                    <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton12", "menu12", "", "Experimenting with routing logic", "", "Chris Smith", "row12")'>
+                                        <span class="material-symbols-outlined">
+                                            delete
+                                        </span>
+                                        Delete
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="VOrow12">
+                    <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">V4 draft</span><a href="#">The Impact of Brexit on UK Businesses</a></td>
+                    <td class="ons-table__cell">Impact of Brexit</td>
+                    <td class="ons-table__cell">John Owens</td>
+                    <td class="ons-table__cell" data-date-value="2023-06-21"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>21 Jun 2023<span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>31 Aug 2023</td>
+                    <td class="ons-table__cell">View-only</td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button"
+                                    id="VOmenubutton12"
+                                    class="actionsBtn"
+                                    aria-haspopup="true"
+                                    aria-controls="VOmenu12" onclick='toggleMenu(event, "VOmenubutton12", "VOmenu12")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="VOmenu12"
+                                role="menu"
+                                aria-labelledby="VOmenubutton12" class="menu">
+                                <li role="none" class="duplicate">
+                                <span class="material-symbols-outlined">
+                                    content_copy
+                                    </span>
+                                <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("VOmenubutton12", "V4 draft", "The Impact of Brexit on UK Businesses")'>
+                                    Duplicate
+                                </a>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton">
+                                    <span class="material-symbols-outlined">
+                                    link
+                                    </span>
+                                    Copy link
+                                </button>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton" id="addToBtnID12" onclick='addToMyQuestionnaires("VOrow12", "VOmenubutton12", "VOmenu12", "V4 draft", "The Impact of Brexit on UK Businesses", "Impact of Brexit",  "John Owens" ,  "45098" ,  "45169" ,  "View-only" ,  "addToBtnID12")'>
+                                    <span class="material-symbols-outlined">
+                                        bookmark_add
+                                    </span>
+                                    Add to My questionnaires
+                                </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="row13">
+                    <td class="ons-table__cell">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">SMUIS Draft</span>
+                        <a href="#">Test - Social Media Usage and Impact Survey</a>
+                    </td>
+                    <td class="ons-table__cell">Social Media</td>
+                    <td class="ons-table__cell">Lucas Bennett</td>
+                    <td class="ons-table__cell" data-date-value="2023-06-18">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>18 Jun 2023
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>2 Jul 2023
+                    </td>
+                    <td class="ons-table__cell"> Editor </td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button"
+                                    id="menubutton13"
+                                    class="actionsBtn"
+                                    aria-haspopup="true"
+                                    aria-controls="menu13" onclick='toggleMenu(event, "menubutton13", "menu13")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="menu13"
+                                role="menu"
+                                aria-labelledby="menubutton" class="menu">
+                                <li role="none" class="duplicate">
+                                    <span class="material-symbols-outlined">
+                                        content_copy
+                                    </span>
+                                    <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton13", "SMUIS Draft", "Test - Social Media Usage and Impact Survey")'>
+                                        Duplicate
+                                    </a>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton">
+                                        <span class="material-symbols-outlined">
+                                            link
+                                        </span>
+                                        Copy link
+                                    </button>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton" onclick='addToStarred("row13")'>
+                                        <span class="material-symbols-outlined">
+                                            star
+                                        </span>
+                                        Move to starred
+                                    </button>
+                                </li>
+                                <li role="none" class="ons-u-mb-no">
+                                    <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton13", "menu13", "SMUIS Draft", "Test - Social Media Usage and Impact Survey", "Social Media", "Lucas Bennett", "row13")'>
+                                        <span class="material-symbols-outlined">
+                                            delete
+                                        </span>
+                                        Delete
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="VOrow16">
+                    <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Draft</span><a href="#">Environmental Awareness and Actions V2ii</a></td>
+                    <td class="ons-table__cell">Green Initiatives Assessment</td>
+                    <td class="ons-table__cell">David Lemaitre</td>
+                    <td class="ons-table__cell" data-date-value="2023-06-18"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>18 Jun 2023<span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>21 Jul 2023</td>
+                    <td class="ons-table__cell">View-only</td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button"
+                                    id="VOmenubutton16"
+                                    class="actionsBtn"
+                                    aria-haspopup="true"
+                                    aria-controls="VOmenu16" onclick='toggleMenu(event, "VOmenubutton16", "VOmenu16")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="VOmenu16"
+                                role="menu"
+                                aria-labelledby="VOmenubutton16" class="menu">
+                                <li role="none" class="duplicate">
+                                <span class="material-symbols-outlined">
+                                    content_copy
+                                    </span>
+                                <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("VOmenubutton16", "Draft", "Environmental Awareness and Actions V2ii")'>
+                                    Duplicate
+                                </a>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton">
+                                    <span class="material-symbols-outlined">
+                                    link
+                                    </span>
+                                    Copy link
+                                </button>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton" id="addToBtnID16" onclick='addToMyQuestionnaires("VOrow16", "VOmenubutton16", "VOmenu16", "Draft", "Environmental Awareness and Actions V2ii", "Green Initiatives Assessment",  "David Lemaitre" ,  "45095" ,  "45128" ,  "View-only" ,  "addToBtnID16")'>
+                                    <span class="material-symbols-outlined">
+                                        bookmark_add
+                                    </span>
+                                    Add to My questionnaires
+                                </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="row14">
+                    <td class="ons-table__cell">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">FPS-23 first draft</span>
+                        <a href="#">D1 - Financial Planning Survey</a>
+                    </td>
+                    <td class="ons-table__cell">Financial Planning Survey</td>
+                    <td class="ons-table__cell">Helen Jones</td>
+                    <td class="ons-table__cell" data-date-value="2023-05-28">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>28 May 2023
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>1 July 2023
+                    </td>
+                    <td class="ons-table__cell"> Editor </td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button"
+                                    id="menubutton14"
+                                    class="actionsBtn"
+                                    aria-haspopup="true"
+                                    aria-controls="menu14" onclick='toggleMenu(event, "menubutton14", "menu14")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="menu14"
+                                role="menu"
+                                aria-labelledby="menubutton" class="menu">
+                                <li role="none" class="duplicate">
+                                    <span class="material-symbols-outlined">
+                                        content_copy
+                                    </span>
+                                    <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton14", "FPS-23 first draft", "D1 - Financial Planning Survey")'>
+                                        Duplicate
+                                    </a>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton">
+                                        <span class="material-symbols-outlined">
+                                            link
+                                        </span>
+                                        Copy link
+                                    </button>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton" onclick='addToStarred("row14")'>
+                                        <span class="material-symbols-outlined">
+                                            star
+                                        </span>
+                                        Move to starred
+                                    </button>
+                                </li>
+                                <li role="none" class="ons-u-mb-no">
+                                    <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton14", "menu14", "FPS-23 first draft", "D1 - Financial Planning Survey", "Financial Planning Survey", "Helen Jones", "row14")'>
+                                        <span class="material-symbols-outlined">
+                                            delete
+                                        </span>
+                                        Delete
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="row15">
+                    <td class="ons-table__cell">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs"></span>
+                        <a href="#">First mockups for Social Media Survey</a>
+                    </td>
+                    <td class="ons-table__cell"></td>
+                    <td class="ons-table__cell">Chris Smith</td>
+                    <td class="ons-table__cell" data-date-value="2023-06-21">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>21 Jun 2023
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>8 Jul 2023
+                    </td>
+                    <td class="ons-table__cell"> Editor </td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button"
+                                    id="menubutton15"
+                                    class="actionsBtn"
+                                    aria-haspopup="true"
+                                    aria-controls="menu15" onclick='toggleMenu(event, "menubutton15", "menu15")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="menu15"
+                                role="menu"
+                                aria-labelledby="menubutton" class="menu">
+                                <li role="none" class="duplicate">
+                                    <span class="material-symbols-outlined">
+                                        content_copy
+                                    </span>
+                                    <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton15", "", "First mockups for Social Media Survey")'>
+                                        Duplicate
+                                    </a>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton">
+                                        <span class="material-symbols-outlined">
+                                            link
+                                        </span>
+                                        Copy link
+                                    </button>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton" onclick='addToStarred("row15")'>
+                                        <span class="material-symbols-outlined">
+                                            star
+                                        </span>
+                                        Move to starred
+                                    </button>
+                                </li>
+                                <li role="none" class="ons-u-mb-no">
+                                    <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton15", "menu15", "", "First mockups for Social Media Survey", "", "Chris Smith", "row15")'>
+                                        <span class="material-symbols-outlined">
+                                            delete
+                                        </span>
+                                        Delete
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="VOrow17">
+                    <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Draft</span><a href="#">Environmental Awareness and Actions V2i</a></td>
+                    <td class="ons-table__cell">Green Initiatives Assessment</td>
+                    <td class="ons-table__cell">David Lemaitre</td>
+                    <td class="ons-table__cell" data-date-value="2023-05-23"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>23 May 2023<span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>21 Jul 2023</td>
+                    <td class="ons-table__cell">View-only</td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button"
+                                    id="VOmenubutton17"
+                                    class="actionsBtn"
+                                    aria-haspopup="true"
+                                    aria-controls="VOmenu17" onclick='toggleMenu(event, "VOmenubutton17", "VOmenu17")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="VOmenu17"
+                                role="menu"
+                                aria-labelledby="VOmenubutton17" class="menu">
+                                <li role="none" class="duplicate">
+                                <span class="material-symbols-outlined">
+                                    content_copy
+                                    </span>
+                                <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("VOmenubutton17", "Draft", "Environmental Awareness and Actions V2i")'>
+                                    Duplicate
+                                </a>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton">
+                                    <span class="material-symbols-outlined">
+                                    link
+                                    </span>
+                                    Copy link
+                                </button>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton" id="addToBtnID17" onclick='addToMyQuestionnaires("VOrow17", "VOmenubutton17", "VOmenu17", "Draft", "Environmental Awareness and Actions V2i", "Green Initiatives Assessment",  "David Lemaitre" ,  "45069" ,  "45128" ,  "View-only" ,  "addToBtnID17")'>
+                                    <span class="material-symbols-outlined">
+                                        bookmark_add
+                                    </span>
+                                    Add to My questionnaires
+                                </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="row16">
+                    <td class="ons-table__cell">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Final</span>
+                        <a href="#">Teacher Support and Job Satisfaction Survey</a>
+                    </td>
+                    <td class="ons-table__cell">Teacher Support and Job Satisfaction Survey</td>
+                    <td class="ons-table__cell">Chris Smith</td>
+                    <td class="ons-table__cell" data-date-value="2023-05-01">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>1 May 2023
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>30 May 2023
+                    </td>
+                    <td class="ons-table__cell"> Editor </td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button"
+                                    id="menubutton16"
+                                    class="actionsBtn"
+                                    aria-haspopup="true"
+                                    aria-controls="menu16" onclick='toggleMenu(event, "menubutton16", "menu16")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="menu16"
+                                role="menu"
+                                aria-labelledby="menubutton" class="menu">
+                                <li role="none" class="duplicate">
+                                    <span class="material-symbols-outlined">
+                                        content_copy
+                                    </span>
+                                    <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton16", "Final", "Teacher Support and Job Satisfaction Survey")'>
+                                        Duplicate
+                                    </a>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton">
+                                        <span class="material-symbols-outlined">
+                                            link
+                                        </span>
+                                        Copy link
+                                    </button>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton" onclick='addToStarred("row16")'>
+                                        <span class="material-symbols-outlined">
+                                            star
+                                        </span>
+                                        Move to starred
+                                    </button>
+                                </li>
+                                <li role="none" class="ons-u-mb-no">
+                                    <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton16", "menu16", "Final", "Teacher Support and Job Satisfaction Survey", "Teacher Support and Job Satisfaction Survey", "Chris Smith", "row16")'>
+                                        <span class="material-symbols-outlined">
+                                            delete
+                                        </span>
+                                        Delete
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="row17">
+                    <td class="ons-table__cell">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Draft V4</span>
+                        <a href="#">draft - TSJSS</a>
+                    </td>
+                    <td class="ons-table__cell">Teacher Support and Job Satisfaction Survey</td>
+                    <td class="ons-table__cell">Jane Lewis</td>
+                    <td class="ons-table__cell" data-date-value="2023-04-17">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>17 Apr 2023
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>5 May 2023
+                    </td>
+                    <td class="ons-table__cell"> Editor </td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button"
+                                    id="menubutton17"
+                                    class="actionsBtn"
+                                    aria-haspopup="true"
+                                    aria-controls="menu17" onclick='toggleMenu(event, "menubutton17", "menu17")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="menu17"
+                                role="menu"
+                                aria-labelledby="menubutton" class="menu">
+                                <li role="none" class="duplicate">
+                                    <span class="material-symbols-outlined">
+                                        content_copy
+                                    </span>
+                                    <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton17", "Draft V4", "draft - TSJSS")'>
+                                        Duplicate
+                                    </a>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton">
+                                        <span class="material-symbols-outlined">
+                                            link
+                                        </span>
+                                        Copy link
+                                    </button>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton" onclick='addToStarred("row17")'>
+                                        <span class="material-symbols-outlined">
+                                            star
+                                        </span>
+                                        Move to starred
+                                    </button>
+                                </li>
+                                <li role="none" class="ons-u-mb-no">
+                                    <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton17", "menu17", "Draft V4", "draft - TSJSS", "Teacher Support and Job Satisfaction Survey", "Jane Lewis", "row17")'>
+                                        <span class="material-symbols-outlined">
+                                            delete
+                                        </span>
+                                        Delete
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="VOrow18">
+                    <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Draft</span><a href="#">Environmental Awareness and Actions V1</a></td>
+                    <td class="ons-table__cell">Green Initiatives Assessment</td>
+                    <td class="ons-table__cell">David Lemaitre</td>
+                    <td class="ons-table__cell" data-date-value="2023-04-20"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>20 Apr 2023<span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>21 Jul 2023</td>
+                    <td class="ons-table__cell">View-only</td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button"
+                                    id="VOmenubutton18"
+                                    class="actionsBtn"
+                                    aria-haspopup="true"
+                                    aria-controls="VOmenu18" onclick='toggleMenu(event, "VOmenubutton18", "VOmenu18")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="VOmenu18"
+                                role="menu"
+                                aria-labelledby="VOmenubutton18" class="menu">
+                                <li role="none" class="duplicate">
+                                <span class="material-symbols-outlined">
+                                    content_copy
+                                    </span>
+                                <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("VOmenubutton18", "Draft", "Environmental Awareness and Actions V1")'>
+                                    Duplicate
+                                </a>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton">
+                                    <span class="material-symbols-outlined">
+                                    link
+                                    </span>
+                                    Copy link
+                                </button>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton" id="addToBtnID18" onclick='addToMyQuestionnaires("VOrow18", "VOmenubutton18", "VOmenu18", "Draft", "Environmental Awareness and Actions V1", "Green Initiatives Assessment",  "David Lemaitre" ,  "45036" ,  "45128" ,  "View-only" ,  "addToBtnID18")'>
+                                    <span class="material-symbols-outlined">
+                                        bookmark_add
+                                    </span>
+                                    Add to My questionnaires
+                                </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="VOrow13">
+                    <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">FINAL</span><a href="#">The Impact of Brexit on UK Businesses</a></td>
+                    <td class="ons-table__cell">Impact of Brexit</td>
+                    <td class="ons-table__cell">John Owens</td>
+                    <td class="ons-table__cell" data-date-value="2023-04-04"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>4 Apr 2023<span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>31 Aug 2023</td>
+                    <td class="ons-table__cell">View-only</td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button"
+                                    id="VOmenubutton13"
+                                    class="actionsBtn"
+                                    aria-haspopup="true"
+                                    aria-controls="VOmenu13" onclick='toggleMenu(event, "VOmenubutton13", "VOmenu13")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="VOmenu13"
+                                role="menu"
+                                aria-labelledby="VOmenubutton13" class="menu">
+                                <li role="none" class="duplicate">
+                                <span class="material-symbols-outlined">
+                                    content_copy
+                                    </span>
+                                <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("VOmenubutton13", "FINAL", "The Impact of Brexit on UK Businesses")'>
+                                    Duplicate
+                                </a>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton">
+                                    <span class="material-symbols-outlined">
+                                    link
+                                    </span>
+                                    Copy link
+                                </button>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton" id="addToBtnID13" onclick='addToMyQuestionnaires("VOrow13", "VOmenubutton13", "VOmenu13", "FINAL", "The Impact of Brexit on UK Businesses", "Impact of Brexit",  "John Owens" ,  "45020" ,  "45169" ,  "View-only" ,  "addToBtnID13")'>
+                                    <span class="material-symbols-outlined">
+                                        bookmark_add
+                                    </span>
+                                    Add to My questionnaires
+                                </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="row18">
+                    <td class="ons-table__cell">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Testing Round 2</span>
+                        <a href="#">Teacher Support and Job Satisfaction Survey</a>
+                    </td>
+                    <td class="ons-table__cell">Teacher Support and Job Satisfaction Survey</td>
+                    <td class="ons-table__cell">Jane Lewis</td>
+                    <td class="ons-table__cell" data-date-value="2023-03-27">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>27 Mar 2023
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>5 May 2023
+                    </td>
+                    <td class="ons-table__cell"> Editor </td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button"
+                                    id="menubutton18"
+                                    class="actionsBtn"
+                                    aria-haspopup="true"
+                                    aria-controls="menu18" onclick='toggleMenu(event, "menubutton18", "menu18")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="menu18"
+                                role="menu"
+                                aria-labelledby="menubutton" class="menu">
+                                <li role="none" class="duplicate">
+                                    <span class="material-symbols-outlined">
+                                        content_copy
+                                    </span>
+                                    <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton18", "Testing Round 2", "Teacher Support and Job Satisfaction Survey")'>
+                                        Duplicate
+                                    </a>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton">
+                                        <span class="material-symbols-outlined">
+                                            link
+                                        </span>
+                                        Copy link
+                                    </button>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton" onclick='addToStarred("row18")'>
+                                        <span class="material-symbols-outlined">
+                                            star
+                                        </span>
+                                        Move to starred
+                                    </button>
+                                </li>
+                                <li role="none" class="ons-u-mb-no">
+                                    <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton18", "menu18", "Testing Round 2", "Teacher Support and Job Satisfaction Survey", "Teacher Support and Job Satisfaction Survey", "Jane Lewis", "row18")'>
+                                        <span class="material-symbols-outlined">
+                                            delete
+                                        </span>
+                                        Delete
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="row19">
+                    <td class="ons-table__cell">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Draft V3</span>
+                        <a href="#">draft - TSJSS</a>
+                    </td>
+                    <td class="ons-table__cell">Teacher Support and Job Satisfaction Survey</td>
+                    <td class="ons-table__cell">Lauren Dowling</td>
+                    <td class="ons-table__cell" data-date-value="2023-03-08">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>8 Mar 2023
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>5 May 2023
+                    </td>
+                    <td class="ons-table__cell"> Editor </td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button"
+                                    id="menubutton19"
+                                    class="actionsBtn"
+                                    aria-haspopup="true"
+                                    aria-controls="menu19" onclick='toggleMenu(event, "menubutton19", "menu19")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="menu19"
+                                role="menu"
+                                aria-labelledby="menubutton" class="menu">
+                                <li role="none" class="duplicate">
+                                    <span class="material-symbols-outlined">
+                                        content_copy
+                                    </span>
+                                    <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton19", "Draft V3", "draft - TSJSS")'>
+                                        Duplicate
+                                    </a>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton">
+                                        <span class="material-symbols-outlined">
+                                            link
+                                        </span>
+                                        Copy link
+                                    </button>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton" onclick='addToStarred("row19")'>
+                                        <span class="material-symbols-outlined">
+                                            star
+                                        </span>
+                                        Move to starred
+                                    </button>
+                                </li>
+                                <li role="none" class="ons-u-mb-no">
+                                    <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton19", "menu19", "Draft V3", "draft - TSJSS", "Teacher Support and Job Satisfaction Survey", "Lauren Dowling", "row19")'>
+                                        <span class="material-symbols-outlined">
+                                            delete
+                                        </span>
+                                        Delete
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="row20">
+                    <td class="ons-table__cell">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Testing Round 1</span>
+                        <a href="#">Teacher Support and Job Satisfaction Survey</a>
+                    </td>
+                    <td class="ons-table__cell">Teacher Support and Job Satisfaction Survey</td>
+                    <td class="ons-table__cell">Isabella Ramirez</td>
+                    <td class="ons-table__cell" data-date-value="2023-02-28">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>28 Feb 2023
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>5 May 2023
+                    </td>
+                    <td class="ons-table__cell"> Editor </td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button"
+                                    id="menubutton20"
+                                    class="actionsBtn"
+                                    aria-haspopup="true"
+                                    aria-controls="menu20" onclick='toggleMenu(event, "menubutton20", "menu20")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="menu20"
+                                role="menu"
+                                aria-labelledby="menubutton" class="menu">
+                                <li role="none" class="duplicate">
+                                    <span class="material-symbols-outlined">
+                                        content_copy
+                                    </span>
+                                    <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton20", "Testing Round 1", "Teacher Support and Job Satisfaction Survey")'>
+                                        Duplicate
+                                    </a>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton">
+                                        <span class="material-symbols-outlined">
+                                            link
+                                        </span>
+                                        Copy link
+                                    </button>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton" onclick='addToStarred("row20")'>
+                                        <span class="material-symbols-outlined">
+                                            star
+                                        </span>
+                                        Move to starred
+                                    </button>
+                                </li>
+                                <li role="none" class="ons-u-mb-no">
+                                    <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton20", "menu20", "Testing Round 1", "Teacher Support and Job Satisfaction Survey", "Teacher Support and Job Satisfaction Survey", "Isabella Ramirez", "row20")'>
+                                        <span class="material-symbols-outlined">
+                                            delete
+                                        </span>
+                                        Delete
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="row21">
+                    <td class="ons-table__cell">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Draft V2</span>
+                        <a href="#">draft - TSJSS</a>
+                    </td>
+                    <td class="ons-table__cell">Teacher Support and Job Satisfaction Survey</td>
+                    <td class="ons-table__cell">Lauren Dowling</td>
+                    <td class="ons-table__cell" data-date-value="2023-02-19">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>19 Feb 2023
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>12 Mar 2023
+                    </td>
+                    <td class="ons-table__cell"> Editor </td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button"
+                                    id="menubutton21"
+                                    class="actionsBtn"
+                                    aria-haspopup="true"
+                                    aria-controls="menu21" onclick='toggleMenu(event, "menubutton21", "menu21")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="menu21"
+                                role="menu"
+                                aria-labelledby="menubutton" class="menu">
+                                <li role="none" class="duplicate">
+                                    <span class="material-symbols-outlined">
+                                        content_copy
+                                    </span>
+                                    <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton21", "Draft V2", "draft - TSJSS")'>
+                                        Duplicate
+                                    </a>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton">
+                                        <span class="material-symbols-outlined">
+                                            link
+                                        </span>
+                                        Copy link
+                                    </button>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton" onclick='addToStarred("row21")'>
+                                        <span class="material-symbols-outlined">
+                                            star
+                                        </span>
+                                        Move to starred
+                                    </button>
+                                </li>
+                                <li role="none" class="ons-u-mb-no">
+                                    <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton21", "menu21", "Draft V2", "draft - TSJSS", "Teacher Support and Job Satisfaction Survey", "Lauren Dowling", "row21")'>
+                                        <span class="material-symbols-outlined">
+                                            delete
+                                        </span>
+                                        Delete
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="ons-table__row row-relative" id="row22">
+                    <td class="ons-table__cell">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Draft V1</span>
+                        <a href="#">draft - TSJSS</a>
+                    </td>
+                    <td class="ons-table__cell">Teacher Support and Job Satisfaction Survey</td>
+                    <td class="ons-table__cell">Isabella Ramirez</td>
+                    <td class="ons-table__cell" data-date-value="2023-02-01">
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>1 Feb 2023
+                        <span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>12 Mar 2023
+                    </td>
+                    <td class="ons-table__cell"> Editor </td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button"
+                                    id="menubutton22"
+                                    class="actionsBtn"
+                                    aria-haspopup="true"
+                                    aria-controls="menu22" onclick='toggleMenu(event, "menubutton22", "menu22")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="menu22"
+                                role="menu"
+                                aria-labelledby="menubutton" class="menu">
+                                <li role="none" class="duplicate">
+                                    <span class="material-symbols-outlined">
+                                        content_copy
+                                    </span>
+                                    <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("menubutton22", "Draft V1", "draft - TSJSS")'>
+                                        Duplicate
+                                    </a>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton">
+                                        <span class="material-symbols-outlined">
+                                            link
+                                        </span>
+                                        Copy link
+                                    </button>
+                                </li>
+                                <li role="none">
+                                    <button role="menuitem" class="listItemButton" onclick='addToStarred("row22")'>
+                                        <span class="material-symbols-outlined">
+                                            star
+                                        </span>
+                                        Move to starred
+                                    </button>
+                                </li>
+                                <li role="none" class="ons-u-mb-no">
+                                    <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton22", "menu22", "Draft V1", "draft - TSJSS", "Teacher Support and Job Satisfaction Survey", "Isabella Ramirez", "row22")'>
+                                        <span class="material-symbols-outlined">
+                                            delete
+                                        </span>
+                                        Delete
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
 
 
 
@@ -2954,7 +4192,7 @@ function updatePagination() {
 
     // Calculate the total number of rows and pages
     var totalRows = filteredBasicRows.length;
-    var rowsPerPage = 8;
+    var rowsPerPage = 20;
     TotalPages = Math.ceil(totalRows / rowsPerPage); // Update the global TotalPages variable
 
     // Calculate the current page's rows
