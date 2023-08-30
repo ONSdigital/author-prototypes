@@ -2780,9 +2780,8 @@ layout: example/views/homepage
         var counter = parseInt(sessionStorage.getItem("questionnaireCounter")) || 0;
         var tbody = table.querySelector("tbody");
 
-        if(sessionStorage.getItem('Access_' + counter) === null){
         for (var i = 1; i <= counter; i++) {
-            if(sessionStorage.getItem("Buttonid_" + i)){
+            if(sessionStorage.getItem("Access_" + i)  == "Editor"){
             var row = tbody.insertRow(0);
             row.classList.add("ons-table__row", "row-relative");
             var ROWid = sessionStorage.getItem('rowID' + i);
@@ -2978,7 +2977,7 @@ layout: example/views/homepage
 
         }
         }
-    }
+    
 
 
 
