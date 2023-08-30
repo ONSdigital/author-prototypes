@@ -3092,6 +3092,7 @@ function ApplyFilters() {
     console.log('function still running');
 
     //Ensure more than one of each type of filter can't be applied
+    resetFilters();
 
     BeforeDayFilter = BeforeDayFilter.replace(/^0+/, "");
     BeforeMonthFilter = BeforeMonthFilter.replace(/^0+/, "");
@@ -3250,10 +3251,9 @@ function ApplyFilters() {
         console.log('setting to true');
     }
     
-    ApplySearch();
 
+    updatePagination();
 }
-
 
 //Function to reset filters
 function resetFilters(){
@@ -3553,7 +3553,7 @@ function removeFilterTag(tagId, filterType) {
 
 
     // Reapply all filters
-    ApplyFilters();
+    ApplySearch();
 }
 
 
@@ -3690,8 +3690,8 @@ function initializePagination() {
     });
 }
 
-{# not applying this one for now #}
-function applySearch() {
+
+function ApplySearch() {
     console.log('searching');
     var searchField = document.getElementById("search-field").value.trim().toLowerCase();
     sessionStorage.setItem('searchEntry', searchField);
@@ -3808,103 +3808,6 @@ function applySearch() {
 
         // ApplyFilters to hide rows that do not meet filter criteria
         ApplyFilters();
-}
-
-
-function ApplySearch() {
-    console.log('searching');
-    currentPage = 1; // Reset currentPage to 1
-    var searchField = document.getElementById("search-field").value.trim().toLowerCase();
-    if(searchField != ''){
-    console.log('Search input: '+ searchField);
-    sessionStorage.setItem('searchEntry', searchField);
-    var starredTable = document.getElementById("starred-table");
-    var basicTable = document.getElementById("basic-table");
-
-    // Get all rows in both tables
-    var starredRows = starredTable.querySelectorAll("tbody tr");
-    var basicRows = basicTable.querySelectorAll("tbody tr");
-
-    var numberOfQuestionnaires = 0;
-
-    // Loop through starredRows and add "filtered-out" class to rows that do not contain search input
-    starredRows.forEach(function (row) {
-    var cellText = row.cells[0].textContent.toLowerCase(); // Assuming you want to search the first column
-    if (!row.classList.contains('filtered-out')) {
-        if (!cellText.includes(searchField)) {
-            row.classList.add("filtered-out");
-            row.style.display = "none";
-        }
-        else{
-            numberOfQuestionnaires ++;
-        }
-    }
-    });
-
-    // Loop through basicRows and add "filtered-out" class to rows that do not contain search input
-    basicRows.forEach(function (row) {
-    var cellText = row.cells[0].textContent.toLowerCase(); // Assuming you want to search the first column
-    console.log(row);
-    console.log(cellText);
-    if (!row.classList.contains('filtered-out')) {
-        console.log('hi');
-        if (!cellText.includes(searchField)) {
-            row.classList.add("filtered-out");
-            row.style.display = "none";
-
-        }
-        else{
-            numberOfQuestionnaires ++;
-        }
-    }
-    });  
-
-    //Update the header
-    var searchEntry = document.getElementById("search-field").value;
-    var numberOfQuestionnairesElement = document.getElementById("SearchEntry");
-    // Append the value of searchEntry to the existing text content
-    if(searchEntry != ""){
-            numberOfQuestionnairesElement.textContent = ' with ' + '"' + searchEntry + '"';
-        }
-        if(searchEntry == ""){
-            numberOfQuestionnairesElement.textContent = '';
-        }
-        var updateSpan = document.querySelector('#NumberOfQuestionnaires span');
-        if (numberOfQuestionnaires != 1){
-            updateSpan.textContent = numberOfQuestionnaires + " questionnaires"
-        }
-        else{
-            updateSpan.textContent = numberOfQuestionnaires + " questionnaire"
-
-        }
-
-        //Hide the starred message if necessary
-            var starred = document.getElementById('starred-table');
-            var noOfRows = starred.querySelectorAll("tbody tr");
-            var noOfStarredRows = 0;
-
-            for (var i = 0; i < noOfRows.length; i++) {
-                var Row = noOfRows[i];
-                if (!Row.classList.contains("filtered-out")) {
-                    noOfStarredRows++;
-                }
-            }
-            console.log('Number of starred rows: ' + noOfStarredRows);
-
-        
-            {#
-            if (noOfStarredRows == 0 && searchEntry != '' && sessionStorage.getItem("projectFilter") == '' && sessionStorage.getItem("ownerFilter") == '' && sessionStorage.getItem("BeforeDayFilter") == '' && sessionStorage.getItem("AfterDayFilter") == '' && sessionStorage.getItem("Editor") == '' && sessionStorage.getItem("ViewOnly") == '' && sessionStorage.getItem("ReadOnly") == ''){
-                document.getElementById('StarredReplacement').style.display = 'none';
-                document.getElementById('AddedToStarred').style.display = 'none';
-            }
-            else if(noOfStarredRows == 0 && searchEntry == '' && sessionStorage.getItem("projectFilter") == '' && sessionStorage.getItem("ownerFilter") == '' && sessionStorage.getItem("BeforeDayFilter") == '' && sessionStorage.getItem("AfterDayFilter") == '' && sessionStorage.getItem("Editor") == '' && sessionStorage.getItem("ViewOnly") == '' && sessionStorage.getItem("ReadOnly") == ''){
-                document.getElementById('StarredReplacement').style.display = 'block';
-                document.getElementById('AddedToStarred').style.display = 'block';
-            }
-            #}
-    }   
-        updatePagination();
-            
 }
 
 function countUnfilteredRows(tableId) {
