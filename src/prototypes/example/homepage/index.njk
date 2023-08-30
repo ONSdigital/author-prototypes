@@ -8,6 +8,9 @@ layout: example/views/homepage
 {% from "components/table/_macro.njk" import onsTable %}
 {% from "components/input/_macro.njk" import onsInput %}
 {% from "components/radios/_macro.njk" import onsRadios %}
+{% from "components/panel/_macro.njk" import onsPanel %}
+{% from "components/list/_macro.njk" import onsList %}
+{% from "components/select/_macro.njk" import onsSelect %}
 
 {% block head %}
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -219,8 +222,6 @@ layout: example/views/homepage
     
 </style>
 
-
-
 {% endblock %}
 
 {% block main %}
@@ -380,6 +381,32 @@ layout: example/views/homepage
 </div>
 
 <div class="ons-grid">
+    <div class="ons-grid__col ons-col-12@m">
+        {% call onsPanel({
+                "title": 'There is a problem with this page',
+                "type": 'error',
+                "id": "date-error-panel",
+                "classes": "ons-u-d-no"
+        }) %}
+            {{
+                onsList({
+                    "element": 'ol',
+                    "itemsList": [
+                        {
+                            "text": 'Error message 1',
+                            "url": '#created-before-filter',
+                            "variants": "inPageLink"
+                        },
+                        {
+                            "text": 'Error message 2',
+                            "url": '#created-after-filter',
+                            "variants": "inPageLink"
+                        }
+                    ]
+                })
+            }}
+        {% endcall %}
+    </div>
     <div class="ons-grid__col ons-col-7@m">
         <h1 class="ons-u-mb-l">My questionnaires</h1>
     </div>
@@ -585,6 +612,15 @@ layout: example/views/homepage
                 <div>
                     <button class="clearFilterBtn" id="clearFiltersBtn" style="display:none;" onclick="clearInputValues()">Clear filters</button>
                 </div>
+            </div>
+
+            <div class="ons-field ons-u-mb-m">
+                <label class="ons-label" for="select-example" style="display:inline-block; margin-right:9px; font-size: 16px;">Sort by:</label>
+                <select id="select-example" name="select" class="ons-input ons-input--select" onchange="sortTables()" style="width:fit-content; display:inline-block; font-size: 16px;">
+                    <option value="" selected>Select an option</option>
+                    <option value="created-newest">Created (newest)</option>
+                    <option value="created-oldest">Created (oldest)</option>
+                </select>
             </div>
 
             <p class="ons-u-mb-xs" id='StarredReplacement'><span class="material-symbols-outlined ons-u-mr-xs" style="color:#707071">star</span><strong>Starred</strong></p>
@@ -2414,6 +2450,7 @@ layout: example/views/homepage
 
             currentPage = 1; // Reset currentPage to 1
             updatePagination();
+            sortTables();
 
     }
 
@@ -2543,27 +2580,512 @@ layout: example/views/homepage
             updateQuestionnaireCounter();
     }
 
+{# Hiding the error messages and panel onload #}
+
+    var errorPanel = document.getElementById("date-error-panel");
+    {#errorPanel.style.display = "none";#}
+    var fieldset = document.getElementById("created-before-filter");
+    var parentDiv = fieldset.closest(".ons-panel--error"); // Find the parent div with class ons-panel--error
+    var panelBodyDiv = fieldset.closest(".ons-panel__body");
+
+    if (parentDiv) {
+        // Add classes to the found parent div
+        parentDiv.classList.remove('ons-panel', 'ons-panel--error', 'ons-panel--no-title');
+        panelBodyDiv.classList.remove('ons-panel__body');
+
+        // Update the display style of the p element within the parent div
+        var errorP = parentDiv.querySelector('p');
+        if (errorP) {
+            errorP.style.display = 'none';
+        }
+
+        document.getElementById('created-before-filter-day').classList.remove('ons-input--error');
+        document.getElementById('created-before-filter-month').classList.remove('ons-input--error')
+        document.getElementById('created-before-filter-year').classList.remove('ons-input--error')
+
+    }
+
+    var Afterfieldset = document.getElementById("created-after-filter");
+    var AfterparentDiv = Afterfieldset.closest(".ons-panel--error"); // Find the parent div with class ons-panel--error
+    var AfterpanelBodyDiv = Afterfieldset.closest(".ons-panel__body");
+
+    if (AfterparentDiv) {
+        // Add classes to the found parent div
+        AfterparentDiv.classList.remove('ons-panel', 'ons-panel--error', 'ons-panel--no-title');
+        AfterpanelBodyDiv.classList.remove('ons-panel__body');
+
+        // Update the display style of the p element within the parent div
+        var AftererrorP = AfterparentDiv.querySelector('p');
+        if (AftererrorP) {
+            AftererrorP.style.display = 'none';
+        }
+
+        document.getElementById('created-after-filter-day').classList.remove('ons-input--error');
+        document.getElementById('created-after-filter-month').classList.remove('ons-input--error')
+        document.getElementById('created-after-filter-year').classList.remove('ons-input--error')
+
+    }
 
 function ApplyFilters() {
-        currentPage = 1; // Reset currentPage to 1
-        var projectFilterCapitals = document.getElementById("project-filter").value;
-        var ownerFilterCapitals = document.getElementById("owner-filter").value;
-        var projectFilter = document.getElementById("project-filter").value.toLowerCase();
-        var ownerFilter = document.getElementById("owner-filter").value.toLowerCase();
-        var BeforeDayFilter = document.getElementById("created-before-filter-day").value;
-        var BeforeMonthFilter = document.getElementById("created-before-filter-month").value;
-        var BeforeYearFilter = document.getElementById("created-before-filter-year").value;
-        var AfterDayFilter = document.getElementById("created-after-filter-day").value;
-        var AfterMonthFilter = document.getElementById("created-after-filter-month").value;
-        var AfterYearFilter = document.getElementById("created-after-filter-year").value;
-        var EditorAccess = document.getElementById("editor");
-        var ViewOnlyAccess = document.getElementById("view-only");
-        var ReadOnlyAccess = document.getElementById("read-only");
+    currentPage = 1; // Reset currentPage to 1
+    var projectFilterCapitals = document.getElementById("project-filter").value;
+    var ownerFilterCapitals = document.getElementById("owner-filter").value;
+    var projectFilter = document.getElementById("project-filter").value.toLowerCase();
+    var ownerFilter = document.getElementById("owner-filter").value.toLowerCase();
+    var BeforeDayFilter = document.getElementById("created-before-filter-day").value;
+    var BeforeMonthFilter = document.getElementById("created-before-filter-month").value;
+    var BeforeYearFilter = document.getElementById("created-before-filter-year").value;
+    var AfterDayFilter = document.getElementById("created-after-filter-day").value;
+    var AfterMonthFilter = document.getElementById("created-after-filter-month").value;
+    var AfterYearFilter = document.getElementById("created-after-filter-year").value;
+    var EditorAccess = document.getElementById("editor");
+    var ViewOnlyAccess = document.getElementById("view-only");
+    var ReadOnlyAccess = document.getElementById("read-only");
 
-        BeforeDayFilter = BeforeDayFilter.replace(/^0+/, "");
-        BeforeMonthFilter = BeforeMonthFilter.replace(/^0+/, "");
-        AfterDayFilter = AfterDayFilter.replace(/^0+/, "");
-        AfterMonthFilter = AfterMonthFilter.replace(/^0+/, "");
+    var errorsForDateBefore = false;
+    var errorsForDateAfter = false;
+
+    // Regular expressions to check for numeric values
+    const numericRegex = /^\d+$/;
+
+    // Check if at least one of the date filters is not empty
+    var isAnyDateFilterNotEmpty =
+        BeforeDayFilter.trim() !== "" ||
+        BeforeMonthFilter.trim() !== "" ||
+        BeforeYearFilter.trim() !== "";
+
+    // Check if all three "Before" date fields are not empty when one of them is not empty
+    if (isAnyDateFilterNotEmpty && (BeforeDayFilter.trim() === "" || BeforeMonthFilter.trim() === "" || BeforeYearFilter.trim() === "")) {
+        errorsForDateBefore = true;
+        console.log('... if');
+        // One or more date fields are not empty, but not all of them, add error classes and update error message
+
+        // Add classes to parent div and its parent
+        var fieldset = document.getElementById("created-before-filter");
+        var parentDiv = document.querySelector('fieldset#created-before-filter').closest('div');
+        var grandParentDiv = parentDiv.closest('div');
+
+        // Add classes to the found parent div
+        parentDiv.classList.add('ons-panel__body');
+        grandParentDiv.classList.add('ons-panel', 'ons-panel--error', 'ons-panel--no-title');
+
+        // Update the display style of the p element within the parent div
+        var errorP = parentDiv.querySelector('p');
+        if (errorP) {
+            errorP.style.display = 'block';
+
+            // Update the text content of the <strong> tag within the p element
+            var strongTag = errorP.querySelector('strong');
+            if (strongTag) {
+                strongTag.textContent = 'Enter the day, month and year that the questionnaire was created';
+            }
+        }
+
+        var errorPanel = document.getElementById("date-error-panel");
+        errorPanel.style.display = "block";
+        var firstListItem = document.querySelector("#date-error-panel li a");
+        firstListItem.textContent = 'Enter the day, month and year that the questionnaire after was created';
+
+
+        if (BeforeDayFilter.trim() === "") {
+            document.getElementById("created-before-filter-day").classList.add('ons-input--error');
+        } else {
+            document.getElementById("created-before-filter-day").classList.remove('ons-input--error');
+        }
+        if (BeforeMonthFilter.trim() === "") {
+            document.getElementById("created-before-filter-month").classList.add('ons-input--error');
+        } else {
+            document.getElementById("created-before-filter-month").classList.remove('ons-input--error');
+        }
+        if (BeforeYearFilter.trim() === "") {
+            document.getElementById("created-before-filter-year").classList.add('ons-input--error');
+        } else {
+            document.getElementById("created-before-filter-year").classList.remove('ons-input--error');
+        }
+    }
+
+    // Check if the Before filters are non-empty and match
+    else if (BeforeDayFilter !== "" && BeforeMonthFilter !== "" && BeforeYearFilter !== "") {
+        console.log('else if');
+        // Check for numeric values
+        if (!numericRegex.test(BeforeDayFilter) || !numericRegex.test(BeforeMonthFilter) || !numericRegex.test(BeforeYearFilter)) {
+            errorsForDateBefore = true;
+            console.log('Date before not a number');
+            // Add classes to parent div and its parent
+            var Fieldset = document.getElementById("created-before-filter");
+            var parentDiv = document.querySelector('fieldset#created-before-filter').closest('div');
+            console.log(parentDiv);
+            var grandParentDiv = parentDiv.parentNode;
+            console.log(grandParentDiv);
+
+            // Add classes to the found parent div
+            parentDiv.classList.add('ons-panel__body');
+            grandParentDiv.classList.add('ons-panel', 'ons-panel--error', 'ons-panel--no-title');
+
+            // Update the display style of the p element within the parent div
+            var errorP = parentDiv.querySelector('p');
+            if (errorP) {
+                errorP.style.display = 'block';
+
+                // Update the text content of the <strong> tag within the p element
+                var strongTag = errorP.querySelector('strong');
+                if (strongTag) {
+                    strongTag.textContent = 'Enter a number';
+                }
+            }
+
+            var errorPanel = document.getElementById("date-error-panel");
+            errorPanel.style.display = "block";
+            var firstListItem = document.querySelector("#date-error-panel li a");
+            firstListItem.textContent = 'Enter a number';
+
+            
+            if (!numericRegex.test(BeforeDayFilter)) {
+                document.getElementById("created-before-filter-day").classList.add('ons-input--error');
+            } else {
+                document.getElementById("created-before-filter-day").classList.remove('ons-input--error');
+            }
+            if (!numericRegex.test(BeforeMonthFilter)) {
+                document.getElementById("created-before-filter-month").classList.add('ons-input--error');
+            } else {
+                document.getElementById("created-before-filter-month").classList.remove('ons-input--error');
+            }
+            if (!numericRegex.test(BeforeYearFilter)) {
+                document.getElementById("created-before-filter-year").classList.add('ons-input--error');
+            } else {
+                document.getElementById("created-before-filter-year").classList.remove('ons-input--error');
+            }
+            
+            errorsForDateBefore = true;
+
+        }
+
+        // Check for valid ranges for day and month
+        else if (
+            parseInt(BeforeDayFilter) < 1 || parseInt(BeforeDayFilter) > 31 ||
+            parseInt(BeforeMonthFilter) < 1 || parseInt(BeforeMonthFilter) > 12
+        ) {
+            errorsForDateBefore = true;
+            console.log('this is executing too');
+
+            // Add classes to parent div and its parent
+            var fieldset = document.getElementById("created-before-filter");
+            var parentDiv = document.querySelector('fieldset#created-before-filter').closest('div');
+            var grandParentDiv = parentDiv.closest('div');
+
+            // Add classes to the found parent div
+            parentDiv.classList.add('ons-panel__body');
+            grandParentDiv.classList.add('ons-panel', 'ons-panel--error', 'ons-panel--no-title');
+
+            // Update the display style of the p element within the parent div
+            var errorP = parentDiv.querySelector('p');
+            if (errorP) {
+                errorP.style.display = 'block';
+
+                // Update the text content of the <strong> tag within the p element
+                var strongTag = errorP.querySelector('strong');
+                if (strongTag) {
+                    strongTag.textContent = 'Enter a valid date';
+                }
+            }
+
+            // Invalid day or month, update error message and add error classes
+            if (parseInt(BeforeDayFilter) < 1 || parseInt(BeforeDayFilter) > 31) {
+                document.getElementById("created-before-filter-day").classList.add('ons-input--error');
+            } else {
+                document.getElementById("created-before-filter-day").classList.remove('ons-input--error');
+            }
+            if (parseInt(BeforeMonthFilter) < 1 || parseInt(BeforeMonthFilter) > 12) {
+                document.getElementById("created-before-filter-month").classList.add('ons-input--error');
+            } else {
+                document.getElementById("created-before-filter-month").classList.remove('ons-input--error');
+            }
+            document.getElementById("created-before-filter-year").classList.remove('ons-input--error');
+            
+            var errorPanel = document.getElementById("date-error-panel");
+            errorPanel.style.display = "block";
+            var firstListItem = document.querySelector("#date-error-panel li a");
+            firstListItem.textContent = 'Enter a valid date';
+            
+            errorsForDateBefore = true;
+
+        }
+
+        else{
+
+            console.log('else');
+            var fieldset = document.getElementById("created-before-filter");
+            var parentDiv = fieldset.closest(".ons-panel--error"); // Find the parent div with class ons-panel--error
+            var panelBodyDiv = fieldset.closest(".ons-panel__body");
+
+            if (parentDiv) {
+                // Add classes to the found parent div
+                parentDiv.classList.remove('ons-panel', 'ons-panel--error', 'ons-panel--no-title');
+                panelBodyDiv.classList.remove('ons-panel__body');
+
+                // Update the display style of the p element within the parent div
+                var errorP = parentDiv.querySelector('p');
+                if (errorP) {
+                    errorP.style.display = 'none';
+                }
+
+                document.getElementById('created-before-filter-day').classList.remove('ons-input--error');
+                document.getElementById('created-before-filter-month').classList.remove('ons-input--error')
+                document.getElementById('created-before-filter-year').classList.remove('ons-input--error')
+
+            }
+        }
+    }
+
+        // Check if at least one of the date filters is not empty
+    var isAnyAfterDateFilterNotEmpty =
+        AfterDayFilter.trim() !== "" ||
+        AfterMonthFilter.trim() !== "" ||
+        AfterYearFilter.trim() !== "";
+
+    // Check if all three "After" date fields are not empty when one of them is not empty
+    if (isAnyAfterDateFilterNotEmpty && (AfterDayFilter.trim() === "" || AfterMonthFilter.trim() === "" || AfterYearFilter.trim() === "")) {
+        console.log('... if');
+        // One or more date fields are not empty, but not all of them, add error classes and update error message
+
+        // Add classes to parent div and its parent
+        var Afterfieldset = document.getElementById("created-after-filter");
+        var AfterparentDiv = document.querySelector('fieldset#created-after-filter').closest('div');
+        var AftergrandParentDiv = AfterparentDiv.closest('div');
+
+        // Add classes to the found parent div
+        AfterparentDiv.classList.add('ons-panel__body');
+        AftergrandParentDiv.classList.add('ons-panel', 'ons-panel--error', 'ons-panel--no-title');
+
+        // Update the display style of the p element within the parent div
+        var AftererrorP = AfterparentDiv.querySelector('p');
+        if (AftererrorP) {
+            AftererrorP.style.display = 'block';
+
+            // Update the text content of the <strong> tag within the p element
+            var AfterstrongTag = AftererrorP.querySelector('strong');
+            if (AfterstrongTag) {
+                AfterstrongTag.textContent = 'Enter the day, month and year that the questionnaire was created';
+            }
+        }
+
+        var errorPanel = document.getElementById("date-error-panel");
+        errorPanel.style.display = "block";
+        var firstListItem = document.querySelector("#date-error-panel li a");
+        if(errorsForDateBefore == true){
+            var secondChildLi = document.querySelector('#date-error-panel li:nth-child(2)');
+            var secondLink = secondChildLi.querySelector('a');
+            secondLink.textContent = 'Enter the day, month and year that the questionnaire after was created';
+            console.log('first already taken');
+        }
+        else{
+            errorPanel.style.display = "block";
+            var firstListItem = document.querySelector("#date-error-panel li a");
+            firstListItem.textContent = 'Enter the day, month and year that the questionnaire after was created';
+            console.log('first not taken');
+
+        }
+
+        if (AfterDayFilter.trim() === "") {
+            document.getElementById("created-after-filter-day").classList.add('ons-input--error');
+        } else {
+            document.getElementById("created-after-filter-day").classList.remove('ons-input--error');
+        }
+        if (AfterMonthFilter.trim() === "") {
+            document.getElementById("created-after-filter-month").classList.add('ons-input--error');
+        } else {
+            document.getElementById("created-after-filter-month").classList.remove('ons-input--error');
+        }
+        if (AfterYearFilter.trim() === "") {
+            document.getElementById("created-after-filter-year").classList.add('ons-input--error');
+        } else {
+            document.getElementById("created-after-filter-year").classList.remove('ons-input--error');
+        }
+        errorsForDateAfter = true; 
+    }
+
+    // Check if the After filters are non-empty and match
+    else if (AfterDayFilter !== "" && AfterMonthFilter !== "" && AfterYearFilter !== "") {
+        console.log('else if');
+        // Check for numeric values
+        if (!numericRegex.test(AfterDayFilter) || !numericRegex.test(AfterMonthFilter) || !numericRegex.test(AfterYearFilter)) {
+
+            // Add classes to parent div and its parent
+            var Afterfieldset = document.getElementById("created-after-filter");
+            var AfterparentDiv = document.querySelector('fieldset#created-after-filter').closest('div');
+            var AftergrandParentDiv = AfterparentDiv.closest('div');
+
+            // Add classes to the found parent div
+            AfterparentDiv.classList.add('ons-panel__body');
+            AftergrandParentDiv.classList.add('ons-panel', 'ons-panel--error', 'ons-panel--no-title');
+
+            // Update the display style of the p element within the parent div
+            var AftererrorP = AfterparentDiv.querySelector('p');
+            if (AftererrorP) {
+                AftererrorP.style.display = 'block';
+
+                // Update the text content of the <strong> tag within the p element
+                var AfterstrongTag = AftererrorP.querySelector('strong');
+                if (AfterstrongTag) {
+                    AfterstrongTag.textContent = 'Enter a number';
+                }
+            }
+
+            var errorPanel = document.getElementById("date-error-panel");
+            errorPanel.style.display = "block";
+            var firstListItem = document.querySelector("#date-error-panel li a");
+            if(errorsForDateBefore == true){
+                var secondChildLi = document.querySelector('#date-error-panel li:nth-child(2)');
+                var secondLink = secondChildLi.querySelector('a');
+                console.log('Second: not a number');
+                secondLink.textContent = 'Enter a number';
+            }
+            else{
+                errorPanel.style.display = "block";
+                var firstListItem = document.querySelector("#date-error-panel li a");
+                firstListItem.textContent = 'Enter a number';
+
+            }
+            
+            if (!numericRegex.test(AfterDayFilter)) {
+                document.getElementById("created-after-filter-day").classList.add('ons-input--error');
+            } else {
+                document.getElementById("created-after-filter-day").classList.remove('ons-input--error');
+            }
+            if (!numericRegex.test(AfterMonthFilter)) {
+                document.getElementById("created-after-filter-month").classList.add('ons-input--error');
+            } else {
+                document.getElementById("created-after-filter-month").classList.remove('ons-input--error');
+            }
+            if (!numericRegex.test(AfterYearFilter)) {
+                document.getElementById("created-after-filter-year").classList.add('ons-input--error');
+            } else {
+                document.getElementById("created-after-filter-year").classList.remove('ons-input--error');
+            }
+            errorsForDateAfter = true; 
+        }
+
+        // Check for valid ranges for day and month
+        else if (
+            parseInt(AfterDayFilter) < 1 || parseInt(AfterDayFilter) > 31 ||
+            parseInt(AfterMonthFilter) < 1 || parseInt(AfterMonthFilter) > 12
+        ) {
+            console.log('second got an input that is invalid');
+
+            // Add classes to parent div and its parent
+            var Afterfieldset = document.getElementById("created-after-filter");
+            var AfterparentDiv = document.querySelector('fieldset#created-after-filter').closest('div');
+            var AftergrandParentDiv = AfterparentDiv.closest('div');
+
+            // Add classes to the found parent div
+            AfterparentDiv.classList.add('ons-panel__body');
+            AftergrandParentDiv.classList.add('ons-panel', 'ons-panel--error', 'ons-panel--no-title');
+
+            // Update the display style of the p element within the parent div
+            var AftererrorP = AfterparentDiv.querySelector('p');
+            if (AftererrorP) {
+                AftererrorP.style.display = 'block';
+
+                // Update the text content of the <strong> tag within the p element
+                var AfterstrongTag = AftererrorP.querySelector('strong');
+                if (AfterstrongTag) {
+                    AfterstrongTag.textContent = 'Enter a valid date';
+                }
+            }
+
+            var errorPanel = document.getElementById("date-error-panel");
+            errorPanel.style.display = "block";
+            var firstListItem = document.querySelector("#date-error-panel li a");
+            if(errorsForDateBefore == true){
+                var secondChildLi = document.querySelector('#date-error-panel li:nth-child(2)');
+                var secondLink = secondChildLi.querySelector('a');
+                secondLink.textContent = 'Enter a valid date';
+            }
+            else{
+                errorPanel.style.display = "block";
+                var firstListItem = document.querySelector("#date-error-panel li a");
+                firstListItem.textContent = 'Enter a valid date';
+
+            
+
+                // Invalid day or month, update error message and add error classes
+                if (parseInt(AfterDayFilter) < 1 || parseInt(AfterDayFilter) > 31) {
+                    document.getElementById("created-after-filter-day").classList.add('ons-input--error');
+                } else {
+                    document.getElementById("created-after-filter-day").classList.remove('ons-input--error');
+                }
+                if (parseInt(AfterMonthFilter) < 1 || parseInt(AfterMonthFilter) > 12) {
+                    document.getElementById("created-after-filter-month").classList.add('ons-input--error');
+                } else {
+                    document.getElementById("created-after-filter-month").classList.remove('ons-input--error');
+                }
+                document.getElementById("created-after-filter-year").classList.remove('ons-input--error');
+                
+                var errorPanel = document.getElementById("date-error-panel");
+                errorPanel.style.display = "block";
+                var firstListItem = document.querySelector("#date-error-panel li a");
+                firstListItem.textContent = 'Enter a valid date';
+
+                errorsForDateAfter = true; 
+
+            }
+        }
+        else{
+
+            console.log('else');
+            var fieldset = document.getElementById("created-after-filter");
+            var parentDiv = fieldset.closest(".ons-panel--error"); // Find the parent div with class ons-panel--error
+            var panelBodyDiv = fieldset.closest(".ons-panel__body");
+
+            if (parentDiv) {
+                // Add classes to the found parent div
+                parentDiv.classList.remove('ons-panel', 'ons-panel--error', 'ons-panel--no-title');
+                panelBodyDiv.classList.remove('ons-panel__body');
+
+                // Update the display style of the p element within the parent div
+                var errorP = parentDiv.querySelector('p');
+                if (errorP) {
+                    errorP.style.display = 'none';
+                }
+
+                document.getElementById('created-after-filter-day').classList.remove('ons-input--error');
+                document.getElementById('created-after-filter-month').classList.remove('ons-input--error')
+                document.getElementById('created-after-filter-year').classList.remove('ons-input--error')
+
+            }
+        }
+    
+    }
+
+    if(errorsForDateBefore == true || errorsForDateAfter == true){
+        if(errorsForDateBefore == true && errorsForDateAfter == true){
+            var secondLiElement = document.querySelectorAll('.ons-list__item')[1];
+            secondLiElement.style.display = "list-item";
+            var ErrorPanelHeading = document.getElementById('alert');
+            ErrorPanelHeading.textContent = 'There are 2 problems with this page';
+        }
+        else{
+            console.log('only one error');
+            var secondLiElement = document.querySelectorAll('.ons-list__item')[1];
+            secondLiElement.style.display = "none";
+        }
+        var ErrorPanel = document.getElementById('date-error-panel');
+        ErrorPanel.classList.remove('ons-u-d-no');
+        ErrorPanel.classList.add('ons-u-mb-xl');
+        return;
+    }
+    else{
+        var ErrorPanel = document.getElementById('date-error-panel');
+        ErrorPanel.classList.add('ons-u-d-no');
+        ErrorPanel.classList.remove('ons-u-mb-xl');
+    }
+
+    console.log('function still running');
+
+    BeforeDayFilter = BeforeDayFilter.replace(/^0+/, "");
+    BeforeMonthFilter = BeforeMonthFilter.replace(/^0+/, "");
+    AfterDayFilter = AfterDayFilter.replace(/^0+/, "");
+    AfterMonthFilter = AfterMonthFilter.replace(/^0+/, "");
 
     function filterTable(tableId) {
         console.log('working');
@@ -3240,6 +3762,57 @@ function updateQuestionnaireCounter(){
     if(unfilteredRowsCount == 1){
         numberOfQuestionnairesElement.textContent = unfilteredRowsCount + ' questionnaire';
     }
+}
+
+function sortTables() {
+  // Get the select element
+  var select = document.getElementById('select-example');
+
+  // Get the selected option value
+  var selectedValue = select.value;
+
+  if(selectedValue == ""){
+    console.log('dont need to reorder');
+    return;
+  }
+
+  // Sort the first table (basic-table)
+  sortTable('basic-table', selectedValue);
+
+  // Sort the second table (starred-table)
+  sortTable('starred-table', selectedValue);
+}
+
+function sortTable(tableId, sortType) {
+  // Get the table element by its ID
+  var table = document.getElementById(tableId);
+
+  // Get all the rows in the tbody
+  var rows = Array.from(table.querySelector('tbody').querySelectorAll('tr'));
+
+  // Sort the rows based on the data-date-value of the 4th td element
+  rows.sort(function(a, b) {
+    var dateA = new Date(a.querySelector('td:nth-child(4)').getAttribute('data-date-value'));
+    var dateB = new Date(b.querySelector('td:nth-child(4)').getAttribute('data-date-value'));
+
+    if (sortType === 'created-newest') {
+      return dateB - dateA; // Sort in descending order (newest first)
+    } else if (sortType === 'created-oldest') {
+      return dateA - dateB; // Sort in ascending order (oldest first)
+    }
+  });
+
+  // Clear the current table body
+  var tbody = table.querySelector('tbody');
+  tbody.innerHTML = '';
+
+  // Append the sorted rows back to the table
+  for (var i = 0; i < rows.length; i++) {
+    tbody.appendChild(rows[i]);
+  }
+
+    currentPage = 1; // Reset currentPage to 1
+  updatePagination();
 }
 
 
