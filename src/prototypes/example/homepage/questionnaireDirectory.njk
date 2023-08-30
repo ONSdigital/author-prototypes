@@ -402,6 +402,32 @@ layout: example/views/homepage
 </div>
 
 <div class="ons-grid">
+    <div class="ons-grid__col ons-col-12@m">
+        {% call onsPanel({
+                "title": 'There is a problem with this page',
+                "type": 'error',
+                "id": "date-error-panel",
+                "classes": "ons-u-d-no"
+        }) %}
+            {{
+                onsList({
+                    "element": 'ol',
+                    "itemsList": [
+                        {
+                            "text": 'Error message 1',
+                            "url": '#created-before-filter',
+                            "variants": "inPageLink"
+                        },
+                        {
+                            "text": 'Error message 2',
+                            "url": '#created-after-filter',
+                            "variants": "inPageLink"
+                        }
+                    ]
+                })
+            }}
+        {% endcall %}
+    </div>
     <div class="ons-grid__col ons-col-7@m">
         <h1 class="ons-u-mb-l">Questionnaire directory</h1>
     </div>
@@ -2561,19 +2587,16 @@ function ApplyFilters() {
         }
     }
 
-    filterTable("starred-table");
     filterTable("basic-table");
 
     // Update the total count of unfiltered rows
     var basicTableCount = countUnfilteredRows("basic-table");
-    var starredTableCount = countUnfilteredRows("starred-table");
-    var unfilteredRowsCount = basicTableCount + starredTableCount;
     var numberOfQuestionnairesElement = document.querySelector('#NumberOfQuestionnaires span');
-    if(unfilteredRowsCount != 1){
-        numberOfQuestionnairesElement.textContent = unfilteredRowsCount + ' questionnaires';
+    if(basicTableCount != 1){
+        numberOfQuestionnairesElement.textContent = basicTableCount + ' questionnaires';
     }
-    if(unfilteredRowsCount == 1){
-        numberOfQuestionnairesElement.textContent = unfilteredRowsCount + ' questionnaire';
+    if(basicTableCount == 1){
+        numberOfQuestionnairesElement.textContent = basicTableCount + ' questionnaire';
     }
     
     // Save filter values in session storage
@@ -2653,12 +2676,6 @@ function clearInputValues() {
     document.getElementById("view-only-label").checked = false;
     document.getElementById("read-only-label").checked = false;
     
-    // Remove 'filtered-out' class from all rows in starred-table
-    let starredRows = document.querySelectorAll('#starred-table .ons-table__row');
-    starredRows.forEach(function (row) {
-        row.classList.remove('filtered-out');
-    });
-
     // Remove 'filtered-out' class from all rows in basic-table
     let basicRows = document.querySelectorAll('#basic-table .ons-table__row');
     basicRows.forEach(function (row) {
@@ -2857,7 +2874,6 @@ function removeFilterTag(tagId, filterType) {
     var TotalPages; // Declare TotalPages as a global variable
 
 function updatePagination() {
-    var starredTable = document.getElementById("starred-table");
     var basicTable = document.getElementById("basic-table");
     var nextButton = document.getElementById("next");
     var previousButton = document.getElementById("previous");
@@ -2865,24 +2881,19 @@ function updatePagination() {
     var previousPaginationLabel = previousButton.querySelector("span.ons-content-pagination__link-label");
 
     // Get the <tbody> elements for both tables
-    var starredTBody = starredTable.querySelector("tbody");
     var basicTBody = basicTable.querySelector("tbody");
 
     // Get all rows in both tables
-    var starredRows = starredTBody.querySelectorAll("tr");
     var basicRows = basicTBody.querySelectorAll("tr");
 
     // Filter rows and add them to respective arrays
-    var filteredStarredRows = Array.from(starredRows).filter(function (row) {
-        return !row.classList.contains("filtered-out");
-    });
 
     var filteredBasicRows = Array.from(basicRows).filter(function (row) {
         return !row.classList.contains("filtered-out");
     });
 
     // Calculate the total number of rows and pages
-    var totalRows = filteredStarredRows.length + filteredBasicRows.length;
+    var totalRows = filteredBasicRows.length;
     var rowsPerPage = 8;
     TotalPages = Math.ceil(totalRows / rowsPerPage); // Update the global TotalPages variable
 
@@ -2890,17 +2901,8 @@ function updatePagination() {
     var startIndex = (currentPage - 1) * rowsPerPage;
     var endIndex = startIndex + rowsPerPage;
 
-    // Display rows on the current page
-    for (var i = 0; i < filteredStarredRows.length; i++) {
-        if (i >= startIndex && i < endIndex) {
-        filteredStarredRows[i].style.display = "table-row";
-        } else {
-        filteredStarredRows[i].style.display = "none";
-        }
-    }
-
     for (var j = 0; j < filteredBasicRows.length; j++) {
-        if (i + j >= startIndex && i + j < endIndex) {
+        if (j >= startIndex && j < endIndex) {
         filteredBasicRows[j].style.display = "table-row";
         } else {
         filteredBasicRows[j].style.display = "none";
@@ -2925,35 +2927,8 @@ function updatePagination() {
     previousButton.style.display = currentPage > 1 ? "block" : "none";
 
     // Hide the tables if no rows are displayed
-    starredTable.style.display = filteredStarredRows.some(row => row.style.display === "table-row") ? "table" : "none";
     basicTable.style.display = filteredBasicRows.some(row => row.style.display === "table-row") ? "table" : "none";
 
-    //Hide the starred message if necessary
-    var starred = document.getElementById('starred-table');
-    var noOfRows = starred.querySelectorAll("tbody tr");
-    var noOfStarredRows = 0;
-
-    for (var i = 0; i < noOfRows.length; i++) {
-        var Row = noOfRows[i];
-        if (!Row.classList.contains("filtered-out")) {
-            noOfStarredRows++;
-        }
-    }
-    console.log('Number of starred rows: ' + noOfStarredRows);
-
-    if (sessionStorage.length !== 0 && noOfStarredRows == 0 && (sessionStorage.getItem('searchEntry') != '' || (sessionStorage.getItem("projectFilter") != '' || sessionStorage.getItem("ownerFilter") != '' || sessionStorage.getItem("BeforeDayFilter") != '' || sessionStorage.getItem("AfterDayFilter") != '' || sessionStorage.getItem("Editor") != '' || sessionStorage.getItem("ViewOnly") != '' || sessionStorage.getItem("ReadOnly") != '' ))){
-        console.log('getting rid');
-        document.getElementById('StarredReplacement').style.display = 'none';
-        document.getElementById('AddedToStarred').style.display = 'none';
-    }
-    else if(noOfStarredRows != 0){
-        document.getElementById('StarredReplacement').style.display = 'none';
-        document.getElementById('AddedToStarred').style.display = 'none';
-    }
-    else{
-        document.getElementById('StarredReplacement').style.display = 'block';
-        document.getElementById('AddedToStarred').style.display = 'block';
-    }
 }
 
     // Function to initialize the pagination
@@ -2989,31 +2964,20 @@ function ApplySearch() {
     console.log('searching');
     var searchField = document.getElementById("search-field").value.trim().toLowerCase();
     sessionStorage.setItem('searchEntry', searchField);
-    var starredTable = document.getElementById("starred-table");
     var basicTable = document.getElementById("basic-table");
 
     // Get all rows in both tables
-    var starredRows = starredTable.querySelectorAll("tbody tr");
     var basicRows = basicTable.querySelectorAll("tbody tr");
 
     // Remove the filtered out classes so search can be restarted
-        starredRows.forEach(function (row) {
-        row.classList.remove("filtered-out");
-        });
+
 
         basicRows.forEach(function (row) {
         row.classList.remove("filtered-out");
         });
 
         // Loop through starredRows and add "filtered-out" class to rows that do not contain search input
-        starredRows.forEach(function (row) {
-        var cellText = row.cells[0].textContent.toLowerCase(); // Assuming you want to search the first column
-        if (cellText.includes(searchField)) {
-            row.classList.remove("filtered-out");
-        } else {
-            row.classList.add("filtered-out");
-        }
-        });
+
 
         // Loop through basicRows and add "filtered-out" class to rows that do not contain search input
         basicRows.forEach(function (row) {
@@ -3074,32 +3038,6 @@ function ApplySearch() {
             document.getElementById("read-only").checked = false;
         }
 
-        //Hide the starred message if necessary
-            var starred = document.getElementById('starred-table');
-            var noOfRows = starred.querySelectorAll("tbody tr");
-            var noOfStarredRows = 0;
-
-            for (var i = 0; i < noOfRows.length; i++) {
-                var Row = noOfRows[i];
-                if (!Row.classList.contains("filtered-out")) {
-                    noOfStarredRows++;
-                }
-            }
-            console.log('Number of starred rows: ' + noOfStarredRows);
-
-        
-            {#
-            if (noOfStarredRows == 0 && searchEntry != '' && sessionStorage.getItem("projectFilter") == '' && sessionStorage.getItem("ownerFilter") == '' && sessionStorage.getItem("BeforeDayFilter") == '' && sessionStorage.getItem("AfterDayFilter") == '' && sessionStorage.getItem("Editor") == '' && sessionStorage.getItem("ViewOnly") == '' && sessionStorage.getItem("ReadOnly") == ''){
-                document.getElementById('StarredReplacement').style.display = 'none';
-                document.getElementById('AddedToStarred').style.display = 'none';
-            }
-            else if(noOfStarredRows == 0 && searchEntry == '' && sessionStorage.getItem("projectFilter") == '' && sessionStorage.getItem("ownerFilter") == '' && sessionStorage.getItem("BeforeDayFilter") == '' && sessionStorage.getItem("AfterDayFilter") == '' && sessionStorage.getItem("Editor") == '' && sessionStorage.getItem("ViewOnly") == '' && sessionStorage.getItem("ReadOnly") == ''){
-                document.getElementById('StarredReplacement').style.display = 'block';
-                document.getElementById('AddedToStarred').style.display = 'block';
-            }
-            #}
-            
-
         // ApplyFilters to hide rows that do not meet filter criteria
         ApplyFilters();
 }
@@ -3122,14 +3060,12 @@ function countUnfilteredRows(tableId) {
 function updateQuestionnaireCounter(){
     // Update the total count of unfiltered rows
     var basicTableCount = countUnfilteredRows("basic-table");
-    var starredTableCount = countUnfilteredRows("starred-table");
-    var unfilteredRowsCount = basicTableCount + starredTableCount;
     var numberOfQuestionnairesElement = document.querySelector('#NumberOfQuestionnaires span');
-    if(unfilteredRowsCount != 1){
-        numberOfQuestionnairesElement.textContent = unfilteredRowsCount + ' questionnaires';
+    if(basicTableCount != 1){
+        numberOfQuestionnairesElement.textContent = basicTableCount + ' questionnaires';
     }
-    if(unfilteredRowsCount == 1){
-        numberOfQuestionnairesElement.textContent = unfilteredRowsCount + ' questionnaire';
+    if(basicTableCount == 1){
+        numberOfQuestionnairesElement.textContent = basicTableCount + ' questionnaire';
     }
 }
 
@@ -3148,8 +3084,6 @@ function sortTables() {
   // Sort the first table (basic-table)
   sortTable('basic-table', selectedValue);
 
-  // Sort the second table (starred-table)
-  sortTable('starred-table', selectedValue);
 }
 
 function sortTable(tableId, sortType) {
