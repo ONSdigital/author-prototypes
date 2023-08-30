@@ -8,6 +8,10 @@ layout: example/views/homepage
 {% from "components/table/_macro.njk" import onsTable %}
 {% from "components/input/_macro.njk" import onsInput %}
 {% from "components/breadcrumbs/_macro.njk" import onsBreadcrumbs %}
+{% from "components/radios/_macro.njk" import onsRadios %}
+{% from "components/panel/_macro.njk" import onsPanel %}
+{% from "components/list/_macro.njk" import onsList %}
+{% from "components/select/_macro.njk" import onsSelect %}
 
 {% block head %}
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -252,7 +256,7 @@ layout: example/views/homepage
             {{
                 onsButton({
                     "text": 'Create questionnaire',
-                    "url": '/prototypes/example/homepage/test/create/enterDetails.html'            
+                    "url": '/prototypes/example/homepage/create/enterDetails.html'            
                 })
             }}
         </div>
@@ -398,12 +402,12 @@ layout: example/views/homepage
                 }}
 
                 {{
-                    onsCheckboxes({
+                    onsRadios({
                         "legend": "Access",
                         "name": "contact",
                         "borderless": true,
                         "classes": "ons-u-mb-s",
-                        "checkboxes": [
+                        "radios": [
                             {
                                 "id": "editor",
                                 "label": {

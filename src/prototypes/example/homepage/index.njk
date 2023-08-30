@@ -2303,7 +2303,7 @@ function toggleMenu(event, Buttonid, ULid) {
 
 
 
-    function confirmDeletion(Buttonid, ULid, shortcode, title, project, owner, rowId){
+function confirmDeletion(Buttonid, ULid, shortcode, title, project, owner, rowId){
         console.log('confirm deletion');
         toggleMenu(event, Buttonid, ULid);
         var container = document.getElementById('modalContainer');
@@ -2359,15 +2359,15 @@ function toggleMenu(event, Buttonid, ULid) {
             
 
 
-    }
+}
 
-    function cancelDeletion(){
-        console.log('hello');
-        var container = document.getElementById('modalContainer');
-        container.style.display = "none";
-        var modal = document.getElementById('modalDialog');
-        modal.style.display = "none";
-    }
+function cancelDeletion(){
+    console.log('hello');
+    var container = document.getElementById('modalContainer');
+    container.style.display = "none";
+    var modal = document.getElementById('modalDialog');
+    modal.style.display = "none";
+}
 
 
 {# Updating number of questionnaires #}
