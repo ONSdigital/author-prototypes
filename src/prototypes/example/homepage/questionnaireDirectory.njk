@@ -388,7 +388,7 @@ layout: example/views/homepage
 
       </div>
       <div class="ons-u-fr">
-        <button type="button" class="ons-btn ons-btn--secondary ons-u-mt-s" onclick="cancelDeletion()">
+        <button type="button" class="ons-btn ons-btn--secondary ons-u-mt-s" onclick="cancelAdd()">
             <span class="ons-btn__inner"><span class="ons-btn__text">Cancel</span>
             </span>
         </button>
@@ -754,6 +754,54 @@ layout: example/views/homepage
                         </div>
                     </td>
                 </tr>
+                <tr class="ons-table__row row-relative" id="VOrow3">
+                    <td class="ons-table__cell"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">JDES</span><a href="#">DRAFT 1 - Junior Doctor Experiences Survey</a></td>
+                    <td class="ons-table__cell">Junior Doctors Survey</td>
+                    <td class="ons-table__cell">Melissa Court</td>
+                    <td class="ons-table__cell" data-date-value="2023-08-31"> <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>31 Aug 2023<span class="ons-u-db ons-u-fs-s ons-u-mb-xs ons-u-mt-xs">Last opened:</span>31 Aug 2023</td>
+                    <td class="ons-table__cell">View-only</td>
+                    <td class="ons-table__cell">
+                        <div class="menu-container">
+                            <button type="button"
+                                    id="VOmenubutton3"
+                                    class="actionsBtn"
+                                    aria-haspopup="true"
+                                    aria-controls="VOmenu3" onclick='toggleMenu(event, "VOmenubutton3", "VOmenu3")'>
+                                Actions
+                                <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+                            </button>
+                            <ul id="VOmenu3"
+                                role="menu"
+                                aria-labelledby="VOmenubutton3" class="menu">
+                                <li role="none" class="duplicate">
+                                <span class="material-symbols-outlined">
+                                    content_copy
+                                    </span>
+                                <a role="menuitem" class="listItemLink" href="#" onclick='duplicate("VOmenubutton3", "JDES", "DRAFT 1 - Junior Doctor Experiences Survey")'>
+                                    Duplicate
+                                </a>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton">
+                                    <span class="material-symbols-outlined">
+                                    link
+                                    </span>
+                                    Copy link
+                                </button>
+                                </li>
+                                <li role="none">
+                                <button role="menuitem" class="listItemButton" id="addToBtnID3" onclick='addToMyQuestionnaires("VOrow3", "VOmenubutton3", "VOmenu3", "JDES", "DRAFT 1 - Junior Doctor Experiences Survey", "Junior Doctors Survey",  "Melissa Court" ,  "45169" ,  "45169" ,  "View-only" ,  "addToBtnID3")'>
+                                    <span class="material-symbols-outlined">
+                                        bookmark_add
+                                    </span>
+                                    Add to My questionnaires
+                                </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+
 
 
                     <tr class="ons-table__row row-relative" id="row1">
@@ -1697,7 +1745,7 @@ layout: example/views/homepage
 
 
 
-    function toggleMenu(event, Buttonid, ULid) {
+function toggleMenu(event, Buttonid, ULid) {
     event.stopPropagation(); 
     console.log('executing');
         console.log('Buttonid:', Buttonid);
@@ -1717,84 +1765,84 @@ layout: example/views/homepage
         svgIcon.style.transform = "rotate(90deg)"; 
         svgIcon.style.padding = "0 0 0 0"; 
     }
-    }
+}
 
-    function closeMenuOnClickOutside(ULid, event) {
+function closeMenuOnClickOutside(ULid, event) {
     var menu = document.getElementById(ULid);
     console.log(menu);
-    
+
     if (!menu.contains(event.target)) {
         menu.style.display = "none";
         document.removeEventListener("click", closeMenuOnClickOutside.bind(null, ULid));
     }
+}
+
+
+function confirmDeletion(Buttonid, ULid, shortcode, title, project, owner, rowId){
+    console.log('confirm deletion');
+    toggleMenu(event, Buttonid, ULid);
+    var container = document.getElementById('modalContainer');
+    container.style.display = "block";
+    var modal = document.getElementById('modalDialog');
+    modal.style.display = "block";
+
+    {# Updates the values in the modal #}
+    var shortcodeSpan = document.querySelector('#shortcode .ons-summary__text');
+    shortcodeSpan.textContent = shortcode;
+    var titleSpan = document.querySelector('#title .ons-summary__text');
+    titleSpan.textContent = title;
+    var projectSpan = document.querySelector('#project .ons-summary__text');
+    if (project != 'null'){
+        console.log(project);
+        projectSpan.textContent = project;
     }
+    else{
+        projectSpan.textContent = '';
 
+    }
+    var ownerSpan = document.querySelector('#owner .ons-summary__text');
+    ownerSpan.textContent = owner;
+    console.log('owner is:' + owner);
+    
+    
 
-    function confirmDeletion(Buttonid, ULid, shortcode, title, project, owner, rowId){
-        console.log('confirm deletion');
-        toggleMenu(event, Buttonid, ULid);
-        var container = document.getElementById('modalContainer');
-        container.style.display = "block";
-        var modal = document.getElementById('modalDialog');
-        modal.style.display = "block";
+    var deleteButton = document.getElementById('deleteButton');
+    deleteButton.addEventListener('click', function() {
 
-        {# Updates the values in the modal #}
-        var shortcodeSpan = document.querySelector('#shortcode .ons-summary__text');
-        shortcodeSpan.textContent = shortcode;
-        var titleSpan = document.querySelector('#title .ons-summary__text');
-        titleSpan.textContent = title;
-        var projectSpan = document.querySelector('#project .ons-summary__text');
-        if (project != 'null'){
-            console.log(project);
-            projectSpan.textContent = project;
+    var match = Buttonid.match(/_(\d+)$/);
+    if (match) {
+        var numberAfterUnderscore = match[1];
+
+        sessionStorage.removeItem("Buttonid_" + numberAfterUnderscore);
+        sessionStorage.removeItem("ULid" + numberAfterUnderscore);
+        if(sessionStorage.getItem("Shortcode_" + numberAfterUnderscore)){
+            sessionStorage.removeItem("Shortcode_" + numberAfterUnderscore);
         }
-        else{
-            projectSpan.textContent = '';
-
+        sessionStorage.removeItem("Title_" + numberAfterUnderscore);
+        if(sessionStorage.getItem("Project_" + numberAfterUnderscore)){
+            sessionStorage.removeItem("Project_" + numberAfterUnderscore);
         }
-        var ownerSpan = document.querySelector('#owner .ons-summary__text');
-        ownerSpan.textContent = owner;
-        console.log('owner is:' + owner);
+        sessionStorage.removeItem("rowID" + numberAfterUnderscore);
+
+        {#deleteQuestionnaire(Buttonid, ULid, shortcode, title, project, owner, rowId);#}
+
+    }
+    deleteQuestionnaire(rowId);
+
+
+    });
         
-        
-
-        var deleteButton = document.getElementById('deleteButton');
-        deleteButton.addEventListener('click', function() {
-
-        var match = Buttonid.match(/_(\d+)$/);
-        if (match) {
-            var numberAfterUnderscore = match[1];
-
-            sessionStorage.removeItem("Buttonid_" + numberAfterUnderscore);
-            sessionStorage.removeItem("ULid" + numberAfterUnderscore);
-            if(sessionStorage.getItem("Shortcode_" + numberAfterUnderscore)){
-                sessionStorage.removeItem("Shortcode_" + numberAfterUnderscore);
-            }
-            sessionStorage.removeItem("Title_" + numberAfterUnderscore);
-            if(sessionStorage.getItem("Project_" + numberAfterUnderscore)){
-                sessionStorage.removeItem("Project_" + numberAfterUnderscore);
-            }
-            sessionStorage.removeItem("rowID" + numberAfterUnderscore);
-
-            {#deleteQuestionnaire(Buttonid, ULid, shortcode, title, project, owner, rowId);#}
-
-        }
-        deleteQuestionnaire(rowId);
 
 
-        });
-            
+}
 
-
-    }
-
-    function cancelDeletion(){
-        console.log('hello');
-        var container = document.getElementById('modalContainer');
-        container.style.display = "none";
-        var modal = document.getElementById('modalDialog');
-        modal.style.display = "none";
-    }
+function cancelDeletion(){
+    console.log('hello');
+    var container = document.getElementById('modalContainer');
+    container.style.display = "none";
+    var modal = document.getElementById('modalDialog');
+    modal.style.display = "none";
+}
 
 
 {# Updating number of questionnaires #}
@@ -2012,6 +2060,13 @@ layout: example/views/homepage
 
     }
 
+function cancelAdd(){
+    console.log('hello');
+    var container = document.getElementById('modalContainer2');
+    container.style.display = "none";
+    var modal = document.getElementById('modalDialog2');
+    modal.style.display = "none";
+}
 
 function ApplyFilters() {
     currentPage = 1; // Reset currentPage to 1
