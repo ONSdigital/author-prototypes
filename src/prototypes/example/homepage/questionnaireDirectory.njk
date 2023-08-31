@@ -2781,7 +2781,7 @@ layout: example/views/homepage
         var tbody = table.querySelector("tbody");
 
         for (var i = 1; i <= counter; i++) {
-            if(sessionStorage.getItem("Access_" + i)  == "Editor"){
+            if((sessionStorage.getItem("Access_" + i)  == "Editor") && (sessionStorage.getItem("NoDisplayInDirectory_" + i) === null) ){
             var row = tbody.insertRow(0);
             row.classList.add("ons-table__row", "row-relative");
             var ROWid = sessionStorage.getItem('rowID' + i);
