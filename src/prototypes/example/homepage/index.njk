@@ -219,6 +219,10 @@ layout: example/views/homepage
         color:  #206095;
         border-radius: 3px;
     }
+
+    .ons-table__header, .ons-table__cell{
+        padding: .5rem 0rem .5rem 2rem;
+    }
     
 </style>
 
@@ -644,7 +648,7 @@ layout: example/views/homepage
                 <caption class="ons-table__caption"><span class="material-symbols-outlined ons-u-mr-xs" style="color:#707071">star</span>Starred</caption>
                 <thead class="ons-table__head ons-u-d-no">
                     <tr class="ons-table__row">
-                    <th scope="col" class="ons-table__header">
+                    <th scope="col" class="ons-table__header" style="width: 260px;">
                         <span class="ons-table__header-text">Short code and title</span>
                     </th>
                     <th scope="col" class="ons-table__header">
@@ -653,7 +657,7 @@ layout: example/views/homepage
                     <th scope="col" class="ons-table__header">
                         <span class="ons-table__header-text">Owner</span>
                     </th>
-                    <th scope="col" class="ons-table__header">
+                    <th scope="col" class="ons-table__header" style="width: 150px;">
                         <span class="ons-table__header-text">Activity</span>
                     </th>
                     <th scope="col" class="ons-table__header">
@@ -675,7 +679,7 @@ layout: example/views/homepage
                 <caption class="ons-table__caption">Non-starred</caption>
                 <thead class="ons-table__head">
                     <tr class="ons-table__row">
-                    <th scope="col" class="ons-table__header">
+                    <th scope="col" class="ons-table__header" style="width: 260px;">
                         <span class="ons-table__header-text">Short code and title</span>
                     </th>
                     <th scope="col" class="ons-table__header">
@@ -684,7 +688,7 @@ layout: example/views/homepage
                     <th scope="col" class="ons-table__header">
                         <span class="ons-table__header-text">Owner</span>
                     </th>
-                    <th scope="col" class="ons-table__header">
+                    <th scope="col" class="ons-table__header" style="width: 150px;">
                         <span class="ons-table__header-text">Activity</span>
                     </th>
                     <th scope="col" class="ons-table__header">
@@ -2237,7 +2241,7 @@ layout: example/views/homepage
                 var deleteButton = document.createElement("button");
                 deleteButton.role = "menuitem";
                 deleteButton.className = "listItemButton";
-                deleteButton.setAttribute("onclick", `confirmDeletion('${sessionStorage.getItem('Buttonid_' + i)}', '${sessionStorage.getItem('ULid' + i)}', '${sessionStorage.getItem('Shortcode_' + i)}', '${sessionStorage.getItem('Title_' + i)}', '${sessionStorage.getItem('Project_' + i)}', 'Lauren Dowling', '${sessionStorage.getItem('rowID' + i)}')`);
+                deleteButton.setAttribute("onclick", `confirmDeletion('${sessionStorage.getItem('Buttonid_' + i)}', '${sessionStorage.getItem('ULid' + i)}', '${sessionStorage.getItem('Shortcode_' + i)}', '${sessionStorage.getItem('Title_' + i)}', '${sessionStorage.getItem('Project_' + i)}', '${sessionStorage.getItem('Owner_' + i)}', '${sessionStorage.getItem('rowID' + i)}')`);
 
                 var deleteSpan = document.createElement("span");
                 deleteSpan.className = "material-symbols-outlined";
