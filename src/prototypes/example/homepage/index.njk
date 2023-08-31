@@ -367,7 +367,7 @@ layout: example/views/homepage
 
       </div>
       <div class="ons-u-fr">
-        <button type="button" class="ons-btn ons-btn--secondary ons-u-mt-s" onclick="cancelDeletion()">
+        <button type="button" class="ons-btn ons-btn--secondary ons-u-mt-s" onclick="cancelAdd()">
             <span class="ons-btn__inner"><span class="ons-btn__text">Cancel</span>
             </span>
         </button>
@@ -501,7 +501,7 @@ layout: example/views/homepage
                     "moreResults": "Continue entering to improve suggestions",
                     "resultsTitle": "Suggestions",
                     "resultsTitleId": "country-of-birth-suggestions",
-                    "autosuggestData": "/owners.json",
+                    "autosuggestData": "https://gist.github.com/LaurenDowling/e5582f6edb222f858ebe5494594ced44.js",
                     "noResults": "No suggestions found. You can enter your own answer",
                     "typeMore": "Continue entering to get suggestions",
                     "attributes": {
@@ -2223,7 +2223,7 @@ layout: example/views/homepage
                 removeFromMyQuestionnairesLi.appendChild(removeFromMyQuestionnairesButton);
                 ul.appendChild(removeFromMyQuestionnairesLi);
 
-                removeFromMyQuestionnairesButton.setAttribute("onclick", `addToMyQuestionnaires('${sessionStorage.getItem('rowID' + i)}','${sessionStorage.getItem('Buttonid_' + i)}', '${sessionStorage.getItem('ULid' + i)}', '${sessionStorage.getItem('Shortcode_' + i)}', '${sessionStorage.getItem('Title_' + i)}', '${sessionStorage.getItem('Project_' + i)}', 'Lauren Dowling', '${sessionStorage.getItem('DateCreated_' + i)}', '${sessionStorage.getItem('DateLastOpened_' + i)}', '${sessionStorage.getItem('Access_' + i)}', '${sessionStorage.getItem('AddToBtnID_' + i)}')`);
+                removeFromMyQuestionnairesButton.setAttribute("onclick", `addToMyQuestionnaires('${sessionStorage.getItem('rowID' + i)}','${sessionStorage.getItem('Buttonid_' + i)}', '${sessionStorage.getItem('ULid' + i)}', '${sessionStorage.getItem('Shortcode_' + i)}', '${sessionStorage.getItem('Title_' + i)}', '${sessionStorage.getItem('Project_' + i)}', '${sessionStorage.getItem('Owner_' + i)}', '${sessionStorage.getItem('DateCreated_' + i)}', '${sessionStorage.getItem('DateLastOpened_' + i)}', '${sessionStorage.getItem('Access_' + i)}', '${sessionStorage.getItem('AddToBtnID_' + i)}')`);
 
             }
 
@@ -2599,6 +2599,14 @@ function cancelDeletion(){
 
         }
 
+    }
+
+    function cancelAdd(){
+        console.log('hello');
+        var container = document.getElementById('modalContainer2');
+        container.style.display = "none";
+        var modal = document.getElementById('modalDialog2');
+        modal.style.display = "none";
     }
 
 
@@ -3598,7 +3606,20 @@ function updatePagination() {
     }
     console.log('Number of starred rows: ' + noOfStarredRows);
 
-    if (sessionStorage.length !== 0 && noOfStarredRows == 0 && (sessionStorage.getItem('searchEntry') != '' || (sessionStorage.getItem("projectFilter") != '' || sessionStorage.getItem("ownerFilter") != '' || sessionStorage.getItem("BeforeDayFilter") != '' || sessionStorage.getItem("AfterDayFilter") != '' || sessionStorage.getItem("Editor") != '' || sessionStorage.getItem("ViewOnly") != '' || sessionStorage.getItem("ReadOnly") != '' ))){
+if (
+  sessionStorage.length !== 0 &&
+  noOfStarredRows == 0 &&
+  (
+    (sessionStorage.getItem('searchEntry') !== null && sessionStorage.getItem('searchEntry') !== '') ||
+    (sessionStorage.getItem('projectFilter') !== null && sessionStorage.getItem('projectFilter') !== '') ||
+    (sessionStorage.getItem('ownerFilter') !== null && sessionStorage.getItem('ownerFilter') !== '') ||
+    (sessionStorage.getItem('BeforeDayFilter') !== null && sessionStorage.getItem('BeforeDayFilter') !== '') ||
+    (sessionStorage.getItem('AfterDayFilter') !== null && sessionStorage.getItem('AfterDayFilter') !== '') ||
+    (sessionStorage.getItem('Editor') !== null && sessionStorage.getItem('Editor') !== '') ||
+    (sessionStorage.getItem('ViewOnly') !== null && sessionStorage.getItem('ViewOnly') !== '') ||
+    (sessionStorage.getItem('ReadOnly') !== null && sessionStorage.getItem('ReadOnly') !== '')
+  )
+) {        
         console.log('getting rid');
         document.getElementById('StarredReplacement').style.display = 'none';
         document.getElementById('AddedToStarred').style.display = 'none';
@@ -3847,6 +3868,17 @@ function sortTable(tableId, sortType) {
 // Call the function to initialize the pagination
 initializePagination();
 
+sessionStorage.removeItem('projectFilter');
+sessionStorage.removeItem('ownerFilter');
+sessionStorage.removeItem('BeforeDayFilter');
+sessionStorage.removeItem('BeforeMonthFilter');
+sessionStorage.removeItem('BeforeYearFilter');
+sessionStorage.removeItem('AfterDayFilter');
+sessionStorage.removeItem('AfterMonthFilter');
+sessionStorage.removeItem('AfterYearFilter');
+sessionStorage.removeItem('Editor');
+sessionStorage.removeItem('ViewOnly');
+sessionStorage.removeItem('ReadOnly');
 
 </script>
 {% endblock %}

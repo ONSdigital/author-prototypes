@@ -2942,7 +2942,7 @@ layout: example/views/homepage
                 removeFromMyQuestionnairesLi.appendChild(removeFromMyQuestionnairesButton);
                 ul.appendChild(removeFromMyQuestionnairesLi);
 
-                removeFromMyQuestionnairesButton.setAttribute("onclick", `addToMyQuestionnaires('${sessionStorage.getItem('rowID' + i)}','${sessionStorage.getItem('Buttonid_' + i)}', '${sessionStorage.getItem('ULid' + i)}', '${sessionStorage.getItem('Shortcode_' + i)}', '${sessionStorage.getItem('Title_' + i)}', '${sessionStorage.getItem('Project_' + i)}', 'Lauren Dowling', '${sessionStorage.getItem('DateCreated_' + i)}', '${sessionStorage.getItem('DateLastOpened_' + i)}', '${sessionStorage.getItem('Access_' + i)}', '${sessionStorage.getItem('AddToBtnID_' + i)}')`);
+                removeFromMyQuestionnairesButton.setAttribute("onclick", `addToMyQuestionnaires('${sessionStorage.getItem('rowID' + i)}','${sessionStorage.getItem('Buttonid_' + i)}', '${sessionStorage.getItem('ULid' + i)}', '${sessionStorage.getItem('Shortcode_' + i)}', '${sessionStorage.getItem('Title_' + i)}', '${sessionStorage.getItem('Project_' + i)}', '${sessionStorage.getItem('Owner_' + i)}', '${sessionStorage.getItem('DateCreated_' + i)}', '${sessionStorage.getItem('DateLastOpened_' + i)}', '${sessionStorage.getItem('Access_' + i)}', '${sessionStorage.getItem('AddToBtnID_' + i)}')`);
 
             }
 
@@ -4418,6 +4418,18 @@ function sortTable(tableId, sortType) {
 
 // Call the function to initialize the pagination
 initializePagination();
+
+sessionStorage.removeItem('projectFilter');
+sessionStorage.removeItem('ownerFilter');
+sessionStorage.removeItem('BeforeDayFilter');
+sessionStorage.removeItem('BeforeMonthFilter');
+sessionStorage.removeItem('BeforeYearFilter');
+sessionStorage.removeItem('AfterDayFilter');
+sessionStorage.removeItem('AfterMonthFilter');
+sessionStorage.removeItem('AfterYearFilter');
+sessionStorage.removeItem('Editor');
+sessionStorage.removeItem('ViewOnly');
+sessionStorage.removeItem('ReadOnly');
 
 </script>
 {% endblock %}
