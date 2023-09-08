@@ -3385,7 +3385,7 @@ function ApplyFilters() {
         var errorPanel = document.getElementById("date-error-panel");
         errorPanel.style.display = "block";
         var firstListItem = document.querySelector("#date-error-panel li a");
-        firstListItem.textContent = 'Enter the day, month and year that the questionnaire after was created';
+        firstListItem.textContent = 'Enter the day, month and year that the questionnaire was created after';
 
 
         if (BeforeDayFilter.trim() === "") {
@@ -3577,13 +3577,13 @@ function ApplyFilters() {
         if(errorsForDateBefore == true){
             var secondChildLi = document.querySelector('#date-error-panel li:nth-child(2)');
             var secondLink = secondChildLi.querySelector('a');
-            secondLink.textContent = 'Enter the day, month and year that the questionnaire after was created';
+            secondLink.textContent = 'Enter the day, month and year that the questionnaire was created after';
             console.log('first already taken');
         }
         else{
             errorPanel.style.display = "block";
             var firstListItem = document.querySelector("#date-error-panel li a");
-            firstListItem.textContent = 'Enter the day, month and year that the questionnaire after was created';
+            firstListItem.textContent = 'Enter the day, month and year that the questionnaire was created after';
             console.log('first not taken');
 
         }
