@@ -3590,15 +3590,101 @@ function ApplyFilters() {
         ErrorPanel.classList.remove('ons-u-mb-xl');
     }
 
-    console.log('function still running');
-
     BeforeDayFilter = BeforeDayFilter.replace(/^0+/, "");
     BeforeMonthFilter = BeforeMonthFilter.replace(/^0+/, "");
     AfterDayFilter = AfterDayFilter.replace(/^0+/, "");
     AfterMonthFilter = AfterMonthFilter.replace(/^0+/, "");
 
+    if (sessionStorage.getItem('searchEntry') != '' && sessionStorage.getItem('searchEntry') !== null){
+        const tagsProject = document.getElementById("tags-project");
+        const tagsOwner = document.getElementById("tags-owner");
+        const tagsDateBefore = document.getElementById("tags-dateBefore");
+        const tagsDateAfter = document.getElementById("tags-dateAfter");
+        const tagsAccess = document.getElementById("tags-access");
+
+        while (tagsProject.firstChild) {
+            tagsProject.removeChild(tagsProject.firstChild);
+            tagsProject.classList.remove('FiltersFlexItems');
+        }
+        while (tagsOwner.firstChild) {
+            tagsOwner.removeChild(tagsOwner.firstChild);
+            tagsOwner.classList.remove('FiltersFlexItems');
+        }
+        while (tagsDateBefore.firstChild) {
+            tagsDateBefore.removeChild(tagsDateBefore.firstChild);
+            tagsDateBefore.classList.remove('FiltersFlexItems');
+        }
+        while (tagsDateAfter.firstChild) {
+            tagsDateAfter.removeChild(tagsDateAfter.firstChild);
+            tagsDateAfter.classList.remove('FiltersFlexItems');
+        }
+        while (tagsAccess.firstChild) {
+            tagsAccess.removeChild(tagsAccess.firstChild);
+            tagsAccess.classList.remove('FiltersFlexItems');
+        }
+
+        // Remove 'filtered-out' class from all rows in starred-table
+        let starredRows = document.querySelectorAll('#starred-table .ons-table__row');
+        starredRows.forEach(function (row) {
+            row.classList.remove('filtered-out');
+        });
+
+        // Remove 'filtered-out' class from all rows in basic-table
+        let basicRows = document.querySelectorAll('#basic-table .ons-table__row');
+        basicRows.forEach(function (row) {
+            row.classList.remove('filtered-out');
+        });
+        document.getElementById('area-for-tags').classList.remove('AllFiltersFlexContainer'); 
+        document.getElementById('tagsAndBtnContainer').classList.remove('tagAndClearFiltersContainer');
+        document.getElementById('clearFiltersBtn').style.display = 'none';
+
+        ApplySearch2();
+    }
+    else{
+        const tagsProject = document.getElementById("tags-project");
+        const tagsOwner = document.getElementById("tags-owner");
+        const tagsDateBefore = document.getElementById("tags-dateBefore");
+        const tagsDateAfter = document.getElementById("tags-dateAfter");
+        const tagsAccess = document.getElementById("tags-access");
+
+        while (tagsProject.firstChild) {
+            tagsProject.removeChild(tagsProject.firstChild);
+            tagsProject.classList.remove('FiltersFlexItems');
+        }
+        while (tagsOwner.firstChild) {
+            tagsOwner.removeChild(tagsOwner.firstChild);
+            tagsOwner.classList.remove('FiltersFlexItems');
+        }
+        while (tagsDateBefore.firstChild) {
+            tagsDateBefore.removeChild(tagsDateBefore.firstChild);
+            tagsDateBefore.classList.remove('FiltersFlexItems');
+        }
+        while (tagsDateAfter.firstChild) {
+            tagsDateAfter.removeChild(tagsDateAfter.firstChild);
+            tagsDateAfter.classList.remove('FiltersFlexItems');
+        }
+        while (tagsAccess.firstChild) {
+            tagsAccess.removeChild(tagsAccess.firstChild);
+            tagsAccess.classList.remove('FiltersFlexItems');
+        }
+
+        // Remove 'filtered-out' class from all rows in starred-table
+        let starredRows = document.querySelectorAll('#starred-table .ons-table__row');
+        starredRows.forEach(function (row) {
+            row.classList.remove('filtered-out');
+        });
+
+        // Remove 'filtered-out' class from all rows in basic-table
+        let basicRows = document.querySelectorAll('#basic-table .ons-table__row');
+        basicRows.forEach(function (row) {
+            row.classList.remove('filtered-out');
+        });
+        document.getElementById('area-for-tags').classList.remove('AllFiltersFlexContainer'); 
+        document.getElementById('tagsAndBtnContainer').classList.remove('tagAndClearFiltersContainer');
+        document.getElementById('clearFiltersBtn').style.display = 'none';
+    }
+
     function filterTable(tableId) {
-        console.log('working');
         var table = document.getElementById(tableId);
         var rows = table.querySelectorAll("tbody tr");
 
@@ -3670,19 +3756,13 @@ function ApplyFilters() {
     // Check if the Project filter is non-empty and matches
     if (projectFilter !== "") {
         var projectFilterCapitals = document.getElementById("project-filter").value;
-        var enteredProject = sessionStorage.setItem('NewProject', projectFilterCapitals)
-        var ProjectTagDiv = document.getElementById('tags-project');
-        if(ProjectTagDiv.classList.contains('FiltersFlexItems')){
-            var button = ProjectTagDiv.querySelector('button');
-            button.onclick();
-        }
-        document.getElementById("project-filter").value = sessionStorage.getItem('NewProject');
         appendFilterTag(projectFilterCapitals, "Project");
     }
 
     // Check if the Owner filter is non-empty and matches
     if (ownerFilter !== "") {
         var originalownerFilter = document.getElementById("owner-filter").value;
+        console.log('Lauren here is the value: ' + originalownerFilter);
         appendFilterTag(originalownerFilter, "Owner");
     }
 
@@ -3710,16 +3790,19 @@ function ApplyFilters() {
         }
     }
 
+    filterTable("starred-table");
     filterTable("basic-table");
 
     // Update the total count of unfiltered rows
     var basicTableCount = countUnfilteredRows("basic-table");
+    var starredTableCount = countUnfilteredRows("starred-table");
+    var unfilteredRowsCount = basicTableCount + starredTableCount;
     var numberOfQuestionnairesElement = document.querySelector('#NumberOfQuestionnaires span');
-    if(basicTableCount != 1){
-        numberOfQuestionnairesElement.textContent = basicTableCount + ' questionnaires';
+    if(unfilteredRowsCount != 1){
+        numberOfQuestionnairesElement.textContent = unfilteredRowsCount + ' questionnaires';
     }
-    if(basicTableCount == 1){
-        numberOfQuestionnairesElement.textContent = basicTableCount + ' questionnaire';
+    if(unfilteredRowsCount == 1){
+        numberOfQuestionnairesElement.textContent = unfilteredRowsCount + ' questionnaire';
     }
     
     // Save filter values in session storage
@@ -4087,20 +4170,31 @@ function ApplySearch() {
     console.log('searching');
     var searchField = document.getElementById("search-field").value.trim().toLowerCase();
     sessionStorage.setItem('searchEntry', searchField);
+    var starredTable = document.getElementById("starred-table");
     var basicTable = document.getElementById("basic-table");
 
     // Get all rows in both tables
+    var starredRows = starredTable.querySelectorAll("tbody tr");
     var basicRows = basicTable.querySelectorAll("tbody tr");
 
     // Remove the filtered out classes so search can be restarted
-
+        starredRows.forEach(function (row) {
+        row.classList.remove("filtered-out");
+        });
 
         basicRows.forEach(function (row) {
         row.classList.remove("filtered-out");
         });
 
         // Loop through starredRows and add "filtered-out" class to rows that do not contain search input
-
+        starredRows.forEach(function (row) {
+        var cellText = row.cells[0].textContent.toLowerCase(); // Assuming you want to search the first column
+        if (cellText.includes(searchField)) {
+            row.classList.remove("filtered-out");
+        } else {
+            row.classList.add("filtered-out");
+        }
+        });
 
         // Loop through basicRows and add "filtered-out" class to rows that do not contain search input
         basicRows.forEach(function (row) {
@@ -4136,6 +4230,7 @@ function ApplySearch() {
         // Set the filter values back to the filter inputs
         document.getElementById("project-filter").value = storedProjectFilter;
         document.getElementById("owner-filter").value = storedOwnerFilter;
+        console.log(storedOwnerFilter);
         document.getElementById("created-before-filter-day").value = storedBeforeDayFilter;
         document.getElementById("created-before-filter-month").value = storedBeforeMonthFilter;
         document.getElementById("created-before-filter-year").value = storedBeforeYearFilter;
@@ -4161,8 +4256,113 @@ function ApplySearch() {
             document.getElementById("read-only").checked = false;
         }
 
+        //Hide the starred message if necessary
+            var starred = document.getElementById('starred-table');
+            var noOfRows = starred.querySelectorAll("tbody tr");
+            var noOfStarredRows = 0;
+
+            for (var i = 0; i < noOfRows.length; i++) {
+                var Row = noOfRows[i];
+                if (!Row.classList.contains("filtered-out")) {
+                    noOfStarredRows++;
+                }
+            }
+            console.log('Number of starred rows: ' + noOfStarredRows);
+
+        
+            {#
+            if (noOfStarredRows == 0 && searchEntry != '' && sessionStorage.getItem("projectFilter") == '' && sessionStorage.getItem("ownerFilter") == '' && sessionStorage.getItem("BeforeDayFilter") == '' && sessionStorage.getItem("AfterDayFilter") == '' && sessionStorage.getItem("Editor") == '' && sessionStorage.getItem("ViewOnly") == '' && sessionStorage.getItem("ReadOnly") == ''){
+                document.getElementById('StarredReplacement').style.display = 'none';
+                document.getElementById('AddedToStarred').style.display = 'none';
+            }
+            else if(noOfStarredRows == 0 && searchEntry == '' && sessionStorage.getItem("projectFilter") == '' && sessionStorage.getItem("ownerFilter") == '' && sessionStorage.getItem("BeforeDayFilter") == '' && sessionStorage.getItem("AfterDayFilter") == '' && sessionStorage.getItem("Editor") == '' && sessionStorage.getItem("ViewOnly") == '' && sessionStorage.getItem("ReadOnly") == ''){
+                document.getElementById('StarredReplacement').style.display = 'block';
+                document.getElementById('AddedToStarred').style.display = 'block';
+            }
+            #}
+            
+
         // ApplyFilters to hide rows that do not meet filter criteria
         ApplyFilters();
+}
+
+function ApplySearch2() {
+    console.log('searching');
+    var searchField = document.getElementById("search-field").value.trim().toLowerCase();
+    sessionStorage.setItem('searchEntry', searchField);
+    var starredTable = document.getElementById("starred-table");
+    var basicTable = document.getElementById("basic-table");
+
+    // Get all rows in both tables
+    var starredRows = starredTable.querySelectorAll("tbody tr");
+    var basicRows = basicTable.querySelectorAll("tbody tr");
+
+    // Remove the filtered out classes so search can be restarted
+        starredRows.forEach(function (row) {
+        row.classList.remove("filtered-out");
+        });
+
+        basicRows.forEach(function (row) {
+        row.classList.remove("filtered-out");
+        });
+
+        // Loop through starredRows and add "filtered-out" class to rows that do not contain search input
+        starredRows.forEach(function (row) {
+        var cellText = row.cells[0].textContent.toLowerCase(); // Assuming you want to search the first column
+        if (cellText.includes(searchField)) {
+            row.classList.remove("filtered-out");
+        } else {
+            row.classList.add("filtered-out");
+        }
+        });
+
+        // Loop through basicRows and add "filtered-out" class to rows that do not contain search input
+        basicRows.forEach(function (row) {
+        var cellText = row.cells[0].textContent.toLowerCase(); // Assuming you want to search the first column
+        console.log(cellText);
+        if (!cellText.includes(searchField)) {
+            row.classList.add("filtered-out");
+        }
+        });  
+
+        //Update the header
+        var searchEntry = document.getElementById("search-field").value;
+        var numberOfQuestionnairesElement = document.getElementById("SearchEntry");
+        // Append the value of searchEntry to the existing text content
+        if(searchEntry != ""){
+            numberOfQuestionnairesElement.textContent = ' with ' + '"' + searchEntry + '"';
+        }
+        if(searchEntry == ""){
+            numberOfQuestionnairesElement.textContent = '';
+        }
+
+
+        //Hide the starred message if necessary
+            var starred = document.getElementById('starred-table');
+            var noOfRows = starred.querySelectorAll("tbody tr");
+            var noOfStarredRows = 0;
+
+            for (var i = 0; i < noOfRows.length; i++) {
+                var Row = noOfRows[i];
+                if (!Row.classList.contains("filtered-out")) {
+                    noOfStarredRows++;
+                }
+            }
+            console.log('Number of starred rows: ' + noOfStarredRows);
+
+        
+            {#
+            if (noOfStarredRows == 0 && searchEntry != '' && sessionStorage.getItem("projectFilter") == '' && sessionStorage.getItem("ownerFilter") == '' && sessionStorage.getItem("BeforeDayFilter") == '' && sessionStorage.getItem("AfterDayFilter") == '' && sessionStorage.getItem("Editor") == '' && sessionStorage.getItem("ViewOnly") == '' && sessionStorage.getItem("ReadOnly") == ''){
+                document.getElementById('StarredReplacement').style.display = 'none';
+                document.getElementById('AddedToStarred').style.display = 'none';
+            }
+            else if(noOfStarredRows == 0 && searchEntry == '' && sessionStorage.getItem("projectFilter") == '' && sessionStorage.getItem("ownerFilter") == '' && sessionStorage.getItem("BeforeDayFilter") == '' && sessionStorage.getItem("AfterDayFilter") == '' && sessionStorage.getItem("Editor") == '' && sessionStorage.getItem("ViewOnly") == '' && sessionStorage.getItem("ReadOnly") == ''){
+                document.getElementById('StarredReplacement').style.display = 'block';
+                document.getElementById('AddedToStarred').style.display = 'block';
+            }
+            #}
+            
+
 }
 
 function countUnfilteredRows(tableId) {
