@@ -3623,12 +3623,6 @@ function ApplyFilters() {
             tagsAccess.classList.remove('FiltersFlexItems');
         }
 
-        // Remove 'filtered-out' class from all rows in starred-table
-        let starredRows = document.querySelectorAll('#starred-table .ons-table__row');
-        starredRows.forEach(function (row) {
-            row.classList.remove('filtered-out');
-        });
-
         // Remove 'filtered-out' class from all rows in basic-table
         let basicRows = document.querySelectorAll('#basic-table .ons-table__row');
         basicRows.forEach(function (row) {
@@ -3668,11 +3662,6 @@ function ApplyFilters() {
             tagsAccess.classList.remove('FiltersFlexItems');
         }
 
-        // Remove 'filtered-out' class from all rows in starred-table
-        let starredRows = document.querySelectorAll('#starred-table .ons-table__row');
-        starredRows.forEach(function (row) {
-            row.classList.remove('filtered-out');
-        });
 
         // Remove 'filtered-out' class from all rows in basic-table
         let basicRows = document.querySelectorAll('#basic-table .ons-table__row');
@@ -3790,13 +3779,11 @@ function ApplyFilters() {
         }
     }
 
-    filterTable("starred-table");
     filterTable("basic-table");
 
     // Update the total count of unfiltered rows
     var basicTableCount = countUnfilteredRows("basic-table");
-    var starredTableCount = countUnfilteredRows("starred-table");
-    var unfilteredRowsCount = basicTableCount + starredTableCount;
+    var unfilteredRowsCount = basicTableCount;
     var numberOfQuestionnairesElement = document.querySelector('#NumberOfQuestionnaires span');
     if(unfilteredRowsCount != 1){
         numberOfQuestionnairesElement.textContent = unfilteredRowsCount + ' questionnaires';
@@ -4170,30 +4157,14 @@ function ApplySearch() {
     console.log('searching');
     var searchField = document.getElementById("search-field").value.trim().toLowerCase();
     sessionStorage.setItem('searchEntry', searchField);
-    var starredTable = document.getElementById("starred-table");
     var basicTable = document.getElementById("basic-table");
 
     // Get all rows in both tables
-    var starredRows = starredTable.querySelectorAll("tbody tr");
     var basicRows = basicTable.querySelectorAll("tbody tr");
 
     // Remove the filtered out classes so search can be restarted
-        starredRows.forEach(function (row) {
-        row.classList.remove("filtered-out");
-        });
-
         basicRows.forEach(function (row) {
         row.classList.remove("filtered-out");
-        });
-
-        // Loop through starredRows and add "filtered-out" class to rows that do not contain search input
-        starredRows.forEach(function (row) {
-        var cellText = row.cells[0].textContent.toLowerCase(); // Assuming you want to search the first column
-        if (cellText.includes(searchField)) {
-            row.classList.remove("filtered-out");
-        } else {
-            row.classList.add("filtered-out");
-        }
         });
 
         // Loop through basicRows and add "filtered-out" class to rows that do not contain search input
@@ -4256,30 +4227,6 @@ function ApplySearch() {
             document.getElementById("read-only").checked = false;
         }
 
-        //Hide the starred message if necessary
-            var starred = document.getElementById('starred-table');
-            var noOfRows = starred.querySelectorAll("tbody tr");
-            var noOfStarredRows = 0;
-
-            for (var i = 0; i < noOfRows.length; i++) {
-                var Row = noOfRows[i];
-                if (!Row.classList.contains("filtered-out")) {
-                    noOfStarredRows++;
-                }
-            }
-            console.log('Number of starred rows: ' + noOfStarredRows);
-
-        
-            {#
-            if (noOfStarredRows == 0 && searchEntry != '' && sessionStorage.getItem("projectFilter") == '' && sessionStorage.getItem("ownerFilter") == '' && sessionStorage.getItem("BeforeDayFilter") == '' && sessionStorage.getItem("AfterDayFilter") == '' && sessionStorage.getItem("Editor") == '' && sessionStorage.getItem("ViewOnly") == '' && sessionStorage.getItem("ReadOnly") == ''){
-                document.getElementById('StarredReplacement').style.display = 'none';
-                document.getElementById('AddedToStarred').style.display = 'none';
-            }
-            else if(noOfStarredRows == 0 && searchEntry == '' && sessionStorage.getItem("projectFilter") == '' && sessionStorage.getItem("ownerFilter") == '' && sessionStorage.getItem("BeforeDayFilter") == '' && sessionStorage.getItem("AfterDayFilter") == '' && sessionStorage.getItem("Editor") == '' && sessionStorage.getItem("ViewOnly") == '' && sessionStorage.getItem("ReadOnly") == ''){
-                document.getElementById('StarredReplacement').style.display = 'block';
-                document.getElementById('AddedToStarred').style.display = 'block';
-            }
-            #}
             
 
         // ApplyFilters to hide rows that do not meet filter criteria
@@ -4290,30 +4237,15 @@ function ApplySearch2() {
     console.log('searching');
     var searchField = document.getElementById("search-field").value.trim().toLowerCase();
     sessionStorage.setItem('searchEntry', searchField);
-    var starredTable = document.getElementById("starred-table");
     var basicTable = document.getElementById("basic-table");
 
     // Get all rows in both tables
-    var starredRows = starredTable.querySelectorAll("tbody tr");
     var basicRows = basicTable.querySelectorAll("tbody tr");
 
     // Remove the filtered out classes so search can be restarted
-        starredRows.forEach(function (row) {
-        row.classList.remove("filtered-out");
-        });
 
         basicRows.forEach(function (row) {
         row.classList.remove("filtered-out");
-        });
-
-        // Loop through starredRows and add "filtered-out" class to rows that do not contain search input
-        starredRows.forEach(function (row) {
-        var cellText = row.cells[0].textContent.toLowerCase(); // Assuming you want to search the first column
-        if (cellText.includes(searchField)) {
-            row.classList.remove("filtered-out");
-        } else {
-            row.classList.add("filtered-out");
-        }
         });
 
         // Loop through basicRows and add "filtered-out" class to rows that do not contain search input
@@ -4336,31 +4268,6 @@ function ApplySearch2() {
             numberOfQuestionnairesElement.textContent = '';
         }
 
-
-        //Hide the starred message if necessary
-            var starred = document.getElementById('starred-table');
-            var noOfRows = starred.querySelectorAll("tbody tr");
-            var noOfStarredRows = 0;
-
-            for (var i = 0; i < noOfRows.length; i++) {
-                var Row = noOfRows[i];
-                if (!Row.classList.contains("filtered-out")) {
-                    noOfStarredRows++;
-                }
-            }
-            console.log('Number of starred rows: ' + noOfStarredRows);
-
-        
-            {#
-            if (noOfStarredRows == 0 && searchEntry != '' && sessionStorage.getItem("projectFilter") == '' && sessionStorage.getItem("ownerFilter") == '' && sessionStorage.getItem("BeforeDayFilter") == '' && sessionStorage.getItem("AfterDayFilter") == '' && sessionStorage.getItem("Editor") == '' && sessionStorage.getItem("ViewOnly") == '' && sessionStorage.getItem("ReadOnly") == ''){
-                document.getElementById('StarredReplacement').style.display = 'none';
-                document.getElementById('AddedToStarred').style.display = 'none';
-            }
-            else if(noOfStarredRows == 0 && searchEntry == '' && sessionStorage.getItem("projectFilter") == '' && sessionStorage.getItem("ownerFilter") == '' && sessionStorage.getItem("BeforeDayFilter") == '' && sessionStorage.getItem("AfterDayFilter") == '' && sessionStorage.getItem("Editor") == '' && sessionStorage.getItem("ViewOnly") == '' && sessionStorage.getItem("ReadOnly") == ''){
-                document.getElementById('StarredReplacement').style.display = 'block';
-                document.getElementById('AddedToStarred').style.display = 'block';
-            }
-            #}
             
 
 }
