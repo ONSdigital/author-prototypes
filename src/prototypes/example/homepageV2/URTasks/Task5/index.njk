@@ -1,0 +1,75 @@
+---
+group: Examples
+title: Example prototype
+layout: example/views/Author8col
+---
+{% from "components/button/_macro.njk" import onsButton %}
+
+{% block preMain %}
+{{
+    onsBreadcrumbs({
+        "ariaLabel": 'Back',
+        "itemsList": [
+            {
+                "url": '/prototypes/example/homepage/URTasks/UserTaskList.html',
+                "id": "back",
+                "text": 'Back',
+                "attributes": {
+                    "data-attribute": "Example attribute"
+                }
+            }
+        ]
+    })
+}}
+{% endblock %}
+
+{% block main %}
+
+{{
+    onsExternalLink({
+        "url": "/prototypes/example/homepage/",
+        "linkText": "Task 5a",
+        "classes": "externalLink ons-u-fs-l"
+    })
+}}
+
+    <h1 class="ons-u-mb-s ons-u-mt-xl">Task 5b</h1>
+
+
+    <p>Imagine that you are working on a questionnaire that you frequently need to access.
+    </p>
+    <p>Your task is to add the final version of <strong>Financial Planning Survey</strong> to your starred section.
+    </p>
+    
+
+{{
+    onsExternalLink({
+        "url": "/prototypes/example/homepage/",
+        "linkText": "Start task",
+        "classes": "externalLink ons-u-fs-l"
+    })
+}}
+
+
+    <h1 class="ons-u-mb-s ons-u-mt-xl">Task 5b</h1>
+
+
+    <p>Your work on this questionnaire is now completed.
+    </p>
+    <p>Your task is to remove the final version of <strong>Financial Planning Survey</strong> from your starred section.
+    </p>
+    
+
+{{
+    onsExternalLink({
+        "url": "/prototypes/example/homepage/",
+        "linkText": "Start task",
+        "classes": "externalLink ons-u-fs-l"
+    })
+}}
+
+{% endblock %}
+
+{% block bodyEnd %}
+
+{% endblock %}

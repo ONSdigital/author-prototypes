@@ -1,0 +1,225 @@
+---
+group: Examples
+title: Example prototype
+layout: example/homepage/test/2col_Layout
+---
+{% from "components/button/_macro.njk" import onsButton %}
+{% from "components/autosuggest/_macro.njk" import onsAutosuggest %}
+{% from "components/table/_macro.njk" import onsTable %}
+{% from "components/input/_macro.njk" import onsInput %}
+
+{% block head %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+<style>
+.ons-icon{
+  transform: rotate(90deg);
+}
+</style>
+
+<style>
+.menu-container{
+    position:relative;
+    width: fit-content;
+  }
+  
+  .actionsBtn{
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border: 2px solid #bcbcbd;
+    border-radius: 3px;
+    outline: none;
+    padding: 9px 6px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: #707071;
+    line-height: 1.35;
+    cursor: pointer;
+  }
+  
+  .actionsBtn:focus{
+    background-color: #FBC900;
+    border: 3px solid black;
+    color: black;
+  }
+  
+  #menu2{
+    display:none;
+    background-color: #206095;
+    padding:18px;
+    list-style:none;
+    width: fit-content;
+    border-radius: 3px;
+    border: 2px solid #003C57;
+    position: absolute;
+    top:45px;
+    right:0;
+  }
+  
+  .listItemLink{
+    color: white;
+    margin-left: 20px;
+    font-size: 16px;
+  }
+  
+  .listItemLink:hover{
+    color: white;
+    text-decoration: underline solid white 2px;
+  }
+  
+  .duplicate{
+    display: inline-flex;
+    align-items: center;
+    margin-left: 12px;
+    color: white;
+  }
+  
+  .listItemButton {
+    display: inline-flex;
+    box-sizing: border-box;
+    width:180px;
+    line-height: 1.35;
+    align-items: center;
+    background-color: #206095;
+    color: white;
+    border: 2px solid #206095;
+    border-radius:3px;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+  }
+  
+  .listItemButton .material-symbols-outlined {
+    margin-right: 20px;
+  }
+  
+  .listItemButton:hover {
+    border: 2px solid white;
+  
+  }
+  
+  .listItemButton:focus {
+    outline: none;
+    background-color: #FBC900;
+    border: 3px solid black;
+    color: black;
+  }
+
+  .menuOpen{
+    border: 2px solid #003C57;
+    background-color: #206095;
+    color: white;
+  }
+
+  .listItemButton:focus .ons-icon{
+
+  }
+
+
+</style>
+
+{% endblock %}
+
+{% block main %}
+
+<div class="menu-container">
+  <button type="button"
+          id="menubutton"
+          class="actionsBtn"
+          aria-haspopup="true"
+          aria-controls="menu2" onclick="toggleMenu()">
+    Actions
+  <svg class="ons-icon ons-u-ml-xs" viewBox="0 0 8 13" xmlns="http://www.w3.org/2000/svg" focusable="false" fill="currentColor"><path d="M5.74,14.28l-.57-.56a.5.5,0,0,1,0-.71h0l5-5-5-5a.5.5,0,0,1,0-.71h0l.57-.56a.5.5,0,0,1,.71,0h0l5.93,5.93a.5.5,0,0,1,0,.7L6.45,14.28a.5.5,0,0,1-.71,0Z" transform="translate(-5.02 -1.59)"></path></svg>
+  </button>
+  <ul id="menu2"
+      role="menu"
+      aria-labelledby="menubutton" class="menu">
+    <li role="none" class="duplicate">
+       <span class="material-symbols-outlined">
+        content_copy
+        </span>
+      <a role="menuitem" class="listItemLink" href="https://www.w3.org/">
+        Duplicate
+      </a>
+    </li>
+    <li role="none">
+      <button role="menuitem" class="listItemButton">
+        <span class="material-symbols-outlined">
+        link
+        </span>
+        Copy link
+      </button>
+    </li>
+    <li role="none">
+      <button role="menuitem" class="listItemButton">
+        <span class="material-symbols-outlined">
+        star
+        </span>
+        Add to starred
+      </button>
+    </li>
+    <li role="none" class="ons-u-mb-no">
+      <button role="menuitem" class="listItemButton">
+        <span class="material-symbols-outlined">
+        delete
+        </span>
+        Delete
+      </button>
+    </li>
+  </ul>
+</div>
+
+
+
+{% endblock %}
+
+{% block bodyEnd %}
+
+<script>
+{#
+  function toggleMenu() {
+    var menu = document.getElementById("menu2");
+    
+    if (menu.style.display === "none" || menu.style.display === "") {
+      menu.style.display = "block";
+    } else {
+      menu.style.display = "none";
+    }
+  }
+#}
+
+function toggleMenu() {
+  var menu = document.getElementById("menu2");
+  var svgIcon = document.querySelector("#menubutton .ons-icon");
+  var button = document.getElementById("menubutton") 
+  
+  if (menu.style.display === "none" || menu.style.display === "") {
+    menu.style.display = "block";
+    svgIcon.style.transform = "rotate(-90deg)"; 
+    svgIcon.style.padding = "0 0 0 4px";
+    button.style = "border:2px solid #003C57; background-color: #206095; color:white;"; 
+
+  } else {
+    menu.style.display = "none";
+    svgIcon.style.transform = "rotate(90deg)"; 
+    svgIcon.style.padding = "0 0 0 0"; 
+    button.style = "border:2px solid #BCBCBD; background-color: white; color:#707071;"; 
+
+
+}}
+
+
+
+
+
+</script>
+
+{% endblock %}

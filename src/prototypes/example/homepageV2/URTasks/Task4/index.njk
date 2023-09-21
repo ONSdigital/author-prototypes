@@ -1,0 +1,76 @@
+---
+group: Examples
+title: Example prototype
+layout: example/views/Author8col
+---
+{% from "components/button/_macro.njk" import onsButton %}
+
+{% block preMain %}
+{{
+    onsBreadcrumbs({
+        "ariaLabel": 'Back',
+        "itemsList": [
+            {
+                "url": '/prototypes/example/homepage/URTasks/UserTaskList.html',
+                "id": "back",
+                "text": 'Back',
+                "attributes": {
+                    "data-attribute": "Example attribute"
+                }
+            }
+        ]
+    })
+}}
+{% endblock %}
+
+{% block main %}
+
+
+
+    <h1 class="ons-u-mb-s">Task 4a</h1>
+
+
+    <p>You have been asked to review <strong>version 3</strong> of the <strong>Environmental Awareness and Actions</strong> survey. You <strong>do not have editor access</strong>. The owner of the questionnaire is <strong>David Lemaitre</strong>.
+    </p>
+
+    <p>He sent you the following message on Teams: "It's  likely that there may be some changes made over the next few days that we would value your opinion on. Might be worth adding it to your homepage."
+    </p>
+
+    <p>Your task is to locate the questionnaire and add it to your 'My questionnaires' homepage.
+    </p>
+
+    <br>
+
+{{
+    onsExternalLink({
+        "url": "/prototypes/example/homepage/",
+        "linkText": "Start task",
+        "classes": "externalLink ons-u-fs-l"
+    })
+}}
+
+    <h1 class="ons-u-mb-s ons-u-mt-xl">Task 4b</h1>
+
+
+    <p>You have now finished reviewing this questionnaire.
+    </p>
+
+    <p>Your task is to remove it from your 'My questionnaires' homepage.
+    </p>
+
+
+    <br>
+
+{{
+    onsExternalLink({
+        "url": "/prototypes/example/homepage/",
+        "linkText": "Start task",
+        "classes": "externalLink ons-u-fs-l"
+    })
+}}
+
+{% endblock %}
+
+{% block bodyEnd %}
+
+{% endblock %}

@@ -1,0 +1,248 @@
+---
+group: Examples
+title: Example prototype
+layout: example/views/homepage
+---
+{% from "components/button/_macro.njk" import onsButton %}
+{% from "components/autosuggest/_macro.njk" import onsAutosuggest %}
+{% from "components/table/_macro.njk" import onsTable %}
+{% from "components/input/_macro.njk" import onsInput %}
+{% from "components/radios/_macro.njk" import onsRadios %}
+{% from "components/panel/_macro.njk" import onsPanel %}
+{% from "components/list/_macro.njk" import onsList %}
+{% from "components/select/_macro.njk" import onsSelect %}
+
+{% block head %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+
+<style>
+    .filter-panel{
+        width:100%;
+        outline: 1px solid #E2E2E3;
+    }
+
+    .filter-heading-panel{
+        background-color: var(--ons-color-grey-15);
+    }
+
+    {# 16px font size #}
+    .u-fs-16{
+        font-size:16px;
+    }
+
+    {# positioning the actions button relative to the row #}
+    .row-relative{
+        position:relative;
+    }
+
+    {# styling the actions button #}
+    .menu-container{
+        width: fit-content;
+        float: right;
+    }
+
+    .actionsBtn .ons-icon{
+        transform: rotate(90deg);
+        }
+    
+    .actionsBtn{
+        display: flex;
+        box-sizing: border-box;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+        border: 2px solid #bcbcbd;
+        border-radius: 3px;
+        outline: none;
+        padding: 9px 6px;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 14px;
+        font-weight: bold;
+        color: #707071;
+        line-height: 1.35;
+        cursor: pointer;
+    }
+    
+    .actionsBtn:focus{
+        background-color: #FBC900;
+        border: 2px solid black;
+        color: black;
+    }
+    
+    .menu{
+        display:none;
+        background-color: #206095;
+        padding:18px;
+        list-style:none;
+        width: fit-content;
+        border-radius: 3px;
+        border: 2px solid #003C57;
+        position: absolute;
+        top: 55px;
+        right:0;
+        z-index:1;
+    }
+    
+    .listItemLink{
+        color: white;
+        margin-left: 20px;
+        font-size: 16px;
+        padding-bottom: 10px;
+        padding-top:10px;
+    }
+    
+    .listItemLink:hover{
+        color: white;
+        text-decoration: underline solid white 2px;
+    }
+    
+    .duplicate{
+        display: inline-flex;
+        align-items: center;
+        margin-left: 12px;
+        color: white;
+    }
+    
+    .listItemButton {
+        display: inline-flex;
+        box-sizing: border-box;
+        width:100%;
+        line-height: 1.35;
+        align-items: center;
+        background-color: #206095;
+        color: white;
+        border: 2px solid #206095;
+        border-radius:3px;
+        padding: 10px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    }
+    
+    .listItemButton .material-symbols-outlined {
+        margin-right: 20px;
+    }
+    
+    .listItemButton:hover {
+        border: 2px solid white;
+    
+    }
+    
+    .listItemButton:focus {
+        outline: none;
+        background-color: #FBC900;
+        border: 3px solid black;
+        color: black;
+    }
+
+    {# styling the modal #}
+    .modal-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8); 
+        backdrop-filter: blur(3px); 
+        display: none; 
+        z-index: 100;
+    }
+
+    .ons-modal {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 101;
+        display:none;
+        margin:0;
+    }
+
+    .filter-tag-button{
+        border-radius: 3px;
+        border: 1px solid #bcbcbd;
+        background-color: #f5f5f6;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        padding: 4px 4px 4px 7px;
+        margin-left: 10px;
+
+    }
+
+    .filter-tag-button span{
+        color: #707071;
+
+    }
+
+    .AllFiltersFlexContainer{
+        display:flex;
+        flex-wrap: wrap;    
+    }
+
+    .FiltersFlexItems{
+        display: flex;
+        height: fit-content;
+        align-items: center;
+        font-size: 16px;
+        font-weight: 600;
+        margin-right: 27px;
+        padding-bottom: 18px;
+
+    }
+
+    .filtered-out{
+        display:none;
+    }
+
+    .ons-table__row:last-child{
+        border-bottom: 1px solid #707071;
+    }
+
+    .tagAndClearFiltersContainer{
+        display: flex;
+        justify-content: space-between;
+        margin: 27px 0px;
+        border-bottom: 1px solid #e2e2e3;
+    }
+
+    .clearFilterBtn{
+        background-color:white;
+        border: 2px solid #6390B5;
+        font-size: 16px;
+        padding: 3px 6px;
+        color:  #206095;
+        border-radius: 3px;
+    }
+    
+</style>
+
+{% endblock %}
+
+{% block main %}
+
+
+<div class="ons-grid">
+
+    <div class="ons-grid__col ons-col-8@m">
+        <h1 class="ons-u-mb-l">Projects</h1>
+        <p>Here the projects will be listed. You will be able to edit them, which involves changing the name.</p>
+        <p>This functionality has not been added to the prototype yet.</p>
+
+    </div>
+
+
+
+
+
+
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,166 @@
+---
+group: Examples
+title: Example prototype
+layout: example/views/Author8col
+---
+{% from "components/button/_macro.njk" import onsButton %}
+{% from "components/autosuggest/_macro.njk" import onsAutosuggest %}
+{% from "components/table/_macro.njk" import onsTable %}
+{% from "components/panel/_macro.njk" import onsPanel %}
+{% from "components/input/_macro.njk" import onsInput %}
+{% from "components/breadcrumbs/_macro.njk" import onsBreadcrumbs %}
+{% from "components/checkboxes/_macro.njk" import onsCheckboxes %}
+
+{% set form =  {
+    "method": "GET",
+    "attributes": {
+        "name": "duplicateQuestionnaireDetails",
+        "onsubmit":  "return duplicationEnterDetails()"
+    }
+} %}
+
+{% block head %}
+
+
+{% endblock %}
+
+{% block preMain %}
+
+{{
+    onsBreadcrumbs({
+        "ariaLabel": 'Back',
+        "itemsList": [
+            {
+                "url": '/prototypes/example/homepage/',
+                "id": "backlink",
+                "text": 'Back',
+                "attributes": {
+                    "data-attribute": "Example attribute"
+                }
+            }
+        ]
+    })
+}}
+
+{% endblock %}
+
+{% block main %}
+
+    <h1><span class="ons-u-fs-m ons-u-db ons-u-mb-xs ons-u-lighter">Duplicate questionnaire</span> Enter questionnaire details</h1>
+
+    {{
+        onsPanel({
+            "body": '<p>Title and short code can be edited in Settings after the questionnaire is created</p>'
+        })
+    }}
+
+    {{
+        onsInput({
+            "id": "title-input",
+            "width": "50",
+            "label": {
+                "text": "Title"
+            }
+        })
+    }}
+
+    {{
+        onsInput({
+            "id": "shortcode-input",
+            "width": "50",
+            "label": {
+                "text": "Short code (optional)"
+            }
+        })
+    }}
+
+    {{
+        onsCheckboxes({
+            "checkboxesLabel": "Additional setup (optional)",
+            "checkboxesLabelClasses": "ons-u-fw-b",
+            "dontWrap": true,
+            "name": "setup",
+            "checkboxes": [
+                {
+                    "id": "add-project",
+                    "label": {
+                        "text": "Add a project tag",
+                        "description": "Project tags enable the grouping of related questionnaires and enhance filtering options"
+                    },
+                    "value": "project"
+                },
+                {
+                    "id": "customise-access-permissions",
+                    "label": {
+                        "text": "Customise access control and user permissions",
+                        "description": "Provides the option to exclude the questionnaire from the directory, manage duplication and commenting permissions, and add editors"
+                    },
+                    "value": "email"
+                }
+            ]
+        })
+    }}
+
+    <div class="ons-u-mt-l">
+        {{
+            onsButton({
+                "text": "Continue"
+            })
+        }}
+
+        <a class="ons-u-dib ons-u-ml-s ons-u-mt-xs" href="/prototypes/example/homepage/">Cancel</a>
+
+    </div>
+
+{% endblock %}
+
+{% block bodyEnd %}
+
+<script>
+
+    var duplicatedShortcode = sessionStorage.getItem('duplicateShortcode');
+    var duplicatedTitle = sessionStorage.getItem('duplicateTitle');
+    var title = document.getElementById('title-input');
+    var shortcode = document.getElementById('shortcode-input');
+    title.value = "Copy of " + duplicatedTitle;
+    shortcode.value = "Copy of " + duplicatedShortcode;
+
+function duplicationEnterDetails() {
+    var counter = parseInt(sessionStorage.getItem('questionnaireCounter')) || 0;
+    counter++;
+    sessionStorage.setItem('questionnaireCounter', counter);
+
+    var title = document.getElementById('title-input').value; 
+    var shortcode = document.getElementById('shortcode-input').value;
+    sessionStorage.setItem('Title_' + counter, title);
+    sessionStorage.setItem('Shortcode_' + counter, shortcode);
+
+    sessionStorage.setItem('Access_' + counter, 'Editor');
+    sessionStorage.setItem('Owner_' + counter, 'Sam Lake');
+    sessionStorage.setItem('Buttonid_' + counter, 'Buttonid_' + counter);
+    sessionStorage.setItem('ULid' + counter, 'ULid' + counter);
+    sessionStorage.setItem('rowID' + counter, 'rowID' + counter);
+
+
+    if (document.getElementById('add-project').checked == true) {
+        console.log('checked');
+        if (document.getElementById('customise-access-permissions').checked == true) {
+            sessionStorage.setItem('customisePermissions', true);
+        }
+        document.forms["duplicateQuestionnaireDetails"].action = "/prototypes/example/homepage/duplicate/AddProject.html";    
+    } 
+    else {
+        console.log('running');
+        if (document.getElementById('customise-access-permissions').checked == true) {
+            document.forms["duplicateQuestionnaireDetails"].action = "/prototypes/example/homepage/duplicate/CustomisePermissions.html";    
+
+        } else {
+            document.forms["duplicateQuestionnaireDetails"].action = "/prototypes/example/homepage/NewQuestionnaire.html";    
+
+        }
+    }
+}
+
+
+</script>
+{% endblock %}

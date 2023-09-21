@@ -1,0 +1,16 @@
+{% macro buttonMenu(id, buttonText, menuItems) %}
+  <div class="menu-container">
+    <button type="button"
+            id="{{ id }}-button"
+            class="actionsBtn"
+            aria-haspopup="true"
+            aria-controls="{{ id }}" onclick="toggleMenu('{{ id }}')">
+      {{ buttonText }}
+    </button>
+    <ul id="{{ id }}"
+        role="menu"
+        aria-labelledby="{{ id }}-button" class="menu">
+      <!-- Menu items ... -->
+    </ul>
+  </div>
+{% endmacro %}
