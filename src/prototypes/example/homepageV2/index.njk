@@ -3537,6 +3537,87 @@ function ReApplySearchFilters() {
     updatePagination();
 }
 
+function ReApplySearch() {
+    currentPage = 1; // Reset currentPage to 1
+    
+    var starredTable = document.getElementById("starred-table");
+    var basicTable = document.getElementById("basic-table");
+
+    var searchFieldCapitals = sessionStorage.getItem('searchField');
+    var searchField = sessionStorage.getItem('searchField');
+
+    // Get all rows in both tables
+    var starredRows = starredTable.querySelectorAll("tbody tr");
+    var basicRows = basicTable.querySelectorAll("tbody tr");
+
+    // Remove the filtered out classes so search can be restarted
+    starredRows.forEach(function (row) {
+    row.classList.remove("filtered-out");
+    });
+
+    basicRows.forEach(function (row) {
+    row.classList.remove("filtered-out");
+    });
+
+
+    function RefilterTable(tableId) {
+        var table = document.getElementById(tableId);
+        var rows = table.querySelectorAll("tbody tr");
+
+        for (var i = 0; i < rows.length; i++) {
+        var row = rows[i];
+        var TitleShortcodeCell = row.getElementsByTagName("td")[0];
+        var cell = row.querySelector("td[data-date-value]");
+
+        var searchFilter = true;
+        var cellText = TitleShortcodeCell.textContent.toLowerCase(); 
+        // Assuming you want to search the first column
+        if(searchField != ""){
+            if (!cellText.includes(searchField)) {
+                var searchFilter = false;
+            }
+        }
+
+        if (!searchFilter) {
+            row.classList.add("filtered-out");
+            row.style.display = "none";
+        }
+        else{
+            row.style.display = "table-row";
+        }
+    }}
+
+    RefilterTable("starred-table");
+    RefilterTable("basic-table");
+
+    // Update the total count of unfiltered rows
+    var basicTableCount = countUnfilteredRows("basic-table");
+    var starredTableCount = countUnfilteredRows("starred-table");
+    var unfilteredRowsCount = basicTableCount + starredTableCount;
+    var numberOfQuestionnairesElement = document.querySelector('#NumberOfQuestionnaires span');
+    if(unfilteredRowsCount != 1){
+        numberOfQuestionnairesElement.textContent = unfilteredRowsCount + ' questionnaires';
+    }
+    if(unfilteredRowsCount == 1){
+        numberOfQuestionnairesElement.textContent = unfilteredRowsCount + ' questionnaire';
+    }
+
+    //Update the header
+    var searchEntry = document.getElementById("search-field").value;
+    var numberOfQuestionnairesElement = document.getElementById("SearchEntry");
+    // Append the value of searchEntry to the existing text content
+    if(searchEntry != ""){
+        numberOfQuestionnairesElement.textContent = ' with ' + '"' + searchEntry + '"';
+        document.getElementById('clearSearchBtn').style.display = "block";
+    }
+    if(searchEntry == ""){
+        numberOfQuestionnairesElement.textContent = '';
+        document.getElementById('clearSearchBtn').style.display = "none";
+    }
+
+    updatePagination();
+}
+
 
 // Function to clear input values
 function clearInputValues() {
