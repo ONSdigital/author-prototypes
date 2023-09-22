@@ -82,7 +82,7 @@ layout: example/views/Author8col
 
 {% block main %}
 
-    <h1><span class="ons-u-fs-m ons-u-db ons-u-mb-xs ons-u-lighter">Duplicate questionnaire</span> Customise access control and user permissions</h1>
+    <h1><span class="ons-u-fs-m ons-u-db ons-u-mb-xs ons-u-lighter">Create questionnaire</span> Customise access control and user permissions</h1>
 
     {{
         onsPanel({
@@ -105,20 +105,6 @@ layout: example/views/Author8col
                         "description": "Your questionnaire will not be visible to other Author users"
                     },
                     "value": "no-display-questionnaire-directory"
-                },
-                {
-                    "id": "no-duplicate",
-                    "label": {
-                        "text": "Do not allow non-editors to duplicate this questionnaire"
-                    },
-                    "value": "no-duplicate"
-                },
-                {
-                    "id": "no-comment",
-                    "label": {
-                        "text": "Do not allow non-editors to add comments to this questionnaire"
-                    },
-                    "value": "no-comment"
                 }
             ]
         })
@@ -178,10 +164,10 @@ var referringPageURL = document.referrer;
 console.log("Referring Page URL: " + referringPageURL);
 
 function defineBack(){
-    if (referringPageURL.includes('/homepage/create/AddProject.html')){
+    if (referringPageURL.includes('/homepageV2/create/AddProject.html')){
         window.location.href = "AddProject.html";
     }
-    if (referringPageURL.includes('/homepage/create/enterDetails.html')){
+    if (referringPageURL.includes('/homepageV2/create/enterDetails.html')){
         window.location.href = "enterDetails.html";
     }
 }
@@ -193,7 +179,7 @@ function completeSetup() {
             console.log('checked');
             sessionStorage.setItem('NoDisplayInDirectory_' + counter, true);
         }
-        document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepage/NewQuestionnaire.html";    
+        document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepageV2/NewQuestionnaire.html";    
 
 
 }
