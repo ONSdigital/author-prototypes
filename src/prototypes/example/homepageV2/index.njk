@@ -1,7 +1,7 @@
 ---
 group: Examples
 title: Example prototype
-layout: example/views/homepage
+layout: example/views/homepageV2
 ---
 {% from "components/button/_macro.njk" import onsButton %}
 {% from "components/autosuggest/_macro.njk" import onsAutosuggest %}
@@ -21,6 +21,15 @@ layout: example/views/homepage
 
 
 <style>
+
+    .material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 500,
+    'GRAD' -25,
+    'opsz' 24
+    }
+
     .filter-panel{
         width:100%;
         outline: 1px solid #E2E2E3;
@@ -208,7 +217,7 @@ layout: example/views/homepage
     .tagAndClearFiltersContainer{
         display: flex;
         justify-content: space-between;
-        margin: 27px 0px;
+        margin: 9px 0px 27px 0px;
         border-bottom: 1px solid #e2e2e3;
     }
 
@@ -234,12 +243,7 @@ layout: example/views/homepage
 
 {% endblock %}
 
-{% block preMain %}
-
-{% endblock %}
-
-{% block main %}
-
+{% block pageContent %}
 {{
     onsHero({
         "title": 'My questionnaires',
@@ -251,6 +255,11 @@ layout: example/views/homepage
         "wide": "true"
     })
 }}
+
+<div class="ons-page__container ons-container ons-container--wide">
+<div class="ons-grid">
+<div class="ons-grid__col ons-col-12@m">
+<main id="main-content" class="ons-page__main">
 
 <div class="modal-container" id="modalContainer">
   <dialog class="ons-modal" id="modalDialog" role="dialog">
@@ -653,7 +662,7 @@ layout: example/views/homepage
             <p class="ons-u-mb-xs" id='StarredReplacement'><span class="material-symbols-outlined ons-u-mr-xs" style="color:#707071">star</span><strong>Starred</strong></p>
 
             <table id="starred-table" class="ons-table ons-u-mb-xl">
-                <caption class="ons-table__caption"><span class="material-symbols-outlined ons-u-mr-xs" style="color:#707071">star</span>Starred</caption>
+                <caption class="ons-table__caption"><span id="star" class="material-symbols-outlined ons-u-mr-xs" style="color:#707071">star</span>Starred</caption>
                 <thead class="ons-table__head ons-u-d-no">
                     <tr class="ons-table__row">
                     <th scope="col" class="ons-table__header" style="width: 260px;">
@@ -2051,6 +2060,11 @@ layout: example/views/homepage
         </div>
     </div>
 
+</div>
+
+</main>
+</div>
+</div>
 </div>
 
 
