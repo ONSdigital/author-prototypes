@@ -22,12 +22,29 @@ layout: example/views/homepageV2
 
 <style>
 
-    .material-symbols-outlined {
+    #star.material-symbols-outlined, #starIcon.material-symbols-outlined {
     font-variation-settings:
     'FILL' 0,
-    'wght' 500,
-    'GRAD' -25,
+    'wght' 400,
+    'GRAD' 0,
     'opsz' 24
+    }
+
+    #star.material-symbols-outlined, #starIcon.material-symbols-outlined {
+        position: relative;
+        color: #1f84d8;
+    }
+
+    #star.material-symbols-outlined::before, #starIcon.material-symbols-outlined::before {
+        content: "";
+        position: absolute;
+        width: 10px; 
+        height: 11px;
+        background-color: #1f84d8;
+        border-radius: 50%; 
+        top: 33%; 
+        left: 30%;
+        z-index: -1;
     }
 
     .filter-panel{
@@ -65,7 +82,7 @@ layout: example/views/homepageV2
         align-items: center;
         justify-content: center;
         background-color: white;
-        border: 2px solid #bcbcbd;
+        border: 2px solid #707071;
         border-radius: 3px;
         outline: none;
         padding: 9px 6px;
@@ -238,6 +255,15 @@ layout: example/views/homepageV2
         display:flex;
         justify-content: space-between;
     }
+
+    #starred-table tbody tr > td:first-child{
+        padding-left:5px;
+    }
+
+    #basic-table tbody tr > td:last-child, #starred-table tbody tr > td:last-child{
+        padding-right:5px;
+    }
+
     
 </style>
 
@@ -659,10 +685,10 @@ layout: example/views/homepageV2
                 </select>
             </div>
 
-            <p class="ons-u-mb-xs" id='StarredReplacement'><span class="material-symbols-outlined ons-u-mr-xs" style="color:#707071">star</span><strong>Starred</strong></p>
+            <p class="ons-u-mb-xs" id='StarredReplacement'><span id="starIcon" class="material-symbols-outlined ons-u-mr-xs">star</span><strong>Starred</strong></p>
 
             <table id="starred-table" class="ons-table ons-u-mb-xl">
-                <caption class="ons-table__caption"><span id="star" class="material-symbols-outlined ons-u-mr-xs" style="color:#707071">star</span>Starred</caption>
+                <caption class="ons-table__caption"><span id="star" class="material-symbols-outlined ons-u-mr-xs">star</span>Starred</caption>
                 <thead class="ons-table__head ons-u-d-no">
                     <tr class="ons-table__row">
                     <th scope="col" class="ons-table__header" style="width: 260px;">
@@ -685,15 +711,15 @@ layout: example/views/homepageV2
                     </th>
                     </tr>
                 </thead>
-                <tbody class="ons-table__body ons-u-d-no">
+                <tbody class="ons-table__body ons-u-d-no" style="background-color:#e9eff4;">
 
                 </tbody>
             </table>
 
-            <p class="u-fs-16 ons-u-mb-m" id='AddedToStarred'>No questionnaires have been moved to starred</p>
+            <p class="u-fs-16" id='AddedToStarred'>No questionnaires have been moved to starred</p>
 
-            <table id="basic-table" class="ons-table">
-                <caption class="ons-table__caption">Non-starred</caption>
+            <table id="basic-table" class="ons-table ons-u-mt-l">
+                <caption class="ons-table__caption ons-u-vh">Non-starred</caption>
                 <thead class="ons-table__head">
                     <tr class="ons-table__row">
                     <th scope="col" class="ons-table__header" style="width: 260px;">
@@ -3141,18 +3167,47 @@ function ApplyFilters() {
     AfterDayFilter = AfterDayFilter.replace(/^0+/, "");
     AfterMonthFilter = AfterMonthFilter.replace(/^0+/, "");
 
-    // Get all rows in both tables
-    var starredRows = starredTable.querySelectorAll("tbody tr");
-    var basicRows = basicTable.querySelectorAll("tbody tr");
+    const tagsProject = document.getElementById("tags-project");
+    const tagsOwner = document.getElementById("tags-owner");
+    const tagsDateBefore = document.getElementById("tags-dateBefore");
+    const tagsDateAfter = document.getElementById("tags-dateAfter");
+    const tagsAccess = document.getElementById("tags-access");
 
-    // Remove the filtered out classes so search can be restarted
+    while (tagsProject.firstChild) {
+        tagsProject.removeChild(tagsProject.firstChild);
+        tagsProject.classList.remove('FiltersFlexItems');
+    }
+    while (tagsOwner.firstChild) {
+        tagsOwner.removeChild(tagsOwner.firstChild);
+        tagsOwner.classList.remove('FiltersFlexItems');
+    }
+    while (tagsDateBefore.firstChild) {
+        tagsDateBefore.removeChild(tagsDateBefore.firstChild);
+        tagsDateBefore.classList.remove('FiltersFlexItems');
+    }
+    while (tagsDateAfter.firstChild) {
+        tagsDateAfter.removeChild(tagsDateAfter.firstChild);
+        tagsDateAfter.classList.remove('FiltersFlexItems');
+    }
+    while (tagsAccess.firstChild) {
+        tagsAccess.removeChild(tagsAccess.firstChild);
+        tagsAccess.classList.remove('FiltersFlexItems');
+    }
+    
+    // Remove 'filtered-out' class from all rows in starred-table
+    let starredRows = document.querySelectorAll('#starred-table .ons-table__row');
     starredRows.forEach(function (row) {
-    row.classList.remove("filtered-out");
+        row.classList.remove('filtered-out');
     });
 
+    // Remove 'filtered-out' class from all rows in basic-table
+    let basicRows = document.querySelectorAll('#basic-table .ons-table__row');
     basicRows.forEach(function (row) {
-    row.classList.remove("filtered-out");
+        row.classList.remove('filtered-out');
     });
+    document.getElementById('area-for-tags').classList.remove('AllFiltersFlexContainer'); 
+    document.getElementById('tagsAndBtnContainer').classList.remove('tagAndClearFiltersContainer');
+    document.getElementById('clearFiltersBtn').style.display = 'none';  
 
     function filterTable(tableId) {
         var table = document.getElementById(tableId);
@@ -4138,28 +4193,46 @@ function updatePagination() {
     console.log('Number of starred rows: ' + noOfStarredRows);
 
     if (
-    sessionStorage.length !== 0 &&
     noOfStarredRows == 0 &&
     (
-        (sessionStorage.getItem('searchEntry') !== null && sessionStorage.getItem('searchEntry') !== '') ||
-        (sessionStorage.getItem('projectFilter') !== null && sessionStorage.getItem('projectFilter') !== '') ||
-        (sessionStorage.getItem('ownerFilter') !== null && sessionStorage.getItem('ownerFilter') !== '') ||
-        (sessionStorage.getItem('BeforeDayFilter') !== null && sessionStorage.getItem('BeforeDayFilter') !== '') ||
-        (sessionStorage.getItem('AfterDayFilter') !== null && sessionStorage.getItem('AfterDayFilter') !== '') ||
-        (sessionStorage.getItem('Editor') !== null && sessionStorage.getItem('Editor') !== '') ||
-        (sessionStorage.getItem('ViewOnly') !== null && sessionStorage.getItem('ViewOnly') !== '') ||
-        (sessionStorage.getItem('ReadOnly') !== null && sessionStorage.getItem('ReadOnly') !== '')
+        (sessionStorage.getItem('searchField') === null) ||
+        (sessionStorage.getItem('projectFilter') === null) ||
+        (sessionStorage.getItem('ownerFilter') === null) ||
+        (sessionStorage.getItem('BeforeDayFilter') === null) ||
+        (sessionStorage.getItem('AfterDayFilter') === null) ||
+        (sessionStorage.getItem('Editor') === null) ||
+        (sessionStorage.getItem('ViewOnly') === null) ||
+        (sessionStorage.getItem('ReadOnly') === null)
     )
     ) {        
-            console.log('getting rid');
-            document.getElementById('StarredReplacement').style.display = 'none';
-            document.getElementById('AddedToStarred').style.display = 'none';
+            console.log('there are no starred and no filters have been applied yet');
+            document.getElementById('StarredReplacement').style.display = 'block';
+            document.getElementById('AddedToStarred').style.display = 'block';
+        }
+        else if (
+            noOfStarredRows == 0 &&
+            (
+                (sessionStorage.getItem('searchField') !== null && sessionStorage.getItem('searchField') !== '') ||
+                (sessionStorage.getItem('projectFilter') !== null && sessionStorage.getItem('projectFilter') !== '') ||
+                (sessionStorage.getItem('ownerFilter') !== null && sessionStorage.getItem('ownerFilter') !== '') ||
+                (sessionStorage.getItem('BeforeDayFilter') !== null && sessionStorage.getItem('BeforeDayFilter') !== '') ||
+                (sessionStorage.getItem('AfterDayFilter') !== null && sessionStorage.getItem('AfterDayFilter') !== '') ||
+                (sessionStorage.getItem('Editor') !== null && sessionStorage.getItem('Editor') !== '') ||
+                (sessionStorage.getItem('ViewOnly') !== null && sessionStorage.getItem('ViewOnly') !== '') ||
+                (sessionStorage.getItem('ReadOnly') !== null && sessionStorage.getItem('ReadOnly') !== '')
+            )
+            ) {        
+                console.log('there are no starred and a filter has been applied');
+                document.getElementById('StarredReplacement').style.display = 'none';
+                document.getElementById('AddedToStarred').style.display = 'none';
         }
         else if(noOfStarredRows != 0){
+            console.log('there are questionnaires in starred');
             document.getElementById('StarredReplacement').style.display = 'none';
             document.getElementById('AddedToStarred').style.display = 'none';
         }
         else{
+            console.log('not sure');
             document.getElementById('StarredReplacement').style.display = 'block';
             document.getElementById('AddedToStarred').style.display = 'block';
         }
