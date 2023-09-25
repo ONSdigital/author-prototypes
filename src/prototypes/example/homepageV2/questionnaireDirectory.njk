@@ -12,6 +12,7 @@ layout: example/views/homepageV2
 {% from "components/panel/_macro.njk" import onsPanel %}
 {% from "components/list/_macro.njk" import onsList %}
 {% from "components/select/_macro.njk" import onsSelect %}
+{% from "components/hero/_macro.njk" import onsHero %}
 
 {% block head %}
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -56,7 +57,7 @@ layout: example/views/homepageV2
         align-items: center;
         justify-content: center;
         background-color: white;
-        border: 2px solid #bcbcbd;
+        border: 2px solid #707071;
         border-radius: 3px;
         outline: none;
         padding: 9px 6px;
@@ -224,6 +225,15 @@ layout: example/views/homepageV2
     .ons-table__header, .ons-table__cell{
         padding: .5rem 0rem .5rem 2rem;
     }
+
+    .NoOfQuestionnairesAndClearSearch{
+        display:flex;
+        justify-content: space-between;
+    }
+
+    #basic-table tbody tr > td:last-child{
+        padding-right:5px;
+    }
     
 </style>
 
@@ -249,7 +259,24 @@ layout: example/views/homepageV2
 
 {% endblock %}
 
-{% block main %}
+{% block pageContent %}
+
+{{
+    onsHero({
+        "title": 'All questionnaires',
+        "text": 'Explore the questionnaires you can edit or have added from the <a href="/prototypes/example/homepageV2/questionnaireDirectory">list of questionnaires</a>.',
+        "button": {
+            "url": '/prototypes/example/homepageV2/create/enterDetails',
+            "text": 'Create a questionnaire'
+        },
+        "wide": "true"
+    })
+}}
+
+<div class="ons-page__container ons-container ons-container--wide">
+<div class="ons-grid">
+<div class="ons-grid__col ons-col-12@m">
+<main id="main-content" class="ons-page__main">
 
 <div class="modal-container" id="modalContainer">
   <dialog class="ons-modal" id="modalDialog" role="dialog">
@@ -432,54 +459,35 @@ layout: example/views/homepageV2
             }}
         {% endcall %}
     </div>
-    <div class="ons-grid__col ons-col-7@m">
-        <h1 class="ons-u-mb-l">Questionnaire directory</h1>
-    </div>
-    <div class="ons-grid__col ons-col-5@m">
-        <div style="float:right;">
-            {{
-                onsButton({
-                    "text": 'Create questionnaire',
-                    "url": '/prototypes/example/homepage/create/enterDetails.html'            
-                })
-            }}
-        </div>
-    </div>
-    <div class="ons-grid__col ons-col-12@m ons-u-mb-xl">
-        {{
-            onsInput({
-                "id": 'search-field',
-                "label": {
-                    "text": 'Search by short code or title'
-                },
-                "accessiblePlaceholder": true,
-                "searchButton": {
-                    "visuallyHideButtonText": true,
-                    "text": 'Search',
-                    "iconType": 'search',
-                    "id": "apply-search",
-                    "attributes": {
-                        "onclick": "ApplySearch()"
-                    }
-                }
-            })
-        }}
-    </div>
+
     <div class="ons-grid__col ons-col-3@m">
         <div class="filter-panel">
             <div class="filter-heading-panel ons-u-pl-s ons-u-pr-s ons-u-pt-xs ons-u-pb-xs">
-                <h2 class="ons-u-mb-no">Filter</h2>
+                <h2 class="ons-u-mb-no">Search and filter</h2>
             </div>
             <div class="ons-u-p-s">
                 {{
                     onsButton({
                         "type": 'button',
-                        "text": 'Apply filters',
+                        "text": 'Apply',
                         "variants": 'small',
                         "classes": "ons-u-mb-m ons-u-mt-xs",
                         "attributes": {
                             "onclick": "ApplyFilters()"
                         }
+                    })
+                }}
+
+                {{
+                    onsInput({
+                        "id": "search-field",
+                        "label": {
+                            "text": "Search by short code or title"
+                        },
+                        "attributes": {
+                            "style": "width:261.5px;"
+                        },
+                        "classes": "ons-u-mb-m"
                     })
                 }}
 
@@ -533,6 +541,9 @@ layout: example/views/homepageV2
                     }
                 }) }}
 
+                <div class="ons-u-mb-m">
+
+
                 {{
                     onsDateInput({
                         "id": "created-before-filter",
@@ -555,9 +566,16 @@ layout: example/views/homepageV2
                                 "text": "Year"
                             },
                             "name": "year"
+                        },
+                        "error": {
+                            "text": "Error 1"
                         }
                     })
                 }}
+
+                </div>
+
+                <div class="ons-u-mb-m">
 
                 {{
                     onsDateInput({
@@ -581,9 +599,14 @@ layout: example/views/homepageV2
                                 "text": "Year"
                             },
                             "name": "year"
+                        },
+                        "error": {
+                            "text": "Error 2"
                         }
                     })
                 }}
+
+                </div>
 
                 {{
                     onsRadios({
@@ -623,8 +646,14 @@ layout: example/views/homepageV2
 
     <div class="ons-grid__col ons-col-9@m">
         <div class="ons-u-ml-s">
-            <h2 class="ons-u-fs-m ons-u-mb-m" id="NumberOfQuestionnaires"><span></span><span id="SearchEntry"></span></h2>
-
+            <div class="NoOfQuestionnairesAndClearSearch">
+                <div>
+                    <h2 class="ons-u-fs-m ons-u-mb-m" id="NumberOfQuestionnaires"><span></span><span id="SearchEntry"></span></h2>
+                </div>
+                <div>
+                    <button class="clearFilterBtn" id="clearSearchBtn" style="display:none;" onclick="ClearSearchReApplyFilters()">Clear search</button>
+                </div>
+            </div>
             <div id="tagsAndBtnContainer">
                 <div id="area-for-tags">
                     <div id="tags-project" style="display:none;">Project:</div>
@@ -2595,6 +2624,11 @@ layout: example/views/homepageV2
 
 </div>
 
+</div>
+</div>
+</div>
+</main>
+
 
 
 {% endblock %}
@@ -3138,8 +3172,10 @@ function cancelAdd(){
 
 function ApplyFilters() {
     currentPage = 1; // Reset currentPage to 1
+    var searchFieldCapitals = document.getElementById("search-field").value.trim();
     var projectFilterCapitals = document.getElementById("project-filter").value;
     var ownerFilterCapitals = document.getElementById("owner-filter").value;
+    var searchField = document.getElementById("search-field").value.trim().toLowerCase();
     var projectFilter = document.getElementById("project-filter").value.toLowerCase();
     var ownerFilter = document.getElementById("owner-filter").value.toLowerCase();
     var BeforeDayFilter = document.getElementById("created-before-filter-day").value;
@@ -3151,6 +3187,7 @@ function ApplyFilters() {
     var EditorAccess = document.getElementById("editor");
     var ViewOnlyAccess = document.getElementById("view-only");
     var ReadOnlyAccess = document.getElementById("read-only");
+    var basicTable = document.getElementById("basic-table");
 
     var errorsForDateBefore = false;
     var errorsForDateAfter = false;
@@ -3347,7 +3384,7 @@ function ApplyFilters() {
         }
     }
 
-        // Check if at least one of the date filters is not empty
+    // Check if at least one of the date filters is not empty
     var isAnyAfterDateFilterNotEmpty =
         AfterDayFilter.trim() !== "" ||
         AfterMonthFilter.trim() !== "" ||
@@ -3595,83 +3632,41 @@ function ApplyFilters() {
     AfterDayFilter = AfterDayFilter.replace(/^0+/, "");
     AfterMonthFilter = AfterMonthFilter.replace(/^0+/, "");
 
-    if (sessionStorage.getItem('searchEntry') != '' && sessionStorage.getItem('searchEntry') !== null){
-        const tagsProject = document.getElementById("tags-project");
-        const tagsOwner = document.getElementById("tags-owner");
-        const tagsDateBefore = document.getElementById("tags-dateBefore");
-        const tagsDateAfter = document.getElementById("tags-dateAfter");
-        const tagsAccess = document.getElementById("tags-access");
+    const tagsProject = document.getElementById("tags-project");
+    const tagsOwner = document.getElementById("tags-owner");
+    const tagsDateBefore = document.getElementById("tags-dateBefore");
+    const tagsDateAfter = document.getElementById("tags-dateAfter");
+    const tagsAccess = document.getElementById("tags-access");
 
-        while (tagsProject.firstChild) {
-            tagsProject.removeChild(tagsProject.firstChild);
-            tagsProject.classList.remove('FiltersFlexItems');
-        }
-        while (tagsOwner.firstChild) {
-            tagsOwner.removeChild(tagsOwner.firstChild);
-            tagsOwner.classList.remove('FiltersFlexItems');
-        }
-        while (tagsDateBefore.firstChild) {
-            tagsDateBefore.removeChild(tagsDateBefore.firstChild);
-            tagsDateBefore.classList.remove('FiltersFlexItems');
-        }
-        while (tagsDateAfter.firstChild) {
-            tagsDateAfter.removeChild(tagsDateAfter.firstChild);
-            tagsDateAfter.classList.remove('FiltersFlexItems');
-        }
-        while (tagsAccess.firstChild) {
-            tagsAccess.removeChild(tagsAccess.firstChild);
-            tagsAccess.classList.remove('FiltersFlexItems');
-        }
-
-        // Remove 'filtered-out' class from all rows in basic-table
-        let basicRows = document.querySelectorAll('#basic-table .ons-table__row');
-        basicRows.forEach(function (row) {
-            row.classList.remove('filtered-out');
-        });
-        document.getElementById('area-for-tags').classList.remove('AllFiltersFlexContainer'); 
-        document.getElementById('tagsAndBtnContainer').classList.remove('tagAndClearFiltersContainer');
-        document.getElementById('clearFiltersBtn').style.display = 'none';
-
-        ApplySearch2();
+    while (tagsProject.firstChild) {
+        tagsProject.removeChild(tagsProject.firstChild);
+        tagsProject.classList.remove('FiltersFlexItems');
     }
-    else{
-        const tagsProject = document.getElementById("tags-project");
-        const tagsOwner = document.getElementById("tags-owner");
-        const tagsDateBefore = document.getElementById("tags-dateBefore");
-        const tagsDateAfter = document.getElementById("tags-dateAfter");
-        const tagsAccess = document.getElementById("tags-access");
-
-        while (tagsProject.firstChild) {
-            tagsProject.removeChild(tagsProject.firstChild);
-            tagsProject.classList.remove('FiltersFlexItems');
-        }
-        while (tagsOwner.firstChild) {
-            tagsOwner.removeChild(tagsOwner.firstChild);
-            tagsOwner.classList.remove('FiltersFlexItems');
-        }
-        while (tagsDateBefore.firstChild) {
-            tagsDateBefore.removeChild(tagsDateBefore.firstChild);
-            tagsDateBefore.classList.remove('FiltersFlexItems');
-        }
-        while (tagsDateAfter.firstChild) {
-            tagsDateAfter.removeChild(tagsDateAfter.firstChild);
-            tagsDateAfter.classList.remove('FiltersFlexItems');
-        }
-        while (tagsAccess.firstChild) {
-            tagsAccess.removeChild(tagsAccess.firstChild);
-            tagsAccess.classList.remove('FiltersFlexItems');
-        }
-
-
-        // Remove 'filtered-out' class from all rows in basic-table
-        let basicRows = document.querySelectorAll('#basic-table .ons-table__row');
-        basicRows.forEach(function (row) {
-            row.classList.remove('filtered-out');
-        });
-        document.getElementById('area-for-tags').classList.remove('AllFiltersFlexContainer'); 
-        document.getElementById('tagsAndBtnContainer').classList.remove('tagAndClearFiltersContainer');
-        document.getElementById('clearFiltersBtn').style.display = 'none';
+    while (tagsOwner.firstChild) {
+        tagsOwner.removeChild(tagsOwner.firstChild);
+        tagsOwner.classList.remove('FiltersFlexItems');
     }
+    while (tagsDateBefore.firstChild) {
+        tagsDateBefore.removeChild(tagsDateBefore.firstChild);
+        tagsDateBefore.classList.remove('FiltersFlexItems');
+    }
+    while (tagsDateAfter.firstChild) {
+        tagsDateAfter.removeChild(tagsDateAfter.firstChild);
+        tagsDateAfter.classList.remove('FiltersFlexItems');
+    }
+    while (tagsAccess.firstChild) {
+        tagsAccess.removeChild(tagsAccess.firstChild);
+        tagsAccess.classList.remove('FiltersFlexItems');
+    }
+
+    // Remove 'filtered-out' class from all rows in basic-table
+    let basicRows = document.querySelectorAll('#basic-table .ons-table__row');
+    basicRows.forEach(function (row) {
+        row.classList.remove('filtered-out');
+    });
+    document.getElementById('area-for-tags').classList.remove('AllFiltersFlexContainer'); 
+    document.getElementById('tagsAndBtnContainer').classList.remove('tagAndClearFiltersContainer');
+    document.getElementById('clearFiltersBtn').style.display = 'none';  
 
     function filterTable(tableId) {
         var table = document.getElementById(tableId);
@@ -3679,6 +3674,7 @@ function ApplyFilters() {
 
         for (var i = 0; i < rows.length; i++) {
         var row = rows[i];
+        var TitleShortcodeCell = row.getElementsByTagName("td")[0];
         var ProjectCell = row.getElementsByTagName("td")[1];
         var OwnerCell = row.getElementsByTagName("td")[2];
         var AccessCell = row.getElementsByTagName("td")[4];
@@ -3687,6 +3683,13 @@ function ApplyFilters() {
         var ProjectCellText = ProjectCell.textContent.toLowerCase();
         var OwnerCellText = OwnerCell.textContent.toLowerCase();
         var cell = row.querySelector("td[data-date-value]");
+
+        var searchFilter = true;
+        var cellText = TitleShortcodeCell.textContent.toLowerCase(); 
+        // Assuming you want to search the first column
+        if (!cellText.includes(searchField)) {
+            searchFilter = false;
+        }
 
         // Check if the Project filter is non-empty and matches
         var projectFilterMatch = projectFilter === "" || ProjectCellText.includes(projectFilter);
@@ -3736,7 +3739,7 @@ function ApplyFilters() {
             document.getElementById("tags-access").style.display = "none"; 
         }
 
-        if (!projectFilterMatch || !ownerFilterMatch || !BeforedateFilterMatch || !AfterdateFilterMatch || !access || row.classList.contains("filtered-out")) {
+        if (!projectFilterMatch || !ownerFilterMatch || !BeforedateFilterMatch || !AfterdateFilterMatch || !access || !searchFilter) {
             row.classList.add("filtered-out");
             row.style.display = "none";
         }
@@ -3791,8 +3794,22 @@ function ApplyFilters() {
     if(unfilteredRowsCount == 1){
         numberOfQuestionnairesElement.textContent = unfilteredRowsCount + ' questionnaire';
     }
+
+    //Update the header
+    var searchEntry = document.getElementById("search-field").value;
+    var numberOfQuestionnairesElement = document.getElementById("SearchEntry");
+    // Append the value of searchEntry to the existing text content
+    if(searchEntry != ""){
+        numberOfQuestionnairesElement.textContent = ' with ' + '"' + searchEntry + '"';
+        document.getElementById('clearSearchBtn').style.display = "block";
+    }
+    if(searchEntry == ""){
+        numberOfQuestionnairesElement.textContent = '';
+        document.getElementById('clearSearchBtn').style.display = "none";
+    }
     
     // Save filter values in session storage
+    sessionStorage.setItem("searchField", searchFieldCapitals);
     sessionStorage.setItem("projectFilter", projectFilterCapitals);
     sessionStorage.setItem("ownerFilter", ownerFilterCapitals);
     sessionStorage.setItem("BeforeDayFilter", BeforeDayFilter);
@@ -3821,6 +3838,453 @@ function ApplyFilters() {
         sessionStorage.setItem("ReadOnly", true);
         console.log('setting to true');
     }
+    
+
+    updatePagination();
+}
+
+
+function ReApplySearchFilters() {
+    currentPage = 1; // Reset currentPage to 1
+    
+    var basicTable = document.getElementById("basic-table");
+
+    var searchFieldCapitals = sessionStorage.getItem('searchField');
+    var searchField = sessionStorage.getItem('searchField');
+
+    var projectFilter = sessionStorage.getItem('projectFilter').toLowerCase();
+
+    var ownerFilter = sessionStorage.getItem('ownerFilter').toLowerCase();
+
+    var BeforeDayFilter = sessionStorage.getItem('BeforeDayFilter');
+    var BeforeMonthFilter = sessionStorage.getItem('BeforeMonthFilter');
+    var BeforeYearFilter = sessionStorage.getItem('BeforeYearFilter');
+
+    var AfterDayFilter = sessionStorage.getItem('AfterDayFilter');
+    var AfterMonthFilter = sessionStorage.getItem('AfterMonthFilter');
+    var AfterYearFilter = sessionStorage.getItem('AfterYearFilter');
+    var EditorAccess = sessionStorage.getItem('Editor');
+
+    var ViewOnlyAccess = sessionStorage.getItem('ViewOnly');
+    var ReadOnlyAccess = sessionStorage.getItem('ReadOnly');
+
+    BeforeDayFilter = BeforeDayFilter.replace(/^0+/, "");
+    BeforeMonthFilter = BeforeMonthFilter.replace(/^0+/, "");
+    AfterDayFilter = AfterDayFilter.replace(/^0+/, "");
+    AfterMonthFilter = AfterMonthFilter.replace(/^0+/, "");
+
+    // Get all rows in basic table
+    var basicRows = basicTable.querySelectorAll("tbody tr");
+
+    basicRows.forEach(function (row) {
+    row.classList.remove("filtered-out");
+    });
+
+
+    function RefilterTable(tableId) {
+        var table = document.getElementById(tableId);
+        var rows = table.querySelectorAll("tbody tr");
+
+        for (var i = 0; i < rows.length; i++) {
+        var row = rows[i];
+        var TitleShortcodeCell = row.getElementsByTagName("td")[0];
+        var ProjectCell = row.getElementsByTagName("td")[1];
+        var OwnerCell = row.getElementsByTagName("td")[2];
+        var AccessCell = row.getElementsByTagName("td")[4];
+
+
+        var ProjectCellText = ProjectCell.textContent.toLowerCase();
+        var OwnerCellText = OwnerCell.textContent.toLowerCase();
+        var cell = row.querySelector("td[data-date-value]");
+
+        var searchFilter = true;
+        var cellText = TitleShortcodeCell.textContent.toLowerCase(); 
+        // Assuming you want to search the first column
+        if(searchField != ""){
+            if (!cellText.includes(searchField)) {
+                var searchFilter = false;
+            }
+        }
+
+        // Check if the Project filter is non-empty and matches
+        {#var projectFilterMatch = projectFilter === "" || ProjectCellText.includes(projectFilter);#}
+
+        {#var projectFilterMatch = true;
+        if(projectFilter != ""){
+            if(ProjectCellText.includes(projectFilter)){
+                projectFilterMatch = true;
+            }
+            else{
+                projectFilterMatch = false;
+
+            }
+        }
+        #}
+
+        var projectFilterMatch = (projectFilter === "") || ProjectCellText.toLowerCase().includes(projectFilter);
+
+
+        // Check if the Owner filter is non-empty and matches
+        var ownerFilterMatch = (ownerFilter === "") || OwnerCellText.toLowerCase().includes(ownerFilter);
+
+        {#var ownerFilterMatch = true;
+        if(ownerFilter != ""){
+            if(OwnerCellText.includes(ownerFilter)){
+                ownerFilterMatch = true;
+            }
+            else{
+                ownerFilterMatch = false;
+            }
+        }
+        #}
+
+        // Check if the Before filters are non-empty and match
+        var BeforedateFilterMatch = true;
+        if (BeforeDayFilter !== "" && BeforeMonthFilter !== "" && BeforeYearFilter !== "") {
+            if (cell) {
+            var cellDate = cell.getAttribute("data-date-value");
+            var BeforefilterDate = new Date(BeforeYearFilter, BeforeMonthFilter - 1, BeforeDayFilter);
+            var cellDateObj = new Date(cellDate);
+            BeforedateFilterMatch = cellDateObj < BeforefilterDate;
+            }
+        }
+
+        // Check if the After filters are non-empty and match
+        var AfterdateFilterMatch = true;
+        if (AfterDayFilter !== "" && AfterMonthFilter !== "" && AfterYearFilter !== "") {
+            if (cell) {
+            var cellDateAfter = cell.getAttribute("data-date-value");
+            var AfterfilterDate = new Date(AfterYearFilter, AfterMonthFilter - 1, AfterDayFilter);
+            var cellDateObjAfter = new Date(cellDateAfter);
+            AfterdateFilterMatch = cellDateObjAfter > AfterfilterDate;
+            console.log(AfterdateFilterMatch);
+            }
+        }
+
+        // Check if the access matches
+        var accessCellValue = AccessCell.textContent.trim();
+        var access = true;
+        if (EditorAccess != "" || ViewOnlyAccess != "" || ReadOnlyAccess != "") {
+            // Check if any of the checked checkboxes' values match the AccessCell content
+            if ((EditorAccess.checked && EditorAccess.value === accessCellValue) ||
+                (ViewOnlyAccess.checked && ViewOnlyAccess.value === accessCellValue) ||
+                (ReadOnlyAccess.checked && ReadOnlyAccess.value === accessCellValue)) {
+            access = true; // Set access to true if there's a match
+            }
+            else{
+                access = false;
+    
+            }
+        }
+        else{
+            document.getElementById("tags-access").style.display = "none"; 
+        }
+
+        if (!projectFilterMatch || !ownerFilterMatch || !BeforedateFilterMatch || !AfterdateFilterMatch || !access || !searchFilter) {
+            row.classList.add("filtered-out");
+            row.style.display = "none";
+            console.log('removing');
+            console.log(projectFilterMatch);
+            console.log(ownerFilterMatch);
+
+        }
+        else{
+            row.style.display = "table-row";
+        }
+    }}
+
+    RefilterTable("basic-table");
+
+    // Update the total count of unfiltered rows
+    var basicTableCount = countUnfilteredRows("basic-table");
+    var unfilteredRowsCount = basicTableCount;
+    var numberOfQuestionnairesElement = document.querySelector('#NumberOfQuestionnaires span');
+    if(unfilteredRowsCount != 1){
+        numberOfQuestionnairesElement.textContent = unfilteredRowsCount + ' questionnaires';
+    }
+    if(unfilteredRowsCount == 1){
+        numberOfQuestionnairesElement.textContent = unfilteredRowsCount + ' questionnaire';
+    }
+
+    //Update the header
+    var searchEntry = document.getElementById("search-field").value;
+    var numberOfQuestionnairesElement = document.getElementById("SearchEntry");
+    // Append the value of searchEntry to the existing text content
+    if(searchEntry != ""){
+        numberOfQuestionnairesElement.textContent = ' with ' + '"' + searchEntry + '"';
+        document.getElementById('clearSearchBtn').style.display = "block";
+    }
+    if(searchEntry == ""){
+        numberOfQuestionnairesElement.textContent = '';
+        document.getElementById('clearSearchBtn').style.display = "none";
+    }
+    
+    // Save filter values in session storage
+    sessionStorage.setItem("searchField", searchField);
+    sessionStorage.setItem("projectFilter", projectFilter);
+    sessionStorage.setItem("ownerFilter", ownerFilter);
+    sessionStorage.setItem("BeforeDayFilter", BeforeDayFilter);
+    sessionStorage.setItem("BeforeMonthFilter", BeforeMonthFilter);
+    sessionStorage.setItem("BeforeYearFilter", BeforeYearFilter);
+    sessionStorage.setItem("AfterDayFilter", AfterDayFilter);
+    sessionStorage.setItem("AfterMonthFilter", AfterMonthFilter);
+    sessionStorage.setItem("AfterYearFilter", AfterYearFilter);
+
+    if(document.getElementById('editor').checked === false){
+        sessionStorage.setItem("Editor", '');
+    }
+    else{
+        sessionStorage.setItem("Editor", true);
+    }
+    if(document.getElementById('view-only').checked === false){
+        sessionStorage.setItem("ViewOnly", '');
+    }
+    else{
+        sessionStorage.setItem("ViewOnly", true);
+    }
+    if(document.getElementById('read-only').checked === false){
+        sessionStorage.setItem("ReadOnly", '');
+    }
+    else{
+        sessionStorage.setItem("ReadOnly", true);
+        console.log('setting to true');
+    }
+    
+
+    updatePagination();
+}
+
+function ReApplySearch() {
+    currentPage = 1; // Reset currentPage to 1
+    
+    var basicTable = document.getElementById("basic-table");
+
+    var searchFieldCapitals = sessionStorage.getItem('searchField');
+    var searchField = sessionStorage.getItem('searchField');
+
+    // Get all rows in both tables
+    var basicRows = basicTable.querySelectorAll("tbody tr");
+
+    basicRows.forEach(function (row) {
+    row.classList.remove("filtered-out");
+    });
+
+
+    function RefilterTable(tableId) {
+        var table = document.getElementById(tableId);
+        var rows = table.querySelectorAll("tbody tr");
+
+        for (var i = 0; i < rows.length; i++) {
+        var row = rows[i];
+        var TitleShortcodeCell = row.getElementsByTagName("td")[0];
+        var cell = row.querySelector("td[data-date-value]");
+
+        var searchFilter = true;
+        var cellText = TitleShortcodeCell.textContent.toLowerCase(); 
+        // Assuming you want to search the first column
+        if(searchField != ""){
+            if (!cellText.includes(searchField)) {
+                var searchFilter = false;
+            }
+        }
+
+        if (!searchFilter) {
+            row.classList.add("filtered-out");
+            row.style.display = "none";
+        }
+        else{
+            row.style.display = "table-row";
+        }
+    }}
+
+    RefilterTable("basic-table");
+
+    // Update the total count of unfiltered rows
+    var basicTableCount = countUnfilteredRows("basic-table");
+    var unfilteredRowsCount = basicTableCount;
+    var numberOfQuestionnairesElement = document.querySelector('#NumberOfQuestionnaires span');
+    if(unfilteredRowsCount != 1){
+        numberOfQuestionnairesElement.textContent = unfilteredRowsCount + ' questionnaires';
+    }
+    if(unfilteredRowsCount == 1){
+        numberOfQuestionnairesElement.textContent = unfilteredRowsCount + ' questionnaire';
+    }
+
+    //Update the header
+    var searchEntry = document.getElementById("search-field").value;
+    var numberOfQuestionnairesElement = document.getElementById("SearchEntry");
+    // Append the value of searchEntry to the existing text content
+    if(searchEntry != ""){
+        numberOfQuestionnairesElement.textContent = ' with ' + '"' + searchEntry + '"';
+        document.getElementById('clearSearchBtn').style.display = "block";
+    }
+    if(searchEntry == ""){
+        numberOfQuestionnairesElement.textContent = '';
+        document.getElementById('clearSearchBtn').style.display = "none";
+    }
+
+    updatePagination();
+}
+
+function ClearSearchReApplyFilters() {
+    currentPage = 1; // Reset currentPage to 1
+
+    document.getElementById("search-field").value = "";
+    document.getElementById("clearSearchBtn").style.display = "none";
+    
+    var basicTable = document.getElementById("basic-table");
+
+    var projectFilter = sessionStorage.getItem('projectFilter').toLowerCase();
+
+    var ownerFilter = sessionStorage.getItem('ownerFilter').toLowerCase();
+
+    var BeforeDayFilter = sessionStorage.getItem('BeforeDayFilter');
+    var BeforeMonthFilter = sessionStorage.getItem('BeforeMonthFilter');
+    var BeforeYearFilter = sessionStorage.getItem('BeforeYearFilter');
+
+    var AfterDayFilter = sessionStorage.getItem('AfterDayFilter');
+    var AfterMonthFilter = sessionStorage.getItem('AfterMonthFilter');
+    var AfterYearFilter = sessionStorage.getItem('AfterYearFilter');
+    var EditorAccess = sessionStorage.getItem('Editor');
+
+    var ViewOnlyAccess = sessionStorage.getItem('ViewOnly');
+    var ReadOnlyAccess = sessionStorage.getItem('ReadOnly');
+
+    BeforeDayFilter = BeforeDayFilter.replace(/^0+/, "");
+    BeforeMonthFilter = BeforeMonthFilter.replace(/^0+/, "");
+    AfterDayFilter = AfterDayFilter.replace(/^0+/, "");
+    AfterMonthFilter = AfterMonthFilter.replace(/^0+/, "");
+
+    // Get all rows in basic table
+    var basicRows = basicTable.querySelectorAll("tbody tr");
+
+    basicRows.forEach(function (row) {
+    row.classList.remove("filtered-out");
+    });
+
+
+    function RefilterTable(tableId) {
+        var table = document.getElementById(tableId);
+        var rows = table.querySelectorAll("tbody tr");
+
+        for (var i = 0; i < rows.length; i++) {
+        var row = rows[i];
+        var ProjectCell = row.getElementsByTagName("td")[1];
+        var OwnerCell = row.getElementsByTagName("td")[2];
+        var AccessCell = row.getElementsByTagName("td")[4];
+
+
+        var ProjectCellText = ProjectCell.textContent.toLowerCase();
+        var OwnerCellText = OwnerCell.textContent.toLowerCase();
+        var cell = row.querySelector("td[data-date-value]");
+
+        // Check if the Project filter is non-empty and matches
+        {#var projectFilterMatch = projectFilter === "" || ProjectCellText.includes(projectFilter);#}
+
+        {#var projectFilterMatch = true;
+        if(projectFilter != ""){
+            if(ProjectCellText.includes(projectFilter)){
+                projectFilterMatch = true;
+            }
+            else{
+                projectFilterMatch = false;
+
+            }
+        }
+        #}
+
+        var projectFilterMatch = (projectFilter === "") || ProjectCellText.toLowerCase().includes(projectFilter);
+
+
+        // Check if the Owner filter is non-empty and matches
+        var ownerFilterMatch = (ownerFilter === "") || OwnerCellText.toLowerCase().includes(ownerFilter);
+
+        {#var ownerFilterMatch = true;
+        if(ownerFilter != ""){
+            if(OwnerCellText.includes(ownerFilter)){
+                ownerFilterMatch = true;
+            }
+            else{
+                ownerFilterMatch = false;
+            }
+        }
+        #}
+
+        // Check if the Before filters are non-empty and match
+        var BeforedateFilterMatch = true;
+        if (BeforeDayFilter !== "" && BeforeMonthFilter !== "" && BeforeYearFilter !== "") {
+            if (cell) {
+            var cellDate = cell.getAttribute("data-date-value");
+            var BeforefilterDate = new Date(BeforeYearFilter, BeforeMonthFilter - 1, BeforeDayFilter);
+            var cellDateObj = new Date(cellDate);
+            BeforedateFilterMatch = cellDateObj < BeforefilterDate;
+            }
+        }
+
+        // Check if the After filters are non-empty and match
+        var AfterdateFilterMatch = true;
+        if (AfterDayFilter !== "" && AfterMonthFilter !== "" && AfterYearFilter !== "") {
+            if (cell) {
+            var cellDateAfter = cell.getAttribute("data-date-value");
+            var AfterfilterDate = new Date(AfterYearFilter, AfterMonthFilter - 1, AfterDayFilter);
+            var cellDateObjAfter = new Date(cellDateAfter);
+            AfterdateFilterMatch = cellDateObjAfter > AfterfilterDate;
+            console.log(AfterdateFilterMatch);
+            }
+        }
+
+        // Check if the access matches
+        var accessCellValue = AccessCell.textContent.trim();
+        var access = true;
+        if (EditorAccess != "" || ViewOnlyAccess != "" || ReadOnlyAccess != "") {
+            // Check if any of the checked checkboxes' values match the AccessCell content
+            if ((EditorAccess.checked && EditorAccess.value === accessCellValue) ||
+                (ViewOnlyAccess.checked && ViewOnlyAccess.value === accessCellValue) ||
+                (ReadOnlyAccess.checked && ReadOnlyAccess.value === accessCellValue)) {
+            access = true; // Set access to true if there's a match
+            }
+            else{
+                access = false;
+    
+            }
+        }
+        else{
+            document.getElementById("tags-access").style.display = "none"; 
+        }
+
+        if (!projectFilterMatch || !ownerFilterMatch || !BeforedateFilterMatch || !AfterdateFilterMatch || !access) {
+            row.classList.add("filtered-out");
+            row.style.display = "none";
+            console.log('removing');
+            console.log(projectFilterMatch);
+            console.log(ownerFilterMatch);
+
+        }
+        else{
+            row.style.display = "table-row";
+        }
+    }}
+
+    RefilterTable("basic-table");
+
+    // Update the total count of unfiltered rows
+    var basicTableCount = countUnfilteredRows("basic-table");
+    var unfilteredRowsCount = basicTableCount;
+    var numberOfQuestionnairesElement = document.querySelector('#NumberOfQuestionnaires span');
+    if(unfilteredRowsCount != 1){
+        numberOfQuestionnairesElement.textContent = unfilteredRowsCount + ' questionnaires';
+    }
+    if(unfilteredRowsCount == 1){
+        numberOfQuestionnairesElement.textContent = unfilteredRowsCount + ' questionnaire';
+    }
+
+    //Update the header
+    var searchEntry = document.getElementById("search-field").value;
+    var numberOfQuestionnairesElement = document.getElementById("SearchEntry");
+    numberOfQuestionnairesElement.textContent = '';
+    
+    // Save filter values in session storage
+    sessionStorage.setItem("searchField", "");
     
 
     updatePagination();
@@ -3891,7 +4355,7 @@ function clearInputValues() {
     sessionStorage.setItem("ViewOnly", '');
     sessionStorage.setItem("ReadOnly", '');
 
-    ApplySearch();
+    ReApplySearch();
 }
 
 function appendFilterTag(filterText, filterType) {
@@ -3981,34 +4445,35 @@ function appendFilterTag(filterText, filterType) {
     }
 }
 
+
 // Function to remove a filter tag and reapply filters
 function removeFilterTag(tagId, filterType) {
     // Clear the corresponding input value
     if (filterType === "Project") {
-        sessionStorage.removeItem("projectFilter");
+        sessionStorage.setItem("projectFilter", "");
         document.getElementById("project-filter").value = "";
         document.getElementById("tags-project").style.display = "none";    
     } 
     if (filterType === "Owner") {
         console.log('clearing owner filter');
-        sessionStorage.removeItem("ownerFilter");
+        sessionStorage.setItem("ownerFilter", "");
         document.getElementById("owner-filter").value = "";
         document.getElementById("tags-owner").style.display = "none";
 
     } 
     if (filterType === "DateBefore") {
-        sessionStorage.removeItem("BeforeDayFilter");
-        sessionStorage.removeItem("BeforeMonthFilter");
-        sessionStorage.removeItem("BeforeYearFilter");
+        sessionStorage.setItem("BeforeDayFilter", "");
+        sessionStorage.setItem("BeforeMonthFilter", "");
+        sessionStorage.setItem("BeforeYearFilter", "");
         document.getElementById("created-before-filter-day").value = "";
         document.getElementById("created-before-filter-month").value = "";
         document.getElementById("created-before-filter-year").value = "";
         document.getElementById("tags-dateBefore").style.display = "none"; 
     } 
     if (filterType === "DateAfter") {
-        sessionStorage.removeItem("AfterDayFilter");
-        sessionStorage.removeItem("AfterMonthFilter");
-        sessionStorage.removeItem("AfterYearFilter");
+        sessionStorage.setItem("AfterDayFilter", "");
+        sessionStorage.setItem("AfterMonthFilter", "");
+        sessionStorage.setItem("AfterYearFilter", "");
         document.getElementById("created-after-filter-day").value = "";
         document.getElementById("created-after-filter-month").value = "";
         document.getElementById("created-after-filter-year").value = "";
@@ -4028,7 +4493,6 @@ function removeFilterTag(tagId, filterType) {
     if (filterType == "Read-only") {
         document.getElementById("read-only").checked = false;
         sessionStorage.setItem("ReadOnly", '');
-
     }
 
     console.log('tag ID is: ', tagId);
@@ -4059,8 +4523,8 @@ function removeFilterTag(tagId, filterType) {
     }
 
 
-    // Reapply all filters
-    ApplySearch();
+    // Reapply all search and filters
+    ReApplySearchFilters(); 
 }
 
     var currentPage = 1;

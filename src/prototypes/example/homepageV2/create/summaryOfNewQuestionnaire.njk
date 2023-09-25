@@ -148,7 +148,7 @@ layout: example/views/Author8col
                                 "rowTitle": "Editors",
                                 "rowItems": [
                                     {
-                                        "id": "directory-setting",
+                                        "id": "editor-list",
                                         "valueList": [
                                             {
                                                 "text": "100"
@@ -208,18 +208,58 @@ if (referringPageURL.includes('/homepageV2/create/CustomisePermissions.html')){
 }
 
 
-function createQuestionnaire() {
 
-    var counter = sessionStorage.getItem('questionnaireCounter');
+var counter = sessionStorage.getItem('questionnaireCounter');
 
-    var title = document.getElementById('title-input').value; 
-    var shortcode = document.getElementById('shortcode-input').value;
-    sessionStorage.getItem('Title_' + counter);
-    sessionStorage.getItem('Shortcode_' + counter);
-    sessionStorage.getItem('Project_' + counter);
-    sessionStorage.getItem('NoDisplayInDirectory_' + counter);
+var title = sessionStorage.getItem('Title_' + counter);
+var shortcode = sessionStorage.getItem('Shortcode_' + counter);
+var project = sessionStorage.getItem('Project_' + counter);
+var directory = sessionStorage.getItem('NoDisplayInDirectory_' + counter);
+var editors = sessionStorage.getItem('editorList');
+if(editors !== null){
+    // Remove double quotes
+    editors = editors.replace(/"/g, '');
+    // Remove square brackets
+    editors = editors.replace(/\[|\]/g, '');
+}
 
+const TitleDDElement = document.querySelector('#entered-title dd span');
+TitleDDElement.textContent = title;
 
+if(shortcode != null){
+    const ShortcodeDDElement = document.querySelector('#entered-shortcode dd span');
+    ShortcodeDDElement.textContent = shortcode;  
+}
+else{
+    var enteredShortcodeElement = document.getElementById('shortcode');
+    enteredShortcodeElement.style.display = "none";
+}
+
+if(project != null){
+    const ProjectDDElement = document.querySelector('#entered-project dd span');
+    ProjectDDElement.textContent = project;  
+}
+else{
+    var enteredProjectElement = document.getElementById('project');
+    enteredProjectElement.style.display = "none";
+}
+
+if(directory != null){
+    const DirectoryDDElement = document.querySelector('#directory dd span');
+    DirectoryDDElement.textContent = "Do not display in questionnaire directory";  
+}
+else{
+    var enteredDirectoryElement = document.getElementById('directory');
+    enteredDirectoryElement.style.display = "none";
+}
+
+if(editors != null){
+    const EditorsDDElement = document.querySelector('#editor-list dd span');
+    EditorsDDElement.textContent = editors;  
+}
+else{
+    var enteredEditorsElement = document.getElementById('editors');
+    enteredEditorsElement.style.display = "none";
 }
 
 

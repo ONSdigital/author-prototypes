@@ -179,12 +179,13 @@ function completeSetup() {
             console.log('checked');
             sessionStorage.setItem('NoDisplayInDirectory_' + counter, true);
         }
-        document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepageV2/NewQuestionnaire.html";    
+        document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepageV2/create/summaryOfNewQuestionnaire.html";    
 
 
 }
 
 let selectedOptionText = '';
+let editorList = []; 
 
 const listOfEditors = document.getElementById('list-of-editors');
 const autosuggestResults = document.querySelector('.ons-autosuggest__results');
@@ -215,6 +216,8 @@ function addListItem(text) {
   // Add a click event listener to the remove button
   removeButton.addEventListener('click', function () {
     listItem.remove();
+    removeFromEditorList(text);
+    updateSessionStorage();
   });
 
   // Append the text and remove button to the list item
@@ -225,6 +228,29 @@ function addListItem(text) {
 
   // Clear the input value
   editorsInput.value = '';
+
+    // Add the text to the editorList
+  editorList.push(text);
+
+  // Update sessionStorage
+  updateSessionStorage();
+}
+
+// Function to remove an item from the editorList
+function removeFromEditorList(text) {
+  editorList = editorList.filter((item) => item !== text);
+}
+
+// Function to update the sessionStorage item
+function updateSessionStorage() {
+  sessionStorage.setItem('editorList', JSON.stringify(editorList));
+}
+
+// Check if there's a previous list in sessionStorage
+const savedList = JSON.parse(sessionStorage.getItem('editorList'));
+if (Array.isArray(savedList)) {
+  editorList = savedList;
+  editorList.forEach((text) => addListItem(text));
 }
 
 
