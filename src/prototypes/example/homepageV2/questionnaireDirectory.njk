@@ -3962,18 +3962,20 @@ function ReApplySearchFilters() {
         }
 
         // Check if the access matches
-        var accessCellValue = AccessCell.textContent.trim();
+        var accessCellValue = AccessCell.textContent.toLowerCase().trim();
+        console.log(accessCellValue);
         var access = true;
         if (EditorAccess != "" || ViewOnlyAccess != "" || ReadOnlyAccess != "") {
             // Check if any of the checked checkboxes' values match the AccessCell content
-            if ((EditorAccess.checked && EditorAccess.value === accessCellValue) ||
-                (ViewOnlyAccess.checked && ViewOnlyAccess.value === accessCellValue) ||
-                (ReadOnlyAccess.checked && ReadOnlyAccess.value === accessCellValue)) {
+            if ((EditorAccess === 'true' && accessCellValue == 'editor') ||
+                (ViewOnlyAccess  === 'true' && accessCellValue == 'view-only') ||
+                (ReadOnlyAccess  === 'true' && accessCellValue == 'read-only for editors')) {
             access = true; // Set access to true if there's a match
+            console.log('access is true');
             }
             else{
                 access = false;
-    
+                console.log('access is not true');
             }
         }
         else{
@@ -4234,18 +4236,20 @@ function ClearSearchReApplyFilters() {
         }
 
         // Check if the access matches
-        var accessCellValue = AccessCell.textContent.trim();
+        var accessCellValue = AccessCell.textContent.toLowerCase().trim();
+        console.log(accessCellValue);
         var access = true;
         if (EditorAccess != "" || ViewOnlyAccess != "" || ReadOnlyAccess != "") {
             // Check if any of the checked checkboxes' values match the AccessCell content
-            if ((EditorAccess.checked && EditorAccess.value === accessCellValue) ||
-                (ViewOnlyAccess.checked && ViewOnlyAccess.value === accessCellValue) ||
-                (ReadOnlyAccess.checked && ReadOnlyAccess.value === accessCellValue)) {
+            if ((EditorAccess === 'true' && accessCellValue == 'editor') ||
+                (ViewOnlyAccess  === 'true' && accessCellValue == 'view-only') ||
+                (ReadOnlyAccess  === 'true' && accessCellValue == 'read-only for editors')) {
             access = true; // Set access to true if there's a match
+            console.log('access is true');
             }
             else{
                 access = false;
-    
+                console.log('access is not true');
             }
         }
         else{
