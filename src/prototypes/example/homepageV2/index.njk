@@ -3263,6 +3263,7 @@ function ApplyFilters() {
 
         // Check if the access matches
         var accessCellValue = AccessCell.textContent.trim();
+        //console.log(accessCellValue);
         var access = true;
         if (EditorAccess.checked || ViewOnlyAccess.checked || ReadOnlyAccess.checked) {
             // Check if any of the checked checkboxes' values match the AccessCell content
@@ -3407,10 +3408,10 @@ function ReApplySearchFilters() {
     var AfterDayFilter = sessionStorage.getItem('AfterDayFilter');
     var AfterMonthFilter = sessionStorage.getItem('AfterMonthFilter');
     var AfterYearFilter = sessionStorage.getItem('AfterYearFilter');
-    var EditorAccess = sessionStorage.getItem('Editor');
-
-    var ViewOnlyAccess = sessionStorage.getItem('ViewOnly');
-    var ReadOnlyAccess = sessionStorage.getItem('ReadOnly');
+    
+    var EditorAccess = sessionStorage.getItem('Editor').toLowerCase();
+    var ViewOnlyAccess = sessionStorage.getItem('ViewOnly').toLowerCase();
+    var ReadOnlyAccess = sessionStorage.getItem('ReadOnly').toLowerCase();
 
     BeforeDayFilter = BeforeDayFilter.replace(/^0+/, "");
     BeforeMonthFilter = BeforeMonthFilter.replace(/^0+/, "");
@@ -3512,18 +3513,20 @@ function ReApplySearchFilters() {
         }
 
         // Check if the access matches
-        var accessCellValue = AccessCell.textContent.trim();
+        var accessCellValue = AccessCell.textContent.toLowerCase().trim();
+        console.log(accessCellValue);
         var access = true;
         if (EditorAccess != "" || ViewOnlyAccess != "" || ReadOnlyAccess != "") {
             // Check if any of the checked checkboxes' values match the AccessCell content
-            if ((EditorAccess.checked && EditorAccess.value === accessCellValue) ||
-                (ViewOnlyAccess.checked && ViewOnlyAccess.value === accessCellValue) ||
-                (ReadOnlyAccess.checked && ReadOnlyAccess.value === accessCellValue)) {
+            if ((EditorAccess === 'true' && accessCellValue == 'editor') ||
+                (ViewOnlyAccess  === 'true' && accessCellValue == 'view-only') ||
+                (ReadOnlyAccess  === 'true' && accessCellValue == 'read-only for editors')) {
             access = true; // Set access to true if there's a match
+            console.log('access is true');
             }
             else{
                 access = false;
-    
+                console.log('access is not true');
             }
         }
         else{
@@ -3707,6 +3710,7 @@ function ClearSearchReApplyFilters() {
     var AfterDayFilter = sessionStorage.getItem('AfterDayFilter');
     var AfterMonthFilter = sessionStorage.getItem('AfterMonthFilter');
     var AfterYearFilter = sessionStorage.getItem('AfterYearFilter');
+    
     var EditorAccess = sessionStorage.getItem('Editor');
 
     var ViewOnlyAccess = sessionStorage.getItem('ViewOnly');
@@ -3802,18 +3806,20 @@ function ClearSearchReApplyFilters() {
         }
 
         // Check if the access matches
-        var accessCellValue = AccessCell.textContent.trim();
+        var accessCellValue = AccessCell.textContent.toLowerCase().trim();
+        console.log(accessCellValue);
         var access = true;
         if (EditorAccess != "" || ViewOnlyAccess != "" || ReadOnlyAccess != "") {
             // Check if any of the checked checkboxes' values match the AccessCell content
-            if ((EditorAccess.checked && EditorAccess.value === accessCellValue) ||
-                (ViewOnlyAccess.checked && ViewOnlyAccess.value === accessCellValue) ||
-                (ReadOnlyAccess.checked && ReadOnlyAccess.value === accessCellValue)) {
+            if ((EditorAccess === 'true' && accessCellValue == 'editor') ||
+                (ViewOnlyAccess  === 'true' && accessCellValue == 'view-only') ||
+                (ReadOnlyAccess  === 'true' && accessCellValue == 'read-only for editors')) {
             access = true; // Set access to true if there's a match
+            console.log('access is true');
             }
             else{
                 access = false;
-    
+                console.log('access is not true');
             }
         }
         else{
@@ -4059,16 +4065,19 @@ function removeFilterTag(tagId, filterType) {
         document.getElementById("editor").checked = false;
         sessionStorage.setItem("Editor", '');
         console.log('removing editor');
+        document.getElementById("tags-access").style.display = "none"; 
 
     }
     if (filterType == "View-only") {
         document.getElementById("view-only").checked = false;
         sessionStorage.setItem("ViewOnly", '');
+        document.getElementById("tags-access").style.display = "none"; 
 
     }
     if (filterType == "Read-only") {
         document.getElementById("read-only").checked = false;
         sessionStorage.setItem("ReadOnly", '');
+        document.getElementById("tags-access").style.display = "none"; 
     }
 
     console.log('tag ID is: ', tagId);
