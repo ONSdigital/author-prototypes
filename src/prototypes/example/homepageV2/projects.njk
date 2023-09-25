@@ -224,23 +224,65 @@ layout: example/views/homepageV2
 
 {% endblock %}
 
-{% block main %}
+{% block pageContent %}
+
+{{
+    onsHero({
+        "title": 'Projects',
+        "text": 'Adding a project to a questionnaire enables related questionnaires to be grouped and enhances filtering.',
+        "button": {
+            "url": '#',
+            "text": 'Create a project'
+        },
+        "wide": "true"
+    })
+}}
+
+<div class="ons-page__container ons-container ons-container--wide">
+<div class="ons-grid">
+<div class="ons-grid__col ons-col-12@m">
+<main id="main-content" class="ons-page__main">
 
 
 <div class="ons-grid">
 
     <div class="ons-grid__col ons-col-8@m">
-        <h1 class="ons-u-mb-l">Projects</h1>
-        <p>Here the projects will be listed. You will be able to edit them, which involves changing the name.</p>
-        <p>This functionality has not been added to the prototype yet.</p>
+        {{
+            onsInput({
+                "id": 'search-field',
+                "label": {
+                    'text': 'Search',
+                    "classes": 'ons-u-pb-xxs ons-u-mb-no'
+                },
+                "searchButton": {
+                    "visuallyHideButtonText": true,
+                    "text": 'Search',
+                    "iconType": 'search'
+                }
+            })
+        }}
+
+        <h2 class="ons-u-mt-l">12 projects</h2>
+        <a href="#" class="ons-u-d-b ons-u-mb-s">Community Connections Study</a>
+        <a href="#" class="ons-u-d-b ons-u-mb-s">Financial Planning Survey</a>
+        <a href="#" class="ons-u-d-b ons-u-mb-s">Green Initiatives Assessment</a>
+        <a href="#" class="ons-u-d-b ons-u-mb-s">Impacts of Brexit</a>
+        <a href="#" class="ons-u-d-b ons-u-mb-s">Junior Doctors Survey</a>
+        <a href="#" class="ons-u-d-b ons-u-mb-s">People and Policy</a>
+        <a href="/prototypes/example/homepageV2/projects/" class="ons-u-d-b ons-u-mb-s">Small Business Survey</a>
+        <a href="#" class="ons-u-d-b ons-u-mb-s">Social Media</a>
+        <a href="#" class="ons-u-d-b ons-u-mb-s">Teacher Support and Job Satisfaction Survey</a>
+        <a href="#" class="ons-u-d-b ons-u-mb-s">Teachers Survey</a>
+        <a href="#" class="ons-u-d-b ons-u-mb-s">Trust in Government 2023</a>
+        <a href="#" class="ons-u-d-b ons-u-mb-s">UK Health Trends</a>
 
     </div>
 
+</div>
 
-
-
-
-
+</main>
+</div>
+</div>
 </div>
 
 
