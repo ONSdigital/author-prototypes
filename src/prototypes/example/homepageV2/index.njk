@@ -198,7 +198,7 @@ layout: example/views/homepageV2
         align-items: center;
         font-size: 14px;
         padding: 4px 4px 4px 7px;
-        margin-left: 10px;
+        margin-left: 81px;
 
     }
 
@@ -264,6 +264,10 @@ layout: example/views/homepageV2
         padding-right:5px;
     }
     
+    .TableMarginBottom{
+        margin-bottom: 72px;
+    }
+
 </style>
 
 {% endblock %}
@@ -498,14 +502,13 @@ layout: example/views/homepageV2
                         "classes": "ons-u-mb-m"
                     })
                 }}
-
+                <div class="ons-u-mb-m">
                 {{ onsAutosuggest({
                     "id": "project-filter",
                     "label": {
                         "text": "Project",
                         "id": "project-filter-label"
                     },
-                    "classes": "ons-u-mb-m",
                     "autocomplete": "off",
                     "instructions": "Use up and down keys to navigate suggestions once you\'ve typed more than two characters. Use the enter key to select a suggestion. Touch device users, explore by touch or with swipe gestures.",
                     "ariaYouHaveSelected": "You have selected",
@@ -523,6 +526,9 @@ layout: example/views/homepageV2
                         "style": "width:261.5px;"
                     }
                 }) }}
+                </div>
+
+                <div class="ons-u-mb-m">
 
                 {{ onsAutosuggest({
                     "id": "owner-filter",
@@ -530,7 +536,6 @@ layout: example/views/homepageV2
                     "text": "Owner",
                     "id": "owner-filter-label"
                     },
-                    "classes": "ons-u-mb-m",
                     "autocomplete": "off",
                     "instructions": "Use up and down keys to navigate suggestions once you\'ve typed more than two characters. Use the enter key to select a suggestion. Touch device users, explore by touch or with swipe gestures.",
                     "ariaYouHaveSelected": "You have selected",
@@ -548,6 +553,8 @@ layout: example/views/homepageV2
                         "style": "width:261.5px;"
                     }
                 }) }}
+
+                </div>
 
                 <div class="ons-u-mb-m">
 
@@ -685,7 +692,7 @@ layout: example/views/homepageV2
 
             <p class="ons-u-mb-xs" id='StarredReplacement'><span id="starIcon" class="material-symbols-outlined ons-u-mr-xs">star</span><strong>Starred</strong></p>
 
-            <table id="starred-table" class="ons-table ons-u-mb-xl">
+            <table id="starred-table" class="ons-table TableMarginBottom">
                 <caption class="ons-table__caption"><span id="star" class="material-symbols-outlined ons-u-mr-xs">star</span>Starred</caption>
                 <thead class="ons-table__head ons-u-d-no">
                     <tr class="ons-table__row">
