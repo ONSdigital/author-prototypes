@@ -238,6 +238,7 @@ layout: example/views/homepageV2
     .ons-hero__container{
         max-height:300px;
     }
+
     
 </style>
 
@@ -3796,8 +3797,10 @@ function ApplyFilters() {
         var searchFilter = true;
         var cellText = TitleShortcodeCell.textContent.toLowerCase(); 
         // Assuming you want to search the first column
-        if (!cellText.includes(searchField)) {
-            searchFilter = false;
+        if(searchField != ""){
+            if (!cellText.includes(searchField)) {
+                searchFilter = false;
+            }
         }
 
         // Check if the Project filter is non-empty and matches
@@ -3908,11 +3911,11 @@ function ApplyFilters() {
     var searchEntry = document.getElementById("search-field").value;
     var numberOfQuestionnairesElement = document.getElementById("SearchEntry");
     // Append the value of searchEntry to the existing text content
-    if(searchEntry != ""){
+    if(searchField != ""){
         numberOfQuestionnairesElement.textContent = ' with ' + '"' + searchEntry + '"';
         document.getElementById('clearSearchBtn').style.display = "block";
     }
-    if(searchEntry == ""){
+    if(searchField == ""){
         numberOfQuestionnairesElement.textContent = '';
         document.getElementById('clearSearchBtn').style.display = "none";
     }
@@ -4121,11 +4124,11 @@ function ReApplySearchFilters() {
     var searchEntry = document.getElementById("search-field").value;
     var numberOfQuestionnairesElement = document.getElementById("SearchEntry");
     // Append the value of searchEntry to the existing text content
-    if(searchEntry != ""){
+    if(searchField != ""){
         numberOfQuestionnairesElement.textContent = ' with ' + '"' + searchEntry + '"';
         document.getElementById('clearSearchBtn').style.display = "block";
     }
-    if(searchEntry == ""){
+    if(searchField == ""){
         numberOfQuestionnairesElement.textContent = '';
         document.getElementById('clearSearchBtn').style.display = "none";
     }
@@ -4225,11 +4228,11 @@ function ReApplySearch() {
     var searchEntry = document.getElementById("search-field").value;
     var numberOfQuestionnairesElement = document.getElementById("SearchEntry");
     // Append the value of searchEntry to the existing text content
-    if(searchEntry != ""){
+    if(searchField != ""){
         numberOfQuestionnairesElement.textContent = ' with ' + '"' + searchEntry + '"';
         document.getElementById('clearSearchBtn').style.display = "block";
     }
-    if(searchEntry == ""){
+    if(searchField == ""){
         numberOfQuestionnairesElement.textContent = '';
         document.getElementById('clearSearchBtn').style.display = "none";
     }
