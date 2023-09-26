@@ -11,7 +11,7 @@ layout: example/views/Author8col
         "ariaLabel": 'Back',
         "itemsList": [
             {
-                "url": '/prototypes/example/homepage/URTasks/UserTaskList.html',
+                "url": '/prototypes/example/homepageV2/URTasks/UserTaskList.html',
                 "id": "back",
                 "text": 'Back',
                 "attributes": {
@@ -24,47 +24,84 @@ layout: example/views/Author8col
 {% endblock %}
 
 {% block main %}
+    <h1>Task 5</h1>
+    <p>This task will involve comparing 2 designs.</p>
 
 {{
     onsExternalLink({
         "url": "/prototypes/example/homepage/",
-        "linkText": "Task 5a",
-        "classes": "externalLink ons-u-fs-l"
+        "linkText": "Task 5",
+        "classes": "externalLink ons-u-fs-m"
     })
 }}
 
-    <h1 class="ons-u-mb-s ons-u-mt-xl">Task 5b</h1>
+    <h3 class="ons-u-mb-s ons-u-mt-m">Task 5a for Design 1</h3>
 
-
-    <p>Imagine that you are working on a questionnaire that you frequently need to access.
+    <p>Add the following questionnaire to your starred section.
     </p>
-    <p>Your task is to add the final version of <strong>Financial Planning Survey</strong> to your starred section.
-    </p>
+    <ul>
+        <li>Shortcode: <strong>FPS-23 FINAL</strong></li>
+        <li>Access: <strong>Editor</strong></li>
+    </ul>
     
 
 {{
     onsExternalLink({
         "url": "/prototypes/example/homepage/",
         "linkText": "Start task",
-        "classes": "externalLink ons-u-fs-l"
+        "classes": "externalLink ons-u-fs-m"
     })
 }}
 
 
-    <h1 class="ons-u-mb-s ons-u-mt-xl">Task 5b</h1>
+    <h3 class="ons-u-mb-s ons-u-mt-m">Task 5b for Design 1</h3>
 
 
-    <p>Your work on this questionnaire is now completed.
+    <p>Now remove this questionnaire from your starred section.
     </p>
-    <p>Your task is to remove the final version of <strong>Financial Planning Survey</strong> from your starred section.
-    </p>
+
     
 
 {{
     onsExternalLink({
         "url": "/prototypes/example/homepage/",
         "linkText": "Start task",
-        "classes": "externalLink ons-u-fs-l"
+        "classes": "externalLink ons-u-fs-m ons-u-pb-m"
+    })
+}}
+
+    <h3 class="ons-u-mb-s ons-u-mt-xl">Task 5a for Design 2</h3>
+
+    <p>Add the following questionnaire to your starred section.
+    </p>
+    <ul>
+        <li>Shortcode: <strong>FPS-23 FINAL</strong></li>
+        <li>Access: <strong>Editor</strong></li>
+    </ul>
+    
+
+{{
+    onsExternalLink({
+        "url": "/prototypes/example/homepageV2/",
+        "linkText": "Start task",
+        "classes": "externalLink ons-u-fs-m"
+    })
+}}
+
+
+    <h3 class="ons-u-mb-s ons-u-mt-xl">Task 5b for Design 2</h3>
+
+
+    <p>Now remove this questionnaire from your starred section.
+    </p>
+
+    
+
+{{
+    onsExternalLink({
+        "url": "/prototypes/example/homepageV2/",
+        "linkText": "Start task",
+        "classes": "externalLink ons-u-fs-m"
     })
 }}
 

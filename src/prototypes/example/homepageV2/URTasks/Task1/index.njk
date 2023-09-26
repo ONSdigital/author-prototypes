@@ -11,7 +11,7 @@ layout: example/views/Author8col
         "ariaLabel": 'Back',
         "itemsList": [
             {
-                "url": '/prototypes/example/homepage/URTasks/UserTaskList.html',
+                "url": '/prototypes/example/homepageV2/URTasks/UserTaskList.html',
                 "id": "back",
                 "text": 'Back',
                 "attributes": {
@@ -28,24 +28,36 @@ layout: example/views/Author8col
     <h1 class="ons-u-mb-s">Task 1</h1>
 
 
-    <p>You are part of the <strong>Financial Planning Survey</strong> project and have editor access to all drafts and final versions.
+    <p>You are part of the <strong>Financial Planning</strong> project.
     </p>
 
-    <p>To help with organisation, all drafts and final versions have been assigned the <strong>Financial Planning Survey</strong> project tag.</p>
+    <p>You have editor access to some of the project's questionnaires but not all.</p>
 
-    <p>Your task is to find the first draft of the Financial Planning Survey.
+    <h3 class="ons-u-mb-s ons-u-mt-xl">Task 1a</h3>
+
+    <p>Find the number of questionnaires you have <strong>editor access</strong> to within the <strong>Financial Planning</strong> project.
     </p>
 
-    <br>
+    {{
+        onsExternalLink({
+            "url": "/prototypes/example/homepageV2/",
+            "linkText": "Start task",
+            "classes": "externalLink ons-u-fs-m"
+        })
+    }}
 
+    <h3 class="ons-u-mb-s ons-u-mt-l">Task 1b</h3>
 
-{{
-    onsExternalLink({
-        "url": "/prototypes/example/homepage",
-        "linkText": "Start task",
-        "classes": "externalLink ons-u-fs-l"
-    })
-}}
+    <p>Find the number of questionnaires you have <strong>view-only access</strong> to within the <strong>Financial Planning</strong> project.
+    </p>
+
+    {{
+        onsExternalLink({
+            "url": "/prototypes/example/homepageV2/",
+            "linkText": "Start task",
+            "classes": "externalLink ons-u-fs-m"
+        })
+    }}
 
 {% endblock %}
 
