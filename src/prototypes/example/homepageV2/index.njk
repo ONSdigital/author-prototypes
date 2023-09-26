@@ -690,6 +690,17 @@ layout: example/views/homepageV2
                 </select>
             </div>
 
+            {{
+                onsPanel({
+                    "body": "<p>To find view-only questionnaires that have not been added to 'My questionnaires', go to <a href='/prototypes/example/homepageV2/questionnaireDirectory'>all questionnaires</a>.</p>",
+                    "id": "view-only-panel",
+                    "classes": "ons-u-mb-m",
+                    "attributes": {
+                        "style": "display:none;"
+                    }
+                })
+            }}
+
             <p class="ons-u-mb-xs" id='StarredReplacement'><span id="starIcon" class="material-symbols-outlined ons-u-mr-xs">star</span><strong>Starred</strong></p>
 
             <table id="starred-table" class="ons-table TableMarginBottom">
@@ -3322,7 +3333,9 @@ function ApplyFilters() {
         appendFilterTag("Editor", "Editor")
         }
         if (ViewOnlyAccess.checked) {
-            appendFilterTag("View-only", "View-only")
+            appendFilterTag("View-only", "View-only");
+            console.log('view-only added');
+            document.getElementById('view-only-panel').style.display = "block";
 
         }
         if (ReadOnlyAccess.checked) {
@@ -3911,9 +3924,9 @@ function clearInputValues() {
     document.getElementById("created-after-filter-day").value = "";
     document.getElementById("created-after-filter-month").value = "";
     document.getElementById("created-after-filter-year").value = "";
-    document.getElementById("editor-label").checked = false;
-    document.getElementById("view-only-label").checked = false;
-    document.getElementById("read-only-label").checked = false;
+    document.getElementById("editor").checked = false;
+    document.getElementById("view-only").checked = false;
+    document.getElementById("read-only").checked = false;
     
     // Remove 'filtered-out' class from all rows in starred-table
     let starredRows = document.querySelectorAll('#starred-table .ons-table__row');
@@ -3942,6 +3955,8 @@ function clearInputValues() {
     sessionStorage.setItem("Editor", '');
     sessionStorage.setItem("ViewOnly", '');
     sessionStorage.setItem("ReadOnly", '');
+
+    document.getElementById('view-only-panel').style.display = "none";
 
     ReApplySearch();
 }
@@ -4078,6 +4093,7 @@ function removeFilterTag(tagId, filterType) {
         document.getElementById("view-only").checked = false;
         sessionStorage.setItem("ViewOnly", '');
         document.getElementById("tags-access").style.display = "none"; 
+        document.getElementById('view-only-panel').style.display = "none";
 
     }
     if (filterType == "Read-only") {
