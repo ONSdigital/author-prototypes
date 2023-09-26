@@ -1,0 +1,132 @@
+---
+group: Examples
+title: Example prototype
+layout: example/views/homepageV2
+---
+{% from "components/button/_macro.njk" import onsButton %}
+{% from "components/autosuggest/_macro.njk" import onsAutosuggest %}
+{% from "components/table/_macro.njk" import onsTable %}
+{% from "components/input/_macro.njk" import onsInput %}
+{% from "components/radios/_macro.njk" import onsRadios %}
+{% from "components/panel/_macro.njk" import onsPanel %}
+{% from "components/list/_macro.njk" import onsList %}
+{% from "components/select/_macro.njk" import onsSelect %}
+{% from "components/breadcrumbs/_macro.njk" import onsBreadcrumbs %}
+
+
+{% block head %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+
+{% endblock %}
+
+{% block preMain %}
+
+{{
+    onsBreadcrumbs({
+        "ariaLabel": 'Back',
+        "itemsList": [
+            {
+                "url": '/prototypes/example/homepageV2/projects.html',
+                "id": "backlink",
+                "text": 'Back',
+                "attributes": {
+                    "data-attribute": "Example attribute"
+                }
+            }
+        ]
+    })
+}}
+
+{% endblock %}
+
+{% block main %}
+
+
+<div class="ons-grid">
+
+    <div class="ons-grid__col ons-col-8@m">
+        
+        <h2 class="ons-u-fs-xl">Financial Planning Survey</h2>
+
+        {% call onsPanel({
+                "type": 'warn'
+            })
+        %}
+            Editing the project name will update it for all questionnaires that have been assigned to this project.
+        {% endcall %}
+
+        {{
+            onsInput({
+                "id": "Project-name",
+                "value": "Financial Planning Survey",
+                "label": {
+                    "text": "Project name"
+                }
+            })
+        }}
+
+        <a href="#" class="ons-u-mt-m ons-u-d-b">Delete project</a>
+
+        <div class="ons-u-mt-l">
+            {{
+                onsButton({
+                    "text": "Continue"
+                })
+            }}
+
+            <a class="ons-u-dib ons-u-ml-s ons-u-mt-xs" href="/prototypes/example/homepageV2/projects.html">Cancel</a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+{% endblock %}
+
+{% block bodyEnd %}
+<script>
+    function searchProjects() {
+        var searchValue = document.getElementById('search-field').value.toLowerCase();
+        var projectList = document.getElementById('list-of-projects').getElementsByTagName('a');
+        var numberOfProjects = 0;
+
+        for (var i = 0; i < projectList.length; i++) {
+            var project = projectList[i];
+            var projectName = project.textContent.toLowerCase();
+
+            if (projectName.includes(searchValue)) {
+                project.parentElement.style.display = 'block';
+                numberOfProjects++;
+            } else {
+                project.parentElement.style.display = 'none';
+            }
+        }
+
+        var numberOfProjectsElement = document.getElementById('number-of-projects');
+        
+        if(searchValue != ''){
+            numberOfProjectsElement.textContent = numberOfProjects + ' projects with \'' + searchValue + '\'';
+            document.getElementById('clearSearchBtn').style.display = "block";
+        }
+        else{
+            numberOfProjectsElement.textContent = "12 projects";
+            document.getElementById('clearSearchBtn').style.display = "none";
+        }
+    }
+
+    function clearSearch(){
+        document.getElementById('search-field').value = '';
+        document.getElementById('clearSearchBtn').style.display = "none";
+        searchProjects();
+    }
+
+</script>
+{% endblock %}
