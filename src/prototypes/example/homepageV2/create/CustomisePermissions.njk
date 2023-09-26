@@ -1,7 +1,7 @@
 ---
 group: Examples
 title: Example prototype
-layout: example/views/Author8col
+layout: example/views/Author8colLoggedIn
 ---
 {% from "components/button/_macro.njk" import onsButton %}
 {% from "components/autosuggest/_macro.njk" import onsAutosuggest %}
@@ -164,11 +164,14 @@ var referringPageURL = document.referrer;
 console.log("Referring Page URL: " + referringPageURL);
 
 function defineBack(){
-    if (referringPageURL.includes('/homepageV2/create/AddProject.html')){
+    console.log('define back is running');
+    if (referringPageURL.includes('/homepageV2/create/AddProject')){
         window.location.href = "AddProject.html";
+        console.log('here');
     }
-    if (referringPageURL.includes('/homepageV2/create/enterDetails.html')){
+    if (referringPageURL.includes('/homepageV2/create/enterDetails')){
         window.location.href = "enterDetails.html";
+        console.log('and here');
     }
 }
 

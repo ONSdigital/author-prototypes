@@ -75,7 +75,7 @@ layout: example/views/Author8colLoggedIn
                                             {
                                                 "text": "Change",
                                                 "visuallyHiddenText": "Change answer",
-                                                "url": "/homepageV2/create/enterDetails.html"
+                                                "url": "/homepageV2/duplicate/enterDetails.html"
                                             }
                                         ]
                                     }
@@ -96,7 +96,7 @@ layout: example/views/Author8colLoggedIn
                                             {
                                                 "text": "Change",
                                                 "visuallyHiddenText": "Change answer",
-                                                "url": "/homepageV2/create/enterDetails.html"
+                                                "url": "/homepageV2/duplicate/enterDetails.html"
                                             }
                                         ]
                                     }
@@ -117,7 +117,7 @@ layout: example/views/Author8colLoggedIn
                                             {
                                                 "text": "Change",
                                                 "visuallyHiddenText": "Change answer",
-                                                "url": "/homepageV2/create/AddProject.html"
+                                                "url": "/homepageV2/duplicate/AddProject.html"
                                             }
                                         ]
                                     }
@@ -138,7 +138,7 @@ layout: example/views/Author8colLoggedIn
                                             {
                                                 "text": "Change",
                                                 "visuallyHiddenText": "Change answer",
-                                                "url": "/homepageV2/create/CustomisePermissions.html"
+                                                "url": "/homepageV2/duplicate/CustomisePermissions.html"
                                             }
                                         ]
                                     }
@@ -159,7 +159,7 @@ layout: example/views/Author8colLoggedIn
                                             {
                                                 "text": "Change",
                                                 "visuallyHiddenText": "Change answer",
-                                                "url": "/homepageV2/create/CustomisePermissions.html"
+                                                "url": "/homepageV2/duplicate/CustomisePermissions.html"
                                             }
                                         ]
                                     }
@@ -195,13 +195,13 @@ console.log("Referring Page URL: " + referringPageURL);
 
 
 function defineBack(){
-    if (referringPageURL.includes('/homepageV2/create/AddProject.html')){
+    if (referringPageURL.includes('/homepageV2/duplicate/AddProject.html')){
         window.location.href = "AddProject.html";
     }
-    if (referringPageURL.includes('/homepageV2/create/enterDetails.html')){
+    if (referringPageURL.includes('/homepageV2/duplicate/enterDetails.html')){
         window.location.href = "enterDetails.html";
     }
-    if (referringPageURL.includes('/homepageV2/create/CustomisePermissions.html')){
+    if (referringPageURL.includes('/homepageV2/duplicate/CustomisePermissions.html')){
         window.location.href = "CustomisePermissions.html";
     }
 }

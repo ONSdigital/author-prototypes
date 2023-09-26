@@ -1,7 +1,7 @@
 ---
 group: Examples
 title: Example prototype
-layout: example/views/Author8col
+layout: example/views/Author8colLoggedIn
 ---
 {% from "components/button/_macro.njk" import onsButton %}
 {% from "components/autosuggest/_macro.njk" import onsAutosuggest %}
@@ -128,11 +128,12 @@ if (!referringPageURL.endsWith('/homepageV2/')){
     var enteredShortcode = sessionStorage.getItem('Shortcode_' + counter);
     document.getElementById('title-input').value = enteredTitle;
     document.getElementById('shortcode-input').value = enteredShortcode;
-    document.getElementById('add-project').checked = true;
+    if(sessionStorage.getItem('Project_' + counter)){
+        document.getElementById('add-project').checked = true;
+    }
     if(sessionStorage.getItem('customisePermissions')){
         document.getElementById('customise-access-permissions').checked = true;
     }
-
 }
 
 
@@ -157,12 +158,9 @@ function creationEnterDetails() {
 
     }
 
-    if (referringPageURL.endsWith('/homepageV2/') ||referringPageURL.endsWith('/homepageV2/create/AddProject.html') || referringPageURL.endsWith('/homepageV2/create/CustomisePermissions.html')) {
+    if (referringPageURL.endsWith('/homepageV2/') ||referringPageURL.includes('/homepageV2/create/AddProject') || referringPageURL.includes('/homepageV2/create/CustomisePermissions')) {
 
         console.log('doesnt end with summary....');
-        setTimeout(function(){
-            console.log("Executed after 10 seconds");
-        }, 10000);
 
         if (document.getElementById('add-project').checked == true) {
             console.log('checked');
@@ -182,8 +180,9 @@ function creationEnterDetails() {
             }
         }
     }
-
-    if(referringPageURL.endsWith('/homepageV2/create/summaryOfNewQuestionnaire.html')){
+    
+    
+    if(referringPageURL.includes('/homepageV2/create/summaryOfNewQuestionnaire')){
         console.log('elseeee');
         var counter = parseInt(sessionStorage.getItem('questionnaireCounter')) || 0;
         counter++;
@@ -196,6 +195,7 @@ function creationEnterDetails() {
         document.forms["CreationEnterDetails"].action = "/prototypes/example/homepageV2/create/summaryOfNewQuestionnaire.html";    
 
     }
+    
     
 
 }

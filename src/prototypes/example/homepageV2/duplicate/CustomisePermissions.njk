@@ -174,21 +174,35 @@ layout: example/views/Author8col
 
 <script>
 
-function completeSetup() {
+var referringPageURL = document.referrer;
+console.log("Referring Page URL: " + referringPageURL);
 
-    var counter = parseInt(sessionStorage.getItem('questionnaireCounter')) || 0;
-
-    if(document.getElementById('no-display-questionnaire-directory').checked === true){
-        console.log('checked');
-        sessionStorage.setItem('NoDisplayInDirectory_' + counter, true);
+function defineBack(){
+    console.log('define back is running');
+    if (referringPageURL.includes('/homepageV2/create/AddProject')){
+        window.location.href = "AddProject.html";
+        console.log('here');
     }
-    
-    document.forms["duplicateQuestionnaireProject"].action = "/prototypes/example/homepage/NewQuestionnaire.html";
+    if (referringPageURL.includes('/homepageV2/create/enterDetails')){
+        window.location.href = "enterDetails.html";
+        console.log('and here');
+    }
+}
+
+function completeSetup() {
+        var counter = parseInt(sessionStorage.getItem('questionnaireCounter')) || 0;
+
+        if(document.getElementById('no-display-questionnaire-directory').checked === true){
+            console.log('checked');
+            sessionStorage.setItem('NoDisplayInDirectory_' + counter, true);
+        }
+        document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepageV2/create/summaryOfNewQuestionnaire.html";    
 
 
 }
 
 let selectedOptionText = '';
+let editorList = []; 
 
 const listOfEditors = document.getElementById('list-of-editors');
 const autosuggestResults = document.querySelector('.ons-autosuggest__results');
@@ -206,26 +220,55 @@ autosuggestResults.addEventListener('click', function (event) {
 
 
 function addListItem(text) {
+  // Create a new list item
   const listItem = document.createElement('li');
   listItem.textContent = text;
 
+  // Create a button to remove the list item
   const removeButton = document.createElement('button');
   removeButton.type = 'button';
   removeButton.className = 'ons-u-fr removeBtn';
   removeButton.textContent = 'Remove';
 
+  // Add a click event listener to the remove button
   removeButton.addEventListener('click', function () {
     listItem.remove();
+    removeFromEditorList(text);
+    updateSessionStorage();
   });
 
+  // Append the text and remove button to the list item
   listItem.appendChild(removeButton);
 
+  // Append the list item to the list
   listOfEditors.appendChild(listItem);
 
+  // Clear the input value
   editorsInput.value = '';
+
+    // Add the text to the editorList
+  editorList.push(text);
+
+  // Update sessionStorage
+  updateSessionStorage();
 }
 
+// Function to remove an item from the editorList
+function removeFromEditorList(text) {
+  editorList = editorList.filter((item) => item !== text);
+}
 
+// Function to update the sessionStorage item
+function updateSessionStorage() {
+  sessionStorage.setItem('editorList', JSON.stringify(editorList));
+}
+
+// Check if there's a previous list in sessionStorage
+const savedList = JSON.parse(sessionStorage.getItem('editorList'));
+if (Array.isArray(savedList)) {
+  editorList = savedList;
+  editorList.forEach((text) => addListItem(text));
+}
 
 
 </script>

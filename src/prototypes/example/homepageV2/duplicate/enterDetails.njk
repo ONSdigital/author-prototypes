@@ -118,48 +118,88 @@ layout: example/views/Author8col
 
 <script>
 
-    var duplicatedShortcode = sessionStorage.getItem('duplicateShortcode');
-    var duplicatedTitle = sessionStorage.getItem('duplicateTitle');
-    var title = document.getElementById('title-input');
-    var shortcode = document.getElementById('shortcode-input');
-    title.value = "Copy of " + duplicatedTitle;
-    shortcode.value = "Copy of " + duplicatedShortcode;
+var referringPageURL = document.referrer;
+console.log("Referring Page URL: " + referringPageURL);
 
-function duplicationEnterDetails() {
+if (!referringPageURL.endsWith('/homepageV2/')){
+    console.log('didnt come from the homepage');
     var counter = parseInt(sessionStorage.getItem('questionnaireCounter')) || 0;
-    counter++;
-    sessionStorage.setItem('questionnaireCounter', counter);
-
-    var title = document.getElementById('title-input').value; 
-    var shortcode = document.getElementById('shortcode-input').value;
-    sessionStorage.setItem('Title_' + counter, title);
-    sessionStorage.setItem('Shortcode_' + counter, shortcode);
-
-    sessionStorage.setItem('Access_' + counter, 'Editor');
-    sessionStorage.setItem('Owner_' + counter, 'Sam Lake');
-    sessionStorage.setItem('Buttonid_' + counter, 'Buttonid_' + counter);
-    sessionStorage.setItem('ULid' + counter, 'ULid' + counter);
-    sessionStorage.setItem('rowID' + counter, 'rowID' + counter);
-
-
-    if (document.getElementById('add-project').checked == true) {
-        console.log('checked');
-        if (document.getElementById('customise-access-permissions').checked == true) {
-            sessionStorage.setItem('customisePermissions', true);
-        }
-        document.forms["duplicateQuestionnaireDetails"].action = "/prototypes/example/homepage/duplicate/AddProject.html";    
-    } 
-    else {
-        console.log('running');
-        if (document.getElementById('customise-access-permissions').checked == true) {
-            document.forms["duplicateQuestionnaireDetails"].action = "/prototypes/example/homepage/duplicate/CustomisePermissions.html";    
-
-        } else {
-            document.forms["duplicateQuestionnaireDetails"].action = "/prototypes/example/homepage/NewQuestionnaire.html";    
-
-        }
+    var enteredTitle = sessionStorage.getItem('Title_' + counter);
+    var enteredShortcode = sessionStorage.getItem('Shortcode_' + counter);
+    document.getElementById('title-input').value = enteredTitle;
+    document.getElementById('shortcode-input').value = enteredShortcode;
+    if(sessionStorage.getItem('Project_' + counter)){
+        document.getElementById('add-project').checked = true;
+    }
+    if(sessionStorage.getItem('customisePermissions')){
+        document.getElementById('customise-access-permissions').checked = true;
     }
 }
+
+
+function creationEnterDetails() {
+    console.log('executing');
+
+    if (referringPageURL.endsWith('/homepageV2/')) {
+        var counter = parseInt(sessionStorage.getItem('questionnaireCounter')) || 0;
+        counter++;
+        sessionStorage.setItem('questionnaireCounter', counter);
+
+        var title = document.getElementById('title-input').value; 
+        var shortcode = document.getElementById('shortcode-input').value;
+        sessionStorage.setItem('Title_' + counter, title);
+        sessionStorage.setItem('Shortcode_' + counter, shortcode);
+
+        sessionStorage.setItem('Access_' + counter, 'Editor');
+        sessionStorage.setItem('Owner_' + counter, 'Sam Lake');
+        sessionStorage.setItem('Buttonid_' + counter, 'Buttonid_' + counter);
+        sessionStorage.setItem('ULid' + counter, 'ULid' + counter);
+        sessionStorage.setItem('rowID' + counter, 'rowID' + counter);
+
+    }
+
+    if (referringPageURL.endsWith('/homepageV2/') ||referringPageURL.includes('/homepageV2/create/AddProject') || referringPageURL.includes('/homepageV2/create/CustomisePermissions')) {
+
+        console.log('doesnt end with summary....');
+
+        if (document.getElementById('add-project').checked == true) {
+            console.log('checked');
+            if (document.getElementById('customise-access-permissions').checked == true) {
+                sessionStorage.setItem('customisePermissions', true);
+            }
+            document.forms["CreationEnterDetails"].action = "/prototypes/example/homepageV2/create/AddProject.html";    
+        } 
+        else {
+            console.log('running');
+            if (document.getElementById('customise-access-permissions').checked == true) {
+                document.forms["CreationEnterDetails"].action = "/prototypes/example/homepageV2/create/CustomisePermissions.html";    
+
+            } else {
+                document.forms["CreationEnterDetails"].action = "/prototypes/example/homepageV2/create/summaryOfNewQuestionnaire.html";    
+
+            }
+        }
+    }
+    
+    
+    if(referringPageURL.includes('/homepageV2/create/summaryOfNewQuestionnaire')){
+        console.log('elseeee');
+        var counter = parseInt(sessionStorage.getItem('questionnaireCounter')) || 0;
+        counter++;
+        sessionStorage.setItem('questionnaireCounter', counter);
+
+        var title = document.getElementById('title-input').value; 
+        var shortcode = document.getElementById('shortcode-input').value;
+        sessionStorage.setItem('Title_' + counter, title);
+        sessionStorage.setItem('Shortcode_' + counter, shortcode);
+        document.forms["CreationEnterDetails"].action = "/prototypes/example/homepageV2/create/summaryOfNewQuestionnaire.html";    
+
+    }
+    
+    
+
+}
+
 
 
 </script>

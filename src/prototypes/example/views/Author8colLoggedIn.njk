@@ -7,6 +7,10 @@
 {% from "components/breadcrumbs/_macro.njk" import onsBreadcrumbs %}
 {% from "components/button/_macro.njk" import onsButton %}
 {% from "components/header/_macro.njk" import onsHeader %}
+{% from "components/details/_macro.njk" import onsDetails %}
+{% from "components/external-link/_macro.njk" import onsExternalLink %}
+{% from "components/list/_macro.njk" import onsList%}
+{% from "components/details/_macro.njk" import onsDetails %}
 
 
 
@@ -16,20 +20,31 @@
         "titleLogoHref": pageInfo.rootPath + '#0',
         "variants": "internal",
         "serviceLinks": {
-        "id": "service-links",
-        "ariaLabel": 'Services menu',
-        "ariaListLabel": 'Menu',
-        "toggleServicesButton": {
-            "text": 'Account',
-            "ariaLabel": 'Toggle services menu'
-        },
-        "itemsList": [
-
-            {
-                "title": "Sign out",
-                "url": "/prototypes/example/login_journeys/"
-            }
-        ]
+            "id": "service-links-internal",
+            "ariaLabel": 'Services menu',
+            "ariaListLabel": 'Menu',
+            "toggleServicesButton": {
+                "text": 'Account',
+                "ariaLabel": 'Toggle services menu'
+            },
+            "itemsList": [
+                {
+                    "text": "My questionnaires",
+                    "url": "/prototypes/example/homepageV2/"
+                },                
+                {
+                    "text": "All questionnaires",
+                    "url": "/prototypes/example/homepageV2/questionnaireDirectory"
+                },
+                {
+                    "text": "Projects",
+                    "url": "/prototypes/example/homepageV2/projects.html"
+                },
+                {
+                    "text": "Sign out",
+                    "url": "#0"
+                }
+            ]
         }
     },
     "title": "Author",
