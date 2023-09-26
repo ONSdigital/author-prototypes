@@ -11,7 +11,7 @@ layout: example/views/Author8col
         "ariaLabel": 'Back',
         "itemsList": [
             {
-                "url": '/prototypes/example/homepage/URTasks/UserTaskList.html',
+                "url": '/prototypes/example/homepageV2/URTasks/UserTaskList.html',
                 "id": "back",
                 "text": 'Back',
                 "attributes": {
@@ -27,6 +27,9 @@ layout: example/views/Author8col
 
     <h1 class="ons-u-mb-s">Task 7</h1>
 
+        <h3 class="ons-u-mb-s ons-u-mt-m">Task 7a</h3>
+
+
 
     <p>Your manager has asked you to create a questionnaire with the following details. 
 
@@ -38,13 +41,34 @@ layout: example/views/Author8col
 
     </ul>
 
-        <br>
 
 {{
     onsExternalLink({
-        "url": "/prototypes/example/homepage/",
+        "url": "/prototypes/example/homepageV2/",
         "linkText": "Start task",
-        "classes": "externalLink ons-u-fs-l"
+        "classes": "externalLink ons-u-fs-m"
+    })
+}}
+
+        <h3 class="ons-u-mb-s ons-u-mt-xl">Task 7b</h3>
+
+
+    <p>Your team is starting a <strong>new project</strong> around "Impacts of Teacher Strikes" 
+
+    </p>
+
+    <p>Your manager wants you to create a new questionnaire.</p>
+    <ul>
+        <li><strong>Title:</strong> Impacts of Teacher Strikes v1</li>
+        <li><strong>Short code:</strong> ITSv1</li>
+        <li><strong>Project tag:</strong> Impacts of School Strikes </li>
+    </ul>
+
+{{
+    onsExternalLink({
+        "url": "/prototypes/example/homepageV2/",
+        "linkText": "Start task",
+        "classes": "externalLink ons-u-fs-m"
     })
 }}
 
