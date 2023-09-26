@@ -272,7 +272,7 @@ layout: example/views/homepageV2
 {{
     onsHero({
         "title": 'My questionnaires',
-        "text": "Questionnaires you can edit are automatically added to this page. To view all questionnaires created on Author, visit <a href='/prototypes/example/homepageV2/questionnaireDirectory.html'>all questionnaires</a>.",
+        "text": "Find the questionnaires you can edit or have added from <a href='/prototypes/example/homepageV2/questionnaireDirectory.html'>all questionnaires</a>.",
         "button": {
             "url": '/prototypes/example/homepageV2/create/enterDetails',
             "text": 'Create a questionnaire'
@@ -4202,13 +4202,13 @@ function updatePagination() {
     if (
     noOfStarredRows == 0 &&
     (
-        (sessionStorage.getItem('searchField') === null) ||
-        (sessionStorage.getItem('projectFilter') === null) ||
-        (sessionStorage.getItem('ownerFilter') === null) ||
-        (sessionStorage.getItem('BeforeDayFilter') === null) ||
-        (sessionStorage.getItem('AfterDayFilter') === null) ||
-        (sessionStorage.getItem('Editor') === null) ||
-        (sessionStorage.getItem('ViewOnly') === null) ||
+        (sessionStorage.getItem('searchField') === null) &&
+        (sessionStorage.getItem('projectFilter') === null) &&
+        (sessionStorage.getItem('ownerFilter') === null) &&
+        (sessionStorage.getItem('BeforeDayFilter') === null) &&
+        (sessionStorage.getItem('AfterDayFilter') === null) &&
+        (sessionStorage.getItem('Editor') === null) &&
+        (sessionStorage.getItem('ViewOnly') === null) &&
         (sessionStorage.getItem('ReadOnly') === null)
     )
     ) {        
@@ -4216,7 +4216,7 @@ function updatePagination() {
             document.getElementById('StarredReplacement').style.display = 'block';
             document.getElementById('AddedToStarred').style.display = 'block';
         }
-        else if (
+        if (
             noOfStarredRows == 0 &&
             (
                 (sessionStorage.getItem('searchField') !== null && sessionStorage.getItem('searchField') !== '') ||
@@ -4233,15 +4233,34 @@ function updatePagination() {
                 document.getElementById('StarredReplacement').style.display = 'none';
                 document.getElementById('AddedToStarred').style.display = 'none';
         }
-        else if(noOfStarredRows != 0){
+        if(noOfStarredRows != 0){
             console.log('there are questionnaires in starred');
             document.getElementById('StarredReplacement').style.display = 'none';
             document.getElementById('AddedToStarred').style.display = 'none';
         }
+        {#
         else{
             console.log('not sure');
             document.getElementById('StarredReplacement').style.display = 'block';
             document.getElementById('AddedToStarred').style.display = 'block';
+        }
+        #}
+        if (
+            noOfStarredRows == 0 &&
+            (
+                (sessionStorage.getItem('searchField') !== null && sessionStorage.getItem('searchField') === '') &&
+                (sessionStorage.getItem('projectFilter') !== null && sessionStorage.getItem('projectFilter') === '') &&
+                (sessionStorage.getItem('ownerFilter') !== null && sessionStorage.getItem('ownerFilter') === '') &&
+                (sessionStorage.getItem('BeforeDayFilter') !== null && sessionStorage.getItem('BeforeDayFilter') === '') &&
+                (sessionStorage.getItem('AfterDayFilter') !== null && sessionStorage.getItem('AfterDayFilter') === '') &&
+                (sessionStorage.getItem('Editor') !== null && sessionStorage.getItem('Editor') === '') &&
+                (sessionStorage.getItem('ViewOnly') !== null && sessionStorage.getItem('ViewOnly') === '') &&
+                (sessionStorage.getItem('ReadOnly') !== null && sessionStorage.getItem('ReadOnly') === '')
+            )
+            ) {        
+                console.log('there are no starred and filter have been cleared');
+                document.getElementById('StarredReplacement').style.display = 'block';
+                document.getElementById('AddedToStarred').style.display = 'block';
         }
 }
 
@@ -4373,7 +4392,7 @@ sessionStorage.removeItem('AfterYearFilter');
 sessionStorage.removeItem('Editor');
 sessionStorage.removeItem('ViewOnly');
 sessionStorage.removeItem('ReadOnly');
-sessionStorage.removeItem('searchEntry');
+sessionStorage.removeItem('searchField');
 
 </script>
 {% endblock %}
