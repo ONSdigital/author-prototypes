@@ -58,13 +58,13 @@ layout: example/views/homepageV2
 
     <div class="ons-grid__col ons-col-8@m">
         
-        <h2 class="ons-u-fs-xl">Are you sure you want to delete "Small Business Survey”?</h2>
+        <h2 class="ons-u-fs-xl">Are you sure you want to delete the "Small Business Survey” project?</h2>
 
         {% call onsPanel({
                 "type": 'warn'
             })
         %}
-            Deleting this project will remove it from all associated questionnaires.
+            Deleting this project removes it from assigned questionnaires but does not delete the questionnaires themselves.
         {% endcall %}
 
         <p class="ons-u-mt-s ons-u-mb-m">You cannot recover a deleted project. Instead, it would need to be recreated and reassigned to all relevant questionnaires.</p>
