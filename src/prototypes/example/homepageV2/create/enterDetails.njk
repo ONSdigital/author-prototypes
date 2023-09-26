@@ -136,6 +136,11 @@ if (!referringPageURL.endsWith('/homepageV2/') && !referringPageURL.includes('/h
     }
 }
 
+if ((referringPageURL.includes('/homepageV2/create/AddProject')) || (referringPageURL.includes('/homepageV2/create/CustomisePermissions') && sessionStorage.getItem('Project_' + counter))) {
+    console.log('checking if project was added');
+        document.getElementById('add-project').checked = true;
+}
+
 
 function creationEnterDetails() {
     console.log('executing');
@@ -162,6 +167,8 @@ function creationEnterDetails() {
 
         console.log('doesnt end with summary....');
 
+        var counter = parseInt(sessionStorage.getItem('questionnaireCounter')) || 0;
+
         if (document.getElementById('add-project').checked == true) {
             console.log('checked');
             if (document.getElementById('customise-access-permissions').checked == true) {
@@ -185,8 +192,6 @@ function creationEnterDetails() {
     if(referringPageURL.includes('/homepageV2/create/summaryOfNewQuestionnaire')){
         console.log('elseeee');
         var counter = parseInt(sessionStorage.getItem('questionnaireCounter')) || 0;
-        counter++;
-        sessionStorage.setItem('questionnaireCounter', counter);
 
         var title = document.getElementById('title-input').value; 
         var shortcode = document.getElementById('shortcode-input').value;
