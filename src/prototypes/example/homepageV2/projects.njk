@@ -218,6 +218,12 @@ layout: example/views/homepageV2
         padding: 3px 6px;
         color:  #206095;
         border-radius: 3px;
+        height: fit-content;
+    }
+    
+    ul{
+        list-style-type: none;
+        padding-left:0rem;
     }
     
 </style>
@@ -257,24 +263,32 @@ layout: example/views/homepageV2
                 "searchButton": {
                     "visuallyHideButtonText": true,
                     "text": 'Search',
-                    "iconType": 'search'
+                    "iconType": 'search',
+                    "attributes": {
+                        "onclick": "searchProjects()"
+                    }
                 }
             })
         }}
 
-        <h2 class="ons-u-mt-l">12 projects</h2>
-        <a href="#" class="ons-u-d-b ons-u-mb-s">Community Connections Study</a>
-        <a href="#" class="ons-u-d-b ons-u-mb-s">Financial Planning Survey</a>
-        <a href="#" class="ons-u-d-b ons-u-mb-s">Green Initiatives Assessment</a>
-        <a href="#" class="ons-u-d-b ons-u-mb-s">Impacts of Brexit</a>
-        <a href="#" class="ons-u-d-b ons-u-mb-s">Junior Doctors Survey</a>
-        <a href="#" class="ons-u-d-b ons-u-mb-s">People and Policy</a>
-        <a href="/prototypes/example/homepageV2/projects/" class="ons-u-d-b ons-u-mb-s">Small Business Survey</a>
-        <a href="#" class="ons-u-d-b ons-u-mb-s">Social Media</a>
-        <a href="#" class="ons-u-d-b ons-u-mb-s">Teacher Support and Job Satisfaction Survey</a>
-        <a href="#" class="ons-u-d-b ons-u-mb-s">Teachers Survey</a>
-        <a href="#" class="ons-u-d-b ons-u-mb-s">Trust in Government 2023</a>
-        <a href="#" class="ons-u-d-b ons-u-mb-s">UK Health Trends</a>
+        <div style="display:flex; align-items:center; justify-content: space-between;">
+            <h2 class="ons-u-mt-l" id="number-of-projects">12 projects</h2>
+            <button class="clearFilterBtn" style="display:none;" id="clearSearchBtn" onclick="clearSearch()">Clear search</button>
+        </div>
+        <ul id="list-of-projects">
+            <li><a href="#" class="ons-u-d-b ons-u-mb-s">Community Connections Study</a></li>
+            <li><a href="#" class="ons-u-d-b ons-u-mb-s">Financial Planning Survey</a></li>
+            <li><a href="#" class="ons-u-d-b ons-u-mb-s">Green Initiatives Assessment</a></li>
+            <li><a href="#" class="ons-u-d-b ons-u-mb-s">Impacts of Brexit</a></li>
+            <li><a href="#" class="ons-u-d-b ons-u-mb-s">Junior Doctors Survey</a></li>
+            <li><a href="#" class="ons-u-d-b ons-u-mb-s">People and Policy</a></li>
+            <li><a href="/prototypes/example/homepageV2/projects/" class="ons-u-d-b ons-u-mb-s">Small Business Survey</a></li>
+            <li><a href="#" class="ons-u-d-b ons-u-mb-s">Social Media</a></li>
+            <li><a href="#" class="ons-u-d-b ons-u-mb-s">Teacher Support and Job Satisfaction Survey</a></li>
+            <li><a href="#" class="ons-u-d-b ons-u-mb-s">Teachers Survey</a></li>
+            <li><a href="#" class="ons-u-d-b ons-u-mb-s">Trust in Government 2023</a></li>
+            <li><a href="#" class="ons-u-d-b ons-u-mb-s">UK Health Trends</a></li>
+        </ul>
 
     </div>
 
@@ -287,4 +301,44 @@ layout: example/views/homepageV2
 
 
 
+{% endblock %}
+
+{% block bodyEnd %}
+<script>
+    function searchProjects() {
+        var searchValue = document.getElementById('search-field').value.toLowerCase();
+        var projectList = document.getElementById('list-of-projects').getElementsByTagName('a');
+        var numberOfProjects = 0;
+
+        for (var i = 0; i < projectList.length; i++) {
+            var project = projectList[i];
+            var projectName = project.textContent.toLowerCase();
+
+            if (projectName.includes(searchValue)) {
+                project.parentElement.style.display = 'block';
+                numberOfProjects++;
+            } else {
+                project.parentElement.style.display = 'none';
+            }
+        }
+
+        var numberOfProjectsElement = document.getElementById('number-of-projects');
+        
+        if(searchValue != ''){
+            numberOfProjectsElement.textContent = numberOfProjects + ' projects with \'' + searchValue + '\'';
+            document.getElementById('clearSearchBtn').style.display = "block";
+        }
+        else{
+            numberOfProjectsElement.textContent = "12 projects";
+            document.getElementById('clearSearchBtn').style.display = "none";
+        }
+    }
+
+    function clearSearch(){
+        document.getElementById('search-field').value = '';
+        document.getElementById('clearSearchBtn').style.display = "none";
+        searchProjects();
+    }
+
+</script>
 {% endblock %}
