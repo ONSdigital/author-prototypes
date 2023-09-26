@@ -121,7 +121,7 @@ layout: example/views/Author8colLoggedIn
 var referringPageURL = document.referrer;
 console.log("Referring Page URL: " + referringPageURL);
 
-if (!referringPageURL.endsWith('/homepageV2/')){
+if (!referringPageURL.endsWith('/homepageV2/') && !referringPageURL.includes('/homepageV2/questionnaireDirectory')){
     console.log('didnt come from the homepage');
     var counter = parseInt(sessionStorage.getItem('questionnaireCounter')) || 0;
     var enteredTitle = sessionStorage.getItem('Title_' + counter);
@@ -140,7 +140,7 @@ if (!referringPageURL.endsWith('/homepageV2/')){
 function creationEnterDetails() {
     console.log('executing');
 
-    if (referringPageURL.endsWith('/homepageV2/')) {
+    if (referringPageURL.endsWith('/homepageV2/') || referringPageURL.includes('/homepageV2/questionnaireDirectory')) {
         var counter = parseInt(sessionStorage.getItem('questionnaireCounter')) || 0;
         counter++;
         sessionStorage.setItem('questionnaireCounter', counter);
@@ -158,7 +158,7 @@ function creationEnterDetails() {
 
     }
 
-    if (referringPageURL.endsWith('/homepageV2/') ||referringPageURL.includes('/homepageV2/create/AddProject') || referringPageURL.includes('/homepageV2/create/CustomisePermissions')) {
+    if (referringPageURL.endsWith('/homepageV2/') || referringPageURL.includes('/homepageV2/questionnaireDirectory') || referringPageURL.includes('/homepageV2/create/AddProject') || referringPageURL.includes('/homepageV2/create/CustomisePermissions')) {
 
         console.log('doesnt end with summary....');
 
