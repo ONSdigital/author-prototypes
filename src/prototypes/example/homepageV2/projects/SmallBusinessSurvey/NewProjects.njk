@@ -1,7 +1,7 @@
 ---
 group: Examples
 title: Example prototype
-layout: example/views/homepageV2
+layout: example/views/homepageV2AfterProjectDeleted
 ---
 {% from "components/button/_macro.njk" import onsButton %}
 {% from "components/autosuggest/_macro.njk" import onsAutosuggest %}
@@ -272,7 +272,7 @@ layout: example/views/homepageV2
         }}
 
         <div style="display:flex; align-items:center; justify-content: space-between;">
-            <h2 class="ons-u-mt-l ons-u-fs-xl" id="number-of-projects">12 projects</h2>
+            <h2 class="ons-u-mt-l ons-u-fs-xl" id="number-of-projects">11 projects</h2>
             <button class="clearFilterBtn" style="display:none;" id="clearSearchBtn" onclick="clearSearch()">Clear search</button>
         </div>
         <ul id="list-of-projects">
@@ -282,7 +282,6 @@ layout: example/views/homepageV2
             <li><a href="#" class="ons-u-d-b ons-u-mb-s">Impacts of Brexit</a></li>
             <li><a href="#" class="ons-u-d-b ons-u-mb-s">Junior Doctors Survey</a></li>
             <li><a href="#" class="ons-u-d-b ons-u-mb-s">People and Policy</a></li>
-            <li><a href="/prototypes/example/homepageV2/projects/SmallBusinessSurvey/" class="ons-u-d-b ons-u-mb-s">Small Business Survey</a></li>
             <li><a href="#" class="ons-u-d-b ons-u-mb-s">Social Media</a></li>
             <li><a href="#" class="ons-u-d-b ons-u-mb-s">Teacher Support and Job Satisfaction Survey</a></li>
             <li><a href="#" class="ons-u-d-b ons-u-mb-s">Teachers Survey</a></li>
@@ -329,7 +328,7 @@ layout: example/views/homepageV2
             document.getElementById('clearSearchBtn').style.display = "block";
         }
         else{
-            numberOfProjectsElement.textContent = "12 projects";
+            numberOfProjectsElement.textContent = "11 projects";
             document.getElementById('clearSearchBtn').style.display = "none";
         }
     }
