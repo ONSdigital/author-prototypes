@@ -280,6 +280,7 @@ layout: example/views/homepageV2
             <li><a href="/prototypes/example/homepageV2/projects/FPS/" class="ons-u-d-b ons-u-mb-s">Financial Planning Survey</a></li>
             <li><a href="/prototypes/example/homepageV2/projects/GIA/" class="ons-u-d-b ons-u-mb-s">Green Initiatives Assessment</a></li>
             <li><a href="#" class="ons-u-d-b ons-u-mb-s">Impacts of Brexit</a></li>
+            <li id="StrikesProject" style="display:none;" ><a href="#" class="ons-u-d-b ons-u-mb-s">Impacts of Teacher Strikes</a></li>
             <li><a href="#" class="ons-u-d-b ons-u-mb-s">Junior Doctors Survey</a></li>
             <li><a href="#" class="ons-u-d-b ons-u-mb-s">People and Policy</a></li>
             <li><a href="/prototypes/example/homepageV2/projects/SmallBusinessSurvey/" class="ons-u-d-b ons-u-mb-s">Small Business Survey</a></li>
@@ -305,6 +306,12 @@ layout: example/views/homepageV2
 
 {% block bodyEnd %}
 <script>
+
+    var counter = parseInt(sessionStorage.getItem('questionnaireCounter')) || 0;
+    if(counter == 1){
+        document.getElementById('StrikesProject').style.display = 'block';
+    }
+
     function searchProjects() {
         var searchValue = document.getElementById('search-field').value.toLowerCase();
         var projectList = document.getElementById('list-of-projects').getElementsByTagName('a');

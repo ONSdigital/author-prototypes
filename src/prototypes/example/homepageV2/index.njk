@@ -689,7 +689,7 @@ layout: example/views/homepageV2
                     <option value="created-oldest">Created (oldest)</option>
                 </select>
             </div>
-
+            {#
             {{
                 onsPanel({
                     "body": "<p>To find view-only questionnaires that have not been added to 'My questionnaires', go to <a href='/prototypes/example/homepageV2/questionnaireDirectory'>all questionnaires</a>.</p>",
@@ -700,6 +700,15 @@ layout: example/views/homepageV2
                     }
                 })
             }}
+            #}
+
+            <div id="noSearchResultsMessage">
+                <h4>Cannot find what you are looking for?</h4>
+                <ul>
+                    <li>Apply a different search or filter</li>
+                    <li>Or to find view-only questionnaires that have not been added to 'My questionnaires', go to <a href='/prototypes/example/homepageV2/questionnaireDirectory'>all questionnaires</a></li>
+                </ul>
+            </div>
 
             <p class="ons-u-mb-xs" id='StarredReplacement'><span id="starIcon" class="material-symbols-outlined ons-u-mr-xs">star</span><strong>Starred</strong></p>
 
@@ -2739,9 +2748,6 @@ function ApplyFilters() {
     var starredTable = document.getElementById("starred-table");
     var basicTable = document.getElementById("basic-table");
 
-    document.getElementById('view-only-panel').style.display = "none";
-
-
     var errorsForDateBefore = false;
     var errorsForDateAfter = false;
 
@@ -3338,7 +3344,6 @@ function ApplyFilters() {
         if (ViewOnlyAccess.checked) {
             appendFilterTag("View-only", "View-only");
             console.log('view-only added');
-            document.getElementById('view-only-panel').style.display = "block";
 
         }
         if (ReadOnlyAccess.checked) {
@@ -3959,8 +3964,6 @@ function clearInputValues() {
     sessionStorage.setItem("ViewOnly", '');
     sessionStorage.setItem("ReadOnly", '');
 
-    document.getElementById('view-only-panel').style.display = "none";
-
     ReApplySearch();
 }
 
@@ -4096,7 +4099,6 @@ function removeFilterTag(tagId, filterType) {
         document.getElementById("view-only").checked = false;
         sessionStorage.setItem("ViewOnly", '');
         document.getElementById("tags-access").style.display = "none"; 
-        document.getElementById('view-only-panel').style.display = "none";
 
     }
     if (filterType == "Read-only") {
@@ -4148,6 +4150,8 @@ function updatePagination() {
     var previousButton = document.getElementById("previous");
     var nextPaginationLabel = nextButton.querySelector("span.ons-content-pagination__link-label");
     var previousPaginationLabel = previousButton.querySelector("span.ons-content-pagination__link-label");
+
+    document.getElementById('noSearchResultsMessage').style.display = 'none';
 
     // Get the <tbody> elements for both tables
     var starredTBody = starredTable.querySelector("tbody");
@@ -4288,6 +4292,13 @@ function updatePagination() {
                 console.log('there are no starred and filter have been cleared');
                 document.getElementById('StarredReplacement').style.display = 'block';
                 document.getElementById('AddedToStarred').style.display = 'block';
+        }
+        var basicTableCount = countUnfilteredRows("basic-table");
+        var starredTableCount = countUnfilteredRows("starred-table");
+        var unfilteredRowsCount = basicTableCount + starredTableCount;
+        if(unfilteredRowsCount == 0){
+            console.log('no results');
+            document.getElementById('noSearchResultsMessage').style.display = 'block';
         }
 }
 
