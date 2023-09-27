@@ -136,7 +136,7 @@ if (!referringPageURL.endsWith('/homepagev2/') && !referringPageURL.includes('/h
     }
 }
 
-if ((referringPageURL.includes('/homepagev2/create/AddProject')) || (referringPageURL.includes('/homepagev2/create/CustomisePermissions') && sessionStorage.getItem('Project_' + counter))) {
+if ((referringPageURL.includes('/homepagev2/create/addproject')) || (referringPageURL.includes('/homepagev2/create/customisepermissions') && sessionStorage.getItem('Project_' + counter))) {
     console.log('checking if project was added');
         document.getElementById('add-project').checked = true;
 }
@@ -165,7 +165,7 @@ function creationEnterDetails() {
 
     }
 
-    if (referringPageURL.endsWith('/homepagev2/') || referringPageURL.includes('/homepagev2/questionnairedirectory') || referringPageURL.includes('/homepagev2/create/AddProject') || referringPageURL.includes('/homepagev2/create/CustomisePermissions')) {
+    if (referringPageURL.endsWith('/homepagev2/') || referringPageURL.includes('/homepagev2/questionnairedirectory') || referringPageURL.includes('/homepagev2/create/addproject') || referringPageURL.includes('/homepagev2/create/CustomisePermissions')) {
 
         console.log('doesnt end with summary....');
 
@@ -191,7 +191,7 @@ function creationEnterDetails() {
     }
     
     
-    if(referringPageURL.includes('/homepagev2/create/summaryOfNewQuestionnaire')){
+    if(referringPageURL.includes('/homepagev2/create/summaryofnewquestionnaire')){
         console.log('elseeee');
         var counter = parseInt(sessionStorage.getItem('questionnaireCounter')) || 0;
 
