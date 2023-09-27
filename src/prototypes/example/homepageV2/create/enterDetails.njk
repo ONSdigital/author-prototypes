@@ -146,6 +146,8 @@ function creationEnterDetails() {
     console.log('executing');
 
     if (referringPageURL.endsWith('/homepageV2/') || referringPageURL.includes('/homepageV2/questionnaireDirectory')) {
+        
+        console.log('coming from homepage');
         var counter = parseInt(sessionStorage.getItem('questionnaireCounter')) || 0;
         counter++;
         sessionStorage.setItem('questionnaireCounter', counter);
