@@ -685,6 +685,11 @@ layout: example/views/homepageV2
                 </select>
             </div>
 
+            <div id="noSearchResultsMessage">
+                <h4>Cannot find what you are looking for?</h4>
+                    <p>Apply a different search or filter</p>
+            </div>
+
 
             <table id="basic-table" class="ons-table">
                 <thead class="ons-table__head">
@@ -4652,6 +4657,8 @@ function updatePagination() {
     var nextPaginationLabel = nextButton.querySelector("span.ons-content-pagination__link-label");
     var previousPaginationLabel = previousButton.querySelector("span.ons-content-pagination__link-label");
 
+    document.getElementById('noSearchResultsMessage').style.display = 'none';
+
     // Get the <tbody> elements for both tables
     var basicTBody = basicTable.querySelector("tbody");
 
@@ -4700,6 +4707,12 @@ function updatePagination() {
 
     // Hide the tables if no rows are displayed
     basicTable.style.display = filteredBasicRows.some(row => row.style.display === "table-row") ? "table" : "none";
+
+    var basicTableCount = countUnfilteredRows("basic-table");
+    if(basicTableCount == 0){
+        console.log('no results');
+        document.getElementById('noSearchResultsMessage').style.display = 'block';
+    }
 
 }
 

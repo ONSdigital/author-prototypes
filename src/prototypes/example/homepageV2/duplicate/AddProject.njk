@@ -1,7 +1,7 @@
 ---
 group: Examples
 title: Example prototype
-layout: example/views/Author8col
+layout: example/views/Author8colLoggedIn
 ---
 {% from "components/button/_macro.njk" import onsButton %}
 {% from "components/autosuggest/_macro.njk" import onsAutosuggest %}
@@ -30,7 +30,7 @@ layout: example/views/Author8col
         "ariaLabel": 'Back',
         "itemsList": [
             {
-                "url": '/prototypes/example/homepage/duplicate/enterDetails.html',
+                "url": '/prototypes/example/homepageV2/duplicate/enterDetails.html',
                 "id": "backlink",
                 "text": 'Back',
                 "attributes": {
@@ -114,7 +114,7 @@ layout: example/views/Author8col
             })
         }}
 
-        <a class="ons-u-dib ons-u-ml-s ons-u-mt-xs" href="/prototypes/example/homepage/">Cancel</a>
+        <a class="ons-u-dib ons-u-ml-s ons-u-mt-xs" href="/prototypes/example/homepageV2/">Cancel</a>
 
     </div>
 
@@ -126,7 +126,7 @@ layout: example/views/Author8col
 
 var referringPageURL = document.referrer;
 
-    if (referringPageURL.includes('/homepageV2/create/CustomisePermissions.html')){
+    if (referringPageURL.includes('/homepagev2/create/CustomisePermissions.html')){
         var counter = parseInt(sessionStorage.getItem('questionnaireCounter')) || 0;
         var enteredTitle = sessionStorage.getItem('Title_' + counter);
         var addedProject = sessionStorage.getItem('Project_' + counter);
@@ -141,14 +141,14 @@ function creationProject() {
         var project = document.getElementById('project').value;
         sessionStorage.setItem('Project_' + counter, project);   
         if(sessionStorage.getItem('customisePermissions')){
-            document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepageV2/create/CustomisePermissions.html";    
+            document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepageV2/duplicate/CustomisePermissions.html";    
         }
         else{
-            document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepageV2/create/summaryOfNewQuestionnaire.html";    
+            document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepageV2/duplicate/summaryOfNewQuestionnaire.html";    
         }
     }
     else{
-        document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepageV2/create/ProjectErrors/BothBlank.html";    
+        document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepageV2/duplicate/ProjectErrors/BothBlank.html";    
 
     }
 
