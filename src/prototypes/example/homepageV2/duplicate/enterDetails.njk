@@ -31,7 +31,7 @@ layout: example/views/Author8col
         "ariaLabel": 'Back',
         "itemsList": [
             {
-                "url": '/prototypes/example/homepage/',
+                "url": '/prototypes/example/homepageV2/',
                 "id": "backlink",
                 "text": 'Back',
                 "attributes": {
@@ -108,7 +108,7 @@ layout: example/views/Author8col
             })
         }}
 
-        <a class="ons-u-dib ons-u-ml-s ons-u-mt-xs" href="/prototypes/example/homepage/">Cancel</a>
+        <a class="ons-u-dib ons-u-ml-s ons-u-mt-xs" href="/prototypes/example/homepageV2/">Cancel</a>
 
     </div>
 
@@ -121,7 +121,7 @@ layout: example/views/Author8col
 var referringPageURL = document.referrer;
 console.log("Referring Page URL: " + referringPageURL);
 
-if (!referringPageURL.endsWith('/homepageV2/')){
+if (!referringPageURL.endsWith('/homepage/V2/')){
     console.log('didnt come from the homepage');
     var counter = parseInt(sessionStorage.getItem('questionnaireCounter')) || 0;
     var enteredTitle = sessionStorage.getItem('Title_' + counter);
@@ -158,7 +158,7 @@ function creationEnterDetails() {
 
     }
 
-    if (referringPageURL.endsWith('/homepageV2/') ||referringPageURL.includes('/homepageV2/create/AddProject') || referringPageURL.includes('/homepageV2/create/CustomisePermissions')) {
+    if (referringPageURL.endsWith('/homepageV2/') ||referringPageURL.includes('/homepageV2/duplicate/AddProject') || referringPageURL.includes('/homepageV2/duplicate/CustomisePermissions')) {
 
         console.log('doesnt end with summary....');
 
@@ -167,22 +167,22 @@ function creationEnterDetails() {
             if (document.getElementById('customise-access-permissions').checked == true) {
                 sessionStorage.setItem('customisePermissions', true);
             }
-            document.forms["CreationEnterDetails"].action = "/prototypes/example/homepageV2/create/AddProject.html";    
+            document.forms["CreationEnterDetails"].action = "/prototypes/example/homepageV2/duplicate/AddProject.html";    
         } 
         else {
             console.log('running');
             if (document.getElementById('customise-access-permissions').checked == true) {
-                document.forms["CreationEnterDetails"].action = "/prototypes/example/homepageV2/create/CustomisePermissions.html";    
+                document.forms["CreationEnterDetails"].action = "/prototypes/example/homepageV2/duplicate/CustomisePermissions.html";    
 
             } else {
-                document.forms["CreationEnterDetails"].action = "/prototypes/example/homepageV2/create/summaryOfNewQuestionnaire.html";    
+                document.forms["CreationEnterDetails"].action = "/prototypes/example/homepageV2/duplicate/summaryOfNewQuestionnaire.html";    
 
             }
         }
     }
     
     
-    if(referringPageURL.includes('/homepageV2/create/summaryOfNewQuestionnaire')){
+    if(referringPageURL.includes('/homepageV2/duplicate/summaryOfNewQuestionnaire')){
         console.log('elseeee');
         var counter = parseInt(sessionStorage.getItem('questionnaireCounter')) || 0;
         counter++;
@@ -192,7 +192,7 @@ function creationEnterDetails() {
         var shortcode = document.getElementById('shortcode-input').value;
         sessionStorage.setItem('Title_' + counter, title);
         sessionStorage.setItem('Shortcode_' + counter, shortcode);
-        document.forms["CreationEnterDetails"].action = "/prototypes/example/homepageV2/create/summaryOfNewQuestionnaire.html";    
+        document.forms["CreationEnterDetails"].action = "/prototypes/example/homepageV2/duplicate/summaryOfNewQuestionnaire.html";    
 
     }
     
