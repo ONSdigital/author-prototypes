@@ -12,6 +12,7 @@ layout: example/views/homepageV2
 {% from "components/list/_macro.njk" import onsList %}
 {% from "components/select/_macro.njk" import onsSelect %}
 {% from "components/hero/_macro.njk" import onsHero %}
+{% from "components/text-indent/_macro.njk" import onsTextIndent %}
 
 {% block head %}
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -709,8 +710,12 @@ layout: example/views/homepageV2
 
             <div id="noSearchResultsMessage" class="noSearchResults">
                 <h4>Cannot find what you are looking for?</h4>
-                <p class="ons-u-mb-xs">Try applying different search filters.</p>
-                <p>To find <strong>view-only</strong> questionnaires that have not been added to 'My questionnaires', go to <a href='/prototypes/example/homepageV2/questionnaireDirectory'>all questionnaires</a></p>
+                <p class="ons-u-mb-s">Try applying different search filters.</p>
+                {{-
+                    onsTextIndent({
+                        text: "<p>To find <strong>view-only</strong> questionnaires that have not been added to 'My questionnaires', go to <a href='/prototypes/example/homepageV2/questionnaireDirectory'>all questionnaires</a></p>"
+                    })
+                }}
             </div>
 
             <p class="ons-u-mb-xs" id='StarredReplacement'><span id="starIcon" class="material-symbols-outlined ons-u-mr-xs">star</span><strong>Starred</strong></p>
