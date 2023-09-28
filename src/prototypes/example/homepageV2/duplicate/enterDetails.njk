@@ -117,6 +117,12 @@ layout: example/views/Author8colLoggedIn
 {% block bodyEnd %}
 
 <script>
+    var duplicatedShortcode = sessionStorage.getItem('duplicateShortcode');
+    var duplicatedTitle = sessionStorage.getItem('duplicateTitle');
+    var title = document.getElementById('title-input');
+    var shortcode = document.getElementById('shortcode-input');
+    title.value = "Copy of " + duplicatedTitle;
+    shortcode.value = "Copy of " + duplicatedShortcode;
 
 var referringPageURL = document.referrer;
 console.log("Referring Page URL: " + referringPageURL);
