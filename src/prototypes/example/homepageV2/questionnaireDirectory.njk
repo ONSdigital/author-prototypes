@@ -239,6 +239,11 @@ layout: example/views/homepageV2
         max-height:300px;
     }
 
+    .noSearchResults{
+        padding: 18px;
+        background-color: #fff0e6;
+    }
+
     
 </style>
 
@@ -685,10 +690,11 @@ layout: example/views/homepageV2
                 </select>
             </div>
 
-            <div id="noSearchResultsMessage">
+            <div id="noSearchResultsMessage" class="noSearchResults">
                 <h4>Cannot find what you are looking for?</h4>
                     <p>Try applying different search filters.</p>
             </div>
+
 
 
             <table id="basic-table" class="ons-table">
