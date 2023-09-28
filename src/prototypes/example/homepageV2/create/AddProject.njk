@@ -94,7 +94,7 @@ layout: example/views/Author8colLoggedIn
             })
         }}
 
-        <a class="ons-u-dib ons-u-ml-s ons-u-mt-xs" href="/prototypes/example/homepageV2/">Cancel</a>
+        <a class="ons-u-dib ons-u-ml-s ons-u-mt-xs" href="#" onclick="cancel()">Cancel</a>
 
     </div>
 
@@ -129,6 +129,13 @@ function creationProject() {
     }
 
 
+}
+
+function cancel() {
+    var counter = parseInt(sessionStorage.getItem('questionnaireCounter')) || 0;
+    sessionStorage.removeItem('Title_' + counter);
+    sessionStorage.removeItem('Shortcode_' + counter);
+    window.location.href = "index.html";
 }
 
 </script>
