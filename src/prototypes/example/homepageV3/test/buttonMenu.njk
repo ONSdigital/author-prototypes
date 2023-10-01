@@ -1,0 +1,139 @@
+---
+group: Examples
+title: Example prototype
+layout: example/homepage/test/2col_Layout
+---
+{% from "components/button/_macro.njk" import onsButton %}
+{% from "components/autosuggest/_macro.njk" import onsAutosuggest %}
+{% from "components/table/_macro.njk" import onsTable %}
+{% from "components/input/_macro.njk" import onsInput %}
+
+{% block head %}
+
+<style>
+.custom-button {
+  display: inline-block;
+  background-color: white;
+  border: 2px solid #bcbcbd;
+  border-radius: 3px;
+  padding: 8px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  color: #707071;
+  cursor: pointer;
+}
+
+.custom-button:focus {
+  outline: none;
+  background-color: #fbc900;
+  border-color: black;
+}
+
+.chevron {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 8px;
+  fill: #707071;
+}
+
+.button-menu {
+  position: absolute;
+  width: 200px;
+  right: 0;
+  top: 100%;
+  background-color: #206095;
+  border: 2px solid #003c57;
+  border-radius: 3px;
+  padding: 18px;
+  display: none;
+}
+
+.custom-button.open .button-menu {
+  display: block;
+}
+
+.menu-option {
+  margin-bottom: 10px;
+}
+
+.menu-link {
+  display: block;
+  color: white;
+  text-decoration: none;
+}
+
+.menu-button {
+  display: block;
+  background-color: #206095;
+  border: 2px solid #206095;
+  border-radius: 3px;
+  padding: 10px;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.menu-button:hover {
+  border-color: white;
+}
+
+.menu-button:focus {
+  background-color: #fbc900;
+  border-color: black;
+  color: black;
+}
+
+.button-content {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.button-text {
+  margin-right: 8px;
+}
+
+.no-outline:focus {
+  outline: none;
+}
+</style>
+
+{% endblock %}
+
+{% block main %}
+
+<button class="custom-button" id="actions-button">
+  Actions
+  <span class="chevron">▼</span>
+</button>
+<div class="button-menu" id="menu">
+  <a href="#" class="menu-option">Duplicate</a>
+  <button class="menu-option-button">Delete</button>
+  <button class="menu-option-button">Copy Link</button>
+  <button class="menu-option-button">Add to Starred</button>
+</div>
+
+
+
+
+
+{% endblock %}
+
+{% block bodyEnd %}
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+  const button = document.getElementById("actions-button");
+  const menu = document.getElementById("menu");
+
+  button.addEventListener("click", function () {
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+  });
+});
+</script>
+
+{% endblock %}

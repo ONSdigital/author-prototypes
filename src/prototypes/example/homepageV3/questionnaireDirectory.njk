@@ -1,7 +1,7 @@
 ---
 group: Examples
 title: Example prototype
-layout: example/views/homepageV2
+layout: example/views/homepageV3
 ---
 {% from "components/button/_macro.njk" import onsButton %}
 {% from "components/autosuggest/_macro.njk" import onsAutosuggest %}
@@ -274,12 +274,13 @@ layout: example/views/homepageV2
 
 {{
     onsHero({
-        "title": 'All questionnaires',
+        "title": 'All Questionnaires',
         "text": 'Explore questionnaires created in Author by your colleagues across the ONS.',
         "button": {
-            "url": '/prototypes/example/homepageV2/create/enterDetails',
+            "url": '/prototypes/example/homepageV3/create/enterDetails',
             "text": 'Create a questionnaire'
         },
+        "variants": ['dark'],
         "wide": "true",
         "html": '<svg width="489" height="301" viewBox="0 0 489 301" fill="none" xmlns="http://www.w3.org/2000/svg">
 <ellipse cx="6.20301" cy="6.20301" rx="6.20301" ry="6.20301" transform="matrix(-1 0 0 1 472.557 148.872)" fill="#003C57"/>
@@ -3163,7 +3164,7 @@ function cancelDeletion(){
             sessionStorage.setItem('duplicateTitle', title);
         }
 
-        window.location.href = "/prototypes/example/homepageV2/duplicate/enterDetails";
+        window.location.href = "/prototypes/example/homepageV3/duplicate/enterDetails";
     }
 
 

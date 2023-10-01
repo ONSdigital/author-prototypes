@@ -1,7 +1,7 @@
 ---
 group: Examples
 title: Example prototype
-layout: example/views/homepageV2
+layout: example/views/homepageV3
 ---
 {% from "components/button/_macro.njk" import onsButton %}
 {% from "components/autosuggest/_macro.njk" import onsAutosuggest %}
@@ -281,13 +281,14 @@ layout: example/views/homepageV2
 {% block pageContent %}
 {{
     onsHero({
-        "title": 'My questionnaires',
-        "text": "Find the questionnaires you can edit or have added from <a href='/prototypes/example/homepageV2/questionnaireDirectory.html'>all questionnaires</a>.",
+        "title": 'My Questionnaires',
+        "text": "Find the questionnaires you can edit or have added from <a href='/prototypes/example/homepageV3/questionnaireDirectory.html'>all questionnaires</a>.",
         "button": {
-            "url": '/prototypes/example/homepageV2/create/enterDetails',
+            "url": '/prototypes/example/homepageV3/create/enterDetails',
             "text": 'Create a questionnaire'
         },
-        "wide": "true"
+        "wide": "true",
+        "variants": ['dark']
     })
 }}
 
@@ -698,7 +699,7 @@ layout: example/views/homepageV2
             {#
             {{
                 onsPanel({
-                    "body": "<p>To find view-only questionnaires that have not been added to 'My questionnaires', go to <a href='/prototypes/example/homepageV2/questionnaireDirectory'>all questionnaires</a>.</p>",
+                    "body": "<p>To find view-only questionnaires that have not been added to 'My questionnaires', go to <a href='/prototypes/example/homepageV3/questionnaireDirectory'>all questionnaires</a>.</p>",
                     "id": "view-only-panel",
                     "classes": "ons-u-mb-m",
                     "attributes": {
@@ -710,8 +711,12 @@ layout: example/views/homepageV2
 
             <div id="noSearchResultsMessage" class="noSearchResults">
                 <h4>Cannot find what you are looking for?</h4>
-                <p class="ons-u-mb-s">Try applying different search filters.</p>
-                <p>To find <strong>view-only</strong> questionnaires that have not been added to 'My questionnaires', go to <a href='/prototypes/example/homepageV2/questionnaireDirectory'>all questionnaires</a></p>
+                <p class="ons-u-mb-m">Try applying different search filters.</p>
+                {{-
+                    onsTextIndent({
+                        text: "<p>To find <strong>view-only</strong> questionnaires that have not been added to 'My questionnaires', go to <a href='/prototypes/example/homepageV3/questionnaireDirectory'>all questionnaires</a></p>"
+                    })
+                }}
             </div>
 
             <p class="ons-u-mb-xs" id='StarredReplacement'><span id="starIcon" class="material-symbols-outlined ons-u-mr-xs">star</span><strong>Starred</strong></p>
@@ -2518,7 +2523,7 @@ function cancelDeletion(){
             sessionStorage.setItem('duplicateTitle', title);
         }
 
-        window.location.href = "/prototypes/example/homepageV2/duplicate/enterDetails";
+        window.location.href = "/prototypes/example/homepageV3/duplicate/enterDetails";
     }
 
 

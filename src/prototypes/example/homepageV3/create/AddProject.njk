@@ -1,0 +1,142 @@
+---
+group: Examples
+title: Example prototype
+layout: example/views/Author8colLoggedIn
+---
+{% from "components/button/_macro.njk" import onsButton %}
+{% from "components/autosuggest/_macro.njk" import onsAutosuggest %}
+{% from "components/table/_macro.njk" import onsTable %}
+{% from "components/panel/_macro.njk" import onsPanel %}
+{% from "components/input/_macro.njk" import onsInput %}
+{% from "components/breadcrumbs/_macro.njk" import onsBreadcrumbs %}
+
+{% set form =  {
+    "method": "GET",
+    "attributes": {
+        "name": "createQuestionnaireProject",
+        "onsubmit":  "return creationProject()"
+    }
+} %}
+
+{% block head %}
+
+
+{% endblock %}
+
+{% block preMain %}
+
+{{
+    onsBreadcrumbs({
+        "ariaLabel": 'Back',
+        "itemsList": [
+            {
+                "url": '/prototypes/example/homepageV2/create/enterDetails.html',
+                "id": "backlink",
+                "text": 'Back',
+                "attributes": {
+                    "data-attribute": "Example attribute"
+                }
+            }
+        ]
+    })
+}}
+
+{% endblock %}
+
+{% block main %}
+
+    <h1><span class="ons-u-fs-m ons-u-db ons-u-mb-xs ons-u-lighter">Create questionnaire</span>Assign to a new or existing project</h1>
+
+    <p>Projects group related questionnaires and improves filtering.</p>
+
+    {{
+        onsPanel({
+            "body": '<p>The assigned project can be edited or removed in Settings after the questionnaire is created</p>',
+            "classes": "ons-u-mb-m"
+        })
+    }}
+
+    {{ onsAutosuggest({
+                "id": "project",
+                "label": {
+                    "text": "Project",
+                    "description": "Select an existing project or enter a new one",
+                    "id": "project-label"
+                },
+                "autocomplete": "off",
+                "instructions": "Use up and down keys to navigate suggestions once you\'ve typed more than two characters. Use the enter key to select a suggestion. Touch device users, explore by touch or with swipe gestures.",
+                "ariaYouHaveSelected": "You have selected",
+                "ariaMinChars": "Enter 3 or more characters for suggestions.",
+                "ariaOneResult": "There is one suggestion available.",
+                "ariaNResults": "There are {n} suggestions available.",
+                "ariaLimitedResults": "Results have been limited to 10 suggestions. Type more characters to improve your search",
+                "moreResults": "Continue entering to improve suggestions",
+                "resultsTitle": "Suggestions",
+                "resultsTitleId": "project-suggestions",
+                "autosuggestData": "https://gist.githubusercontent.com/LaurenDowling/e5582f6edb222f858ebe5494594ced44/raw/5105bd626cfcc806b78a06a3af2cd13a361ca826/projects.json",
+                "noResults": "No suggestions found. A new project will be created.",
+                "typeMore": "Continue entering to get suggestions"
+    }) }}
+
+{{
+    onsDetails({
+        "id": "details-example",
+        "classes": "ons-u-mt-m",
+        "title": "What happens when I create a project?",
+        "content": "<p>The new project will become available after the questionnaire has been created. It will appear in the projects list and can be used by everyone.</p>"
+    })
+}}
+
+    <div class="ons-u-mt-l">
+        {{
+            onsButton({
+                "text": "Continue"
+            })
+        }}
+
+        <a class="ons-u-dib ons-u-ml-s ons-u-mt-xs" href="#" onclick="cancel()">Cancel</a>
+
+    </div>
+
+{% endblock %}
+
+{% block bodyEnd %}
+
+<script>
+var counter = parseInt(sessionStorage.getItem('questionnaireCounter')) || 0;
+if(sessionStorage.getItem('Project_' + counter)){
+    document.getElementById('project').value = sessionStorage.getItem('Project_' + counter);
+}
+
+var referringPageURL = document.referrer;    
+
+function creationProject() {
+    console.log('print');
+    var counter = sessionStorage.getItem('questionnaireCounter');
+    if(document.getElementById('project').value != ""){
+        var project = document.getElementById('project').value;
+        sessionStorage.setItem('Project_' + counter, project);   
+        if(sessionStorage.getItem('customisePermissions')){
+            document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepageV2/create/CustomisePermissions.html";    
+        }
+        else{
+            document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepageV2/create/summaryOfNewQuestionnaire.html";    
+        }
+    }
+    else{
+        document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepageV2/create/ProjectErrors/BothBlank.html";    
+
+    }
+
+
+}
+
+function cancel() {
+    var counter = parseInt(sessionStorage.getItem('questionnaireCounter')) || 0;
+    sessionStorage.removeItem('Title_' + counter);
+    sessionStorage.removeItem('Shortcode_' + counter);
+    window.location.href = "index.html";
+}
+
+</script>
+{% endblock %}

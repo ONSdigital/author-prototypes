@@ -1,0 +1,323 @@
+---
+group: Examples
+title: Example prototype
+layout: example/views/Author8col
+---
+{% from "components/button/_macro.njk" import onsButton %}
+{% from "components/autosuggest/_macro.njk" import onsAutosuggest %}
+{% from "components/table/_macro.njk" import onsTable %}
+
+
+{% block main %}
+
+
+<input type="text" id="searchInput" class="ons-u-mb-l" placeholder="Search by title">
+
+
+<button type="submit" class="ons-btn" onclick="Delete()">
+  <span class="ons-btn__inner"><span class="ons-btn__text">Delete</span>
+  </span>
+</button>
+
+
+
+<div class="ons-grid ons-grid--gutterless">
+    <div class="ons-grid__col ons-col-8@m">
+
+        {{ onsAutosuggest({
+            "id": "country-of-birth-autosuggest",
+            "classes": "ons-u-mb-l",
+            "label": {
+                "text": "Owner",
+                "id": "country-of-birth-label"
+            },
+            "autocomplete": "off",
+            "instructions": "Use up and down keys to navigate suggestions once you\'ve typed more than two characters. Use the enter key to select a suggestion. Touch device users, explore by touch or with swipe gestures.",
+            "ariaYouHaveSelected": "You have selected",
+            "ariaMinChars": "Enter 3 or more characters for suggestions.",
+            "ariaOneResult": "There is one suggestion available.",
+            "ariaNResults": "There are {n} suggestions available.",
+            "ariaLimitedResults": "Results have been limited to 10 suggestions. Type more characters to improve your search",
+            "moreResults": "Continue entering to improve suggestions",
+            "resultsTitle": "Suggestions",
+            "resultsTitleId": "country-of-birth-suggestions",
+            "autosuggestData": "/owners.json",
+            "noResults": "No suggestions found. You can enter your own answer",
+            "typeMore": "Continue entering to get suggestions"
+        }) }}
+
+    </div>
+</div>
+
+
+
+{{
+    onsTable({
+        "id": "dataTable",
+        "variants": 'sortable',
+        "caption": "Javascript enhanced sortable table",
+        "sortBy": "Sort by",
+        "ariaAsc": "ascending",
+        "ariaDesc": "descending",
+        "ths": [
+            {
+                "value": "ID"
+            },
+            {
+                "value": "Title"
+            },
+            {
+                "value": "Abbreviation"
+            },
+            {
+                "value": "Legal basis"
+            },
+            {
+                "value": "Frequency"
+            },
+            {
+                "value": "Date"
+            },
+            {
+                "value": "Status"
+            }
+        ],
+        "trs": [
+            {
+                "tds": [
+                    {
+                        "value": "023"
+                    },
+                    {
+                        "value": "Monthly Business Survey - Retail Sales Index"
+                    },
+                    {
+                        "value": "RSI"
+                    },
+                    {
+                        "value": "Statistics of Trade Act 1947"
+                    },
+                    {
+                        "value": "Monthly",
+                        "dataSort": "1"
+                    },
+                    {
+                        "value": "20 Jan 2018",
+                        "dataSort": "2018-01-20"
+                    },
+                    {
+                        "value": "<span class='ons-status ons-status--success'>Ready</span>",
+                        "dataSort": "0"
+                    },
+                    {
+                        "form": {
+                            "method": "Get",
+                            "action": "#",
+                            "button": {
+                                "type": "button",
+                                "text": "View details",
+                                "variants": ["small", "secondary"],
+                                "url": "#0"
+                            }
+                        }
+                    }
+                ]
+            },
+            {
+                "tds": [
+                    {
+                        "value": "112"
+                    },
+                    {
+                        "value": "Annual Inward Foreign Direct Investment Survey"
+                    },
+                    {
+                        "value": "AIFDI"
+                    },
+                    {
+                        "value": "Statistics of Trade Act 1947"
+                    },
+                    {
+                        "value": "Annually",
+                        "dataSort": "12"
+                    },
+                    {
+                        "value": "26 Feb 2018",
+                        "dataSort": "2018-02-26"
+                    },
+                    {
+                        "value": "<span class='ons-status ons-status--dead'>Not ready</span>",
+                        "dataSort": "1"
+                    },
+                    {
+                        "form": {
+                            "method": "Get",
+                            "action": "#",
+                            "button": {
+                                "type": "button",
+                                "text": "View details",
+                                "variants": ["small", "secondary"],
+                                "url": "#0"
+                            }
+                        }
+                    }
+                ]
+            },
+            {
+                "tds": [
+                    {
+                        "value": "332"
+                    },
+                    {
+                        "value": "Business Register and Employment Survey"
+                    },
+                    {
+                        "value": "BRES"
+                    },
+                    {
+                        "value": "Statistics of Trade Act 1947"
+                    },
+                    {
+                        "value": "Annually",
+                        "dataSort": "12"
+                    },
+                    {
+                        "value": "23 Jan 2013",
+                        "dataSort": "2013-01-23"
+                    },
+                    {
+                        "value": "<span class='ons-status ons-status--info'>In progress</span>",
+                        "dataSort": "2"
+                    },
+                    {
+                        "form": {
+                            "method": "Get",
+                            "action": "#",
+                            "button": {
+                                "type": "button",
+                                "text": "View details",
+                                "variants": ["small", "secondary"],
+                                "url": "#0"
+                            }
+                        }
+                    }
+                ]
+            },
+            {
+                "tds": [
+                    {
+                        "value": "654"
+                    },
+                    {
+                        "value": "Quartely Survey of Building Materials Sand and Gravel"
+                    },
+                    {
+                        "value": "QBMS"
+                    },
+                    {
+                        "value": "Statistics of Trade Act 1947 - BEIS"
+                    },
+                    {
+                        "value": "Quartely",
+                        "dataSort": "3"
+                    },
+                    {
+                        "value": "24 Jan 2015",
+                        "dataSort": "2015-01-24"
+                    },
+                    {
+                        "value": "<span class='ons-status ons-status--error'>Issue</span>",
+                        "dataSort": "3"
+                    },
+                    {
+                        "form": {
+                            "method": "Get",
+                            "action": "#",
+                            "button": {
+                                "type": "button",
+                                "text": "View details",
+                                "variants": ["small", "secondary"],
+                                "url": "#0"
+                            }
+                        }
+                    }
+                ]
+            },
+            {
+                "tds": [
+                    {
+                        "value": "765"
+                    },
+                    {
+                        "value": "Monthly Survey of Building Materials Concrete Building Blocks"
+                    },
+                    {
+                        "value": "MSBB"
+                    },
+                    {
+                        "value": "Voluntary"
+                    },
+                    {
+                        "value": "Monthly",
+                        "dataSort": "1"
+                    },
+                    {
+                        "value": "25 Jan 2014",
+                        "dataSort": "2014-01-25"
+                    },
+                    {
+                        "value": "<span class='ons-status ons-status--success'>Ready</span>",
+                        "dataSort": "0"
+                    },
+                    {
+                        "form": {
+                            "method": "Get",
+                            "action": "#",
+                            "button": {
+                                "type": "button",
+                                "text": "View details",
+                                "variants": ["small", "secondary"],
+                                "url": "#0"
+                            }
+                        }
+                    }
+                ]
+            }
+        ]
+    })
+}}
+
+
+{% endblock %}
+
+{% block bodyEnd %}
+{#
+<script>
+  const searchInput = document.getElementById("searchInput");
+  const dataTable = document.getElementById("dataTable").getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+
+  searchInput.addEventListener("input", function() {
+    const searchTerm = searchInput.value.toLowerCase();
+    
+    for (const row of dataTable) {
+      const titleCell = row.querySelector(".ons-table__cell:nth-child(2)");
+      if (titleCell) {
+        const title = titleCell.textContent.toLowerCase();
+        if (title.includes(searchTerm)) {
+          row.style.display = "";
+        } else {
+          row.style.display = "none";
+        }
+      }
+    }
+  });
+  </script>
+#}
+  <script>
+  function Delete(){
+    console.log('hello');
+    var deleteModal = document.getElementById('deleteModal');
+    deleteModal.style.display = "block";
+  }
+</script>
+{% endblock %}

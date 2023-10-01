@@ -1,0 +1,75 @@
+---
+group: Examples
+title: Example prototype
+layout: example/views/Author8col
+---
+{% from "components/button/_macro.njk" import onsButton %}
+
+{% block preMain %}
+{{
+    onsBreadcrumbs({
+        "ariaLabel": 'Back',
+        "itemsList": [
+            {
+                "url": '/prototypes/example/homepageV3/URTasks/UserTaskList.html',
+                "id": "back",
+                "text": 'Back',
+                "attributes": {
+                    "data-attribute": "Example attribute"
+                }
+            }
+        ]
+    })
+}}
+{% endblock %}
+
+{% block main %}
+
+    <h1 class="ons-u-mb-s">Task 1</h1>
+
+    <h3 class="ons-u-mb-s ons-u-mt-l">Task 1a</h3>
+
+    <p>What do you think this page is for? Describe its purpose based on what you see.
+    </p>
+
+    {{
+        onsExternalLink({
+            "url": "/prototypes/example/homepageV3/",
+            "linkText": "Start task",
+            "classes": "externalLink ons-u-fs-m"
+        })
+    }}
+
+    <h3 class="ons-u-mb-s ons-u-mt-xl">Task 1b</h3>
+
+    <p>Suppose someone else created a questionnaire and added you as an editor. Where would you expect to find this questionnaire, and why?
+    </p>
+
+    {{
+        onsExternalLink({
+            "url": "/prototypes/example/homepageV3/",
+            "linkText": "Start task",
+            "classes": "externalLink ons-u-fs-m"
+        })
+    }}
+
+
+    <h3 class="ons-u-mb-s ons-u-mt-xl">Task 1c</h3>
+
+    <p>Suppose someone else created a questionnaire and did not add you as an editor. Where would you expect to find this questionnaire, and why?
+    </p>
+
+    {{
+        onsExternalLink({
+            "url": "/prototypes/example/homepageV3/",
+            "linkText": "Start task",
+            "classes": "externalLink ons-u-fs-m"
+        })
+    }}
+
+
+{% endblock %}
+
+{% block bodyEnd %}
+
+{% endblock %}

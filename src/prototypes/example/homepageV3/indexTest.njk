@@ -1,7 +1,7 @@
 ---
 group: Examples
 title: Example prototype
-layout: example/views/homepageV2
+layout: example/views/homepage
 ---
 {% from "components/button/_macro.njk" import onsButton %}
 {% from "components/autosuggest/_macro.njk" import onsAutosuggest %}
@@ -11,8 +11,7 @@ layout: example/views/homepageV2
 {% from "components/panel/_macro.njk" import onsPanel %}
 {% from "components/list/_macro.njk" import onsList %}
 {% from "components/select/_macro.njk" import onsSelect %}
-{% from "components/hero/_macro.njk" import onsHero %}
-{% from "components/text-indent/_macro.njk" import onsTextIndent %}
+
 
 {% block head %}
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -22,32 +21,6 @@ layout: example/views/homepageV2
 
 
 <style>
-
-    #star.material-symbols-outlined, #starIcon.material-symbols-outlined {
-    font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 24
-    }
-
-    #star.material-symbols-outlined, #starIcon.material-symbols-outlined {
-        position: relative;
-        color: #1f84d8;
-    }
-
-    #star.material-symbols-outlined::before, #starIcon.material-symbols-outlined::before {
-        content: "";
-        position: absolute;
-        width: 10px; 
-        height: 11px;
-        background-color: #1f84d8;
-        border-radius: 50%; 
-        top: 33%; 
-        left: 30%;
-        z-index: -1;
-    }
-
     .filter-panel{
         width:100%;
         outline: 1px solid #E2E2E3;
@@ -83,7 +56,7 @@ layout: example/views/homepageV2
         align-items: center;
         justify-content: center;
         background-color: white;
-        border: 2px solid #707071;
+        border: 2px solid #bcbcbd;
         border-radius: 3px;
         outline: none;
         padding: 9px 6px;
@@ -199,7 +172,7 @@ layout: example/views/homepageV2
         align-items: center;
         font-size: 14px;
         padding: 4px 4px 4px 7px;
-        margin-left: 18px;
+        margin-left: 10px;
 
     }
 
@@ -235,7 +208,7 @@ layout: example/views/homepageV2
     .tagAndClearFiltersContainer{
         display: flex;
         justify-content: space-between;
-        margin: 9px 0px 27px 0px;
+        margin: 27px 0px;
         border-bottom: 1px solid #e2e2e3;
     }
 
@@ -247,54 +220,14 @@ layout: example/views/homepageV2
         color:  #206095;
         border-radius: 3px;
     }
-
-    .ons-table__header, .ons-table__cell{
-        padding: .5rem 0rem .5rem 2rem;
-    }
-
-    .NoOfQuestionnairesAndClearSearch{
-        display:flex;
-        justify-content: space-between;
-    }
-
-    #starred-table tbody tr > td:first-child{
-        padding-left:5px;
-    }
-
-    #basic-table tbody tr > td:last-child, #starred-table tbody tr > td:last-child{
-        padding-right:5px;
-    }
     
-    .TableMarginBottom{
-        margin-bottom: 81px;
-    }
-
-    .noSearchResults{
-        padding: 18px;
-        background-color: #fff0e6;
-    }
-
 </style>
+
+
 
 {% endblock %}
 
-{% block pageContent %}
-{{
-    onsHero({
-        "title": 'My questionnaires',
-        "text": "Find the questionnaires you can edit or have added from <a href='/prototypes/example/homepageV2/questionnaireDirectory.html'>all questionnaires</a>.",
-        "button": {
-            "url": '/prototypes/example/homepageV2/create/enterDetails',
-            "text": 'Create a questionnaire'
-        },
-        "wide": "true"
-    })
-}}
-
-<div class="ons-page__container ons-container ons-container--wide">
-<div class="ons-grid">
-<div class="ons-grid__col ons-col-12@m">
-<main id="main-content" class="ons-page__main">
+{% block main %}
 
 <div class="modal-container" id="modalContainer">
   <dialog class="ons-modal" id="modalDialog" role="dialog">
@@ -437,7 +370,7 @@ layout: example/views/homepageV2
 
       </div>
       <div class="ons-u-fr">
-        <button type="button" class="ons-btn ons-btn--secondary ons-u-mt-s" onclick="cancelAdd()">
+        <button type="button" class="ons-btn ons-btn--secondary ons-u-mt-s" onclick="cancelDeletion()">
             <span class="ons-btn__inner"><span class="ons-btn__text">Cancel</span>
             </span>
         </button>
@@ -477,17 +410,50 @@ layout: example/views/homepageV2
             }}
         {% endcall %}
     </div>
-
+    <div class="ons-grid__col ons-col-7@m">
+        <h1 class="ons-u-mb-l">My questionnaires</h1>
+    </div>
+    <div class="ons-grid__col ons-col-5@m">
+        <div style="float:right;">
+            <a href="/prototypes/example/homepage/questionnaireDirectory" class="ons-u-dib ons-u-mt-xs ons-u-mb-xs ons-u-mr-m">Questionnaire directory</a>
+            {{
+                onsButton({
+                    "text": 'Create questionnaire',
+                    "url": '/prototypes/example/homepage/create/enterDetails.html'            
+                })
+            }}
+        </div>
+    </div>
+    <div class="ons-grid__col ons-col-12@m ons-u-mb-xl">
+        {{
+            onsInput({
+                "id": 'search-field',
+                "label": {
+                    "text": 'Search by short code or title'
+                },
+                "accessiblePlaceholder": true,
+                "searchButton": {
+                    "visuallyHideButtonText": true,
+                    "text": 'Search',
+                    "iconType": 'search',
+                    "id": "apply-search",
+                    "attributes": {
+                        "onclick": "ApplySearch()"
+                    }
+                }
+            })
+        }}
+    </div>
     <div class="ons-grid__col ons-col-3@m">
         <div class="filter-panel">
             <div class="filter-heading-panel ons-u-pl-s ons-u-pr-s ons-u-pt-xs ons-u-pb-xs">
-                <h2 class="ons-u-mb-no">Search and filter</h2>
+                <h2 class="ons-u-mb-no">Filter</h2>
             </div>
             <div class="ons-u-p-s">
                 {{
                     onsButton({
                         "type": 'button',
-                        "text": 'Apply',
+                        "text": 'Apply filters',
                         "variants": 'small',
                         "classes": "ons-u-mb-m ons-u-mt-xs",
                         "attributes": {
@@ -496,25 +462,13 @@ layout: example/views/homepageV2
                     })
                 }}
 
-                {{
-                    onsInput({
-                        "id": "search-field",
-                        "label": {
-                            "text": "Search by short code or title"
-                        },
-                        "attributes": {
-                            "style": "width:261.5px;"
-                        },
-                        "classes": "ons-u-mb-m"
-                    })
-                }}
-                <div class="ons-u-mb-m">
                 {{ onsAutosuggest({
                     "id": "project-filter",
                     "label": {
                         "text": "Project",
                         "id": "project-filter-label"
                     },
+                    "classes": "ons-u-mb-m",
                     "autocomplete": "off",
                     "instructions": "Use up and down keys to navigate suggestions once you\'ve typed more than two characters. Use the enter key to select a suggestion. Touch device users, explore by touch or with swipe gestures.",
                     "ariaYouHaveSelected": "You have selected",
@@ -525,16 +479,13 @@ layout: example/views/homepageV2
                     "moreResults": "Continue entering to improve suggestions",
                     "resultsTitle": "Suggestions",
                     "resultsTitleId": "country-of-birth-suggestions",
-                    "autosuggestData": "https://gist.githubusercontent.com/LaurenDowling/e5582f6edb222f858ebe5494594ced44/raw/5105bd626cfcc806b78a06a3af2cd13a361ca826/projects.json",
-                    "noResults": "No suggestions found",
+                    "autosuggestData": "/prototypes/example/data/projects.json",
+                    "noResults": "No suggestions found. You can enter your own answer",
                     "typeMore": "Continue entering to get suggestions",
                     "attributes": {
                         "style": "width:261.5px;"
                     }
                 }) }}
-                </div>
-
-                <div class="ons-u-mb-m">
 
                 {{ onsAutosuggest({
                     "id": "owner-filter",
@@ -542,6 +493,7 @@ layout: example/views/homepageV2
                     "text": "Owner",
                     "id": "owner-filter-label"
                     },
+                    "classes": "ons-u-mb-m",
                     "autocomplete": "off",
                     "instructions": "Use up and down keys to navigate suggestions once you\'ve typed more than two characters. Use the enter key to select a suggestion. Touch device users, explore by touch or with swipe gestures.",
                     "ariaYouHaveSelected": "You have selected",
@@ -552,13 +504,44 @@ layout: example/views/homepageV2
                     "moreResults": "Continue entering to improve suggestions",
                     "resultsTitle": "Suggestions",
                     "resultsTitleId": "country-of-birth-suggestions",
-                    "autosuggestData": "https://gist.githubusercontent.com/LaurenDowling/86bdd038f632b3f319e28823d93748fe/raw/076fe6327c8de9362fcb1d22ea6f058e5b4404b2/owners.json",
-                    "noResults": "No suggestions found",
+                    "autosuggestData": "/owners.json",
+                    "noResults": "No suggestions found. You can enter your own answer",
                     "typeMore": "Continue entering to get suggestions",
                     "attributes": {
                         "style": "width:261.5px;"
                     }
                 }) }}
+
+                <div class="ons-u-mb-m">
+
+                {{
+                    onsDateInput({
+                        "id": "created-before-filter",
+                        "legendOrLabel": "Created before",
+                        "description": "For example, 31 3 1980",
+                        "day": {
+                            "label": {
+                                "text": "Day"
+                            },
+                            "name": "day"
+                        },
+                        "month": {
+                            "label": {
+                                "text": "Month"
+                            },
+                            "name": "month"
+                        },
+                        "year": {
+                            "label": {
+                                "text": "Year"
+                            },
+                            "name": "year"
+                        },
+                        "error": {
+                            "text": "Enter a date that is after 1 January 2019"
+                        }
+                    })
+                }}
 
                 </div>
 
@@ -588,40 +571,7 @@ layout: example/views/homepageV2
                             "name": "year"
                         },
                         "error": {
-                            "text": "Error 2"
-                        }
-                    })
-                }}
-
-                </div>
-
-                <div class="ons-u-mb-m">
-
-                {{
-                    onsDateInput({
-                        "id": "created-before-filter",
-                        "legendOrLabel": "Created before",
-                        "description": "For example, 31 3 1980",
-                        "day": {
-                            "label": {
-                                "text": "Day"
-                            },
-                            "name": "day"
-                        },
-                        "month": {
-                            "label": {
-                                "text": "Month"
-                            },
-                            "name": "month"
-                        },
-                        "year": {
-                            "label": {
-                                "text": "Year"
-                            },
-                            "name": "year"
-                        },
-                        "error": {
-                            "text": "Error 1"
+                            "text": "Enter a date that is after 1 January 2019"
                         }
                     })
                 }}
@@ -666,14 +616,8 @@ layout: example/views/homepageV2
 
     <div class="ons-grid__col ons-col-9@m">
         <div class="ons-u-ml-s">
-            <div class="NoOfQuestionnairesAndClearSearch">
-                <div>
-                    <h2 class="ons-u-fs-m ons-u-mb-m" id="NumberOfQuestionnaires"><span></span><span id="SearchEntry"></span></h2>
-                </div>
-                <div>
-                    <button class="clearFilterBtn" id="clearSearchBtn" style="display:none;" onclick="ClearSearchReApplyFilters()">Clear search</button>
-                </div>
-            </div>
+            <h2 class="ons-u-fs-m ons-u-mb-m" id="NumberOfQuestionnaires"><span></span><span id="SearchEntry"></span></h2>
+            
             <div id="tagsAndBtnContainer">
                 <div id="area-for-tags">
                     <div id="tags-project" style="display:none;">Project:</div>
@@ -695,32 +639,15 @@ layout: example/views/homepageV2
                     <option value="created-oldest">Created (oldest)</option>
                 </select>
             </div>
-            {#
-            {{
-                onsPanel({
-                    "body": "<p>To find view-only questionnaires that have not been added to 'My questionnaires', go to <a href='/prototypes/example/homepageV2/questionnaireDirectory'>all questionnaires</a>.</p>",
-                    "id": "view-only-panel",
-                    "classes": "ons-u-mb-m",
-                    "attributes": {
-                        "style": "display:none;"
-                    }
-                })
-            }}
-            #}
 
-            <div id="noSearchResultsMessage" class="noSearchResults">
-                <h4>Cannot find what you are looking for?</h4>
-                <p class="ons-u-mb-s">Try applying different search filters.</p>
-                <p>To find <strong>view-only</strong> questionnaires that have not been added to 'My questionnaires', go to <a href='/prototypes/example/homepageV2/questionnaireDirectory'>all questionnaires</a></p>
-            </div>
 
-            <p class="ons-u-mb-xs" id='StarredReplacement'><span id="starIcon" class="material-symbols-outlined ons-u-mr-xs">star</span><strong>Starred</strong></p>
+            <p class="ons-u-mb-xs" id='StarredReplacement'><span class="material-symbols-outlined ons-u-mr-xs" style="color:#707071">star</span><strong>Starred</strong></p>
 
-            <table id="starred-table" class="ons-table TableMarginBottom">
-                <caption class="ons-table__caption"><span id="star" class="material-symbols-outlined ons-u-mr-xs">star</span>Starred</caption>
+            <table id="starred-table" class="ons-table ons-u-mb-xl">
+                <caption class="ons-table__caption"><span class="material-symbols-outlined ons-u-mr-xs" style="color:#707071">star</span>Starred</caption>
                 <thead class="ons-table__head ons-u-d-no">
                     <tr class="ons-table__row">
-                    <th scope="col" class="ons-table__header" style="width: 260px;">
+                    <th scope="col" class="ons-table__header">
                         <span class="ons-table__header-text">Short code and title</span>
                     </th>
                     <th scope="col" class="ons-table__header">
@@ -729,7 +656,7 @@ layout: example/views/homepageV2
                     <th scope="col" class="ons-table__header">
                         <span class="ons-table__header-text">Owner</span>
                     </th>
-                    <th scope="col" class="ons-table__header" style="width: 150px;">
+                    <th scope="col" class="ons-table__header">
                         <span class="ons-table__header-text">Activity</span>
                     </th>
                     <th scope="col" class="ons-table__header">
@@ -740,18 +667,18 @@ layout: example/views/homepageV2
                     </th>
                     </tr>
                 </thead>
-                <tbody class="ons-table__body ons-u-d-no" style="background-color:#e9eff4;">
+                <tbody class="ons-table__body ons-u-d-no">
 
                 </tbody>
             </table>
 
-            <p class="u-fs-16" id='AddedToStarred'>No questionnaires have been moved to starred</p>
+            <p class="u-fs-16 ons-u-mb-m" id='AddedToStarred'>No questionnaires have been added to starred</p>
 
-            <table id="basic-table" class="ons-table ons-u-mt-l">
-                <caption class="ons-table__caption ons-u-vh">Non-starred</caption>
+            <table id="basic-table" class="ons-table">
+                <caption class="ons-table__caption">Non-starred</caption>
                 <thead class="ons-table__head">
                     <tr class="ons-table__row">
-                    <th scope="col" class="ons-table__header" style="width: 260px;">
+                    <th scope="col" class="ons-table__header">
                         <span class="ons-table__header-text">Short code and title</span>
                     </th>
                     <th scope="col" class="ons-table__header">
@@ -760,7 +687,7 @@ layout: example/views/homepageV2
                     <th scope="col" class="ons-table__header">
                         <span class="ons-table__header-text">Owner</span>
                     </th>
-                    <th scope="col" class="ons-table__header" style="width: 150px;">
+                    <th scope="col" class="ons-table__header">
                         <span class="ons-table__header-text">Activity</span>
                     </th>
                     <th scope="col" class="ons-table__header">
@@ -814,7 +741,7 @@ layout: example/views/homepageV2
                                             <span class="material-symbols-outlined">
                                                 star
                                             </span>
-                                            Move to starred
+                                            Add to starred
                                         </button>
                                     </li>
                                     <li role="none" class="ons-u-mb-no">
@@ -871,7 +798,7 @@ layout: example/views/homepageV2
                                             <span class="material-symbols-outlined">
                                                 star
                                             </span>
-                                            Move to starred
+                                            Add to starred
                                         </button>
                                     </li>
                                     <li role="none" class="ons-u-mb-no">
@@ -928,7 +855,7 @@ layout: example/views/homepageV2
                                             <span class="material-symbols-outlined">
                                                 star
                                             </span>
-                                            Move to starred
+                                            Add to starred
                                         </button>
                                     </li>
                                     <li role="none" class="ons-u-mb-no">
@@ -985,7 +912,7 @@ layout: example/views/homepageV2
                                             <span class="material-symbols-outlined">
                                                 star
                                             </span>
-                                            Move to starred
+                                            Add to starred
                                         </button>
                                     </li>
                                     <li role="none" class="ons-u-mb-no">
@@ -1005,7 +932,7 @@ layout: example/views/homepageV2
                             <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">FPS-23 FINAL</span>
                             <a href="#">Financial Planning Survey</a>
                         </td>
-                        <td class="ons-table__cell">Financial Planning</td>
+                        <td class="ons-table__cell">Financial Planning Survey</td>
                         <td class="ons-table__cell">Javier Fernandez</td>
                         <td class="ons-table__cell" data-date-value="2023-08-05">
                             <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
@@ -1042,11 +969,11 @@ layout: example/views/homepageV2
                                             <span class="material-symbols-outlined">
                                                 star
                                             </span>
-                                            Move to starred
+                                            Add to starred
                                         </button>
                                     </li>
                                     <li role="none" class="ons-u-mb-no">
-                                        <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton5", "menu5", "FPS-23 FINAL", "Financial Planning Survey", "Financial Planning", "Javier Fernandez", "row5")'>
+                                        <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton5", "menu5", "FPS-23 FINAL", "Financial Planning Survey", "Financial Planning Survey", "Javier Fernandez", "row5")'>
                                             <span class="material-symbols-outlined">
                                                 delete
                                             </span>
@@ -1062,7 +989,7 @@ layout: example/views/homepageV2
                             <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">FPS-23 testing version</span>
                             <a href="#">Financial Planning Survey</a>
                         </td>
-                        <td class="ons-table__cell">Financial Planning</td>
+                        <td class="ons-table__cell">Financial Planning Survey</td>
                         <td class="ons-table__cell">Javier Fernandez</td>
                         <td class="ons-table__cell" data-date-value="2023-08-01">
                             <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
@@ -1099,11 +1026,11 @@ layout: example/views/homepageV2
                                             <span class="material-symbols-outlined">
                                                 star
                                             </span>
-                                            Move to starred
+                                            Add to starred
                                         </button>
                                     </li>
                                     <li role="none" class="ons-u-mb-no">
-                                        <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton6", "menu6", "FPS-23 testing version", "Financial Planning Survey", "Financial Planning", "Javier Fernandez", "row6")'>
+                                        <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton6", "menu6", "FPS-23 testing version", "Financial Planning Survey", "Financial Planning Survey", "Javier Fernandez", "row6")'>
                                             <span class="material-symbols-outlined">
                                                 delete
                                             </span>
@@ -1156,7 +1083,7 @@ layout: example/views/homepageV2
                                             <span class="material-symbols-outlined">
                                                 star
                                             </span>
-                                            Move to starred
+                                            Add to starred
                                         </button>
                                     </li>
                                     <li role="none" class="ons-u-mb-no">
@@ -1213,7 +1140,7 @@ layout: example/views/homepageV2
                                             <span class="material-symbols-outlined">
                                                 star
                                             </span>
-                                            Move to starred
+                                            Add to starred
                                         </button>
                                     </li>
                                     <li role="none" class="ons-u-mb-no">
@@ -1233,7 +1160,7 @@ layout: example/views/homepageV2
                             <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">FPS-23 second draft</span>
                             <a href="#">D2 - Financial Planning Survey</a>
                         </td>
-                        <td class="ons-table__cell">Financial Planning</td>
+                        <td class="ons-table__cell">Financial Planning Survey</td>
                         <td class="ons-table__cell">Helen Jones</td>
                         <td class="ons-table__cell" data-date-value="2023-06-14">
                             <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>
@@ -1270,11 +1197,11 @@ layout: example/views/homepageV2
                                             <span class="material-symbols-outlined">
                                                 star
                                             </span>
-                                            Move to starred
+                                            Add to starred
                                         </button>
                                     </li>
                                     <li role="none" class="ons-u-mb-no">
-                                        <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton9", "menu9", "FPS-23 second draft", "D2 - Financial Planning Survey", "Financial Planning", "Helen Jones", "row9")'>
+                                        <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton9", "menu9", "FPS-23 second draft", "D2 - Financial Planning Survey", "Financial Planning Survey", "Helen Jones", "row9")'>
                                             <span class="material-symbols-outlined">
                                                 delete
                                             </span>
@@ -1327,7 +1254,7 @@ layout: example/views/homepageV2
                                             <span class="material-symbols-outlined">
                                                 star
                                             </span>
-                                            Move to starred
+                                            Add to starred
                                         </button>
                                     </li>
                                     <li role="none" class="ons-u-mb-no">
@@ -1384,7 +1311,7 @@ layout: example/views/homepageV2
                                             <span class="material-symbols-outlined">
                                                 star
                                             </span>
-                                            Move to starred
+                                            Add to starred
                                         </button>
                                     </li>
                                     <li role="none" class="ons-u-mb-no">
@@ -1445,7 +1372,7 @@ layout: example/views/homepageV2
                                             <span class="material-symbols-outlined">
                                                 star
                                             </span>
-                                            Move to starred
+                                            Add to starred
                                         </button>
                                     </li>
                                     <li role="none" class="ons-u-mb-no">
@@ -1506,7 +1433,7 @@ layout: example/views/homepageV2
                                             <span class="material-symbols-outlined">
                                                 star
                                             </span>
-                                            Move to starred
+                                            Add to starred
                                         </button>
                                     </li>
                                     <li role="none" class="ons-u-mb-no">
@@ -1526,7 +1453,7 @@ layout: example/views/homepageV2
                             <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">FPS-23 first draft</span>
                             <a href="#">D1 - Financial Planning Survey</a>
                         </td>
-                        <td class="ons-table__cell">Financial Planning</td>
+                        <td class="ons-table__cell">Financial Planning Survey</td>
                         <td class="ons-table__cell">Helen Jones</td>
                         <td class="ons-table__cell" data-date-value="2023-05-28">
                             <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">Date created:</span>28 May 2023
@@ -1567,11 +1494,11 @@ layout: example/views/homepageV2
                                             <span class="material-symbols-outlined">
                                                 star
                                             </span>
-                                            Move to starred
+                                            Add to starred
                                         </button>
                                     </li>
                                     <li role="none" class="ons-u-mb-no">
-                                        <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton14", "menu14", "FPS-23 first draft", "D1 - Financial Planning Survey", "Financial Planning", "Helen Jones", "row14")'>
+                                        <button role="menuitem" class="listItemButton" onclick='confirmDeletion("menubutton14", "menu14", "FPS-23 first draft", "D1 - Financial Planning Survey", "Financial Planning Survey", "Helen Jones", "row14")'>
                                             <span class="material-symbols-outlined">
                                                 delete
                                             </span>
@@ -1628,7 +1555,7 @@ layout: example/views/homepageV2
                                             <span class="material-symbols-outlined">
                                                 star
                                             </span>
-                                            Move to starred
+                                            Add to starred
                                         </button>
                                     </li>
                                     <li role="none" class="ons-u-mb-no">
@@ -1689,7 +1616,7 @@ layout: example/views/homepageV2
                                             <span class="material-symbols-outlined">
                                                 star
                                             </span>
-                                            Move to starred
+                                            Add to starred
                                         </button>
                                     </li>
                                     <li role="none" class="ons-u-mb-no">
@@ -1750,7 +1677,7 @@ layout: example/views/homepageV2
                                             <span class="material-symbols-outlined">
                                                 star
                                             </span>
-                                            Move to starred
+                                            Add to starred
                                         </button>
                                     </li>
                                     <li role="none" class="ons-u-mb-no">
@@ -1811,7 +1738,7 @@ layout: example/views/homepageV2
                                             <span class="material-symbols-outlined">
                                                 star
                                             </span>
-                                            Move to starred
+                                            Add to starred
                                         </button>
                                     </li>
                                     <li role="none" class="ons-u-mb-no">
@@ -1872,7 +1799,7 @@ layout: example/views/homepageV2
                                             <span class="material-symbols-outlined">
                                                 star
                                             </span>
-                                            Move to starred
+                                            Add to starred
                                         </button>
                                     </li>
                                     <li role="none" class="ons-u-mb-no">
@@ -1933,7 +1860,7 @@ layout: example/views/homepageV2
                                             <span class="material-symbols-outlined">
                                                 star
                                             </span>
-                                            Move to starred
+                                            Add to starred
                                         </button>
                                     </li>
                                     <li role="none" class="ons-u-mb-no">
@@ -1994,7 +1921,7 @@ layout: example/views/homepageV2
                                             <span class="material-symbols-outlined">
                                                 star
                                             </span>
-                                            Move to starred
+                                            Add to starred
                                         </button>
                                     </li>
                                     <li role="none" class="ons-u-mb-no">
@@ -2055,7 +1982,7 @@ layout: example/views/homepageV2
                                             <span class="material-symbols-outlined">
                                                 star
                                             </span>
-                                            Move to starred
+                                            Add to starred
                                         </button>
                                     </li>
                                     <li role="none" class="ons-u-mb-no">
@@ -2111,14 +2038,10 @@ layout: example/views/homepageV2
             </nav>
 
 
+
         </div>
     </div>
 
-</div>
-
-</main>
-</div>
-</div>
 </div>
 
 
@@ -2149,16 +2072,9 @@ layout: example/views/homepageV2
             td2.classList.add("ons-table__cell");
             td2.textContent = sessionStorage.getItem('Project_' + i);
 
-            if(sessionStorage.getItem("Owner_" + i)){
-                var td3 = row.insertCell(2);
-                td3.classList.add("ons-table__cell");
-                td3.textContent = sessionStorage.getItem("Owner_" + i);
-            }
-            else{
-                var td3 = row.insertCell(2);
-                td3.classList.add("ons-table__cell");
-                td3.textContent = "Sam Lake";
-            }
+            var td3 = row.insertCell(2);
+            td3.classList.add("ons-table__cell");
+            td3.textContent = "Lauren Dowling";
 
             var td4 = row.insertCell(3);
             td4.classList.add("ons-table__cell");
@@ -2257,7 +2173,7 @@ layout: example/views/homepageV2
             ul.appendChild(copyLinkLi);
 
 
-    {# Move to starred button #}
+    {# Add to starred button #}
             var addToStarredLi = document.createElement("li");
             addToStarredLi.role = "none";
 
@@ -2271,7 +2187,7 @@ layout: example/views/homepageV2
             addToStarredSpan.className = "material-symbols-outlined";
             addToStarredSpan.textContent = "star";
 
-            var StarText = document.createTextNode("Move to starred");
+            var StarText = document.createTextNode("Add to starred");
 
             addToStarredButton.appendChild(addToStarredSpan);
             addToStarredButton.appendChild(StarText);
@@ -2288,7 +2204,7 @@ layout: example/views/homepageV2
                 var removeFromMyQuestionnairesButton = document.createElement("button");
                 removeFromMyQuestionnairesButton.role = "menuitem";
                 removeFromMyQuestionnairesButton.className = "listItemButton";
-                removeFromMyQuestionnairesButton.id = sessionStorage.getItem("AddToBtnID_" + i);
+                removeFromMyQuestionnairesButton.id = sessionStorage.getItem("AddToBtnID_" + i)
 
 
                 var removeFromMyQuestionnairesSpan = document.createElement("span");
@@ -2303,7 +2219,7 @@ layout: example/views/homepageV2
                 removeFromMyQuestionnairesLi.appendChild(removeFromMyQuestionnairesButton);
                 ul.appendChild(removeFromMyQuestionnairesLi);
 
-                removeFromMyQuestionnairesButton.setAttribute("onclick", `addToMyQuestionnaires('${sessionStorage.getItem('rowID' + i)}','${sessionStorage.getItem('Buttonid_' + i)}', '${sessionStorage.getItem('ULid' + i)}', '${sessionStorage.getItem('Shortcode_' + i)}', '${sessionStorage.getItem('Title_' + i)}', '${sessionStorage.getItem('Project_' + i)}', '${sessionStorage.getItem('Owner_' + i)}', '${sessionStorage.getItem('DateCreated_' + i)}', '${sessionStorage.getItem('DateLastOpened_' + i)}', '${sessionStorage.getItem('Access_' + i)}', '${sessionStorage.getItem('AddToBtnID_' + i)}')`);
+                removeFromMyQuestionnairesButton.setAttribute("onclick", `addToMyQuestionnaires('${sessionStorage.getItem('rowID' + i)}','${sessionStorage.getItem('Buttonid_' + i)}', '${sessionStorage.getItem('ULid' + i)}', '${sessionStorage.getItem('Shortcode_' + i)}', '${sessionStorage.getItem('Title_' + i)}', '${sessionStorage.getItem('Project_' + i)}', 'Lauren Dowling', '${sessionStorage.getItem('DateCreated_' + i)}', '${sessionStorage.getItem('DateLastOpened_' + i)}', '${sessionStorage.getItem('Access_' + i)}', '${sessionStorage.getItem('AddToBtnID_' + i)}')`);
 
             }
 
@@ -2317,7 +2233,7 @@ layout: example/views/homepageV2
                 var deleteButton = document.createElement("button");
                 deleteButton.role = "menuitem";
                 deleteButton.className = "listItemButton";
-                deleteButton.setAttribute("onclick", `confirmDeletion('${sessionStorage.getItem('Buttonid_' + i)}', '${sessionStorage.getItem('ULid' + i)}', '${sessionStorage.getItem('Shortcode_' + i)}', '${sessionStorage.getItem('Title_' + i)}', '${sessionStorage.getItem('Project_' + i)}', '${sessionStorage.getItem('Owner_' + i)}', '${sessionStorage.getItem('rowID' + i)}')`);
+                deleteButton.setAttribute("onclick", `confirmDeletion('${sessionStorage.getItem('Buttonid_' + i)}', '${sessionStorage.getItem('ULid' + i)}', '${sessionStorage.getItem('Shortcode_' + i)}', '${sessionStorage.getItem('Title_' + i)}', '${sessionStorage.getItem('Project_' + i)}', 'Lauren Dowling', '${sessionStorage.getItem('rowID' + i)}')`);
 
                 var deleteSpan = document.createElement("span");
                 deleteSpan.className = "material-symbols-outlined";
@@ -2339,63 +2255,43 @@ layout: example/views/homepageV2
         }
     }
 
-// Initialize a variable to keep track of the currently open menu
-var currentOpenMenu = null;
 
-function toggleMenu(event, Buttonid, ULid) {
-    event.stopPropagation();
+
+
+    function toggleMenu(event, Buttonid, ULid) {
+    event.stopPropagation(); 
+    console.log('executing');
+        console.log('Buttonid:', Buttonid);
+    console.log('ULid:', ULid);
     var menu = document.getElementById(ULid);
+    console.log(menu);
     var svgIcon = document.querySelector(`#${Buttonid} .ons-icon`);
 
     if (menu.style.display === "none" || menu.style.display === "") {
-        // Close the currently open menu, if any
-        if (currentOpenMenu !== null) {
-            currentOpenMenu.style.display = "none";
-            // Update the icon of the previously open button
-            var prevButtonId = currentOpenMenu.getAttribute("data-button-id");
-            var prevSvgIcon = document.querySelector(`#${prevButtonId} .ons-icon`);
-            prevSvgIcon.style.transform = "rotate(90deg)";
-            prevSvgIcon.style.padding = "0 0 0 0";
-        }
-
-        // Set the current open menu and associated button ID
-        currentOpenMenu = menu;
-        currentOpenMenu.setAttribute("data-button-id", Buttonid);
-
         menu.style.display = "block";
-        svgIcon.style.transform = "rotate(-90deg)";
+        document.addEventListener("click", closeMenuOnClickOutside.bind(null, ULid));
+        svgIcon.style.transform = "rotate(-90deg)"; 
         svgIcon.style.padding = "0 0 0 4px";
-
-        // Add a click event listener to the button to prevent propagation
-        var button = document.getElementById(Buttonid);
-        button.addEventListener("click", function (e) {
-            e.stopPropagation();
-        });
-
-        // Add a click event listener to close the menu when clicking outside
-        var closeMenu = function (e) {
-            if (!menu.contains(e.target) && e.target.id !== Buttonid) {
-                menu.style.display = "none";
-                svgIcon.style.transform = "rotate(90deg)";
-                svgIcon.style.padding = "0 0 0 0";
-                document.removeEventListener("click", closeMenu);
-                currentOpenMenu = null; // Reset the current open menu
-            }
-        };
-        document.addEventListener("click", closeMenu);
     } else {
-        // Close the menu
         menu.style.display = "none";
-        svgIcon.style.transform = "rotate(90deg)";
-        svgIcon.style.padding = "0 0 0 0";
-        document.removeEventListener("click", closeMenu);
-        currentOpenMenu = null; // Reset the current open menu
+        document.removeEventListener("click", closeMenuOnClickOutside.bind(null, ULid));
+        svgIcon.style.transform = "rotate(90deg)"; 
+        svgIcon.style.padding = "0 0 0 0"; 
     }
-}
+    }
+
+    function closeMenuOnClickOutside(ULid, event) {
+    var menu = document.getElementById(ULid);
+    console.log(menu);
+    
+    if (!menu.contains(event.target)) {
+        menu.style.display = "none";
+        document.removeEventListener("click", closeMenuOnClickOutside.bind(null, ULid));
+    }
+    }
 
 
-
-function confirmDeletion(Buttonid, ULid, shortcode, title, project, owner, rowId){
+    function confirmDeletion(Buttonid, ULid, shortcode, title, project, owner, rowId){
         console.log('confirm deletion');
         toggleMenu(event, Buttonid, ULid);
         var container = document.getElementById('modalContainer');
@@ -2449,15 +2345,17 @@ function confirmDeletion(Buttonid, ULid, shortcode, title, project, owner, rowId
 
         });
             
-}
 
-function cancelDeletion(){
-    console.log('hello');
-    var container = document.getElementById('modalContainer');
-    container.style.display = "none";
-    var modal = document.getElementById('modalDialog');
-    modal.style.display = "none";
-}
+
+    }
+
+    function cancelDeletion(){
+        console.log('hello');
+        var container = document.getElementById('modalContainer');
+        container.style.display = "none";
+        var modal = document.getElementById('modalDialog');
+        modal.style.display = "none";
+    }
 
 
 {# Updating number of questionnaires #}
@@ -2518,7 +2416,7 @@ function cancelDeletion(){
             sessionStorage.setItem('duplicateTitle', title);
         }
 
-        window.location.href = "/prototypes/example/homepageV2/duplicate/enterDetails";
+        window.location.href = "/prototypes/example/homepage/duplicate/enterDetails";
     }
 
 
@@ -2533,7 +2431,7 @@ function cancelDeletion(){
 
             for (var j = 0; j < buttons.length; j++) {
                 var button = buttons[j];
-                if (button.textContent.includes("Move to starred")) {
+                if (button.textContent.includes("Add to starred")) {
                     rowToMove.parentNode.removeChild(rowToMove);
                     starredTable.querySelector("tbody").insertBefore(rowToMove, starredTable.querySelector("tbody").firstChild);
                     button.innerHTML = "<span class='material-symbols-outlined'>star</span>Remove from starred";
@@ -2541,7 +2439,7 @@ function cancelDeletion(){
                 else if (button.textContent.includes("Remove from starred")){
                     rowToMove.parentNode.removeChild(rowToMove);
                     NonstarredTable.querySelector("tbody").insertBefore(rowToMove, NonstarredTable.querySelector("tbody").firstChild);
-                    button.innerHTML = "<span class='material-symbols-outlined'>star</span>Move to starred";
+                    button.innerHTML = "<span class='material-symbols-outlined'>star</span>Add to starred";
                 }
             }
 
@@ -2676,14 +2574,29 @@ function cancelDeletion(){
 
     }
 
-    function cancelAdd(){
-        console.log('hello');
-        var container = document.getElementById('modalContainer2');
-        container.style.display = "none";
-        var modal = document.getElementById('modalDialog2');
-        modal.style.display = "none";
-    }
+    function removeViewOnlyQuestionnaire(rowId) {
+        console.log(rowId);
+        console.log('deleting row');
+        var row = document.getElementById(rowId);
+        console.log(document.getElementById(rowId));
+            if (row) {
+                row.remove();
+                var container = document.getElementById('modalContainer2');
+                container.style.display = "none";
+                var modal = document.getElementById('modalDialog2');
+                modal.style.display = "none";
 
+                var questionnaireCountElement = document.getElementById('questionnaireCount');
+                var currentCount = parseInt(questionnaireCountElement.textContent, 10);
+                if (!isNaN(currentCount) && currentCount > 0) {
+                questionnaireCountElement.textContent = (currentCount - 1) + ' questionnaires';
+                }
+
+
+            }
+            updatePagination();
+            updateQuestionnaireCounter();
+    }
 
 {# Hiding the error messages and panel onload #}
 
@@ -2731,13 +2644,10 @@ function cancelDeletion(){
 
     }
 
-
 function ApplyFilters() {
     currentPage = 1; // Reset currentPage to 1
-    var searchFieldCapitals = document.getElementById("search-field").value.trim();
     var projectFilterCapitals = document.getElementById("project-filter").value;
     var ownerFilterCapitals = document.getElementById("owner-filter").value;
-    var searchField = document.getElementById("search-field").value.trim().toLowerCase();
     var projectFilter = document.getElementById("project-filter").value.toLowerCase();
     var ownerFilter = document.getElementById("owner-filter").value.toLowerCase();
     var BeforeDayFilter = document.getElementById("created-before-filter-day").value;
@@ -2749,8 +2659,6 @@ function ApplyFilters() {
     var EditorAccess = document.getElementById("editor");
     var ViewOnlyAccess = document.getElementById("view-only");
     var ReadOnlyAccess = document.getElementById("read-only");
-    var starredTable = document.getElementById("starred-table");
-    var basicTable = document.getElementById("basic-table");
 
     var errorsForDateBefore = false;
     var errorsForDateAfter = false;
@@ -2947,7 +2855,7 @@ function ApplyFilters() {
         }
     }
 
-    // Check if at least one of the date filters is not empty
+        // Check if at least one of the date filters is not empty
     var isAnyAfterDateFilterNotEmpty =
         AfterDayFilter.trim() !== "" ||
         AfterMonthFilter.trim() !== "" ||
@@ -3190,60 +3098,20 @@ function ApplyFilters() {
         ErrorPanel.classList.remove('ons-u-mb-xl');
     }
 
+    console.log('function still running');
+
     BeforeDayFilter = BeforeDayFilter.replace(/^0+/, "");
     BeforeMonthFilter = BeforeMonthFilter.replace(/^0+/, "");
     AfterDayFilter = AfterDayFilter.replace(/^0+/, "");
     AfterMonthFilter = AfterMonthFilter.replace(/^0+/, "");
 
-    const tagsProject = document.getElementById("tags-project");
-    const tagsOwner = document.getElementById("tags-owner");
-    const tagsDateBefore = document.getElementById("tags-dateBefore");
-    const tagsDateAfter = document.getElementById("tags-dateAfter");
-    const tagsAccess = document.getElementById("tags-access");
-
-    while (tagsProject.firstChild) {
-        tagsProject.removeChild(tagsProject.firstChild);
-        tagsProject.classList.remove('FiltersFlexItems');
-    }
-    while (tagsOwner.firstChild) {
-        tagsOwner.removeChild(tagsOwner.firstChild);
-        tagsOwner.classList.remove('FiltersFlexItems');
-    }
-    while (tagsDateBefore.firstChild) {
-        tagsDateBefore.removeChild(tagsDateBefore.firstChild);
-        tagsDateBefore.classList.remove('FiltersFlexItems');
-    }
-    while (tagsDateAfter.firstChild) {
-        tagsDateAfter.removeChild(tagsDateAfter.firstChild);
-        tagsDateAfter.classList.remove('FiltersFlexItems');
-    }
-    while (tagsAccess.firstChild) {
-        tagsAccess.removeChild(tagsAccess.firstChild);
-        tagsAccess.classList.remove('FiltersFlexItems');
-    }
-    
-    // Remove 'filtered-out' class from all rows in starred-table
-    let starredRows = document.querySelectorAll('#starred-table .ons-table__row');
-    starredRows.forEach(function (row) {
-        row.classList.remove('filtered-out');
-    });
-
-    // Remove 'filtered-out' class from all rows in basic-table
-    let basicRows = document.querySelectorAll('#basic-table .ons-table__row');
-    basicRows.forEach(function (row) {
-        row.classList.remove('filtered-out');
-    });
-    document.getElementById('area-for-tags').classList.remove('AllFiltersFlexContainer'); 
-    document.getElementById('tagsAndBtnContainer').classList.remove('tagAndClearFiltersContainer');
-    document.getElementById('clearFiltersBtn').style.display = 'none';  
-
     function filterTable(tableId) {
+        console.log('working');
         var table = document.getElementById(tableId);
         var rows = table.querySelectorAll("tbody tr");
 
         for (var i = 0; i < rows.length; i++) {
         var row = rows[i];
-        var TitleShortcodeCell = row.getElementsByTagName("td")[0];
         var ProjectCell = row.getElementsByTagName("td")[1];
         var OwnerCell = row.getElementsByTagName("td")[2];
         var AccessCell = row.getElementsByTagName("td")[4];
@@ -3252,15 +3120,6 @@ function ApplyFilters() {
         var ProjectCellText = ProjectCell.textContent.toLowerCase();
         var OwnerCellText = OwnerCell.textContent.toLowerCase();
         var cell = row.querySelector("td[data-date-value]");
-
-        var searchFilter = true;
-        var cellText = TitleShortcodeCell.textContent.toLowerCase(); 
-        // Assuming you want to search the first column
-        if(searchField != ""){
-            if (!cellText.includes(searchField)) {
-                searchFilter = false;
-            }
-        }
 
         // Check if the Project filter is non-empty and matches
         var projectFilterMatch = projectFilter === "" || ProjectCellText.includes(projectFilter);
@@ -3293,7 +3152,6 @@ function ApplyFilters() {
 
         // Check if the access matches
         var accessCellValue = AccessCell.textContent.trim();
-        //console.log(accessCellValue);
         var access = true;
         if (EditorAccess.checked || ViewOnlyAccess.checked || ReadOnlyAccess.checked) {
             // Check if any of the checked checkboxes' values match the AccessCell content
@@ -3311,22 +3169,25 @@ function ApplyFilters() {
             document.getElementById("tags-access").style.display = "none"; 
         }
 
-        if (!projectFilterMatch || !ownerFilterMatch || !BeforedateFilterMatch || !AfterdateFilterMatch || !access || !searchFilter) {
+        if (!projectFilterMatch || !ownerFilterMatch || !BeforedateFilterMatch || !AfterdateFilterMatch || !access || row.classList.contains("filtered-out")) {
             row.classList.add("filtered-out");
             row.style.display = "none";
         }
     }}
 
+
+    filterTable("starred-table");
+    filterTable("basic-table");
+
     // Check if the Project filter is non-empty and matches
     if (projectFilter !== "") {
-        var projectFilterCapitals = document.getElementById("project-filter").value;
-        appendFilterTag(projectFilterCapitals, "Project");
+        var originalProjectFilter = document.getElementById("project-filter").value;
+        appendFilterTag(originalProjectFilter, "Project");
     }
 
     // Check if the Owner filter is non-empty and matches
     if (ownerFilter !== "") {
         var originalownerFilter = document.getElementById("owner-filter").value;
-        console.log('Lauren here is the value: ' + originalownerFilter);
         appendFilterTag(originalownerFilter, "Owner");
     }
 
@@ -3346,17 +3207,13 @@ function ApplyFilters() {
         appendFilterTag("Editor", "Editor")
         }
         if (ViewOnlyAccess.checked) {
-            appendFilterTag("View-only", "View-only");
-            console.log('view-only added');
+            appendFilterTag("View-only", "View-only")
 
         }
         if (ReadOnlyAccess.checked) {
             appendFilterTag("Read-only for editors", "Read-only")
         }
     }
-
-    filterTable("starred-table");
-    filterTable("basic-table");
 
     // Update the total count of unfiltered rows
     var basicTableCount = countUnfilteredRows("basic-table");
@@ -3369,22 +3226,8 @@ function ApplyFilters() {
     if(unfilteredRowsCount == 1){
         numberOfQuestionnairesElement.textContent = unfilteredRowsCount + ' questionnaire';
     }
-
-    //Update the header
-    var searchEntry = document.getElementById("search-field").value;
-    var numberOfQuestionnairesElement = document.getElementById("SearchEntry");
-    // Append the value of searchEntry to the existing text content
-    if(searchField != ""){
-        numberOfQuestionnairesElement.textContent = ' with ' + '"' + searchEntry + '"';
-        document.getElementById('clearSearchBtn').style.display = "block";
-    }
-    if(searchField == ""){
-        numberOfQuestionnairesElement.textContent = '';
-        document.getElementById('clearSearchBtn').style.display = "none";
-    }
     
     // Save filter values in session storage
-    sessionStorage.setItem("searchField", searchFieldCapitals);
     sessionStorage.setItem("projectFilter", projectFilterCapitals);
     sessionStorage.setItem("ownerFilter", ownerFilterCapitals);
     sessionStorage.setItem("BeforeDayFilter", BeforeDayFilter);
@@ -3417,486 +3260,6 @@ function ApplyFilters() {
 
     updatePagination();
 }
-
-
-function ReApplySearchFilters() {
-    currentPage = 1; // Reset currentPage to 1
-    
-    var starredTable = document.getElementById("starred-table");
-    var basicTable = document.getElementById("basic-table");
-
-    var searchFieldCapitals = sessionStorage.getItem('searchField');
-    var searchField = sessionStorage.getItem('searchField');
-
-    var projectFilter = sessionStorage.getItem('projectFilter').toLowerCase();
-
-    var ownerFilter = sessionStorage.getItem('ownerFilter').toLowerCase();
-
-    var BeforeDayFilter = sessionStorage.getItem('BeforeDayFilter');
-    var BeforeMonthFilter = sessionStorage.getItem('BeforeMonthFilter');
-    var BeforeYearFilter = sessionStorage.getItem('BeforeYearFilter');
-
-    var AfterDayFilter = sessionStorage.getItem('AfterDayFilter');
-    var AfterMonthFilter = sessionStorage.getItem('AfterMonthFilter');
-    var AfterYearFilter = sessionStorage.getItem('AfterYearFilter');
-    
-    var EditorAccess = sessionStorage.getItem('Editor').toLowerCase();
-    var ViewOnlyAccess = sessionStorage.getItem('ViewOnly').toLowerCase();
-    var ReadOnlyAccess = sessionStorage.getItem('ReadOnly').toLowerCase();
-
-    BeforeDayFilter = BeforeDayFilter.replace(/^0+/, "");
-    BeforeMonthFilter = BeforeMonthFilter.replace(/^0+/, "");
-    AfterDayFilter = AfterDayFilter.replace(/^0+/, "");
-    AfterMonthFilter = AfterMonthFilter.replace(/^0+/, "");
-
-    // Get all rows in both tables
-    var starredRows = starredTable.querySelectorAll("tbody tr");
-    var basicRows = basicTable.querySelectorAll("tbody tr");
-
-    // Remove the filtered out classes so search can be restarted
-    starredRows.forEach(function (row) {
-    row.classList.remove("filtered-out");
-    });
-
-    basicRows.forEach(function (row) {
-    row.classList.remove("filtered-out");
-    });
-
-
-    function RefilterTable(tableId) {
-        var table = document.getElementById(tableId);
-        var rows = table.querySelectorAll("tbody tr");
-
-        for (var i = 0; i < rows.length; i++) {
-        var row = rows[i];
-        var TitleShortcodeCell = row.getElementsByTagName("td")[0];
-        var ProjectCell = row.getElementsByTagName("td")[1];
-        var OwnerCell = row.getElementsByTagName("td")[2];
-        var AccessCell = row.getElementsByTagName("td")[4];
-
-
-        var ProjectCellText = ProjectCell.textContent.toLowerCase();
-        var OwnerCellText = OwnerCell.textContent.toLowerCase();
-        var cell = row.querySelector("td[data-date-value]");
-
-        var searchFilter = true;
-        var cellText = TitleShortcodeCell.textContent.toLowerCase(); 
-        // Assuming you want to search the first column
-        if(searchField != ""){
-            if (!cellText.includes(searchField)) {
-                var searchFilter = false;
-            }
-        }
-
-        // Check if the Project filter is non-empty and matches
-        {#var projectFilterMatch = projectFilter === "" || ProjectCellText.includes(projectFilter);#}
-
-        {#var projectFilterMatch = true;
-        if(projectFilter != ""){
-            if(ProjectCellText.includes(projectFilter)){
-                projectFilterMatch = true;
-            }
-            else{
-                projectFilterMatch = false;
-
-            }
-        }
-        #}
-
-        var projectFilterMatch = (projectFilter === "") || ProjectCellText.toLowerCase().includes(projectFilter);
-
-
-        // Check if the Owner filter is non-empty and matches
-        var ownerFilterMatch = (ownerFilter === "") || OwnerCellText.toLowerCase().includes(ownerFilter);
-
-        {#var ownerFilterMatch = true;
-        if(ownerFilter != ""){
-            if(OwnerCellText.includes(ownerFilter)){
-                ownerFilterMatch = true;
-            }
-            else{
-                ownerFilterMatch = false;
-            }
-        }
-        #}
-
-        // Check if the Before filters are non-empty and match
-        var BeforedateFilterMatch = true;
-        if (BeforeDayFilter !== "" && BeforeMonthFilter !== "" && BeforeYearFilter !== "") {
-            if (cell) {
-            var cellDate = cell.getAttribute("data-date-value");
-            var BeforefilterDate = new Date(BeforeYearFilter, BeforeMonthFilter - 1, BeforeDayFilter);
-            var cellDateObj = new Date(cellDate);
-            BeforedateFilterMatch = cellDateObj < BeforefilterDate;
-            }
-        }
-
-        // Check if the After filters are non-empty and match
-        var AfterdateFilterMatch = true;
-        if (AfterDayFilter !== "" && AfterMonthFilter !== "" && AfterYearFilter !== "") {
-            if (cell) {
-            var cellDateAfter = cell.getAttribute("data-date-value");
-            var AfterfilterDate = new Date(AfterYearFilter, AfterMonthFilter - 1, AfterDayFilter);
-            var cellDateObjAfter = new Date(cellDateAfter);
-            AfterdateFilterMatch = cellDateObjAfter > AfterfilterDate;
-            console.log(AfterdateFilterMatch);
-            }
-        }
-
-        // Check if the access matches
-        var accessCellValue = AccessCell.textContent.toLowerCase().trim();
-        console.log(accessCellValue);
-        var access = true;
-        if (EditorAccess != "" || ViewOnlyAccess != "" || ReadOnlyAccess != "") {
-            // Check if any of the checked checkboxes' values match the AccessCell content
-            if ((EditorAccess === 'true' && accessCellValue == 'editor') ||
-                (ViewOnlyAccess  === 'true' && accessCellValue == 'view-only') ||
-                (ReadOnlyAccess  === 'true' && accessCellValue == 'read-only for editors')) {
-            access = true; // Set access to true if there's a match
-            console.log('access is true');
-            }
-            else{
-                access = false;
-                console.log('access is not true');
-            }
-        }
-        else{
-            document.getElementById("tags-access").style.display = "none"; 
-        }
-
-        if (!projectFilterMatch || !ownerFilterMatch || !BeforedateFilterMatch || !AfterdateFilterMatch || !access || !searchFilter) {
-            row.classList.add("filtered-out");
-            row.style.display = "none";
-            console.log('removing');
-            console.log(projectFilterMatch);
-            console.log(ownerFilterMatch);
-
-        }
-        else{
-            row.style.display = "table-row";
-        }
-    }}
-
-    RefilterTable("starred-table");
-    RefilterTable("basic-table");
-
-    // Update the total count of unfiltered rows
-    var basicTableCount = countUnfilteredRows("basic-table");
-    var starredTableCount = countUnfilteredRows("starred-table");
-    var unfilteredRowsCount = basicTableCount + starredTableCount;
-    var numberOfQuestionnairesElement = document.querySelector('#NumberOfQuestionnaires span');
-    if(unfilteredRowsCount != 1){
-        numberOfQuestionnairesElement.textContent = unfilteredRowsCount + ' questionnaires';
-    }
-    if(unfilteredRowsCount == 1){
-        numberOfQuestionnairesElement.textContent = unfilteredRowsCount + ' questionnaire';
-    }
-
-    //Update the header
-    var searchEntry = document.getElementById("search-field").value;
-    var numberOfQuestionnairesElement = document.getElementById("SearchEntry");
-    // Append the value of searchEntry to the existing text content
-    if(searchField != ""){
-        numberOfQuestionnairesElement.textContent = ' with ' + '"' + searchEntry + '"';
-        document.getElementById('clearSearchBtn').style.display = "block";
-    }
-    if(searchField == ""){
-        numberOfQuestionnairesElement.textContent = '';
-        document.getElementById('clearSearchBtn').style.display = "none";
-    }
-    
-    // Save filter values in session storage
-    sessionStorage.setItem("searchField", searchField);
-    sessionStorage.setItem("projectFilter", projectFilter);
-    sessionStorage.setItem("ownerFilter", ownerFilter);
-    sessionStorage.setItem("BeforeDayFilter", BeforeDayFilter);
-    sessionStorage.setItem("BeforeMonthFilter", BeforeMonthFilter);
-    sessionStorage.setItem("BeforeYearFilter", BeforeYearFilter);
-    sessionStorage.setItem("AfterDayFilter", AfterDayFilter);
-    sessionStorage.setItem("AfterMonthFilter", AfterMonthFilter);
-    sessionStorage.setItem("AfterYearFilter", AfterYearFilter);
-
-    if(document.getElementById('editor').checked === false){
-        sessionStorage.setItem("Editor", '');
-    }
-    else{
-        sessionStorage.setItem("Editor", true);
-    }
-    if(document.getElementById('view-only').checked === false){
-        sessionStorage.setItem("ViewOnly", '');
-    }
-    else{
-        sessionStorage.setItem("ViewOnly", true);
-    }
-    if(document.getElementById('read-only').checked === false){
-        sessionStorage.setItem("ReadOnly", '');
-    }
-    else{
-        sessionStorage.setItem("ReadOnly", true);
-        console.log('setting to true');
-    }
-    
-
-    updatePagination();
-}
-
-function ReApplySearch() {
-    currentPage = 1; // Reset currentPage to 1
-    
-    var starredTable = document.getElementById("starred-table");
-    var basicTable = document.getElementById("basic-table");
-
-    var searchFieldCapitals = sessionStorage.getItem('searchField');
-    var searchField = sessionStorage.getItem('searchField');
-
-    // Get all rows in both tables
-    var starredRows = starredTable.querySelectorAll("tbody tr");
-    var basicRows = basicTable.querySelectorAll("tbody tr");
-
-    // Remove the filtered out classes so search can be restarted
-    starredRows.forEach(function (row) {
-    row.classList.remove("filtered-out");
-    });
-
-    basicRows.forEach(function (row) {
-    row.classList.remove("filtered-out");
-    });
-
-
-    function RefilterTable(tableId) {
-        var table = document.getElementById(tableId);
-        var rows = table.querySelectorAll("tbody tr");
-
-        for (var i = 0; i < rows.length; i++) {
-        var row = rows[i];
-        var TitleShortcodeCell = row.getElementsByTagName("td")[0];
-        var cell = row.querySelector("td[data-date-value]");
-
-        var searchFilter = true;
-        var cellText = TitleShortcodeCell.textContent.toLowerCase(); 
-        // Assuming you want to search the first column
-        if(searchField != ""){
-            if (!cellText.includes(searchField)) {
-                var searchFilter = false;
-            }
-        }
-
-        if (!searchFilter) {
-            row.classList.add("filtered-out");
-            row.style.display = "none";
-        }
-        else{
-            row.style.display = "table-row";
-        }
-    }}
-
-    RefilterTable("starred-table");
-    RefilterTable("basic-table");
-
-    // Update the total count of unfiltered rows
-    var basicTableCount = countUnfilteredRows("basic-table");
-    var starredTableCount = countUnfilteredRows("starred-table");
-    var unfilteredRowsCount = basicTableCount + starredTableCount;
-    var numberOfQuestionnairesElement = document.querySelector('#NumberOfQuestionnaires span');
-    if(unfilteredRowsCount != 1){
-        numberOfQuestionnairesElement.textContent = unfilteredRowsCount + ' questionnaires';
-    }
-    if(unfilteredRowsCount == 1){
-        numberOfQuestionnairesElement.textContent = unfilteredRowsCount + ' questionnaire';
-    }
-
-    //Update the header
-    var searchEntry = document.getElementById("search-field").value;
-    var numberOfQuestionnairesElement = document.getElementById("SearchEntry");
-    // Append the value of searchEntry to the existing text content
-    if(searchField != ""){
-        numberOfQuestionnairesElement.textContent = ' with ' + '"' + searchEntry + '"';
-        document.getElementById('clearSearchBtn').style.display = "block";
-    }
-    if(searchField == ""){
-        numberOfQuestionnairesElement.textContent = '';
-        document.getElementById('clearSearchBtn').style.display = "none";
-    }
-
-    updatePagination();
-}
-
-function ClearSearchReApplyFilters() {
-    currentPage = 1; // Reset currentPage to 1
-
-    document.getElementById("search-field").value = "";
-    document.getElementById("clearSearchBtn").style.display = "none";
-    
-    var starredTable = document.getElementById("starred-table");
-    var basicTable = document.getElementById("basic-table");
-
-    var projectFilter = sessionStorage.getItem('projectFilter').toLowerCase();
-
-    var ownerFilter = sessionStorage.getItem('ownerFilter').toLowerCase();
-
-    var BeforeDayFilter = sessionStorage.getItem('BeforeDayFilter');
-    var BeforeMonthFilter = sessionStorage.getItem('BeforeMonthFilter');
-    var BeforeYearFilter = sessionStorage.getItem('BeforeYearFilter');
-
-    var AfterDayFilter = sessionStorage.getItem('AfterDayFilter');
-    var AfterMonthFilter = sessionStorage.getItem('AfterMonthFilter');
-    var AfterYearFilter = sessionStorage.getItem('AfterYearFilter');
-    
-    var EditorAccess = sessionStorage.getItem('Editor');
-
-    var ViewOnlyAccess = sessionStorage.getItem('ViewOnly');
-    var ReadOnlyAccess = sessionStorage.getItem('ReadOnly');
-
-    BeforeDayFilter = BeforeDayFilter.replace(/^0+/, "");
-    BeforeMonthFilter = BeforeMonthFilter.replace(/^0+/, "");
-    AfterDayFilter = AfterDayFilter.replace(/^0+/, "");
-    AfterMonthFilter = AfterMonthFilter.replace(/^0+/, "");
-
-    // Get all rows in both tables
-    var starredRows = starredTable.querySelectorAll("tbody tr");
-    var basicRows = basicTable.querySelectorAll("tbody tr");
-
-    // Remove the filtered out classes so search can be restarted
-    starredRows.forEach(function (row) {
-    row.classList.remove("filtered-out");
-    });
-
-    basicRows.forEach(function (row) {
-    row.classList.remove("filtered-out");
-    });
-
-
-    function RefilterTable(tableId) {
-        var table = document.getElementById(tableId);
-        var rows = table.querySelectorAll("tbody tr");
-
-        for (var i = 0; i < rows.length; i++) {
-        var row = rows[i];
-        var ProjectCell = row.getElementsByTagName("td")[1];
-        var OwnerCell = row.getElementsByTagName("td")[2];
-        var AccessCell = row.getElementsByTagName("td")[4];
-
-
-        var ProjectCellText = ProjectCell.textContent.toLowerCase();
-        var OwnerCellText = OwnerCell.textContent.toLowerCase();
-        var cell = row.querySelector("td[data-date-value]");
-
-        // Check if the Project filter is non-empty and matches
-        {#var projectFilterMatch = projectFilter === "" || ProjectCellText.includes(projectFilter);#}
-
-        {#var projectFilterMatch = true;
-        if(projectFilter != ""){
-            if(ProjectCellText.includes(projectFilter)){
-                projectFilterMatch = true;
-            }
-            else{
-                projectFilterMatch = false;
-
-            }
-        }
-        #}
-
-        var projectFilterMatch = (projectFilter === "") || ProjectCellText.toLowerCase().includes(projectFilter);
-
-
-        // Check if the Owner filter is non-empty and matches
-        var ownerFilterMatch = (ownerFilter === "") || OwnerCellText.toLowerCase().includes(ownerFilter);
-
-        {#var ownerFilterMatch = true;
-        if(ownerFilter != ""){
-            if(OwnerCellText.includes(ownerFilter)){
-                ownerFilterMatch = true;
-            }
-            else{
-                ownerFilterMatch = false;
-            }
-        }
-        #}
-
-        // Check if the Before filters are non-empty and match
-        var BeforedateFilterMatch = true;
-        if (BeforeDayFilter !== "" && BeforeMonthFilter !== "" && BeforeYearFilter !== "") {
-            if (cell) {
-            var cellDate = cell.getAttribute("data-date-value");
-            var BeforefilterDate = new Date(BeforeYearFilter, BeforeMonthFilter - 1, BeforeDayFilter);
-            var cellDateObj = new Date(cellDate);
-            BeforedateFilterMatch = cellDateObj < BeforefilterDate;
-            }
-        }
-
-        // Check if the After filters are non-empty and match
-        var AfterdateFilterMatch = true;
-        if (AfterDayFilter !== "" && AfterMonthFilter !== "" && AfterYearFilter !== "") {
-            if (cell) {
-            var cellDateAfter = cell.getAttribute("data-date-value");
-            var AfterfilterDate = new Date(AfterYearFilter, AfterMonthFilter - 1, AfterDayFilter);
-            var cellDateObjAfter = new Date(cellDateAfter);
-            AfterdateFilterMatch = cellDateObjAfter > AfterfilterDate;
-            console.log(AfterdateFilterMatch);
-            }
-        }
-
-        // Check if the access matches
-        var accessCellValue = AccessCell.textContent.toLowerCase().trim();
-        console.log(accessCellValue);
-        var access = true;
-        if (EditorAccess != "" || ViewOnlyAccess != "" || ReadOnlyAccess != "") {
-            // Check if any of the checked checkboxes' values match the AccessCell content
-            if ((EditorAccess === 'true' && accessCellValue == 'editor') ||
-                (ViewOnlyAccess  === 'true' && accessCellValue == 'view-only') ||
-                (ReadOnlyAccess  === 'true' && accessCellValue == 'read-only for editors')) {
-            access = true; // Set access to true if there's a match
-            console.log('access is true');
-            }
-            else{
-                access = false;
-                console.log('access is not true');
-            }
-        }
-        else{
-            document.getElementById("tags-access").style.display = "none"; 
-        }
-
-        if (!projectFilterMatch || !ownerFilterMatch || !BeforedateFilterMatch || !AfterdateFilterMatch || !access) {
-            row.classList.add("filtered-out");
-            row.style.display = "none";
-            console.log('removing');
-            console.log(projectFilterMatch);
-            console.log(ownerFilterMatch);
-
-        }
-        else{
-            row.style.display = "table-row";
-        }
-    }}
-
-    RefilterTable("starred-table");
-    RefilterTable("basic-table");
-
-    // Update the total count of unfiltered rows
-    var basicTableCount = countUnfilteredRows("basic-table");
-    var starredTableCount = countUnfilteredRows("starred-table");
-    var unfilteredRowsCount = basicTableCount + starredTableCount;
-    var numberOfQuestionnairesElement = document.querySelector('#NumberOfQuestionnaires span');
-    if(unfilteredRowsCount != 1){
-        numberOfQuestionnairesElement.textContent = unfilteredRowsCount + ' questionnaires';
-    }
-    if(unfilteredRowsCount == 1){
-        numberOfQuestionnairesElement.textContent = unfilteredRowsCount + ' questionnaire';
-    }
-
-    //Update the header
-    var searchEntry = document.getElementById("search-field").value;
-    var numberOfQuestionnairesElement = document.getElementById("SearchEntry");
-    numberOfQuestionnairesElement.textContent = '';
-    
-    // Save filter values in session storage
-    sessionStorage.setItem("searchField", "");
-    
-
-    updatePagination();
-}
-
 
 // Function to clear input values
 function clearInputValues() {
@@ -3936,9 +3299,9 @@ function clearInputValues() {
     document.getElementById("created-after-filter-day").value = "";
     document.getElementById("created-after-filter-month").value = "";
     document.getElementById("created-after-filter-year").value = "";
-    document.getElementById("editor").checked = false;
-    document.getElementById("view-only").checked = false;
-    document.getElementById("read-only").checked = false;
+    document.getElementById("editor-label").checked = false;
+    document.getElementById("view-only-label").checked = false;
+    document.getElementById("read-only-label").checked = false;
     
     // Remove 'filtered-out' class from all rows in starred-table
     let starredRows = document.querySelectorAll('#starred-table .ons-table__row');
@@ -3968,7 +3331,7 @@ function clearInputValues() {
     sessionStorage.setItem("ViewOnly", '');
     sessionStorage.setItem("ReadOnly", '');
 
-    ReApplySearch();
+    ApplySearch();
 }
 
 function appendFilterTag(filterText, filterType) {
@@ -4000,7 +3363,6 @@ function appendFilterTag(filterText, filterType) {
 
         if (filterType === "Project") {
             var filterTagArea = document.getElementById("tags-project");
-            filterTagArea.textContent = "Project: ";
             filterTagArea.appendChild(button);
             document.getElementById("tags-project").style.display = "flex";
             document.getElementById('tags-project').classList.add('FiltersFlexItems');
@@ -4011,7 +3373,6 @@ function appendFilterTag(filterText, filterType) {
         } 
         if (filterType === "Owner") {
             var filterTagArea = document.getElementById("tags-owner");
-            filterTagArea.textContent = "Owner: ";
             filterTagArea.appendChild(button); 
             document.getElementById("tags-owner").style.display = "flex";
             document.getElementById('tags-owner').classList.add('FiltersFlexItems');
@@ -4022,7 +3383,6 @@ function appendFilterTag(filterText, filterType) {
         } 
         if (filterType === "DateBefore") {
             var filterTagArea = document.getElementById("tags-dateBefore");
-            filterTagArea.textContent = "Created before: ";
             filterTagArea.appendChild(button);
             document.getElementById("tags-dateBefore").style.display = "flex";
             document.getElementById('tags-dateBefore').classList.add('FiltersFlexItems');
@@ -4033,7 +3393,6 @@ function appendFilterTag(filterText, filterType) {
         }
         if (filterType === "DateAfter") {
             var filterTagArea = document.getElementById("tags-dateAfter");
-            filterTagArea.textContent = "Created after: ";
             filterTagArea.appendChild(button);
             document.getElementById("tags-dateAfter").style.display = "flex";
             document.getElementById('tags-dateAfter').classList.add('FiltersFlexItems');
@@ -4044,7 +3403,6 @@ function appendFilterTag(filterText, filterType) {
         }
         if ((filterType === "Editor") || (filterType === "View-only") || (filterType === "Read-only")) {
             var filterTagArea = document.getElementById("tags-access");
-            filterTagArea.textContent = "Access: ";
             filterTagArea.appendChild(button);    
             document.getElementById("tags-access").style.display = "flex";
             document.getElementById('tags-access').classList.add('FiltersFlexItems');
@@ -4063,30 +3421,30 @@ function appendFilterTag(filterText, filterType) {
 function removeFilterTag(tagId, filterType) {
     // Clear the corresponding input value
     if (filterType === "Project") {
-        sessionStorage.setItem("projectFilter", "");
+        sessionStorage.removeItem("projectFilter");
         document.getElementById("project-filter").value = "";
         document.getElementById("tags-project").style.display = "none";    
     } 
     if (filterType === "Owner") {
         console.log('clearing owner filter');
-        sessionStorage.setItem("ownerFilter", "");
+        sessionStorage.removeItem("ownerFilter");
         document.getElementById("owner-filter").value = "";
         document.getElementById("tags-owner").style.display = "none";
 
     } 
     if (filterType === "DateBefore") {
-        sessionStorage.setItem("BeforeDayFilter", "");
-        sessionStorage.setItem("BeforeMonthFilter", "");
-        sessionStorage.setItem("BeforeYearFilter", "");
+        sessionStorage.removeItem("BeforeDayFilter");
+        sessionStorage.removeItem("BeforeMonthFilter");
+        sessionStorage.removeItem("BeforeYearFilter");
         document.getElementById("created-before-filter-day").value = "";
         document.getElementById("created-before-filter-month").value = "";
         document.getElementById("created-before-filter-year").value = "";
         document.getElementById("tags-dateBefore").style.display = "none"; 
     } 
     if (filterType === "DateAfter") {
-        sessionStorage.setItem("AfterDayFilter", "");
-        sessionStorage.setItem("AfterMonthFilter", "");
-        sessionStorage.setItem("AfterYearFilter", "");
+        sessionStorage.removeItem("AfterDayFilter");
+        sessionStorage.removeItem("AfterMonthFilter");
+        sessionStorage.removeItem("AfterYearFilter");
         document.getElementById("created-after-filter-day").value = "";
         document.getElementById("created-after-filter-month").value = "";
         document.getElementById("created-after-filter-year").value = "";
@@ -4096,19 +3454,17 @@ function removeFilterTag(tagId, filterType) {
         document.getElementById("editor").checked = false;
         sessionStorage.setItem("Editor", '');
         console.log('removing editor');
-        document.getElementById("tags-access").style.display = "none"; 
 
     }
     if (filterType == "View-only") {
         document.getElementById("view-only").checked = false;
         sessionStorage.setItem("ViewOnly", '');
-        document.getElementById("tags-access").style.display = "none"; 
 
     }
     if (filterType == "Read-only") {
         document.getElementById("read-only").checked = false;
         sessionStorage.setItem("ReadOnly", '');
-        document.getElementById("tags-access").style.display = "none"; 
+
     }
 
     console.log('tag ID is: ', tagId);
@@ -4139,8 +3495,8 @@ function removeFilterTag(tagId, filterType) {
     }
 
 
-    // Reapply all search and filters
-    ReApplySearchFilters(); 
+    // Reapply all filters
+    ApplySearch();
 }
 
 
@@ -4154,8 +3510,6 @@ function updatePagination() {
     var previousButton = document.getElementById("previous");
     var nextPaginationLabel = nextButton.querySelector("span.ons-content-pagination__link-label");
     var previousPaginationLabel = previousButton.querySelector("span.ons-content-pagination__link-label");
-
-    document.getElementById('noSearchResultsMessage').style.display = 'none';
 
     // Get the <tbody> elements for both tables
     var starredTBody = starredTable.querySelector("tbody");
@@ -4176,7 +3530,7 @@ function updatePagination() {
 
     // Calculate the total number of rows and pages
     var totalRows = filteredStarredRows.length + filteredBasicRows.length;
-    var rowsPerPage = 20;
+    var rowsPerPage = 8;
     TotalPages = Math.ceil(totalRows / rowsPerPage); // Update the global TotalPages variable
 
     // Calculate the current page's rows
@@ -4234,76 +3588,19 @@ function updatePagination() {
     }
     console.log('Number of starred rows: ' + noOfStarredRows);
 
-    if (
-    noOfStarredRows == 0 &&
-    (
-        (sessionStorage.getItem('searchField') === null) &&
-        (sessionStorage.getItem('projectFilter') === null) &&
-        (sessionStorage.getItem('ownerFilter') === null) &&
-        (sessionStorage.getItem('BeforeDayFilter') === null) &&
-        (sessionStorage.getItem('AfterDayFilter') === null) &&
-        (sessionStorage.getItem('Editor') === null) &&
-        (sessionStorage.getItem('ViewOnly') === null) &&
-        (sessionStorage.getItem('ReadOnly') === null)
-    )
-    ) {        
-            console.log('there are no starred and no filters have been applied yet');
-            document.getElementById('StarredReplacement').style.display = 'block';
-            document.getElementById('AddedToStarred').style.display = 'block';
-        }
-        if (
-            noOfStarredRows == 0 &&
-            (
-                (sessionStorage.getItem('searchField') !== null && sessionStorage.getItem('searchField') !== '') ||
-                (sessionStorage.getItem('projectFilter') !== null && sessionStorage.getItem('projectFilter') !== '') ||
-                (sessionStorage.getItem('ownerFilter') !== null && sessionStorage.getItem('ownerFilter') !== '') ||
-                (sessionStorage.getItem('BeforeDayFilter') !== null && sessionStorage.getItem('BeforeDayFilter') !== '') ||
-                (sessionStorage.getItem('AfterDayFilter') !== null && sessionStorage.getItem('AfterDayFilter') !== '') ||
-                (sessionStorage.getItem('Editor') !== null && sessionStorage.getItem('Editor') !== '') ||
-                (sessionStorage.getItem('ViewOnly') !== null && sessionStorage.getItem('ViewOnly') !== '') ||
-                (sessionStorage.getItem('ReadOnly') !== null && sessionStorage.getItem('ReadOnly') !== '')
-            )
-            ) {        
-                console.log('there are no starred and a filter has been applied');
-                document.getElementById('StarredReplacement').style.display = 'none';
-                document.getElementById('AddedToStarred').style.display = 'none';
-        }
-        if(noOfStarredRows != 0){
-            console.log('there are questionnaires in starred');
-            document.getElementById('StarredReplacement').style.display = 'none';
-            document.getElementById('AddedToStarred').style.display = 'none';
-        }
-        {#
-        else{
-            console.log('not sure');
-            document.getElementById('StarredReplacement').style.display = 'block';
-            document.getElementById('AddedToStarred').style.display = 'block';
-        }
-        #}
-        if (
-            noOfStarredRows == 0 &&
-            (
-                (sessionStorage.getItem('searchField') !== null && sessionStorage.getItem('searchField') === '') &&
-                (sessionStorage.getItem('projectFilter') !== null && sessionStorage.getItem('projectFilter') === '') &&
-                (sessionStorage.getItem('ownerFilter') !== null && sessionStorage.getItem('ownerFilter') === '') &&
-                (sessionStorage.getItem('BeforeDayFilter') !== null && sessionStorage.getItem('BeforeDayFilter') === '') &&
-                (sessionStorage.getItem('AfterDayFilter') !== null && sessionStorage.getItem('AfterDayFilter') === '') &&
-                (sessionStorage.getItem('Editor') !== null && sessionStorage.getItem('Editor') === '') &&
-                (sessionStorage.getItem('ViewOnly') !== null && sessionStorage.getItem('ViewOnly') === '') &&
-                (sessionStorage.getItem('ReadOnly') !== null && sessionStorage.getItem('ReadOnly') === '')
-            )
-            ) {        
-                console.log('there are no starred and filter have been cleared');
-                document.getElementById('StarredReplacement').style.display = 'block';
-                document.getElementById('AddedToStarred').style.display = 'block';
-        }
-        var basicTableCount = countUnfilteredRows("basic-table");
-        var starredTableCount = countUnfilteredRows("starred-table");
-        var unfilteredRowsCount = basicTableCount + starredTableCount;
-        if(unfilteredRowsCount == 0){
-            console.log('no results');
-            document.getElementById('noSearchResultsMessage').style.display = 'block';
-        }
+    if (sessionStorage.length !== 0 && noOfStarredRows == 0 && (sessionStorage.getItem('searchEntry') != '' || (sessionStorage.getItem("projectFilter") != '' || sessionStorage.getItem("ownerFilter") != '' || sessionStorage.getItem("BeforeDayFilter") != '' || sessionStorage.getItem("AfterDayFilter") != '' || sessionStorage.getItem("Editor") != '' || sessionStorage.getItem("ViewOnly") != '' || sessionStorage.getItem("ReadOnly") != '' ))){
+        console.log('getting rid');
+        document.getElementById('StarredReplacement').style.display = 'none';
+        document.getElementById('AddedToStarred').style.display = 'none';
+    }
+    else if(noOfStarredRows != 0){
+        document.getElementById('StarredReplacement').style.display = 'none';
+        document.getElementById('AddedToStarred').style.display = 'none';
+    }
+    else{
+        document.getElementById('StarredReplacement').style.display = 'block';
+        document.getElementById('AddedToStarred').style.display = 'block';
+    }
 }
 
 
@@ -4337,7 +3634,124 @@ function initializePagination() {
 }
 
 
+function ApplySearch() {
+    console.log('searching');
+    var searchField = document.getElementById("search-field").value.trim().toLowerCase();
+    sessionStorage.setItem('searchEntry', searchField);
+    var starredTable = document.getElementById("starred-table");
+    var basicTable = document.getElementById("basic-table");
 
+    // Get all rows in both tables
+    var starredRows = starredTable.querySelectorAll("tbody tr");
+    var basicRows = basicTable.querySelectorAll("tbody tr");
+
+    // Remove the filtered out classes so search can be restarted
+        starredRows.forEach(function (row) {
+        row.classList.remove("filtered-out");
+        });
+
+        basicRows.forEach(function (row) {
+        row.classList.remove("filtered-out");
+        });
+
+        // Loop through starredRows and add "filtered-out" class to rows that do not contain search input
+        starredRows.forEach(function (row) {
+        var cellText = row.cells[0].textContent.toLowerCase(); // Assuming you want to search the first column
+        if (cellText.includes(searchField)) {
+            row.classList.remove("filtered-out");
+        } else {
+            row.classList.add("filtered-out");
+        }
+        });
+
+        // Loop through basicRows and add "filtered-out" class to rows that do not contain search input
+        basicRows.forEach(function (row) {
+        var cellText = row.cells[0].textContent.toLowerCase(); // Assuming you want to search the first column
+        console.log(cellText);
+        if (!cellText.includes(searchField)) {
+            row.classList.add("filtered-out");
+        }
+        });  
+
+        //Update the header
+        var searchEntry = document.getElementById("search-field").value;
+        var numberOfQuestionnairesElement = document.getElementById("SearchEntry");
+        // Append the value of searchEntry to the existing text content
+        if(searchEntry != ""){
+            numberOfQuestionnairesElement.textContent = ' with ' + '"' + searchEntry + '"';
+        }
+        if(searchEntry == ""){
+            numberOfQuestionnairesElement.textContent = '';
+        }
+
+        // Check if there are filter values in session storage and apply them
+        var storedProjectFilter = sessionStorage.getItem("projectFilter");
+        var storedOwnerFilter = sessionStorage.getItem("ownerFilter");
+        var storedBeforeDayFilter = sessionStorage.getItem("BeforeDayFilter");
+        var storedBeforeMonthFilter = sessionStorage.getItem("BeforeMonthFilter");
+        var storedBeforeYearFilter = sessionStorage.getItem("BeforeYearFilter");
+        var storedAfterDayFilter = sessionStorage.getItem("AfterDayFilter");
+        var storedAfterMonthFilter = sessionStorage.getItem("AfterMonthFilter");
+        var storedAfterYearFilter = sessionStorage.getItem("AfterYearFilter");
+        // ... Retrieve other filter values from session storage ...
+
+        // Set the filter values back to the filter inputs
+        document.getElementById("project-filter").value = storedProjectFilter;
+        document.getElementById("owner-filter").value = storedOwnerFilter;
+        document.getElementById("created-before-filter-day").value = storedBeforeDayFilter;
+        document.getElementById("created-before-filter-month").value = storedBeforeMonthFilter;
+        document.getElementById("created-before-filter-year").value = storedBeforeYearFilter;
+        document.getElementById("created-after-filter-day").value = storedAfterDayFilter;
+        document.getElementById("created-after-filter-month").value = storedAfterMonthFilter;
+        document.getElementById("created-after-filter-year").value = storedAfterYearFilter;
+        if(sessionStorage.getItem("Editor") != '' && sessionStorage.getItem("Editor") != null){
+            document.getElementById("editor").checked = true;
+        }
+        else{
+            document.getElementById("editor").checked = false;
+        }
+        if(sessionStorage.getItem("ViewOnly") != '' && sessionStorage.getItem("ViewOnly") != null){
+            document.getElementById("view-only").checked = true;
+        }
+        else{
+            document.getElementById("view-only").checked = false;
+        }
+        if(sessionStorage.getItem("ReadOnly") != '' && sessionStorage.getItem("ReadOnly") != null){
+            document.getElementById("read-only").checked = true;
+        }
+        else{
+            document.getElementById("read-only").checked = false;
+        }
+
+        //Hide the starred message if necessary
+            var starred = document.getElementById('starred-table');
+            var noOfRows = starred.querySelectorAll("tbody tr");
+            var noOfStarredRows = 0;
+
+            for (var i = 0; i < noOfRows.length; i++) {
+                var Row = noOfRows[i];
+                if (!Row.classList.contains("filtered-out")) {
+                    noOfStarredRows++;
+                }
+            }
+            console.log('Number of starred rows: ' + noOfStarredRows);
+
+        
+            {#
+            if (noOfStarredRows == 0 && searchEntry != '' && sessionStorage.getItem("projectFilter") == '' && sessionStorage.getItem("ownerFilter") == '' && sessionStorage.getItem("BeforeDayFilter") == '' && sessionStorage.getItem("AfterDayFilter") == '' && sessionStorage.getItem("Editor") == '' && sessionStorage.getItem("ViewOnly") == '' && sessionStorage.getItem("ReadOnly") == ''){
+                document.getElementById('StarredReplacement').style.display = 'none';
+                document.getElementById('AddedToStarred').style.display = 'none';
+            }
+            else if(noOfStarredRows == 0 && searchEntry == '' && sessionStorage.getItem("projectFilter") == '' && sessionStorage.getItem("ownerFilter") == '' && sessionStorage.getItem("BeforeDayFilter") == '' && sessionStorage.getItem("AfterDayFilter") == '' && sessionStorage.getItem("Editor") == '' && sessionStorage.getItem("ViewOnly") == '' && sessionStorage.getItem("ReadOnly") == ''){
+                document.getElementById('StarredReplacement').style.display = 'block';
+                document.getElementById('AddedToStarred').style.display = 'block';
+            }
+            #}
+            
+
+        // ApplyFilters to hide rows that do not meet filter criteria
+        ApplyFilters();
+}
 
 function countUnfilteredRows(tableId) {
     var table = document.getElementById(tableId);
@@ -4367,6 +3781,10 @@ function updateQuestionnaireCounter(){
         numberOfQuestionnairesElement.textContent = unfilteredRowsCount + ' questionnaire';
     }
 }
+
+
+// Call the function to initialize the pagination
+initializePagination();
 
 function sortTables() {
   // Get the select element
@@ -4420,21 +3838,6 @@ function sortTable(tableId, sortType) {
 }
 
 
-// Call the function to initialize the pagination
-initializePagination();
-
-sessionStorage.removeItem('projectFilter');
-sessionStorage.removeItem('ownerFilter');
-sessionStorage.removeItem('BeforeDayFilter');
-sessionStorage.removeItem('BeforeMonthFilter');
-sessionStorage.removeItem('BeforeYearFilter');
-sessionStorage.removeItem('AfterDayFilter');
-sessionStorage.removeItem('AfterMonthFilter');
-sessionStorage.removeItem('AfterYearFilter');
-sessionStorage.removeItem('Editor');
-sessionStorage.removeItem('ViewOnly');
-sessionStorage.removeItem('ReadOnly');
-sessionStorage.removeItem('searchField');
 
 </script>
 {% endblock %}

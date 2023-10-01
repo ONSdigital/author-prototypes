@@ -1,0 +1,90 @@
+.menu-container {
+  position: relative;
+  width: fit-content;
+
+  .actionsBtn {
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border: 2px solid #bcbcbd;
+    border-radius: 3px;
+    outline: none;
+    padding: 9px 6px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: #707071;
+    line-height: 1.35;
+    cursor: pointer;
+
+    &:focus {
+      background-color: #FBC900;
+      border: 3px solid black;
+      color: black;
+    }
+  }
+
+  #menu2 {
+    display: none;
+    background-color: #206095;
+    padding: 18px;
+    list-style: none;
+    width: fit-content;
+    border-radius: 3px;
+    border: 2px solid #003C57;
+    position: absolute;
+    top: 45px;
+    right: 0;
+
+    .listItemLink {
+      color: white;
+      margin-left: 20px;
+      font-size: 16px;
+
+      &:hover {
+        color: white;
+        text-decoration: underline solid white 2px;
+      }
+    }
+
+    .duplicate {
+      display: inline-flex;
+      align-items: center;
+      margin-left: 12px;
+      color: white;
+    }
+
+    .listItemButton {
+      display: inline-flex;
+      box-sizing: border-box;
+      width: 180px;
+      line-height: 1.35;
+      align-items: center;
+      background-color: #206095;
+      color: white;
+      border: 2px solid #206095;
+      border-radius: 3px;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+
+      .material-symbols-outlined {
+        margin-right: 20px;
+      }
+
+      &:hover {
+        border: 2px solid white;
+      }
+
+      &:focus {
+        outline: none;
+        background-color: #FBC900;
+        border: 3px solid black;
+        color: black;
+      }
+    }
+  }
+}

@@ -1,0 +1,130 @@
+---
+group: Examples
+title: Example prototype
+layout: example/homepage/test/2col_Layout
+---
+{% from "components/button/_macro.njk" import onsButton %}
+{% from "components/autosuggest/_macro.njk" import onsAutosuggest %}
+{% from "components/table/_macro.njk" import onsTable %}
+
+{% block head %}
+
+<style>
+
+dialog::backdrop {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+</style>
+
+{% endblock %}
+
+{% block main %}
+
+
+<button type="submit" class="ons-btn" onclick="Delete()">
+  <span class="ons-btn__inner"><span class="ons-btn__text">Delete</span>
+  </span>
+</button>
+
+<div id="deleteModal">
+  <dialog class="ons-modal ons-js-modal ons-js-timeout-modal" id="dialog" role="dialog"
+    aria-labelledby="ons-modal-title" data-redirect-url="#!" data-server-session-expires-at="" data-show-modal-time="60"
+
+    data-countdown-text="To protect your information, your progress will be saved and you will be signed out in"
+    data-countdown-expired-text="You are being signed out." data-minutes-text-singular="minute"
+    data-minutes-text-plural="minutes" data-seconds-text-singular="second" data-seconds-text-plural="seconds"
+    data-full-stop="true" aria-describedby="timeout-time-remaining">
+    <div class="ons-modal__content">
+      {#<h2 id="ons-modal-title" class="ons-modal__title">Are you sure you want to delete this questionnaire?</h2>#}
+      <div class="ons-modal__body">
+        {#<p>It appears you have been inactive for a while.</p>#}
+
+        {% from "components/summary/_macro.njk" import onsSummary %}
+        {{
+            onsSummary({
+                "summaries": [
+                    {
+                        "summaryTitle": "Are you sure you want to delete this questionniare?",
+                        "groups": [
+                            {
+                                "rows": [
+                                    {
+                                        "rowItems": [
+                                            {
+                                                "rowTitle": "Short code",
+                                                "valueList": [
+                                                    {
+                                                        "text": "Copy of V3 Draft QCAS 0019"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "rowTitle": "Title",
+                                                "valueList": [
+                                                    {
+                                                        "text": "Copy of Quarterly Acquisitions and Disposals of Capital Assets Survey"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "rowTitle": "Project",
+                                                "valueList": [
+                                                    {
+                                                        "text": "Annual Business Survey (ABS)"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "rowTitle": "Owner",
+                                                "valueList": [
+                                                    {
+                                                        "text": "Deborah O'Shaughnessy"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            })
+        }}
+
+      </div>
+      <div class="ons-u-fr">
+        <button type="button" class="ons-btn ons-btn--secondary ons-u-mt-s">
+            <span class="ons-btn__inner"><span class="ons-btn__text">Cancel</span>
+            </span>
+        </button>
+        <button type="submit" class="ons-btn ons-js-modal-btn ons-u-mt-s">
+        <span class="ons-btn__inner"><span class="ons-btn__text">Delete</span>
+        </span>
+        </button>
+      </div>
+    </div>
+  </dialog>
+</div>
+
+
+
+
+{% endblock %}
+
+{% block bodyEnd %}
+
+  <script>
+  function Delete(){
+    console.log('hello');
+    var deleteModal = document.getElementById('deleteModal');
+    deleteModal.style.display = "block";
+  }
+</script>
+{% endblock %}

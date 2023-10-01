@@ -1,0 +1,49 @@
+---
+group: Examples
+title: Example prototype
+layout: example/views/Author8col
+---
+{% from "components/button/_macro.njk" import onsButton %}
+{% from "components/autosuggest/_macro.njk" import onsAutosuggest %}
+{% from "components/table/_macro.njk" import onsTable %}
+{% from "components/panel/_macro.njk" import onsPanel %}
+{% from "components/input/_macro.njk" import onsInput %}
+{% from "components/breadcrumbs/_macro.njk" import onsBreadcrumbs %}
+
+{% set form =  {
+    "method": "GET",
+    "attributes": {
+        "name": "myForm",
+        "onsubmit":  "return duplicationEnterDetails()"
+    }
+} %}
+
+{% block head %}
+
+
+{% endblock %}
+
+{% block preMain %}
+
+{% endblock %}
+
+{% block main %}
+
+    <h1>Your new questionnaire has been created</h1>
+
+    <p>In real life you would be brought to the landing page of your new questionnaire. However, this is not part of the test or prototype.</p>
+
+    <a href="/prototypes/example/homepageV3/">Return to My questionnaires</a>
+
+
+{% endblock %}
+
+{% block bodyEnd %}
+
+<script>
+if(sessionStorage.getItem('customisePermissions')){
+    sessionStorage.removeItem('customisePermissions');
+}
+</script>
+
+{% endblock %}

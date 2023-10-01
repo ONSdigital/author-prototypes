@@ -1,0 +1,270 @@
+---
+group: Examples
+title: Example prototype
+layout: example/views/Author8colLoggedIn
+---
+{% from "components/button/_macro.njk" import onsButton %}
+{% from "components/autosuggest/_macro.njk" import onsAutosuggest %}
+{% from "components/table/_macro.njk" import onsTable %}
+{% from "components/panel/_macro.njk" import onsPanel %}
+{% from "components/input/_macro.njk" import onsInput %}
+{% from "components/breadcrumbs/_macro.njk" import onsBreadcrumbs %}
+{% from "components/checkboxes/_macro.njk" import onsCheckboxes %}
+{% from "components/summary/_macro.njk" import onsSummary %}
+
+
+{% set form =  {
+    "method": "GET",
+    "attributes": {
+        "name": "checkDetails",
+        "onsubmit":  "return SummaryCheckDetails()"
+    }
+} %}
+
+{% block head %}
+
+
+{% endblock %}
+
+{% block preMain %}
+
+{{
+    onsBreadcrumbs({
+        "ariaLabel": 'Back',
+        "itemsList": [
+            {
+                "url": '#',
+                "id": "backlink",
+                "text": 'Back',
+                "attributes": {
+                    "data-attribute": "Example attribute",
+                    "onclick": "defineBack()"
+                }
+            }
+        ]
+    })
+}}
+
+{% endblock %}
+
+{% block main %}
+
+    <h1><span class="ons-u-fs-m ons-u-db ons-u-mb-xs ons-u-lighter">Create questionnaire</span>Check details</h1>
+
+{{
+    onsSummary({
+        "summaries": [
+            {
+                "groups": [
+                    {
+                        "placeholderText": 'test',
+                        "id": "turnover",
+                        "rows": [
+                            {
+                                "id": "title",
+                                "rowTitle": "Title",
+                                "rowItems": [
+                                    {
+                                        "id": "entered-title",
+                                        "valueList": [
+                                            {
+                                                "text": "1 January 2015 to 2 February 2017"
+                                            }
+                                        ],
+                                        "actions": [
+                                            {
+                                                "text": "Change",
+                                                "visuallyHiddenText": "Change answer",
+                                                "url": "/prototypes/example/homepageV2/create/enterDetails.html"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "rowTitle": "Short code",
+                                "id": "shortcode",
+                                "rowItems": [
+                                    {
+                                        "id": "entered-shortcode",
+                                        "valueList": [
+                                            {
+                                                "text": "£180,440"
+                                            }
+                                        ],
+                                        "actions": [
+                                            {
+                                                "text": "Change",
+                                                "visuallyHiddenText": "Change answer",
+                                                "url": "/prototypes/example/homepageV2/create/enterDetails.html"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "project",
+                                "rowTitle": "Project",
+                                "rowItems": [
+                                    {
+                                        "id": "entered-project",
+                                        "valueList": [
+                                            {
+                                                "text": "Annual Business Survey (ABS)"
+                                            }
+                                        ],
+                                        "actions": [
+                                            {
+                                                "text": "Change",
+                                                "visuallyHiddenText": "Change answer",
+                                                "url": "/prototypes/example/homepageV2/create/AddProject.html"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "directory",
+                                "rowTitle": "Access control settings",
+                                "rowItems": [
+                                    {
+                                        "id": "directory-setting",
+                                        "valueList": [
+                                            {
+                                                "text": "100"
+                                            }
+                                        ],
+                                        "actions": [
+                                            {
+                                                "text": "Change",
+                                                "visuallyHiddenText": "Change answer",
+                                                "url": "/prototypes/example/homepageV2/create/CustomisePermissions.html"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "editors",
+                                "rowTitle": "Editors",
+                                "rowItems": [
+                                    {
+                                        "id": "editor-list",
+                                        "valueList": [
+                                            {
+                                                "text": "100"
+                                            }
+                                        ],
+                                        "actions": [
+                                            {
+                                                "text": "Change",
+                                                "visuallyHiddenText": "Change answer",
+                                                "url": "/prototypes/example/homepageV2/create/CustomisePermissions.html"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    })
+}}
+
+    <div class="ons-u-mt-l">
+        {{
+            onsButton({
+                "text": "Create questionnaire"
+            })
+        }}
+
+        <a class="ons-u-dib ons-u-ml-s ons-u-mt-xs" href="/prototypes/example/homepageV2/">Cancel</a>
+
+    </div>
+
+{% endblock %}
+
+{% block bodyEnd %}
+
+<script>
+
+var referringPageURL = document.referrer;
+console.log("Referring Page URL: " + referringPageURL);
+
+
+function defineBack(){
+    if (referringPageURL.includes('/homepagev2/create/AddProject.html')){
+        window.location.href = "AddProject.html";
+    }
+    if (referringPageURL.includes('/homepagev2/create/enterDetails.html')){
+        window.location.href = "enterDetails.html";
+    }
+    if (referringPageURL.includes('/homepagev2/create/CustomisePermissions.html')){
+        window.location.href = "CustomisePermissions.html";
+    }
+}
+
+
+
+var counter = sessionStorage.getItem('questionnaireCounter');
+
+var title = sessionStorage.getItem('Title_' + counter);
+var shortcode = sessionStorage.getItem('Shortcode_' + counter);
+var project = sessionStorage.getItem('Project_' + counter);
+var directory = sessionStorage.getItem('NoDisplayInDirectory_' + counter);
+var editors = sessionStorage.getItem('editorList');
+if(editors !== null){
+    // Remove double quotes
+    editors = editors.replace(/"/g, '');
+    // Remove square brackets
+    editors = editors.replace(/\[|\]/g, '');
+}
+
+const TitleDDElement = document.querySelector('#entered-title dd span');
+TitleDDElement.textContent = title;
+
+if(shortcode != ''){
+    const ShortcodeDDElement = document.querySelector('#entered-shortcode dd span');
+    ShortcodeDDElement.textContent = shortcode;  
+}
+else{
+    var enteredShortcodeElement = document.getElementById('shortcode');
+    enteredShortcodeElement.style.display = "none";
+}
+
+if(project != null){
+    const ProjectDDElement = document.querySelector('#entered-project dd span');
+    ProjectDDElement.textContent = project;  
+}
+else{
+    var enteredProjectElement = document.getElementById('project');
+    enteredProjectElement.style.display = "none";
+}
+
+if(directory != null){
+    const DirectoryDDElement = document.querySelector('#directory dd span');
+    DirectoryDDElement.textContent = "Do not display in questionnaire directory";  
+}
+else{
+    var enteredDirectoryElement = document.getElementById('directory');
+    enteredDirectoryElement.style.display = "none";
+}
+
+if(editors != null){
+    const EditorsDDElement = document.querySelector('#editor-list dd span');
+    EditorsDDElement.textContent = editors;  
+}
+else{
+    var enteredEditorsElement = document.getElementById('editors');
+    enteredEditorsElement.style.display = "none";
+}
+
+function SummaryCheckDetails(){
+    document.forms["checkDetails"].action = "/prototypes/example/homepageV2/NewQuestionnaire.html";    
+}
+
+
+</script>
+{% endblock %}
