@@ -236,9 +236,10 @@ layout: example/views/homepageV3
         padding-right:5px;
     }
 
-    .ons-hero__container{
+    {#.ons-hero__container{
         max-height:300px;
     }
+    #}
 
     .noSearchResults{
         padding: 18px;
@@ -274,8 +275,8 @@ layout: example/views/homepageV3
 
 {{
     onsHero({
-        "title": 'All Questionnaires',
-        "text": 'Explore questionnaires created in Author by your colleagues across the ONS.',
+        "title": "<span class='ons-u-d-b ons-u-fs-m ons-u-fw-n ons-u-mb-xs'>Office of National Statistics</span>All Questionnaires" | safe,
+        "text": 'Find questionnaires created in Author by your colleagues across the ONS',
         "button": {
             "url": '/prototypes/example/homepageV3/create/enterDetails',
             "text": 'Create a questionnaire'

@@ -33,7 +33,7 @@ layout: example/views/Author8colLoggedIn
         "ariaLabel": 'Back',
         "itemsList": [
             {
-                "url": '/prototypes/example/homepageV2/',
+                "url": '/prototypes/example/homepageV3/',
                 "id": "backlink",
                 "text": 'Back',
                 "attributes": {
@@ -75,7 +75,7 @@ layout: example/views/Author8colLoggedIn
                                             {
                                                 "text": "Change",
                                                 "visuallyHiddenText": "Change answer",
-                                                "url": "/homepageV2/duplicate/enterDetails.html"
+                                                "url": "/homepageV3/duplicate/enterDetails.html"
                                             }
                                         ]
                                     }
@@ -96,7 +96,7 @@ layout: example/views/Author8colLoggedIn
                                             {
                                                 "text": "Change",
                                                 "visuallyHiddenText": "Change answer",
-                                                "url": "/homepageV2/duplicate/enterDetails.html"
+                                                "url": "/homepageV3/duplicate/enterDetails.html"
                                             }
                                         ]
                                     }
@@ -117,7 +117,7 @@ layout: example/views/Author8colLoggedIn
                                             {
                                                 "text": "Change",
                                                 "visuallyHiddenText": "Change answer",
-                                                "url": "/homepageV2/duplicate/AddProject.html"
+                                                "url": "/homepageV3/duplicate/AddProject.html"
                                             }
                                         ]
                                     }
@@ -138,7 +138,7 @@ layout: example/views/Author8colLoggedIn
                                             {
                                                 "text": "Change",
                                                 "visuallyHiddenText": "Change answer",
-                                                "url": "/homepageV2/duplicate/CustomisePermissions.html"
+                                                "url": "/homepageV3/duplicate/CustomisePermissions.html"
                                             }
                                         ]
                                     }
@@ -159,7 +159,7 @@ layout: example/views/Author8colLoggedIn
                                             {
                                                 "text": "Change",
                                                 "visuallyHiddenText": "Change answer",
-                                                "url": "/homepageV2/duplicate/CustomisePermissions.html"
+                                                "url": "/homepageV3/duplicate/CustomisePermissions.html"
                                             }
                                         ]
                                     }
@@ -180,7 +180,7 @@ layout: example/views/Author8colLoggedIn
             })
         }}
 
-        <a class="ons-u-dib ons-u-ml-s ons-u-mt-xs" href="/prototypes/example/homepageV2/">Cancel</a>
+        <a class="ons-u-dib ons-u-ml-s ons-u-mt-xs" href="/prototypes/example/homepageV3/">Cancel</a>
 
     </div>
 
@@ -195,13 +195,13 @@ console.log("Referring Page URL: " + referringPageURL);
 
 
 function defineBack(){
-    if (referringPageURL.includes('/homepageV2/duplicate/AddProject.html')){
+    if (referringPageURL.includes('/homepageV3/duplicate/AddProject.html')){
         window.location.href = "AddProject.html";
     }
-    if (referringPageURL.includes('/homepageV2/duplicate/enterDetails.html')){
+    if (referringPageURL.includes('/homepageV3/duplicate/enterDetails.html')){
         window.location.href = "enterDetails.html";
     }
-    if (referringPageURL.includes('/homepageV2/duplicate/CustomisePermissions.html')){
+    if (referringPageURL.includes('/homepageV3/duplicate/CustomisePermissions.html')){
         window.location.href = "CustomisePermissions.html";
     }
 }
@@ -262,7 +262,7 @@ else{
 }
 
 function SummaryCheckDetails(){
-    document.forms["checkDetails"].action = "/prototypes/example/homepageV2/NewQuestionnaire.html";    
+    document.forms["checkDetails"].action = "/prototypes/example/homepageV3/NewQuestionnaire.html";    
 }
 
 

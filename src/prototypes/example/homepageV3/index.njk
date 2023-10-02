@@ -281,8 +281,8 @@ layout: example/views/homepageV3
 {% block pageContent %}
 {{
     onsHero({
-        "title": 'My Questionnaires',
-        "text": "Find the questionnaires you can edit or have added from <a href='/prototypes/example/homepageV3/questionnaireDirectory.html'>all questionnaires</a>.",
+        "title": "<span class='ons-u-d-b ons-u-fs-m ons-u-fw-n ons-u-mb-xs'>Amy Osborne</span>My Questionnaires" | safe,
+        "text": "Find the questionnaires you can edit or have added from <a href='/prototypes/example/homepageV3/questionnaireDirectory.html'>all questionnaires</a>",
         "button": {
             "url": '/prototypes/example/homepageV3/create/enterDetails',
             "text": 'Create a questionnaire'

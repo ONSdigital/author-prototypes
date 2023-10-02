@@ -1,7 +1,7 @@
 ---
 group: Examples
 title: Example prototype
-layout: example/views/Author8colLoggedIn
+layout: example/views/Author8colLoggedInV3
 ---
 {% from "components/button/_macro.njk" import onsButton %}
 {% from "components/autosuggest/_macro.njk" import onsAutosuggest %}
@@ -30,7 +30,7 @@ layout: example/views/Author8colLoggedIn
         "ariaLabel": 'Back',
         "itemsList": [
             {
-                "url": '/prototypes/example/homepageV2/create/enterDetails.html',
+                "url": '/prototypes/example/homepageV3/create/enterDetails.html',
                 "id": "backlink",
                 "text": 'Back',
                 "attributes": {
@@ -47,7 +47,7 @@ layout: example/views/Author8colLoggedIn
 
     <h1><span class="ons-u-fs-m ons-u-db ons-u-mb-xs ons-u-lighter">Create questionnaire</span>Assign to a new or existing project</h1>
 
-    <p>Projects group related questionnaires and improves filtering.</p>
+    <p>Projects group related questionnaires and improve filtering.</p>
 
     {{
         onsPanel({
@@ -117,14 +117,14 @@ function creationProject() {
         var project = document.getElementById('project').value;
         sessionStorage.setItem('Project_' + counter, project);   
         if(sessionStorage.getItem('customisePermissions')){
-            document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepageV2/create/CustomisePermissions.html";    
+            document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepageV3/create/CustomisePermissions.html";    
         }
         else{
-            document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepageV2/create/summaryOfNewQuestionnaire.html";    
+            document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepageV3/create/summaryOfNewQuestionnaire.html";    
         }
     }
     else{
-        document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepageV2/create/ProjectErrors/BothBlank.html";    
+        document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepageV3/create/ProjectErrors/BothBlank.html";    
 
     }
 

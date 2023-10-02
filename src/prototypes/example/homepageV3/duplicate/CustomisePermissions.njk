@@ -66,7 +66,7 @@ layout: example/views/Author8colLoggedIn
         "ariaLabel": 'Back',
         "itemsList": [
             {
-                "url": '/prototypes/example/homepageV2/duplicate/enterDetails.html',
+                "url": '/prototypes/example/homepageV3/duplicate/enterDetails.html',
                 "id": "backlink",
                 "text": 'Back',
                 "attributes": {
@@ -164,7 +164,7 @@ layout: example/views/Author8colLoggedIn
             })
         }}
 
-        <a class="ons-u-dib ons-u-ml-s ons-u-mt-xs" href="/prototypes/example/homepageV2/">Cancel</a>
+        <a class="ons-u-dib ons-u-ml-s ons-u-mt-xs" href="/prototypes/example/homepageV3/">Cancel</a>
 
     </div>
 
@@ -179,11 +179,11 @@ console.log("Referring Page URL: " + referringPageURL);
 
 function defineBack(){
     console.log('define back is running');
-    if (referringPageURL.includes('/homepageV2/duplicate/AddProject')){
+    if (referringPageURL.includes('/homepageV3/duplicate/AddProject')){
         window.location.href = "AddProject.html";
         console.log('here');
     }
-    if (referringPageURL.includes('/homepageV2/duplicate/enterDetails')){
+    if (referringPageURL.includes('/homepageV3/duplicate/enterDetails')){
         window.location.href = "enterDetails.html";
         console.log('and here');
     }
@@ -196,7 +196,7 @@ function completeSetup() {
             console.log('checked');
             sessionStorage.setItem('NoDisplayInDirectory_' + counter, true);
         }
-        document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepageV2/duplicate/summaryOfNewQuestionnaire.html";    
+        document.forms["createQuestionnaireProject"].action = "/prototypes/example/homepageV3/duplicate/summaryOfNewQuestionnaire.html";    
 
 
 }

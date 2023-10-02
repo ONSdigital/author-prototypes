@@ -1,7 +1,7 @@
 ---
 group: Examples
 title: Example prototype
-layout: example/views/Author8colLoggedIn
+layout: example/views/Author8colLoggedInV3
 ---
 {% from "components/button/_macro.njk" import onsButton %}
 {% from "components/autosuggest/_macro.njk" import onsAutosuggest %}
@@ -31,7 +31,7 @@ layout: example/views/Author8colLoggedIn
         "ariaLabel": 'Back',
         "itemsList": [
             {
-                "url": '/prototypes/example/homepageV2/',
+                "url": '/prototypes/example/homepageV3/',
                 "id": "backlink",
                 "text": 'Back',
                 "attributes": {
@@ -47,6 +47,8 @@ layout: example/views/Author8colLoggedIn
 {% block main %}
 
     <h1><span class="ons-u-fs-m ons-u-db ons-u-mb-xs ons-u-lighter">Create questionnaire</span> Enter questionnaire details</h1>
+
+    <p>When you create a questionnaire, it will be listed in <a href="/prototypes/example/homepageV3/questionnaireDirectory.html">all questionnaires</a> unless choose not to include it.</p>
 
     {{
         onsPanel({
@@ -108,7 +110,7 @@ layout: example/views/Author8colLoggedIn
             })
         }}
 
-        <a class="ons-u-dib ons-u-ml-s ons-u-mt-xs" href="/prototypes/example/homepageV2/">Cancel</a>
+        <a class="ons-u-dib ons-u-ml-s ons-u-mt-xs" href="/prototypes/example/homepageV3/">Cancel</a>
 
     </div>
 
@@ -121,7 +123,7 @@ layout: example/views/Author8colLoggedIn
 var referringPageURL = document.referrer;
 console.log("Referring Page URL: " + referringPageURL);
 
-if (!referringPageURL.endsWith('/homepagev2/') && !referringPageURL.includes('/homepagev2/questionnairedirectory')){
+if (!referringPageURL.endsWith('/homepagev3/') && !referringPageURL.includes('/homepagev3/questionnairedirectory')){
     console.log('didnt come from the homepage');
     var counter = parseInt(sessionStorage.getItem('questionnaireCounter')) || 0;
     var enteredTitle = sessionStorage.getItem('Title_' + counter);
@@ -136,7 +138,7 @@ if (!referringPageURL.endsWith('/homepagev2/') && !referringPageURL.includes('/h
     }
 }
 
-if ((referringPageURL.includes('/homepagev2/create/addproject')) || (referringPageURL.includes('/homepagev2/create/customisepermissions') && sessionStorage.getItem('Project_' + counter))) {
+if ((referringPageURL.includes('/homepagev3/create/addproject')) || (referringPageURL.includes('/homepagev3/create/customisepermissions') && sessionStorage.getItem('Project_' + counter))) {
     console.log('checking if project was added');
         document.getElementById('add-project').checked = true;
 }
@@ -145,7 +147,7 @@ if ((referringPageURL.includes('/homepagev2/create/addproject')) || (referringPa
 function creationEnterDetails() {
     console.log('executing');
 
-    if (referringPageURL.endsWith('/homepagev2/') || referringPageURL.includes('/homepagev2/questionnairedirectory')) {
+    if (referringPageURL.endsWith('/homepagev3/') || referringPageURL.includes('/homepagev3/questionnairedirectory')) {
         
         console.log('coming from homepage');
         var counter = parseInt(sessionStorage.getItem('questionnaireCounter')) || 0;
@@ -165,7 +167,7 @@ function creationEnterDetails() {
 
     }
 
-    if (referringPageURL.endsWith('/homepagev2/') || referringPageURL.includes('/homepagev2/questionnairedirectory') || referringPageURL.includes('/homepagev2/create/addproject') || referringPageURL.includes('/homepagev2/create/CustomisePermissions')) {
+    if (referringPageURL.endsWith('/homepagev3/') || referringPageURL.includes('/homepagev3/questionnairedirectory') || referringPageURL.includes('/homepagev3/create/addproject') || referringPageURL.includes('/homepagev3/create/CustomisePermissions')) {
 
         console.log('doesnt end with summary....');
 
@@ -176,22 +178,22 @@ function creationEnterDetails() {
             if (document.getElementById('customise-access-permissions').checked == true) {
                 sessionStorage.setItem('customisePermissions', true);
             }
-            document.forms["CreationEnterDetails"].action = "/prototypes/example/homepageV2/create/AddProject.html";    
+            document.forms["CreationEnterDetails"].action = "/prototypes/example/homepageV3/create/AddProject.html";    
         } 
         else {
             console.log('running');
             if (document.getElementById('customise-access-permissions').checked == true) {
-                document.forms["CreationEnterDetails"].action = "/prototypes/example/homepageV2/create/CustomisePermissions.html";    
+                document.forms["CreationEnterDetails"].action = "/prototypes/example/homepageV3/create/CustomisePermissions.html";    
 
             } else {
-                document.forms["CreationEnterDetails"].action = "/prototypes/example/homepageV2/create/summaryOfNewQuestionnaire.html";    
+                document.forms["CreationEnterDetails"].action = "/prototypes/example/homepageV3/create/summaryOfNewQuestionnaire.html";    
 
             }
         }
     }
     
     
-    if(referringPageURL.includes('/homepagev2/create/summaryofnewquestionnaire')){
+    if(referringPageURL.includes('/homepagev3/create/summaryofnewquestionnaire')){
         console.log('elseeee');
         var counter = parseInt(sessionStorage.getItem('questionnaireCounter')) || 0;
 
@@ -199,7 +201,7 @@ function creationEnterDetails() {
         var shortcode = document.getElementById('shortcode-input').value;
         sessionStorage.setItem('Title_' + counter, title);
         sessionStorage.setItem('Shortcode_' + counter, shortcode);
-        document.forms["CreationEnterDetails"].action = "/prototypes/example/homepageV2/create/summaryOfNewQuestionnaire.html";    
+        document.forms["CreationEnterDetails"].action = "/prototypes/example/homepageV3/create/summaryOfNewQuestionnaire.html";    
 
     }
     

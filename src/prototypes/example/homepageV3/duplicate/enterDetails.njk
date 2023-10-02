@@ -31,7 +31,7 @@ layout: example/views/Author8colLoggedIn
         "ariaLabel": 'Back',
         "itemsList": [
             {
-                "url": '/prototypes/example/homepageV2/',
+                "url": '/prototypes/example/homepageV3/',
                 "id": "backlink",
                 "text": 'Back',
                 "attributes": {
@@ -108,7 +108,7 @@ layout: example/views/Author8colLoggedIn
             })
         }}
 
-        <a class="ons-u-dib ons-u-ml-s ons-u-mt-xs" href="/prototypes/example/homepageV2/">Cancel</a>
+        <a class="ons-u-dib ons-u-ml-s ons-u-mt-xs" href="/prototypes/example/homepageV3/">Cancel</a>
 
     </div>
 
@@ -133,7 +133,7 @@ console.log("Referring Page URL: " + referringPageURL);
 
 {#
 
-if (!referringPageURL.endsWith('/homepage/V2/')){
+if (!referringPageURL.endsWith('/homepage/V3/')){
     console.log('didnt come from the homepage');
     var counter = parseInt(sessionStorage.getItem('questionnaireCounter')) || 0;
     var enteredTitle = sessionStorage.getItem('Title_' + counter);
@@ -154,7 +154,7 @@ if (!referringPageURL.endsWith('/homepage/V2/')){
 function creationEnterDetails() {
     console.log('executing');
 
-    if (referringPageURL.endsWith('/homepageV2/')) {
+    if (referringPageURL.endsWith('/homepageV3/')) {
         var counter = parseInt(sessionStorage.getItem('questionnaireCounter')) || 0;
         counter++;
         sessionStorage.setItem('questionnaireCounter', counter);
@@ -172,7 +172,7 @@ function creationEnterDetails() {
 
     }
 
-    if (referringPageURL.endsWith('/homepageV2/') ||referringPageURL.includes('/homepageV2/duplicate/AddProject') || referringPageURL.includes('/homepageV2/duplicate/CustomisePermissions')) {
+    if (referringPageURL.endsWith('/homepageV3/') ||referringPageURL.includes('/homepageV3/duplicate/AddProject') || referringPageURL.includes('/homepageV3/duplicate/CustomisePermissions')) {
 
         console.log('doesnt end with summary....');
 
@@ -181,22 +181,22 @@ function creationEnterDetails() {
             if (document.getElementById('customise-access-permissions').checked == true) {
                 sessionStorage.setItem('customisePermissions', true);
             }
-            document.forms["CreationEnterDetails"].action = "/prototypes/example/homepageV2/duplicate/AddProject.html";    
+            document.forms["CreationEnterDetails"].action = "/prototypes/example/homepageV3/duplicate/AddProject.html";    
         } 
         else {
             console.log('running');
             if (document.getElementById('customise-access-permissions').checked == true) {
-                document.forms["CreationEnterDetails"].action = "/prototypes/example/homepageV2/duplicate/CustomisePermissions.html";    
+                document.forms["CreationEnterDetails"].action = "/prototypes/example/homepageV3/duplicate/CustomisePermissions.html";    
 
             } else {
-                document.forms["CreationEnterDetails"].action = "/prototypes/example/homepageV2/duplicate/summaryOfNewQuestionnaire.html";    
+                document.forms["CreationEnterDetails"].action = "/prototypes/example/homepageV3/duplicate/summaryOfNewQuestionnaire.html";    
 
             }
         }
     }
     
     
-    if(referringPageURL.includes('/homepageV2/duplicate/summaryOfNewQuestionnaire')){
+    if(referringPageURL.includes('/homepageV3/duplicate/summaryOfNewQuestionnaire')){
         console.log('elseeee');
         var counter = parseInt(sessionStorage.getItem('questionnaireCounter')) || 0;
         counter++;
@@ -206,7 +206,7 @@ function creationEnterDetails() {
         var shortcode = document.getElementById('shortcode-input').value;
         sessionStorage.setItem('Title_' + counter, title);
         sessionStorage.setItem('Shortcode_' + counter, shortcode);
-        document.forms["CreationEnterDetails"].action = "/prototypes/example/homepageV2/duplicate/summaryOfNewQuestionnaire.html";    
+        document.forms["CreationEnterDetails"].action = "/prototypes/example/homepageV3/duplicate/summaryOfNewQuestionnaire.html";    
 
     }
     

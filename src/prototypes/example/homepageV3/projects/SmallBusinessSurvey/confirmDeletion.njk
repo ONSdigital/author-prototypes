@@ -1,7 +1,7 @@
 ---
 group: Examples
 title: Example prototype
-layout: example/views/homepageV2
+layout: example/views/homepageV3
 ---
 {% from "components/button/_macro.njk" import onsButton %}
 {% from "components/autosuggest/_macro.njk" import onsAutosuggest %}
@@ -38,7 +38,7 @@ layout: example/views/homepageV2
         "ariaLabel": 'Back',
         "itemsList": [
             {
-                "url": '/prototypes/example/homepageV2/projects/SmallBusinessSurvey/',
+                "url": '/prototypes/example/homepageV3/projects/SmallBusinessSurvey/',
                 "id": "backlink",
                 "text": 'Back',
                 "attributes": {
@@ -100,7 +100,7 @@ layout: example/views/homepageV2
                 })
             }}
 
-            <a class="ons-u-dib ons-u-ml-s ons-u-mt-xs" href="/prototypes/example/homepageV2/projects/SmallBusinessSurvey/">Cancel</a>
+            <a class="ons-u-dib ons-u-ml-s ons-u-mt-xs" href="/prototypes/example/homepageV3/projects/SmallBusinessSurvey/">Cancel</a>
 
         </div>
 
@@ -120,9 +120,9 @@ function confirmDeletionOfProject(){
     var selectedValue = document.querySelector('input[name="confirm-deletion"]:checked');
     console.log(selectedValue);
     if (selectedValue.value === "yes") {
-        document.forms["confirmDeletion"].action = "/prototypes/example/homepageV2/projects/SmallBusinessSurvey/deleted.html";    
+        document.forms["confirmDeletion"].action = "/prototypes/example/homepageV3/projects/SmallBusinessSurvey/deleted.html";    
     } else if (selectedValue.value === "no") {
-        document.forms["confirmDeletion"].action = "/prototypes/example/homepageV2/projects/SmallBusinessSurvey/";    
+        document.forms["confirmDeletion"].action = "/prototypes/example/homepageV3/projects/SmallBusinessSurvey/";    
     }
 
 }
