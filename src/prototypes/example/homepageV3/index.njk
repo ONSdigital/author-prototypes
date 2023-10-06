@@ -314,60 +314,73 @@ layout: example/views/homepageV3
         {#<p>It appears you have been inactive for a while.</p>#}
 
         {% from "components/summary/_macro.njk" import onsSummary %}
-        {{
-            onsSummary({
-                "summaries": [
+{{
+    onsSummary({
+        "summaries": [
+            {
+                "groups": [
                     {
-                        "summaryTitle": "Are you sure you want to delete this questionniare?",
-                        "groups": [
+                        "groupTitle": "Are you sure you want to delete this questionnaire?",
+                        "rows": [
                             {
-                                "rows": [
+                                "rowTitle": "Short code",
+                                "rowItems": [
                                     {
-                                        "rowItems": [
+                                        "valueList": [
                                             {
-                                                "rowTitle": "Short code",
-                                                "id": "shortcode",
-                                                "valueList": [
-                                                    {
-                                                        "text": "Copy of V3 Draft QCAS 0019"                                                    }
-                                                ]
-                                            },
-                                            {
-                                                "rowTitle": "Title",
-                                                "id": "title",
-                                                "valueList": [
-                                                    {
-                                                        "text": "Copy of Quarterly Acquisitions and Disposals of Capital Assets Survey"
-                                                    }
-                                                ]
-                                            },
-                                            {
-                                                "rowTitle": "Project",
-                                                "id": "project",
-                                                "valueList": [
-                                                    {
-                                                        "text": "Annual Business Survey (ABS)"
-                                                    }
-                                                ]
-                                            },
-                                            {
-                                                "rowTitle": "Owner",
-                                                "id": "owner",
-                                                "valueList": [
-                                                    {
-                                                        "text": "Deborah O'Shaughnessy"
-                                                    }
-                                                ]
+                                                "text": "01 January 2015 to 02 February 2017"
                                             }
-                                        ]
+                                        ],
+                                        "id": "shortcode"
+                                    }
+                                ]
+                            },
+                            {
+                                "rowTitle": "Title",
+                                "rowItems": [
+                                    {
+                                        "valueList": [
+                                            {
+                                                "text": "£234,000.00"
+                                            }
+                                        ],
+                                        "id": "title"
+                                    }
+                                ]
+                            },
+                            {
+                                "rowTitle": "Project",
+                                "rowItems": [
+                                    {
+                                        "valueList": [
+                                            {
+                                                "text": "£234,000.00"
+                                            }
+                                        ],
+                                        "id": "project"
+                                    }
+                                ]
+                            },
+                            {
+                                "rowTitle": "Owner",
+                                "rowItems": [
+                                    {
+                                        "valueList": [
+                                            {
+                                                "text": "£234,000.00"
+                                            }
+                                        ],
+                                        "id": "owner"
                                     }
                                 ]
                             }
                         ]
                     }
                 ]
-            })
-        }}
+            }
+        ]
+    })
+}}
 
       </div>
       <div class="ons-u-fr">
