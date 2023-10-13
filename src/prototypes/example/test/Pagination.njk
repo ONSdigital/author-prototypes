@@ -1,0 +1,192 @@
+---
+group: Examples
+title: Example prototype
+layout: example/views/_master
+---
+{% from "components/button/_macro.njk" import onsButton %}
+{% from "components/radios/_macro.njk" import onsRadios %}
+{% from "components/question/_macro.njk" import onsQuestion %}
+{% from "components/input/_macro.njk" import onsInput %}
+
+
+{% set form =  {
+    "method": "GET",
+    "attributes": {
+        "name": "myForm"    }
+} %}
+
+{% block main %}
+    
+{% from "components/pagination/_macro.njk" import onsPagination %}
+
+<h1>Examples</h1>
+
+{{
+    onsPagination({
+        "currentPageNumber": 1,
+        "pages": [
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            }
+        ]
+    })
+}}
+
+<br>
+
+{{
+    onsPagination({
+        "currentPageNumber": 5,
+        "pages": [
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+                        {
+                "url": "#0"
+            },
+                        {
+                "url": "#0"
+            },
+                        {
+                "url": "#0"
+            },
+                        {
+                "url": "#0"
+            },
+                                    {
+                "url": "#0"
+            }
+        ]
+    })
+}}
+
+<br>
+
+{{
+    onsPagination({
+        "currentPageNumber": 1,
+        "pages": [
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            },
+            {
+                "url": "#0"
+            }
+        ]
+    })
+}}
+
+
+{% endblock %}
+
+{% block bodyEnd %}
+
+{% endblock %}
