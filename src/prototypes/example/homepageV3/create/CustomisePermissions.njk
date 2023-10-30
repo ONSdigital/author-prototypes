@@ -121,7 +121,7 @@ layout: example/views/Author8colLoggedInV3
                     "id": "project-label"
                 },
                 "autocomplete": "off",
-                "instructions": "Use up and down keys to navigate suggestions once you\'ve typed more than two characters. Use the enter key to select a suggestion. Touch device users, explore by touch or with swipe gestures.",
+                "instructions": "Use up and down keys to navigate suggestions once you\'ve typed more than three characters. Use the enter key to select a suggestion. Touch device users, explore by touch or with swipe gestures.",
                 "ariaYouHaveSelected": "You have selected",
                 "ariaMinChars": "Enter 3 or more characters for suggestions.",
                 "ariaOneResult": "There is one suggestion available.",
@@ -130,7 +130,7 @@ layout: example/views/Author8colLoggedInV3
                 "moreResults": "Continue entering to improve suggestions",
                 "resultsTitle": "Suggestions",
                 "resultsTitleId": "project-suggestions",
-                "autosuggestData": "https://gist.githubusercontent.com/LaurenDowling/9233937e5336d48354292eeb40c6094a/raw/edc2589c5aab99eab415e1338ada715760b24a20/ownersMinusSam.json",
+                "autosuggestData": "https://gist.githubusercontent.com/LaurenDowling/86bdd038f632b3f319e28823d93748fe/raw/076fe6327c8de9362fcb1d22ea6f058e5b4404b2/owners.json",
                 "noResults": "No suggestions found. You can enter your own answer",
                 "typeMore": "Continue entering to get suggestions"
     }) }}
@@ -214,7 +214,17 @@ function addListItem(text) {
   const removeButton = document.createElement('button');
   removeButton.type = 'button';
   removeButton.className = 'ons-u-fr removeBtn';
-  removeButton.textContent = 'Remove';
+
+  // Create a <span> element to hold the "text" value
+  const textSpan = document.createElement('span');
+  textSpan.className = 'ons-u-vh';
+  textSpan.textContent = text;
+
+  // Set the text of the button to "Remove"
+  removeButton.textContent = 'Remove ';
+
+  // Append the <span> element to the button
+  removeButton.appendChild(textSpan);
 
   // Add a click event listener to the remove button
   removeButton.addEventListener('click', function () {

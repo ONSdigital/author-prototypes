@@ -1,7 +1,6 @@
 ---
 group: Examples
 title: Example prototype
-layout: example/views/Author8col
 ---
 {% from "components/button/_macro.njk" import onsButton %}
 {% from "components/autosuggest/_macro.njk" import onsAutosuggest %}
@@ -10,11 +9,97 @@ layout: example/views/Author8col
 {% from "components/input/_macro.njk" import onsInput %}
 {% from "components/breadcrumbs/_macro.njk" import onsBreadcrumbs %}
 
-{% set form =  {
-    "method": "GET",
-    "attributes": {
-        "name": "myForm",
-        "onsubmit":  "return duplicationEnterDetails()"
+{% set pageConfig = {
+    "wide": "true",
+    "header": {
+        "logoHref": '/',
+        "titleLogoHref": pageInfo.rootPath + '#0',
+        "variants": 'internal',
+        "serviceLinks": {
+            "id": "service-links-internal",
+            "ariaLabel": 'Services menu',
+            "ariaListLabel": 'Menu',
+            "toggleServicesButton": {
+                "text": 'Account',
+                "ariaLabel": 'Toggle services menu'
+            },
+            "itemsList": [
+                {
+                    "text": "My Questionnaires",
+                    "url": "/prototypes/example/homepageV3/"
+                },                
+                {
+                    "text": "All Questionnaires",
+                    "url": "/prototypes/example/homepageV3/questionnaireDirectory"
+                },
+                {
+                    "text": "Projects",
+                    "url": "/prototypes/example/homepageV3/projects.html"
+                },
+                {
+                    "text": "Jane Lewis",
+                    "iconType": 'person'
+                },
+                {
+                    "text": "Sign out",
+                    "url": "#0"
+                }
+            ]
+        },
+        "navigation": {
+            "id": 'main-nav',
+            "ariaLabel": 'Main menu',
+            "currentPath": '#home',
+            "itemsList": [
+                {
+                    "text": 'Questionnaire content',
+                    "url": '#home'
+                },
+                {
+                    "text": 'View in EQ',
+                    "url": '#0'
+                },
+                {
+                    "text": 'Settings',
+                    "url": '#0'
+                },
+                {
+                    "text": 'Sharing',
+                    "url": '#0'
+                },
+                {
+                    "text": 'Collection lists',
+                    "url": '#0'
+                },
+                {
+                    "text": 'Data',
+                    "url": '#0'
+                },
+                {
+                    "text": 'Q codes',
+                    "url": '#0'
+                }
+            ],
+            "toggleNavigationButton": {
+                "text": 'Menu',
+                "ariaLabel": 'Toggle main menu'
+            }
+        }
+
+    },
+    "title": "Author",
+    "footer": {
+
+    },
+    "breadcrumbs": {
+        "ariaLabel": 'Breadcrumbs',
+        "itemsList": [
+            {
+                "linkClasses": 'js-previous' if prevPage else '',
+                "url": pageInfo.rootPath + "/" + prevPage + '.html',
+                "text": 'Previous'
+            }
+        ]
     }
 } %}
 

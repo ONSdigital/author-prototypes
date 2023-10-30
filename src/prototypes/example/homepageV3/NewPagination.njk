@@ -712,14 +712,13 @@ layout: example/views/homepageV3
             </div>
 
             <div class="ons-field ons-u-mb-m">
-                <label class="ons-label" for="select-example" style="display:inline-block; margin-right:9px; font-size: 16px;">Sort by</label>
+                <label class="ons-label" for="select-example" style="display:inline-block; margin-right:9px; font-size: 16px;">Sort by:</label>
                 <select id="select-example" name="select" class="ons-input ons-input--select" onchange="sortTables()" style="width:fit-content; display:inline-block; font-size: 16px;">
                     <option value="" selected>Select an option</option>
                     <option value="created-newest">Created (newest)</option>
                     <option value="created-oldest">Created (oldest)</option>
                 </select>
             </div>
-
             {#
             {{
                 onsPanel({
@@ -2106,38 +2105,19 @@ layout: example/views/homepageV3
                 </tbody>
             </table>
 
-            <nav class="ons-content-pagination" aria-label="Guide pagination">
-                <ul class="ons-content-pagination__list">
-                    <li class="ons-content-pagination__item">
-                    <a href="#0" class="ons-content-pagination__link" rel="prev" id="previous" style="display:none;">
-                        <span class="ons-content-pagination__link-title">
-                        <svg class="ons-icon ons-icon--m" viewBox="0 0 17 13" xmlns="http://www.w3.org/2000/svg" focusable="false"
-                            fill="currentColor">
-                            <path
-                            d="M6.4.2.3 6.4c-.2.2-.2.4 0 .6l6.2 5.8c.2.2.4.1.6 0l.8-.9c.2-.2.1-.4 0-.6l-4-3.7h12.5c.2 0 .4-.2.4-.4V6c0-.2-.2-.4-.4-.4H3.8l4-4c.2-.1.2-.4.1-.5L7 .2c-.1-.1-.4-.1-.6 0z" />
-                        </svg>
-                        <span class="ons-content-pagination__link-text"> Previous </span>
-                        </span>
-                        <span class="ons-content-pagination__link-divider ons-u-vh">page in this guide is:</span>
-                        <span class="ons-content-pagination__link-label">Overview</span>
-                    </a>
-                    </li>
-                    <li class="ons-content-pagination__item">
-                    <a href="#0" class="ons-content-pagination__link" rel="next" id="next" style="display:none;">
-                        <span class="ons-content-pagination__link-title">
-                        <svg class="ons-icon ons-icon--m" viewBox="0 0 17 13" xmlns="http://www.w3.org/2000/svg" focusable="false"
-                            fill="currentColor">
-                            <path
-                            d="m10 .2-.9.9c-.1.1-.1.4 0 .5l4 4H.6c-.2 0-.4.2-.4.4v1.2c0 .2.2.4.4.4h12.5l-3.9 3.7c-.2.2-.2.4 0 .6l.8.9c.2.2.4.2.6 0L16.8 7c.2-.2.2-.4 0-.6L10.7.3c-.3-.2-.5-.2-.7-.1z" />
-                        </svg>
-                        <span class="ons-content-pagination__link-text"> Next </span>
-                        </span>
-                        <span class="ons-content-pagination__link-divider ons-u-vh">page in this guide is:</span>
-                        <span class="ons-content-pagination__link-label">2 of 2</span>
-                    </a>
-                    </li>
-                </ul>
-            </nav>
+            {{
+                onsPagination({
+                    "currentPageNumber": 1,
+                    "pages": [
+                        {
+                            "url": "#0"
+                        },
+                        {
+                            "url": "#0"
+                        }
+                    ]
+                })
+            }}
 
 
         </div>
