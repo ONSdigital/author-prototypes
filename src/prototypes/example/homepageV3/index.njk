@@ -13,6 +13,8 @@ layout: example/views/homepageV3
 {% from "components/select/_macro.njk" import onsSelect %}
 {% from "components/hero/_macro.njk" import onsHero %}
 {% from "components/text-indent/_macro.njk" import onsTextIndent %}
+{% from "components/external-link/_macro.njk" import onsExternalLink %}
+
 
 {% block head %}
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -711,7 +713,7 @@ layout: example/views/homepageV3
                 </div>
             </div>
 
-            <div class="ons-field ons-field--inline ons-u-mb-m">
+            <div class="ons-field ons-field--inlineons-u-mb-m">
                 <label class="ons-label" for="select-example" style="display:inline-block; margin-right:9px; font-size: 16px;">Sort by</label>
                 <select id="select-example" name="select" class="ons-input ons-input--select" onchange="sortTables()" style="width:fit-content; display:inline-block; font-size: 16px;">
                     <option value="" selected>Select an option</option>
@@ -746,7 +748,7 @@ layout: example/views/homepageV3
             <p class="ons-u-mb-xs" id='StarredReplacement'><span id="starIcon" class="material-symbols-outlined ons-u-mr-xs">star</span><strong>Starred</strong></p>
 
             <table id="starred-table" class="ons-table TableMarginBottom">
-                <caption class="ons-table__caption"><span id="star" class="material-symbols-outlined ons-u-mr-xs">star</span>Starred</caption>
+                <caption class="ons-table__caption" id="starred-table-caption" tabindex="-1"><span id="star" class="material-symbols-outlined ons-u-mr-xs">star</span>Starred</caption>
                 <thead class="ons-table__head ons-u-d-no">
                     <tr class="ons-table__row">
                     <th scope="col" class="ons-table__header" style="width: 260px;">
@@ -805,6 +807,12 @@ layout: example/views/homepageV3
                         <td class="ons-table__cell">
                             <span class="ons-u-db ons-u-fs-s ons-u-mb-xs">SMUIS Final</span>
                             <a href="#">Social Media Usage and Impact Survey</a>
+                            {{
+                                onsExternalLink({
+                                    "url": "#0",
+                                    "linkText": "Social Media Usage and Impact Survey"
+                                })
+                            }}
                         </td>
                         <td class="ons-table__cell">Social Media</td>
                         <td class="ons-table__cell">Isabella Ramirez</td>
@@ -2556,6 +2564,8 @@ function cancelDeletion(){
     function addToStarred(rowID) {
             var rowToMove = document.getElementById(rowID);
             var starredTable = document.getElementById("starred-table");
+            var starredTableCaption = document.getElementById("search-field");
+            starredTableCaption.focus();
             var NonstarredTable = document.getElementById("basic-table");
 
             buttons = rowToMove.querySelectorAll("button");

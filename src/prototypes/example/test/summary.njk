@@ -1,7 +1,7 @@
 ---
 group: Examples
 title: Example prototype
-layout: example/views/_master
+layout: example/views/Author8col
 ---
 {% from "components/button/_macro.njk" import onsButton %}
 {% from "components/radios/_macro.njk" import onsRadios %}
@@ -18,28 +18,33 @@ layout: example/views/_master
 } %}
 
 {% block main %}
+
+<div class="ons-grid">
+<div class="ons-grid__col ons-col-12@m">
+<main id="main-content" class="ons-page__main">
     
 {% from "components/summary/_macro.njk" import onsSummary %}
+
+{% from "components/summary/_macro.njk" import onsSummary %}
+
+<h1>Your answers</h1>
 
 {{
     onsSummary({
         "summaries": [
             {
+                "summaryTitle": "John Doe",
                 "groups": [
                     {
-                        "placeholderText": 'test',
-                        "id": "turnover",
-                        "groupTitle": "Turnover",
+                        "groupTitle": "Personal details",
                         "rows": [
                             {
-                                "id": "sales-dates-row",
-                                "rowTitle": "What are the dates of the sales period you are reporting for?",
+                                "rowTitle": "Are you John Doe?",
                                 "rowItems": [
                                     {
-                                        "id": "sales-dates",
                                         "valueList": [
                                             {
-                                                "text": "1 January 2015 to 2 February 2017"
+                                                "text": "Yes I am"
                                             }
                                         ],
                                         "actions": [
@@ -53,14 +58,288 @@ layout: example/views/_master
                                 ]
                             },
                             {
-                                "rowTitle": "For the period 1 January 2015 to 2 February 2017, what was the value of your total turnover, excluding VAT?",
-                                "id": "sales-value-row",
+                                "rowTitle": "What's your date of birth?",
                                 "rowItems": [
                                     {
-                                        "id": "sales-value",
                                         "valueList": [
                                             {
-                                                "text": "£180,440 <br> peace"
+                                                "text": "1 January 1981"
+                                            }
+                                        ],
+                                        "actions": [
+                                            {
+                                                "text": "Change",
+                                                "visuallyHiddenText": "Change answer",
+                                                "url": "#0"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "rowTitle": "What is your sex?",
+                                "rowItems": [
+                                    {
+                                        "valueList": [
+                                            {
+                                                "text": "Male"
+                                            }
+                                        ],
+                                        "actions": [
+                                            {
+                                                "text": "Change",
+                                                "visuallyHiddenText": "Change answer",
+                                                "url": "#0"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "groupTitle": "Identity and health",
+                        "rows": [
+                            {
+                                "rowTitle": "What is your country of birth?",
+                                "rowItems": [
+                                    {
+                                        "valueList": [
+                                            {
+                                                "text": "England"
+                                            }
+                                        ],
+                                        "actions": [
+                                            {
+                                                "text": "Change",
+                                                "visuallyHiddenText": "Change answer",
+                                                "url": "#0"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "groupTitle": "Qualifications",
+                        "rows": [
+                            {
+                                "rowTitle": "Have you completed an apprenticeship?",
+                                "rowItems": [
+                                    {
+                                        "valueList": [
+                                            {
+                                                "text": "Yes"
+                                            }
+                                        ],
+                                        "actions": [
+                                            {
+                                                "text": "Change",
+                                                "visuallyHiddenText": "Change answer",
+                                                "url": "#0"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "rowTitle": "Have you achieved a GCSE or equivalent qualification?",
+                                "rowItems": [
+                                    {
+                                        "valueList": [
+                                            {
+                                                "text": "5 GCSEs grades A* to C or 9 to 4"
+                                            }
+                                        ],
+                                        "actions": [
+                                            {
+                                                "text": "Change",
+                                                "visuallyHiddenText": "Change answer",
+                                                "url": "#0"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "groupTitle": "Employment history",
+                        "rows": [
+                            {
+                                "rowItems": [
+                                    {
+                                        "rowTitle": "Name of UK company",
+                                        "valueList": [
+                                            {
+                                                "text": "Company A"
+                                            }
+                                        ],
+                                        "actions": [
+                                            {
+                                                "text": "Change",
+                                                "visuallyHiddenText": "Change answer",
+                                                "url": "#0"
+                                            },
+                                            {
+                                                "text": "Remove",
+                                                "visuallyHiddenText": "Remove company",
+                                                "url": "#0"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "rowTitle": "Head office location",
+                                        "valueList": [
+                                            {
+                                                "text": "Cardiff"
+                                            }
+                                        ],
+                                        "actions": [
+                                            {
+                                                "text": "Change",
+                                                "visuallyHiddenText": "Change answer",
+                                                "url": "#0"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "rowTitle": "Is this UK company your current employer?",
+                                        "valueList": [
+                                            {
+                                                "text": "No"
+                                            }
+                                        ],
+                                        "actions": [
+                                            {
+                                                "text": "Change",
+                                                "visuallyHiddenText": "Change answer",
+                                                "url": "#0"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "rowItems": [
+                                    {
+                                        "rowTitle": "Name of UK company",
+                                        "valueList": [
+                                            {
+                                                "text": "Company A"
+                                            }
+                                        ],
+                                        "actions": [
+                                            {
+                                                "text": "Change",
+                                                "visuallyHiddenText": "Change answer",
+                                                "url": "#0"
+                                            },
+                                            {
+                                                "text": "Remove",
+                                                "visuallyHiddenText": "Remove company",
+                                                "url": "#0"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "rowTitle": "Head office location",
+                                        "valueList": [
+                                            {
+                                                "text": "Newport"
+                                            }
+                                        ],
+                                        "actions": [
+                                            {
+                                                "text": "Change",
+                                                "visuallyHiddenText": "Change answer",
+                                                "url": "#0"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "rowTitle": "Is this UK company your current employer?",
+                                        "valueList": [
+                                            {
+                                                "text": "Yes"
+                                            }
+                                        ],
+                                        "actions": [
+                                            {
+                                                "text": "Change",
+                                                "visuallyHiddenText": "Change answer",
+                                                "url": "#0"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "summaryLink": {
+                            "text": "Add a UK company or branch",
+                            "url": "#0",
+                            "attributes": {
+                                "data-qa": "add-item-link"
+                            }
+                        }
+                    },
+                    {
+                        "groupTitle": "Spending",
+                        "rows": [
+                            {
+                                "rowTitle": "What are your monthly household expenses?",
+                                "rowItems": [
+                                    {
+                                        "rowTitle": "Food",
+                                        "valueList": [
+                                            {
+                                                "text": "£50.00"
+                                            }
+                                        ],
+                                        "actions": [
+                                            {
+                                                "text": "Change",
+                                                "visuallyHiddenText": "Change answer",
+                                                "url": "#0"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "rowTitle": "Utilities",
+                                        "valueList": [
+                                            {
+                                                "text": "£65.00"
+                                            }
+                                        ],
+                                        "actions": [
+                                            {
+                                                "text": "Change",
+                                                "visuallyHiddenText": "Change answer",
+                                                "url": "#0"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "rowTitle": "Transport",
+                                        "valueList": [
+                                            {
+                                                "text": "£70.00"
+                                            }
+                                        ],
+                                        "actions": [
+                                            {
+                                                "text": "Change",
+                                                "visuallyHiddenText": "Change answer",
+                                                "url": "#0"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "rowTitle": "Other",
+                                        "valueList": [
+                                            {
+                                                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
                                             }
                                         ],
                                         "actions": [
@@ -80,6 +359,12 @@ layout: example/views/_master
         ]
     })
 }}
+
+
+</div>
+</div>
+</div>
+</main>
 
 
 
