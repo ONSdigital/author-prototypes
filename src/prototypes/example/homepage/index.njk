@@ -2455,6 +2455,21 @@ function cancelDeletion(){
 
     function addToStarred(rowID) {
             var rowToMove = document.getElementById(rowID);
+
+            var rowToMove = document.getElementById(rowID);
+
+            // Get the ID of the first ul element within rowToMove
+            var firstUlID = rowToMove.querySelector('ul').id;
+
+            // Get the ID of the first button element within rowToMove
+            var firstButtonID = rowToMove.querySelector('button').id;
+
+            // Now you can use firstUlID and firstButtonID as needed
+            console.log("First ul ID:", firstUlID);
+            console.log("First button ID:", firstButtonID);
+
+            toggleMenu(event,firstButtonID, firstUlID)
+
             var starredTable = document.getElementById("starred-table");
             var NonstarredTable = document.getElementById("basic-table");
 
