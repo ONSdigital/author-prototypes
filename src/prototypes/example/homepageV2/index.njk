@@ -261,8 +261,8 @@ layout: example/views/homepageV2
         padding-left:5px;
     }
 
-    #basic-table tbody tr > td:last-child, #starred-table tbody tr > td:last-child{
-        padding-right:5px;
+    #starred-table tbody tr > td:last-child{
+        padding-right:2px;
     }
     
     .TableMarginBottom{
@@ -2526,6 +2526,19 @@ function cancelDeletion(){
 
     function addToStarred(rowID) {
             var rowToMove = document.getElementById(rowID);
+
+            // Get the ID of the first ul element within rowToMove
+            var firstUlID = rowToMove.querySelector('ul').id;
+
+            // Get the ID of the first button element within rowToMove
+            var firstButtonID = rowToMove.querySelector('button').id;
+
+            // Now you can use firstUlID and firstButtonID as needed
+            console.log("First ul ID:", firstUlID);
+            console.log("First button ID:", firstButtonID);
+
+            toggleMenu(event,firstButtonID, firstUlID)
+
             var starredTable = document.getElementById("starred-table");
             var NonstarredTable = document.getElementById("basic-table");
 
